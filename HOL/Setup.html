@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Data Platform Migration Upgrade – includes</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cloudworkshop.blob.core.windows.net/styles/labstyles.css"></link>
+</head>
+<body>
+<h1 id="data-platform-upgrade-and-migration-setup">Data platform upgrade and migration setup</h1>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li><p>Microsoft Azure subscription must be pay-as-you-go or MSDN.</p>
+<ul>
+<li>Trial subscriptions will not work.</li>
+</ul></li>
+<li><p>A virtual machine configured with:</p>
+<ul>
+<li><p>Visual Studio Community 2017 or later</p></li>
+<li><p>Azure SDK 2.9 or later (Included with Visual Studio 2017)</p></li>
+</ul></li>
+</ul>
+<h2 id="before-the-hands-on-lab">Before the hands-on lab</h2>
+<p>Duration: 20 minutes</p>
+<p>In this exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment before attending the hands-on lab.</p>
+<h3 id="task-1-provision-a-lab-virtual-machine-vm">Task 1: Provision a lab virtual machine (VM)</h3>
+<p>In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2017 installed.</p>
+<ol type="1">
+<li><p>Launch a web browser, and navigate to the <a href="https://portal.azure.com/">Azure Portal</a>.</p></li>
+<li><p>Select +Create a resource, then type “Visual Studio Community” into the search bar. Select Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) from the results. <img src="images/Setup/image3.png" title="Azure Portal" alt="In this screenshot of the Azure Portal, + Create a resource is highlighted on the left. On the right, Visual Studio Community is highlighted in the search bar, and Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is highlighted at the top of the results." /></p></li>
+<li><p>On the blade that comes up, ensure the deployment model is set to Resource Manager and select Create.</p>
+<figure>
+<img src="images/Setup/image4.png" title="Select a deployment model section" alt="Resource Manager is listed below Select a deployment model, and the Create button appears below that." /><figcaption>Resource Manager is listed below Select a deployment model, and the Create button appears below that.</figcaption>
+</figure></li>
+<li><p>Set the following configuration on the Basics tab.</p>
+<ul>
+<li><p>Name: Enter LabVM.</p></li>
+<li><p>VM disk type: Select SSD.</p></li>
+<li><p>User name: Enter holuser</p></li>
+<li><p>Password: Enter Password.1!!</p></li>
+<li><p>Subscription: Select the subscription you are using for this lab.</p></li>
+<li><p>Resource Group: Select Create new, and enter hands-on-labs for the resource group name.</p></li>
+<li><p>Location: Select the region you are using for resources in this lab.</p>
+<figure>
+<img src="images/Setup/image5.png" title="Configure the basic settings" alt="On the Basics tab, the values above are entered in the boxes." /><figcaption>On the Basics tab, the values above are entered in the boxes.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select OK to move to the next step.</p></li>
+<li><p>On the Choose a size blade, ensure the Supported disk type is set to SSD, and select View all. This machine won’t be doing much heavy lifting, so selecting D2S_V3 Standard is a good baseline option.</p>
+<figure>
+<img src="images/Setup/image6.png" title="Choose a size blade" alt="In this screenshot of the Choose a size blade, SSD is highlighted under Supported disk type, View all is highlighted, and D2S_V3 Standard is highlighted." /><figcaption>In this screenshot of the Choose a size blade, SSD is highlighted under Supported disk type, View all is highlighted, and D2S_V3 Standard is highlighted.</figcaption>
+</figure></li>
+<li><p>Select Select to move on to the Settings blade.</p></li>
+<li><p>Accept all the default values on the Settings blade, and select OK.</p></li>
+<li><p>Select Create on the Create blade to provision the virtual machine.</p>
+<figure>
+<img src="images/Setup/image7.png" title="Select Create" alt="In this screenshot of the Create blade, various information appears below Offer details, Summary, and Terms of use. A Create button appears at the bottom of the blade." /><figcaption>In this screenshot of the Create blade, various information appears below Offer details, Summary, and Terms of use. A Create button appears at the bottom of the blade.</figcaption>
+</figure></li>
+<li><p>It may take 10+ minutes for the virtual machine to complete provisioning.</p></li>
+</ol>
+<h3 id="task-2-connect-to-your-lab-vm">Task 2: Connect to your lab VM</h3>
+<p>In this step, you will open an RDP connection to your Lab VM, and disable Internet Explorer Enhanced Security Configuration.</p>
+<ol type="1">
+<li><p>Connect to the Lab VM. (If you are already connected to your Lab VM, skip to Step 7.)</p></li>
+<li><p>From the left side menu in the Azure portal, select Resource groups, then enter your resource group name into the filter box, and select it from the list.</p>
+<figure>
+<img src="images/Setup/image8.png" title="Azure Portal" alt="Resource groups is highlighted on the left side of the Azure portal, and at right, hands and hands-on-labs are highlighted." /><figcaption>Resource groups is highlighted on the left side of the Azure portal, and at right, hands and hands-on-labs are highlighted.</figcaption>
+</figure></li>
+<li><p>Next, select your lab virtual machine, LabVM, from the list.</p>
+<figure>
+<img src="images/Setup/image9.png" title="Select your lab virtual machine" alt="LabVM is highlighted in the Name list." /><figcaption>LabVM is highlighted in the Name list.</figcaption>
+</figure></li>
+<li><p>On your Lab VM blade, select Connect from the top menu.</p>
+<figure>
+<img src="images/Setup/image10.png" title="Select Connect" alt="Connect is highlighted at the top of the Lab VM blade." /><figcaption>Connect is highlighted at the top of the Lab VM blade.</figcaption>
+</figure></li>
+<li><p>Download and open the .RDP file.</p></li>
+<li><p>Select Connect on the Remote Desktop Connection dialog.</p>
+<figure>
+<img src="images/Setup/image11.png" title="Select Connect" alt="Connect is selected and highlighted at the bottom of the Remote Desktop Connection dialog box." /><figcaption>Connect is selected and highlighted at the bottom of the Remote Desktop Connection dialog box.</figcaption>
+</figure></li>
+<li><p>Enter the following credentials (or the non-default credentials if you changed them):</p>
+<ul>
+<li><p>User name: holuser</p></li>
+<li><p>Password: Password.1!!</p>
+<figure>
+<img src="images/Setup/image12.png" title="Enter your credentials" alt="The information above is entered in the Windows Security dialog box." /><figcaption>The information above is entered in the Windows Security dialog box.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select Yes to connect, if prompted that the identity of the remote computer cannot be verified.</p>
+<figure>
+<img src="images/Setup/image13.png" title="Select Yes" alt="Yes is selected and highlighted at the bottom of the Remote Desktop Connection dialog box." /><figcaption>Yes is selected and highlighted at the bottom of the Remote Desktop Connection dialog box.</figcaption>
+</figure></li>
+<li><p>Once logged in, launch the Server Manager. This should start automatically, but you can access it via the Start menu if it does not start.</p></li>
+<li><p>Select Local Server, the select On next to IE Enhanced Security Configuration.</p>
+<figure>
+<img src="images/Setup/image14.png" title="Select IE Enhanced Security Configuration" alt="Local Server is selected and highlighted on the left side of Server Manager, and at right, IE Enhanced Security Configuration On is highlighted under Properties For LabVM." /><figcaption>Local Server is selected and highlighted on the left side of Server Manager, and at right, IE Enhanced Security Configuration On is highlighted under Properties For LabVM.</figcaption>
+</figure></li>
+<li><p>In the Internet Explorer Enhanced Security Configuration dialog, select Off under Administrators, then select OK.</p>
+<figure>
+<img src="images/Setup/image15.png" title="Disable Administrators" alt="Off is selected under Administrators in the Internet Explorer Enhanced Security Configuration dialog box." /><figcaption>Off is selected under Administrators in the Internet Explorer Enhanced Security Configuration dialog box.</figcaption>
+</figure></li>
+<li><p>Close the Server Manager.</p></li>
+</ol>
+<p>You should follow all steps provided <em>before</em> attending the Hands-on lab.</p>
+</body>
+</html>

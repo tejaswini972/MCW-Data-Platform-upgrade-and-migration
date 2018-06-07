@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Data Platform Migration Upgrade – includes</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cloudworkshop.blob.core.windows.net/styles/labstyles.css"></link>
+</head>
+<body>
+<p><img src="images/HeaderPic.png" title="Microsoft Cloud Workshops" /></p>
+<div class="MCWHeader1">
+<p>Data platform upgrade and migration</p>
+</div>
+<div class="MCWHeader2">
+<p>Hands-on lab step-by-step</p>
+</div>
+<div class="MCWHeader3">
+<p>March 2018</p>
+</div>
+<p>Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.</p>
+<p>Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.</p>
+<p>The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein. © 2018 Microsoft Corporation. All rights reserved.</p>
+<p>Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.</p>
+<p><strong>Contents</strong></p>
+<!-- TOC -->
+<ul>
+<li><a href="#data-platform-upgrade-and-migration-hands-on-lab-step-by-step">Data platform upgrade and migration hands-on lab step-by-step</a>
+<ul>
+<li><a href="#abstract-and-learning-objectives">Abstract and learning objectives</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#solution-architecture">Solution Architecture</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#exercise-1-deploy-sql-server-instances">Exercise 1: Deploy SQL Server instances</a>
+<ul>
+<li><a href="#task-1-provision-an-azure-vm">Task 1: Provision an Azure VM</a></li>
+<li><a href="#task-2-allow-remote-systems-to-connect-with-the-sql-server-vm">Task 2: Allow remote systems to connect with the SQL Server VM</a></li>
+<li><a href="#task-3-install-sql-server-2017">Task 3: Install SQL Server 2017</a></li>
+<li><a href="#task-4-configure-the-vm-as-an-application-server">Task 4: Configure the VM as an application server</a></li>
+<li><a href="#task-5-install-sql-server-2008-r2">Task 5: Install SQL Server 2008 R2</a></li>
+<li><a href="#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm">Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM</a></li>
+<li><a href="#task-7-install-the-adventureworks-sample-database">Task 7: Install the AdventureWorks sample database</a></li>
+<li><a href="#task-8-update-sql-server-service-accounts-using-configuration-manager">Task 8: Update SQL Server service accounts using Configuration Manager</a></li>
+</ul></li>
+<li><a href="#exercise-2-perform-an-assessment-for-a-move-to-azure-sql-database">Exercise 2: Perform an assessment for a move to Azure SQL Database</a>
+<ul>
+<li><a href="#task-1-perform-an-assessment">Task 1: Perform an assessment</a></li>
+</ul></li>
+<li><a href="#exercise-3-upgrade-the-sql-server-2008-database-to-sql-server-2017">Exercise 3: Upgrade the SQL Server 2008 database to SQL Server 2017</a>
+<ul>
+<li><a href="#task-1-create-a-shared-folder-for-the-database-migration">Task 1: Create a shared folder for the database migration</a></li>
+<li><a href="#task-2-migrate-using-data-migration-assistant">Task 2: Migrate using Data Migration Assistant</a></li>
+</ul></li>
+<li><a href="#exercise-4-post-upgrade-enhancement">Exercise 4: Post upgrade enhancement</a>
+<ul>
+<li><a href="#task-1-table-compression">Task 1: Table compression</a></li>
+<li><a href="#task-2-clustered-columnstore-index">Task 2: Clustered ColumnStore index</a></li>
+</ul></li>
+<li><a href="#exercise-5-setup-oracle-11g-express-edition">Exercise 5: Setup Oracle 11g Express Edition</a>
+<ul>
+<li><a href="#task-1-install-oracle-xe">Task 1: Install Oracle XE</a></li>
+<li><a href="#task-2-install-oracle-data-access-components">Task 2: Install Oracle Data Access components</a></li>
+<li><a href="#task-3-install-sql-server-migration-assistant-ssma-7x-for-oracle">Task 3: Install SQL Server Migration Assistant (SSMA) 7.x for Oracle</a></li>
+<li><a href="#task-4-install-dbforge-fusion-tool-trial-version">Task 4: Install dbForge Fusion tool (trial version)</a></li>
+<li><a href="#task-5-create-the-northwind-database-in-oracle-11g-xe">Task 5: Create the Northwind database in Oracle 11g XE</a></li>
+<li><a href="#task-6-configure-the-starter-application-to-use-oracle">Task 6: Configure the Starter Application to use Oracle</a></li>
+</ul></li>
+<li><a href="#exercise-6-migrate-the-oracle-database-to-sql-server-2017">Exercise 6: Migrate the Oracle database to SQL Server 2017</a>
+<ul>
+<li><a href="#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma">Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA</a></li>
+</ul></li>
+<li><a href="#exercise-7-migrate-the-application">Exercise 7: Migrate the Application</a>
+<ul>
+<li><a href="#task-1-create-a-new-entity-model-against-sql-server">Task 1: Create a new Entity Model against SQL Server</a></li>
+<li><a href="#task-2-modify-application-code">Task 2: Modify Application Code</a></li>
+</ul></li>
+<li><a href="#after-the-hands-on-lab">After the hands-on lab</a>
+<ul>
+<li><a href="#task-1-delete-the-resource-group">Task 1: Delete the resource group</a></li>
+</ul></li>
+</ul></li>
+</ul>
+<!-- /TOC -->
+<h1 id="data-platform-upgrade-and-migration-hands-on-lab-step-by-step">Data platform upgrade and migration hands-on lab step-by-step</h1>
+<h2 id="abstract-and-learning-objectives">Abstract and learning objectives</h2>
+<p>This hands-on lab is designed to help attendees better understand how to build a Proof-of-Concept (POC) and conduct a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, attendees will help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the newest version and consider the impact of migrating from on-premises to the cloud.</p>
+<p>Learning Objectives:</p>
+<ul>
+<li><p>Migrate from Oracle to SQL Server using SQL Server Migration Assistant</p></li>
+<li><p>Migrate between different SQL Server editions using Data Migration Assistant</p></li>
+<li><p>Use advanced SQL Server features, such as JavaScript Object Notation (JSON) data store, table compression, Transparent Data Encryption, and clustered ColumnStore indexing</p></li>
+<li><p>Consider the steps required to update existing applications to use the new data platform</p></li>
+<li><p>Analyze and improve database performance</p></li>
+<li><p>Implement high availability using Stretch Database and AlwaysOn Availability Groups</p></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.</p>
+<p>The WWI CIO has recently read about new performance enhancements of SQL Server 2017. She is excited about clustered ColumnStore indexes. In addition, she has chosen to upgrade to Enterprise Edition. She’s hoping that table compression will improve performance, backup times, and lessen the load on the Storage Area Network (SAN).</p>
+<p>WWI is concerned about upgrading their database to SQL Server 2017 or Azure SQL Database. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of SQL Server 2017.</p>
+<p>WWI’s CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.</p>
+<h2 id="solution-architecture">Solution Architecture</h2>
+<p>Below is a diagram of the solution architecture you will build in this lab. Please study this carefully, so you understand the whole of the solution as you are working on the various components.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image2.png" title="Preferred Solution diagram" alt="This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Data Warehouse for a stretch table. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse." /><figcaption>This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Data Warehouse for a stretch table. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse.</figcaption>
+</figure>
+<p>The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to SQL Server 2017 Enterprise, using Data Migration Assistant. A shared folder is created for storing a backup of the database, which is used by Data Migration Assistant to move the database to SQL Server 2017. Two new features of SQL Server 2017, Table Compression and ColumnStore Index, will be applied to demonstrate vale from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrating to SQL Server 2017 Enterprise using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the NorthwindMVC application is updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li><p>Microsoft Azure subscription must be pay-as-you-go or MSDN.</p>
+<ul>
+<li>Trial subscriptions will not work.</li>
+</ul></li>
+<li><p>A virtual machine configured with:</p>
+<ul>
+<li><p>Visual Studio Community 2017 or later</p></li>
+<li><p>Azure SDK 2.9 or later (Included with Visual Studio 2017)</p></li>
+</ul></li>
+</ul>
+<h2 id="exercise-1-deploy-sql-server-instances">Exercise 1: Deploy SQL Server instances</h2>
+<p>Duration: 60 minutes</p>
+<p>In this exercise, you will create an Azure VM that contains instances of both SQL Server 2008 and SQL Server 2017.</p>
+<h3 id="task-1-provision-an-azure-vm">Task 1: Provision an Azure VM</h3>
+<p>In this task, you will provision a virtual machine (VM) in Azure which can host instances of both SQL Server 2008 and SQL Server 2017. The VM with use the Windows Server 2012 R2 Datacenter image. Note, we are using an older version of Windows Server because SQL Server 2008 R2 is not supported on Windows Server 2016.</p>
+<ol type="1">
+<li><p>In a web browser, navigate to the Azure portal (<a href="https://portal.azure.com" class="uri">https://portal.azure.com</a>).</p></li>
+<li><p>Select +Create a resource, and in the Search the marketplace box type “windows server 2012.” Select the Windows Server 2012 R2 Datacenter VM image from the list.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image16.png" title="Azure portal" alt="+ Create a resource is highlighted on the left side of the Azure portal, and at right, windows server 2012 and Windows Server 2012 R2 Datacenter are highlighted." /><figcaption>+ Create a resource is highlighted on the left side of the Azure portal, and at right, windows server 2012 and Windows Server 2012 R2 Datacenter are highlighted.</figcaption>
+</figure></li>
+<li><p>In the blade that comes up, ensure the deployment model is set to Resource Manager, and select Create.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image4.png" title="Select a deployment model" alt="Resource Manager is listed below Select a deployment model, and the Create button appears below that." /><figcaption>Resource Manager is listed below Select a deployment model, and the Create button appears below that.</figcaption>
+</figure></li>
+<li><p>On the Create virtual machine blade, enter the following:</p>
+<ul>
+<li><p>Name: Enter SqlServerDw</p></li>
+<li><p>VM disk type: Select SSD</p></li>
+<li><p>User name: Enter holuser</p></li>
+<li><p>Password: Enter Password.1!!, then re-enter it in the confirm password text box</p></li>
+<li><p>Subscription: Select the subscription you are using for this lab</p></li>
+<li><p>Resource group: Select Use existing, then choose the hands-on-labs resource group</p></li>
+<li><p>Location: Select the location you used previously in this lab</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image17.png" title="Basics blade" alt="On the Basics blade, the values above are entered in the boxes." /><figcaption>On the Basics blade, the values above are entered in the boxes.</figcaption>
+</figure></li>
+<li><p>Select OK to move on to the Size blade.</p></li>
+</ul></li>
+<li><p>On the Choose a size blade, select View all.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image18.png" title="Choose a size blade" alt="On the Choose a size blade, View all is highlighted." /><figcaption>On the Choose a size blade, View all is highlighted.</figcaption>
+</figure></li>
+<li><p>Choose a VM size. For this lab, it does not need to be very large, so selecting DS1_V2 Standard is a good option.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image19.png" title="Choose a VM size" alt="DS1_V2, the second of three boxes, is highlighted." /><figcaption>DS1_V2, the second of three boxes, is highlighted.</figcaption>
+</figure></li>
+<li><p>Select Select on the Choose a size blade.</p></li>
+<li><p>On the Settings blade, select OK to accept the defaults and move on to the Summary.</p></li>
+<li><p>On the Summary blade, select Create to provision the VM.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image20.png" title="Select Create" alt="In this screenshot of the Create blade, various information appears below Offer details, Summary, and Terms of use. A Create button appears at the bottom of the blade." /><figcaption>In this screenshot of the Create blade, various information appears below Offer details, Summary, and Terms of use. A Create button appears at the bottom of the blade.</figcaption>
+</figure></li>
+<li><p>It can take 10+ minutes to provision the new VM.</p></li>
+</ol>
+<h3 id="task-2-allow-remote-systems-to-connect-with-the-sql-server-vm">Task 2: Allow remote systems to connect with the SQL Server VM</h3>
+<p>In this task, you will create a network security rule for the SqlServerDw VM that allows remote systems to connect with SQL Server.</p>
+<ol type="1">
+<li><p>In the Azure portal, navigate to the newly provisioned SqlServerDw VM by selecting Resource groups from the left-hand menu, then selecting the hands-on-lab resource group from the list.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image8.png" title="Azure portal" alt="Resource groups is highlighted on the left side of the Azure portal, and at right, hands and hands-on-labs are highlighted." /><figcaption>Resource groups is highlighted on the left side of the Azure portal, and at right, hands and hands-on-labs are highlighted.</figcaption>
+</figure></li>
+<li><p>From the list of available resources, select the SqlServerDw virtual machine.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image21.png" title="Select the SqlServerDw virtual machine" alt="SqlServerDw is highlighted in the Name list." /><figcaption>SqlServerDw is highlighted in the Name list.</figcaption>
+</figure></li>
+<li><p>On the SqlServerDw blade, select Networking under Settings from the left-hand menu.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image22.png" title="Select Networking" alt="Networking is selected and highlighted under Settings." /><figcaption>Networking is selected and highlighted under Settings.</figcaption>
+</figure></li>
+<li><p>On the Networking blade, select Add inbound port rule.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image23.png" title="Select Add inbound port rule" alt="Add inbound port rule is highlighted on the Networking blade." /><figcaption>Add inbound port rule is highlighted on the Networking blade.</figcaption>
+</figure></li>
+<li><p>In the Add inbound security rule dialog, select MS SQL for the Service, then select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image24.png" title="Select MS SQL" alt="MS SQL is highlighted under Service." /><figcaption>MS SQL is highlighted under Service.</figcaption>
+</figure></li>
+<li><p>Once the new inbound port rule is created, you will see it appear in the Inbound port rules list.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image25.png" title="View the Inbound port rules list" alt="MS_SQL is highlighted in the Inbound port rules list." /><figcaption>MS_SQL is highlighted in the Inbound port rules list.</figcaption>
+</figure></li>
+</ol>
+<h3 id="task-3-install-sql-server-2017">Task 3: Install SQL Server 2017</h3>
+<p>In this task, you will create a remote desktop protocol (RDP) connection to the SqlServerDw VM, and install SQL Server 2017 and Microsoft SQL Server Management Studio (SSMS) on the SqlServerDw VM.</p>
+<ol type="1">
+<li><p>From the overview blade of your SqlServerDw VM in the Azure portal, select Connect, and follow the prompts to login to the VM, following the same steps used to connect to your Lab VM and disable IE Enhanced Security Configuration in Before the hands-on lab, Task 2</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image26.png" title="Select Connect" alt="Connect is highlighted on the overview blade." /><figcaption>Connect is highlighted on the overview blade.</figcaption>
+</figure></li>
+<li><p>From a web browser on the SqlServerDw VM, download SQL Server 2017 Developer Edition by navigating to <a href="https://www.microsoft.com/sql-server/sql-server-downloads" class="uri">https://www.microsoft.com/sql-server/sql-server-downloads</a>, and selecting the Download now link under Developer edition.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image27.png" title="Download SQL Server 2017 Developer Edition" alt="The Download now link is highlighted under Developer edition at https://www.microsoft.com/sql-server/sql-server-downloads." /><figcaption>The Download now link is highlighted under Developer edition at https://www.microsoft.com/sql-server/sql-server-downloads.</figcaption>
+</figure></li>
+<li><p>Run the downloaded installer.</p></li>
+<li><p>In the install dialog, select Custom as the installation type on the first screen.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image28.png" title="Select Custom" alt="In the installation dialog box, Custom is selected and highlighted under Select an installation type." /><figcaption>In the installation dialog box, Custom is selected and highlighted under Select an installation type.</figcaption>
+</figure></li>
+<li><p>On the next screen, leave the Media Location set to the default value, and select Install.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image29.png" title="Install with the default value" alt="The default value (C:\SQLServer2017Media) is listed under Media Location, and Install is highlighted at the bottom." /><figcaption>The default value (C:\SQLServer2017Media) is listed under Media Location, and Install is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>Once the necessary components are downloaded, the SQL Server Installation Center will open. Select Installation on the left-hand menu, then select New SQL Server stand-alone installation or add features to an existing installation.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image30.png" title="Choose your installation" alt="Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, New SQL Server stand-alone installation or add features to an existing installation is highlighted." /><figcaption>Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, New SQL Server stand-alone installation or add features to an existing installation is highlighted.</figcaption>
+</figure></li>
+<li><p>On the Product Key screen, select Developer under Specify a free edition, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image31.png" title="Specify the edition" alt="Developer displays under Specify a free edition." /><figcaption>Developer displays under Specify a free edition.</figcaption>
+</figure></li>
+<li><p>On the License Terms screen, check the box to accept the license terms, and select Next.</p></li>
+<li><p>Select Next on each the following screens to accept the defaults, until you get to the Feature Selection screen.</p></li>
+<li><p>On the Feature Selection screen, check the box next to Database Engine Services, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image32.png" title="Select Database Engine Services" alt="Database Engine Services is selected and highlighted under Instance Features on the Feature Selection screen." /><figcaption>Database Engine Services is selected and highlighted under Instance Features on the Feature Selection screen.</figcaption>
+</figure></li>
+<li><p>On the Instance Configuration screen, leave Default instance selected, and select Next.</p></li>
+<li><p>Accept the default values on the Server Configuration screen, and select Next.</p></li>
+<li><p>On the Database Engine Configuration screen:</p>
+<ul>
+<li><p>Select Mixed Mode</p></li>
+<li><p>Enter Password.1!! for the sa password.</p></li>
+<li><p>Click the Add Current User button to make the holuser windows account a SQL Server administrator.</p></li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image33.png" title="Specify Database Engine Configuration settings" alt="The information above is highlighted on the Database Engine Configuration screen, including the Add Current User button under Specify SQL Server administrators." /><figcaption>The information above is highlighted on the Database Engine Configuration screen, including the Add Current User button under Specify SQL Server administrators.</figcaption>
+</figure>
+<ul>
+<li>Select Next.</li>
+</ul></li>
+<li><p>Select Install on the Ready to Install screen to start the installation.</p></li>
+<li><p>Select Close when the installation is complete.</p></li>
+<li><p>Back in the SQL Server Installation Center dialog, select Install SQL Server Management Tools on the Installation tab.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image34.png" title="Select Install SQL Server Management Tools" alt="Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, Install SQL Server Management Tools is highlighted." /><figcaption>Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, Install SQL Server Management Tools is highlighted.</figcaption>
+</figure></li>
+<li><p>In the browser window that opens, scroll down and select the Download SQL Server Management Studio 17.x link, then run the installer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image35.png" title="Browser window" alt="Download SQL Server Management Studio 17.5 is highlighted." /><figcaption>Download SQL Server Management Studio 17.5 is highlighted.</figcaption>
+</figure></li>
+<li><p>In the install window that appears, select Install to complete the installation.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image36.png" title="Microsoft SQL Server Management Studio Welcome page" alt="Install is highlighted at the bottom of the Microsoft SQL Server Management Studio installation window." /><figcaption>Install is highlighted at the bottom of the Microsoft SQL Server Management Studio installation window.</figcaption>
+</figure></li>
+<li><p>Close the SQL Server Management Studio (SSMS) installer once setup is completed.</p></li>
+<li><p>Close the SQL Server Installation Center dialog.</p></li>
+</ol>
+<h3 id="task-4-configure-the-vm-as-an-application-server">Task 4: Configure the VM as an application server</h3>
+<p>In this task, you will configure the SqlServerDw VM to be an application server. This is necessary to install the required .NET components on the server prior to installing SQL Server 2008 R2.</p>
+<ol type="1">
+<li><p>On your SqlServerDw VM, launch the Server Manager by selecting its icon on the Windows task bar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image37.png" title="Open Server Manager" alt="The Server Manager icon is highlighted on the VM taskbar." /><figcaption>The Server Manager icon is highlighted on the VM taskbar.</figcaption>
+</figure></li>
+<li><p>From the Server Manager Dashboard, select Add roles and features.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image38.png" title="Select Add roles and features" alt="Add roles and features is highlighted on the Server Manager dashboard." /><figcaption>Add roles and features is highlighted on the Server Manager dashboard.</figcaption>
+</figure></li>
+<li><p>Select Next on the Before You Begin screen.</p></li>
+<li><p>Select Role-based or feature-based installation for the installation type, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image39.png" title="Select Role-based or feature-based installation" alt="Role-based or feature-based installation is selected and highlighted under Select installation type." /><figcaption>Role-based or feature-based installation is selected and highlighted under Select installation type.</figcaption>
+</figure></li>
+<li><p>Accept the default selection on the Select destination server screen, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image40.png" title="Accept the default selection" alt="Select a server from the server pool is selected on the Select a destination server screen, and the default value (SqlServerDW) appears in the Server Pool box." /><figcaption>Select a server from the server pool is selected on the Select a destination server screen, and the default value (SqlServerDW) appears in the Server Pool box.</figcaption>
+</figure></li>
+<li><p>On the Select server roles screen, select Application Server, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image41.png" title="Select Application Server" alt="Application Server is selected and highlighted on the Select server roles screen." /><figcaption>Application Server is selected and highlighted on the Select server roles screen.</figcaption>
+</figure></li>
+<li><p>On the Select features screen, select .NET Framework 3.5 Features, then select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image42.png" title="Select .NET Framework 3.5 Features" alt="NET Framework 3.5 Features is selected and highlighted on the Select features screen." /><figcaption>NET Framework 3.5 Features is selected and highlighted on the Select features screen.</figcaption>
+</figure></li>
+<li><p>Select Next on the Application Server screen.</p></li>
+<li><p>Accept the default values on the Select role services screen, and select Next.</p></li>
+<li><p>On the Confirm installation selections screen, check the Restart the destination server automatically if required check box. Click Yes on the restart confirmation dialog.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image43.png" title="Add Roles and Features Wizard dialog box" alt="The Yes button is highlighted on the Add Roles and Features Wizard confirmation dialog." /><figcaption>The Yes button is highlighted on the Add Roles and Features Wizard confirmation dialog.</figcaption>
+</figure></li>
+<li><p>Select Install. Note: You may see a message about specifying an alternate source path. This can be ignored.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image44.png" title="Confirm your installation selections" alt="Restart the destination server automatically if required is selected and highlighted on the Confirm installation selections screen, and Install is highlighted at the bottom." /><figcaption>Restart the destination server automatically if required is selected and highlighted on the Confirm installation selections screen, and Install is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>Close the Add Roles and Features Wizard, once the installation is completed.</p></li>
+<li><p>Close the Server Manager.</p></li>
+</ol>
+<h3 id="task-5-install-sql-server-2008-r2">Task 5: Install SQL Server 2008 R2</h3>
+<ol type="1">
+<li><p>On the SqlServerDw VM, open a web browser, and navigate to <a href="https://www.microsoft.com/download/details.aspx?id=30438" class="uri">https://www.microsoft.com/download/details.aspx?id=30438</a>.</p></li>
+<li><p>Select the Download link on the page.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image45.png" title="Download link" alt="Download is selected and highlighted on the https://www.microsoft.com/download/details.aspx?id=30438 page under Microsoft SQL Server 2008 R2 SP2 - Express Edition." /><figcaption>Download is selected and highlighted on the https://www.microsoft.com/download/details.aspx?id=30438 page under Microsoft SQL Server 2008 R2 SP2 - Express Edition.</figcaption>
+</figure></li>
+<li><p>Download SQL Server 2008 R2 Express with Advanced Services by selecting SQLEXPRADV_x64_ENU.exe, then selecting Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image46.png" title="Download SQL Server 2008 R2 Express with Advanced Services" alt="SQLEXPRADV_x64_ENU.exe is highlighted in the list under Choose the download you want." /><figcaption>SQLEXPRADV_x64_ENU.exe is highlighted in the list under Choose the download you want.</figcaption>
+</figure></li>
+<li><p>Run the installer.</p></li>
+<li><p>In the SQL Server Installation Center window, select New installation or add features to an existing installation.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image47.png" title="Select New installation or add features to an existing installation" alt="New installation or add features to an existing installation is highlighted in the SQL Server Installation Center window." /><figcaption>New installation or add features to an existing installation is highlighted in the SQL Server Installation Center window.</figcaption>
+</figure></li>
+<li><p>In the SQL Server 2008 R2 Setup dialog, accept the license terms on the License Terms screen, and select Next.</p></li>
+<li><p>Accept the default values on each screen by selecting Next, until you get to the Instance Configuration screen.</p></li>
+<li><p>On the Installation Configuration screen, select Named Instance, and enter SQLServer2008 for the instance name, then select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image48.png" title="Enter the instance name" alt="Instance Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, Named instance: SQLServer2008 is highlighted." /><figcaption>Instance Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, Named instance: SQLServer2008 is highlighted.</figcaption>
+</figure></li>
+<li><p>On the Server Configuration screen, select Use the same account for all SQL Server services.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image49.png" title="Select Use the same account for all SQL Server services" alt="Server Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, SQL Server Database Engine is selected on the Service Accounts tab, and Use the same account for all SQL Server services is highlighted at the bottom." /><figcaption>Server Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, SQL Server Database Engine is selected on the Service Accounts tab, and Use the same account for all SQL Server services is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>Click Browse, and enter holuser. Select the holuser account you created with you provisioned the VM, then enter the password, Password.1!!, and select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image50.png" title="Enter your credentials" alt="The credentials above are entered in the Use the same account for all SQL Server 2008 R2 services dialog box." /><figcaption>The credentials above are entered in the Use the same account for all SQL Server 2008 R2 services dialog box.</figcaption>
+</figure></li>
+<li><p>Select Next on the Server Configuration screen.</p></li>
+<li><p>On the Database Engine Configuration screen:</p>
+<ul>
+<li><p>Select Mixed Mode.</p></li>
+<li><p>Enter Password.1!! for the sa password.</p></li>
+<li><p>Click the Add Current User button to specify the holuser Windows account as a SQL Server Administrator.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image51.png" title="Specify Database Engine Configuration settings" alt="Database Engine Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. The information above is highlighted at right, including the Add Current User button under Specify SQL Server administrators." /><figcaption>Database Engine Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. The information above is highlighted at right, including the Add Current User button under Specify SQL Server administrators.</figcaption>
+</figure></li>
+<li><p>Select Next.</p></li>
+</ul></li>
+<li><p>Select Next to accept the default values on the remaining screens to complete the installation.</p></li>
+<li><p>Select Close on the SQL Server 2008 R2 Setup dialog.</p></li>
+</ol>
+<h3 id="task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm">Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM</h3>
+<p>In this task, you will add rules to the SqlServerDw VM’s Windows firewall to allow access to SQL Server via port 1433 by other machines.</p>
+<ol type="1">
+<li><p>On the SqlServerDw VM, select Start.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image52.png" title="Select Start" alt="The Start icon is highlighted on the VM taskbar." /><figcaption>The Start icon is highlighted on the VM taskbar.</figcaption>
+</figure></li>
+<li><p>Then, select the Search icon in the top right-hand corner of the screen.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image53.png" title="Select Search" alt="The Search icon is highlighted on the right side." /><figcaption>The Search icon is highlighted on the right side.</figcaption>
+</figure></li>
+<li><p>In the Search text box, enter wf.msc, then select wf from the list of results.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image54.png" title="Search on wf.msc" alt="The wf icon is highlighted in the list of search results." /><figcaption>The wf icon is highlighted in the list of search results.</figcaption>
+</figure></li>
+<li><p>In the Windows Firewall with Advanced Security dialog, select, then right-click Inbound Rules in the left pane, then click New Rule in the action pane.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image55.png" title="Create a new Inbound Rule" alt="New Rule is highlighted in the submenu for Inbound Rules, which is selected in the left pane of the Windows Firewall with Advanced Security dialog box." /><figcaption>New Rule is highlighted in the submenu for Inbound Rules, which is selected in the left pane of the Windows Firewall with Advanced Security dialog box.</figcaption>
+</figure></li>
+<li><p>In the New Inbound Rule Wizard, under Rule Type, select Port, then select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image56.png" title="Select Port" alt="Rule Type is selected and highlighted on the left side of the New Inbound Rule Wizard, and Port is selected and highlighted on the right." /><figcaption>Rule Type is selected and highlighted on the left side of the New Inbound Rule Wizard, and Port is selected and highlighted on the right.</figcaption>
+</figure></li>
+<li><p>In the Protocol and Ports dialog, use the default TCP, and enter 1433 in the Specific local ports text box, the select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image57.png" title="Select a specific local port" alt="Protocol and Ports is selected on the left side of the New Inbound Rule Wizard, and 1433 is in the Specific local ports box, which is selected on the right." /><figcaption>Protocol and Ports is selected on the left side of the New Inbound Rule Wizard, and 1433 is in the Specific local ports box, which is selected on the right.</figcaption>
+</figure></li>
+<li><p>In the Action dialog, select Allow the connection, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image58.png" title="Specify the action" alt="Action is selected on the left side of the New Inbound Rule Wizard, and Allow the connection is selected on the right." /><figcaption>Action is selected on the left side of the New Inbound Rule Wizard, and Allow the connection is selected on the right.</figcaption>
+</figure></li>
+<li><p>In the Profile step, check Domain, Private, and Public, then select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image59.png" title="Select Domain, Private, and Public" alt="Profile is selected on the left side of the New Inbound Rule Wizard, and Domain, Private, and Public are selected on the right." /><figcaption>Profile is selected on the left side of the New Inbound Rule Wizard, and Domain, Private, and Public are selected on the right.</figcaption>
+</figure></li>
+<li><p>In the Name screen, enter sqlserver, then select Finish.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image60.png" title="Specify the name" alt="Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right." /><figcaption>Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right.</figcaption>
+</figure></li>
+<li><p>Close the Windows Firewall with Advanced Security window.</p></li>
+</ol>
+<h3 id="task-7-install-the-adventureworks-sample-database">Task 7: Install the AdventureWorks sample database</h3>
+<p>In this task, you will install the AdventureWorks database in SQL 2008 R2, as the source database to migrate.</p>
+<ol type="1">
+<li><p>On the SqlServerDw VM, open a web browser, and navigate to the GitHub site containing the sample AdventureWorks database at <a href="https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2" class="uri">https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2</a>.</p></li>
+<li><p>Scroll down under Assets, and select adventure-works-2008r2-dw.script.zip.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image61.png" title="Assets list" alt="The adventure-works-2008r2-dw-script.zip download link is highlighted under Assets for the sample database." /><figcaption>The adventure-works-2008r2-dw-script.zip download link is highlighted under Assets for the sample database.</figcaption>
+</figure></li>
+<li><p>Unzip the downloaded file to a folder you create, called C:\AdventureWorksSample.</p></li>
+<li><p>Launch SQL Server Management Studio 17 (SSMS), found under Start-&gt;Apps-&gt;Microsoft SQL Server Tools 17.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image62.png" title="Open SQL Server Management Studio 17 (SSMS)" alt="SQL Server Management Studio 17 (SSMS) is highlighted under Microsoft SQL Server Tools 17." /><figcaption>SQL Server Management Studio 17 (SSMS) is highlighted under Microsoft SQL Server Tools 17.</figcaption>
+</figure></li>
+<li><p>In the Connect to Server dialog, enter SqlServerDw\SQLSERVER2008 in the Server name box, leave Authentication set to Windows Authentication, and select Connect.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image63.png" title="Connect to SqlServerDw\SQLSERVER2008" alt="In the Connect to Server dialog box, SqlServerDw\SQLSERVER2008 is highlighted in the Server name box." /><figcaption>In the Connect to Server dialog box, SqlServerDw\SQLSERVER2008 is highlighted in the Server name box.</figcaption>
+</figure></li>
+<li><p>Select the Open File icon in SSMS menu bar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image64.png" title="Select Open File" alt="The File icon is highlighted on the SSMS menu bar." /><figcaption>The File icon is highlighted on the SSMS menu bar.</figcaption>
+</figure></li>
+<li><p>In the Open File dialog, browse to the C:\AdventureWorksSampe\AdventureWorks 2008R2 Data Warehouse\ folder, and select the file named instawdwdb.sql.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image65.png" title="Select instawdwdb.sql" alt="Local Disk (C:) is selected on the left side of the Open File dialog box, and instawdwdb.sql is selected and highlighted on the right." /><figcaption>Local Disk (C:) is selected on the left side of the Open File dialog box, and instawdwdb.sql is selected and highlighted on the right.</figcaption>
+</figure></li>
+<li><p>Select Open.</p></li>
+<li><p>Next, select the Tools menu in SSMS, then select Options.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image66.png" title="Select Options" alt="Tools is highlighted on the SSMS menu bar, and Options is highlighted at the bottom." /><figcaption>Tools is highlighted on the SSMS menu bar, and Options is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>In the Options dialog, expand Text Editor in the tree view on the left, then expand Transact-SQL, select General, the check the box next to Line numbers. This will display line numbers in the query editor window, to make finding the lines specified below easier.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image67.png" title="Display line numbers in the query editor" alt="On the left side of the Options dialog box, Text Editor is highlighted, Transact-SQL is highlighted below that, and General is selected and highlighted below that. At right, Line numbers is selected and highlighted." /><figcaption>On the left side of the Options dialog box, Text Editor is highlighted, Transact-SQL is highlighted below that, and General is selected and highlighted below that. At right, Line numbers is selected and highlighted.</figcaption>
+</figure></li>
+<li><p>Select OK to close the Options dialog.</p></li>
+<li><p>In the SSMS query editor for instawdwdb.sql, uncomment the SETVAR lines (lines 36 and 37) by removing the double hyphen “--” from the beginning of each line.</p></li>
+<li><p>Next, edit the file path for each variable so they point to the following (remember to include a trailing backslash “\” on each path):</p>
+<ul>
+<li><p>SqlSamplesDatabasePath: C:\AdventureWorksSample\</p></li>
+<li><p>SqlSamplesSourceDataPath: C:\AdventureWorksSample\AdventureWorks 2008R2 Data Warehouse\</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image68.png" title="Edit the variable file paths" alt="The variables and file paths specified above are highlighted in the SSMS query editor." /><figcaption>The variables and file paths specified above are highlighted in the SSMS query editor.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Place SSMS into SQLCMD mode by selecting it from the Query menu.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image69.png" title="Select SQLCMD Mode" alt="SQLCMD Mode is highlighted in the Query menu." /><figcaption>SQLCMD Mode is highlighted in the Query menu.</figcaption>
+</figure></li>
+<li><p>Execute the script by selecting the Execute button on the toolbar in SSMS.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image70.png" title="Run the script" alt="Execute is highlighted on the SSMS toolbar." /><figcaption>Execute is highlighted on the SSMS toolbar.</figcaption>
+</figure></li>
+<li><p>This will create the AdventureWorksDW2008R2 database. When the script is done running, you will see output similar to the following in the results pane.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image71.png" title="View the script output" alt="Output is displayed in the results pane. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this." /><figcaption>Output is displayed in the results pane. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.</figcaption>
+</figure></li>
+<li><p>Expand Databases in Object Explorer, right-click the AdventureWorksDW2008R2 database, and select Rename.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image72.png" title="Select Rename" alt="On the left side of Object Explorer, Databases is highlighted, AdventureWorksDW2008R2 is highlighted below that, and Rename is selected and highlighted in the submenu." /><figcaption>On the left side of Object Explorer, Databases is highlighted, AdventureWorksDW2008R2 is highlighted below that, and Rename is selected and highlighted in the submenu.</figcaption>
+</figure></li>
+<li><p>Set the name of the database to WorldWideImporters.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image73.png" title="Name the database" alt="WorldWideImporters is highlighted under Databases in Object Explorer." /><figcaption>WorldWideImporters is highlighted under Databases in Object Explorer.</figcaption>
+</figure></li>
+</ol>
+<h3 id="task-8-update-sql-server-service-accounts-using-configuration-manager">Task 8: Update SQL Server service accounts using Configuration Manager</h3>
+<ol type="1">
+<li><p>From the Start Menu on your SqlServerDw VM, search for SQL Server 2017 Configuration Manager, then select it from the search results.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image74.png" title="Select SQL Server 2017 Configuration Manager" alt="SQL Server 2017 Configuration Manager is selected and highlighted in the Search results." /><figcaption>SQL Server 2017 Configuration Manager is selected and highlighted in the Search results.</figcaption>
+</figure></li>
+<li><p>From the tree on the left, select SQL Server Services.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image75.png" title="Select SQL Server Services" alt="SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager." /><figcaption>SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager.</figcaption>
+</figure></li>
+<li><p>In the list of services, double-click SQL Server (MSSQLSERVER) to open its properties dialog.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image76.png" title="Select SQL Server (MSSQLSERVER)" alt="SQL Server (MSSQLSERVER) is highlighted in the list on the right side of SQL Server 2017 Configuration Manager." /><figcaption>SQL Server (MSSQLSERVER) is highlighted in the list on the right side of SQL Server 2017 Configuration Manager.</figcaption>
+</figure></li>
+<li><p>In the SQL Server (MSSQLSERVER) Properties dialog, change the Log On user to use the holuser account, by entering holuser into the Account Name box, then entering the password, Password.1!!, into the Password and Confirm password boxes.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image77.png" title="Enter holuser credentials" alt="The above credentials are highlighted in the SQL Server (MSSQLSERVER) Properties dialog box." /><figcaption>The above credentials are highlighted in the SQL Server (MSSQLSERVER) Properties dialog box.</figcaption>
+</figure></li>
+<li><p>Select OK.</p></li>
+<li><p>Select Yes to restart the service in the Confirm Account Change dialog.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image78.png" title="Confirm Account Change dialog box" alt="The Yes button is highlighted in the Confirm Account Change dialog." /><figcaption>The Yes button is highlighted in the Confirm Account Change dialog.</figcaption>
+</figure></li>
+<li><p>Repeat steps 3 – 6 above to set the server account to holuser for the SQL Server (SQLSERVER2008) instance as well, if it is not already using the holuser account.</p></li>
+<li><p>While still in the SQL Server 2017 Configuration Manager, expand SQL Server Network Configuration, select Protocols for MSSQLSERVER, and double-click TCP/IP to open the properties dialog.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image79.png" title="Select TCP/IP" alt="Protocols for MSSQLSERVER is highlighted on the left side of SQL Server 2017 Configuration Manager, and TCP/IP is highlighted in the Protocol Name list on the right." /><figcaption>Protocols for MSSQLSERVER is highlighted on the left side of SQL Server 2017 Configuration Manager, and TCP/IP is highlighted in the Protocol Name list on the right.</figcaption>
+</figure></li>
+<li><p>On the TCP/IP Properties dialog, set Enabled to Yes, and select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image80.png" title="Enable TCP/IP" alt="Enabled is selected on the Protocol tab of the TCP/IP Properties dialog box." /><figcaption>Enabled is selected on the Protocol tab of the TCP/IP Properties dialog box.</figcaption>
+</figure></li>
+<li><p>When prompted that the changes will not take effect until the service is restarted, select OK. You will restart the service later.</p></li>
+<li><p>Return to the SSMS window.</p></li>
+<li><p>Select Connect in the Object Explorer, and select Database Engine…</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image81.png" title="Select Database Engine" alt="Database Engine is selected and highlighted under Connect, which is highlighted in Object Explorer." /><figcaption>Database Engine is selected and highlighted under Connect, which is highlighted in Object Explorer.</figcaption>
+</figure></li>
+<li><p>In the Connect to Server dialog, select the SQL Server 2017 instance, SqlServerDw, from the Server name drop down, leave Authentication set to Windows Authentication, and select Connect.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image82.png" title="Select SqlServerDw" alt="SqlServerDw is selected and highlighted in the Server name drop-down list in the Connect to Server dialog box." /><figcaption>SqlServerDw is selected and highlighted in the Server name drop-down list in the Connect to Server dialog box.</figcaption>
+</figure></li>
+<li><p>In the Object Explorer, you will now see both the 2008R2 and 2017 instances. Under the 2017 instance, SqlServerDw, right-click Databases, and select New Database…</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image83.png" title="Select New Database" alt="Databases is highlighted under the SqlServerDw 2017 instance, and New Database is selected and highlighted in the submenu." /><figcaption>Databases is highlighted under the SqlServerDw 2017 instance, and New Database is selected and highlighted in the submenu.</figcaption>
+</figure></li>
+<li><p>In the New Database dialog, enter Northwind for the Database name, and select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image84.png" title="Enter the database name" alt="Northwind is highlighted in the Database name box in the New Database dialog box." /><figcaption>Northwind is highlighted in the Database name box in the New Database dialog box.</figcaption>
+</figure></li>
+<li><p>Now, return to the SQL Server 2017 Configuration Manager window.</p></li>
+<li><p>As done previously, select SQL Server Services in the tree on the left, then right-click SQL Server (MSSQLSERVER) in the services pane, and select Restart.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image85.png" title="Select Restart" alt="SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server (MSSQLSERVER) is highlighted on the right, and Restart is highlighted in the submenu." /><figcaption>SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server (MSSQLSERVER) is highlighted on the right, and Restart is highlighted in the submenu.</figcaption>
+</figure></li>
+<li><p>Repeat the previous step for the SQL Server Agent (MSSQLSERVER) service, this time selecting Start from the menu.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image86.png" title="Select Start" alt="SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server Agent (MSSQLSERVER) is highlighted on the right, and Start is highlighted in the submenu." /><figcaption>SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server Agent (MSSQLSERVER) is highlighted on the right, and Start is highlighted in the submenu.</figcaption>
+</figure></li>
+<li><p>Close the SQL Server 2017 Configuration Manager.</p></li>
+</ol>
+<h2 id="exercise-2-perform-an-assessment-for-a-move-to-azure-sql-database">Exercise 2: Perform an assessment for a move to Azure SQL Database</h2>
+<p>Duration: 15 minutes</p>
+<p>World Wide Importers would like an assessment to see what potential issues they would have to address in moving their database to Azure SQL Database.</p>
+<h3 id="task-1-perform-an-assessment">Task 1: Perform an assessment</h3>
+<ol type="1">
+<li><p>On your SqlServerDw VM, open a web browser, and download the Data Migration Assistant v3.x from <a href="https://www.microsoft.com/download/details.aspx?id=53595" class="uri">https://www.microsoft.com/download/details.aspx?id=53595</a> by clicking the Download button on the page.</p></li>
+<li><p>Run the installer.</p></li>
+<li><p>Select Next on each of the screens, accepting to the license terms and privacy policy in the process.</p></li>
+<li><p>Select Install on the Privacy Policy screen to begin the installation.</p></li>
+<li><p>On the final screen, check the Launch Microsoft Data Migration Assistant check box, and select Finish.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image87.png" title="Run the Microsoft Data Migration Assistant" alt="Launch Microsoft Data Migration Assistant is selected and highlighted at the bottom of the Microsoft Data Migration Assistant Setup dialog box." /><figcaption>Launch Microsoft Data Migration Assistant is selected and highlighted at the bottom of the Microsoft Data Migration Assistant Setup dialog box.</figcaption>
+</figure></li>
+<li><p>In the Data Migration Assistant window, select +New.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image88.png" title="Select + New" alt="+ New is selected and highlighted in the Data Migration Assistant window." /><figcaption>+ New is selected and highlighted in the Data Migration Assistant window.</figcaption>
+</figure></li>
+<li><p>In the New project dialog, enter the following:</p>
+<ul>
+<li><p>Project type: Select Assessment</p></li>
+<li><p>Project name: Enter Assessment</p></li>
+<li><p>Source server type: SQL Server</p></li>
+<li><p>Target server type: Azure SQL Database</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image89.png" title="Enter information in the New project dialog box" alt="The above information is entered in the New project dialog box." /><figcaption>The above information is entered in the New project dialog box.</figcaption>
+</figure></li>
+<li><p>Select Create</p></li>
+</ul></li>
+<li><p>On the Options screen, ensure the Check database compatibility and Check feature parity report types are checked, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image90.png" title="Select the report types" alt="Check database compatibility and Check feature parity are selected and highlighted on the Options screen." /><figcaption>Check database compatibility and Check feature parity are selected and highlighted on the Options screen.</figcaption>
+</figure></li>
+<li><p>In the Connect to a server dialog, enter SqlServerDw\SQLSERVER2008 into the Server name box, and uncheck Encrypt connection, then select Connect.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image91.png" title="Enter information in the Connect to a server dialog box" alt="In the Connect to a server dialog box, SqlServerDw\SQLSERVER2008 is highlighted in the Server name box, and Encrypt connection is highlighted below that in the Connect to a server dialog box." /><figcaption>In the Connect to a server dialog box, SqlServerDw\SQLSERVER2008 is highlighted in the Server name box, and Encrypt connection is highlighted below that in the Connect to a server dialog box.</figcaption>
+</figure></li>
+<li><p>In the Add sources dialog that appears, check the box next to WorldWideImporters, and select Add.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image92.png" title="Select WorldWideImporters" alt="WorldWideImporters is selected and highlighted under SqlServerDw\SQLSERVER2008 in the Add sources dialog box." /><figcaption>WorldWideImporters is selected and highlighted under SqlServerDw\SQLSERVER2008 in the Add sources dialog box.</figcaption>
+</figure></li>
+<li><p>Select Start Assessment.</p></li>
+<li><p>Review the Assessment results.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image93.png" title="Review the Assessment results" alt="Various information is selected on the Review results screen. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this." /><figcaption>Various information is selected on the Review results screen. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.</figcaption>
+</figure></li>
+<li><p>You now have a list of the issues WWI will need to consider in upgrading their database to Azure SQL Database. Notice the assessment includes recommendations on the potential resolutions to issues. You can select Export report to save the report as a JSON file, if desired.</p></li>
+</ol>
+<h2 id="exercise-3-upgrade-the-sql-server-2008-database-to-sql-server-2017">Exercise 3: Upgrade the SQL Server 2008 database to SQL Server 2017</h2>
+<p>Duration: 30 minutes</p>
+<p>World Wide Importers would like a Proof of Concept (POC) that moves their database to SQL Server 2017 Enterprise. They would like to know about any incompatible features that will block their eventual production move.</p>
+<h3 id="task-1-create-a-shared-folder-for-the-database-migration">Task 1: Create a shared folder for the database migration</h3>
+<p>In this task, you are going to create a shared folder that is accessible by both the source and target databases for the migration. This folder will store a backup of the database used for the migration process.</p>
+<ol type="1">
+<li><p>Open Windows Explorer.</p></li>
+<li><p>Create a new folder in the root of C: named backupshare.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image94.png" title="Select backupshare" alt="This PC is selected on the left side of the Local Disk (C:) window, and the backupshare folder is selected and highlighted on the right side." /><figcaption>This PC is selected on the left side of the Local Disk (C:) window, and the backupshare folder is selected and highlighted on the right side.</figcaption>
+</figure></li>
+<li><p>Right-click the backupshare folder, and select Properties.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image95.png" title="Select Properties" alt="Properties is selected and highlighted in the shortcut menu for the backupshare folder." /><figcaption>Properties is selected and highlighted in the shortcut menu for the backupshare folder.</figcaption>
+</figure></li>
+<li><p>In the backupshare Properties dialog, select the Sharing tab, and select Share…</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image96.png" title="Select Share" alt="Share is highlighted on the Sharing tab (highlighted) in the backupshare Properties dialog box." /><figcaption>Share is highlighted on the Sharing tab (highlighted) in the backupshare Properties dialog box.</figcaption>
+</figure></li>
+<li><p>Ensure the Permission Level for the holuser account is set to Read/Write, and select Share.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image97.png" title="Check the Permission Level" alt="The holuser account is highlighted as is the Read/Write Permission Level in the File Sharing dialog box." /><figcaption>The holuser account is highlighted as is the Read/Write Permission Level in the File Sharing dialog box.</figcaption>
+</figure></li>
+<li><p>If prompted about turning on network discovery, select No.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image98.png" title="Select No" alt="No, make the network that I am connected to a private network is highlighted in the Network discovery and file sharing dialog box." /><figcaption>No, make the network that I am connected to a private network is highlighted in the Network discovery and file sharing dialog box.</figcaption>
+</figure></li>
+<li><p>Select Done.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image99.png" title="Select Done" alt="Done is highlighted under Your folder is shared in the File Sharing dialog box." /><figcaption>Done is highlighted under Your folder is shared in the File Sharing dialog box.</figcaption>
+</figure></li>
+<li><p>Select Close on the backupshare Properties dialog.</p></li>
+</ol>
+<h3 id="task-2-migrate-using-data-migration-assistant">Task 2: Migrate using Data Migration Assistant</h3>
+<ol type="1">
+<li><p>On your SqlServerDw VM, open the Data Migration Assistant.</p></li>
+<li><p>Select +New.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image88.png" title="Select + New" alt="+ New is selected and highlighted in the Data Migration Assistant window." /><figcaption>+ New is selected and highlighted in the Data Migration Assistant window.</figcaption>
+</figure></li>
+<li><p>On the New project pane, set the following:</p>
+<ul>
+<li><p>Project type: Select Migration</p></li>
+<li><p>Project name: Enter Migration</p></li>
+<li><p>Source server type: Select SQL Server</p></li>
+<li><p>Target server type: Select SQL Server, as you will target the “on-premises” SQL Server 2017 instance you installed previously.</p></li>
+<li><p>Select Create.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image100.png" title="Enter information in the New project pane" alt="The above information is entered in the New project pane." /><figcaption>The above information is entered in the New project pane.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>On the Specify source &amp; target tab, enter the following:</p>
+<ul>
+<li><p>Source server name: SqlServerDw\SQLSERVER2008</p></li>
+<li><p>Target server name: SqlServerDw</p></li>
+<li><p>Authentication type: Set to Windows Authentication for both the Source and Target servers.</p></li>
+<li><p>Connection properties: Ensure the Encrypt connection and Trust server certification check boxes are unchecked for both the Source and Target servers.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image101.png" title="Enter information on the Specify source &amp; target screen" alt="The above information is entered on the Specify source &amp; target screen." /><figcaption>The above information is entered on the Specify source &amp; target screen.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select Next.</p></li>
+<li><p>On the Add database screen:</p>
+<ul>
+<li><p>Make sure the ONLY database selected is WorldWideImporters. All other databases should be unchecked.</p></li>
+<li><p>Enter \\SqlServerDw\backupshare into the Shared location text box, and leave the remaining fields as they are, then select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image102.png" title="Enter information on the Add database screen" alt="The above information is entered on the Add database screen, and WorldWideImporters and \\SqlServerDw\backupshare are highlighted." /><figcaption>The above information is entered on the Add database screen, and WorldWideImporters and \\SqlServerDw\backupshare are highlighted.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>On the Select logins screen, ensure SqlServerDw\holuser is selected, then select Start Migration.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image103.png" title="Select Start Migration" alt="SqlServerDw\holuser is highlighted under Selected Logins (1/3) on the Select logins screen." /><figcaption>SqlServerDw\holuser is highlighted under Selected Logins (1/3) on the Select logins screen.</figcaption>
+</figure></li>
+<li><p>Review the results. You may also wish to select Export report to save the report as a CSV file for later review.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image104.png" title="Review the results" alt="WorldWideImporters is highlighted under Databases (1) on the View results screen." /><figcaption>WorldWideImporters is highlighted under Databases (1) on the View results screen.</figcaption>
+</figure></li>
+</ol>
+<h2 id="exercise-4-post-upgrade-enhancement">Exercise 4: Post upgrade enhancement</h2>
+<p>Duration: 20 minutes</p>
+<p>In this exercise, you will confirm that the POC was successful. To demonstrate value from the upgrade, the new features of SQL Server 2017 (Table Compression and ColumnStore Index) will be enabled to immediately show benefit.</p>
+<h3 id="task-1-table-compression">Task 1: Table compression</h3>
+<ol type="1">
+<li><p>On the SqlServerDw VM, open SSMS 17. Note: There are two version of SSMS installed, so be sure to choose the correct one.</p></li>
+<li><p>Connect to your SQL Server 2017 instance by selecting Connect in the Object Explorer, entering SqlServerDw into the Server name box, then selecting Connect.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image105.png" title="Connect to your SQL Server 2017 instance" alt="SqlServerDw is selected in the Server name box in the Connect to Server dialog box." /><figcaption>SqlServerDw is selected in the Server name box in the Connect to Server dialog box.</figcaption>
+</figure></li>
+<li><p>Expand Databases, then WorldWideImporters, and then Tables.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image106.png" title="Select Tables" alt="Databases is highlighted in Object Explorer, WorldWideImporters is highlighted below that, and then Tables is highlighted below that." /><figcaption>Databases is highlighted in Object Explorer, WorldWideImporters is highlighted below that, and then Tables is highlighted below that.</figcaption>
+</figure></li>
+<li><p>Right-click on the FactInternetSales table, and select Properties.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image107.png" title="Select Properties" alt="The FactInternetSales table is selected, and the Properties is highlighted in the submenu." /><figcaption>The FactInternetSales table is selected, and the Properties is highlighted in the submenu.</figcaption>
+</figure></li>
+<li><p>In the Table Properties – FactInternetSales dialog, select the Storage page, and record the data space and index space being used.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image108.png" title="Record the data space and index space" alt="In the Table Properties – FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (8.000 MB) and Index space (10.820 MB) are highlighted under General on the right." /><figcaption>In the Table Properties – FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (8.000 MB) and Index space (10.820 MB) are highlighted under General on the right.</figcaption>
+</figure></li>
+<li><p>Select Cancel to close the properties dialog.</p></li>
+<li><p>Right-click the FactInternetSales table again, and this time select the Storage context menu, then select Manage Compression… from the flyout menu.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image109.png" title="Select Manage Compression" alt="The FactInternetSales table is selected on the left, Storage is selected and highlighted in the submenu, and Manage Compression is highlighted on the right." /><figcaption>The FactInternetSales table is selected on the left, Storage is selected and highlighted in the submenu, and Manage Compression is highlighted on the right.</figcaption>
+</figure></li>
+<li><p>On the Welcome page of the Data Compression Wizard, select Next.</p></li>
+<li><p>On the Select Compression Type pages, select Row from the Compression Type drop down, then select Calculate. Observe the simulated Requested compressed space value.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image110.png" title="Select Row and then select Calculate" alt="Row and 10.023 MB are highlighted under Compression type and Requested compressed space, and Calculate is highlighted in the Data Compression Wizard - FactInternetSales dialog box." /><figcaption>Row and 10.023 MB are highlighted under Compression type and Requested compressed space, and Calculate is highlighted in the Data Compression Wizard - FactInternetSales dialog box.</figcaption>
+</figure></li>
+<li><p>Now, change the Compression type to Page, select Calculate, and observe the Requested compressed space.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image111.png" title="Select Page and then select Calculate" alt="Page and 6.305 MB are highlighted under Compression type and Requested compressed space in the Data Compression Wizard - FactInternetSales dialog box." /><figcaption>Page and 6.305 MB are highlighted under Compression type and Requested compressed space in the Data Compression Wizard - FactInternetSales dialog box.</figcaption>
+</figure></li>
+<li><p>Leave the Compression type set to Page, and select Next.</p></li>
+<li><p>On the Select an Output Option screen, select Run Immediately, and select Finish &gt;&gt;|.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image112.png" title="Select Run Immediately" alt="Run immediately is selected and highlighted under Select an Output Option on the Select an Output Option screen." /><figcaption>Run immediately is selected and highlighted under Select an Output Option on the Select an Output Option screen.</figcaption>
+</figure></li>
+<li><p>Select Finish on the summary page.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image113.png" title="Select Finish on the summary page" alt="Data Compression Wizard summary is selected under Review your selections on the Data Compression Wizard Summary screen, and Finish is highlighted at the bottom." /><figcaption>Data Compression Wizard summary is selected under Review your selections on the Data Compression Wizard Summary screen, and Finish is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>When the compression is completed, you will see a success message. Select Close.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image114.png" title="View the Success message" alt="A Success message appears on the Compression Wizard Progress screen." /><figcaption>A Success message appears on the Compression Wizard Progress screen.</figcaption>
+</figure></li>
+<li><p>Return to the FactInternetSales Properties dialog (right-click the table and select Properties), and select the Storage page. Once again, note the Data space and Index space, and compare those to the values recorded in Step 5, above. Notice the improvement with compression.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image115.png" title="Record the data space and index space" alt="In the Table Properties – FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (2.086 MB) and Index space (10.789 MB) are highlighted under General on the right." /><figcaption>In the Table Properties – FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (2.086 MB) and Index space (10.789 MB) are highlighted under General on the right.</figcaption>
+</figure></li>
+<li><p>Compression decreases the load on the Disk I/O subsystem, while increasing the load on the CPU. Since most data warehouse workloads are heavily disk bound, and often have low CPU usage, compression can be a great way to improve performance.</p></li>
+<li><p>Select Cancel to close the table properties window.</p></li>
+</ol>
+<h3 id="task-2-clustered-columnstore-index">Task 2: Clustered ColumnStore index</h3>
+<p>In this task, you will create a new table based on the existing FactResellerSales table and apply a ColumnStore index.</p>
+<ol type="1">
+<li><p>In SSMS 17, ensure you are connected to the SQL Server 2017 instance (SqlServerDw).</p></li>
+<li><p>Open a new query window by selecting New Query from the toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image116.png" title="Select New Query" alt="The New Query icon is highlighted on the SSMS toolbar." /><figcaption>The New Query icon is highlighted on the SSMS toolbar.</figcaption>
+</figure></li>
+<li><p>Copy the script below, and paste it into the query window.</p>
+<pre><code>use WorldWideImporters
+
+select *
+
+into ColumnStore_FactResellerSales
+
+from FactResellerSales
+
+go</code></pre></li>
+<li><p>Select Execute on the toolbar to run the query.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image117.png" title="Select Execute" alt="The Execute icon is highlighted on the SSMS toolbar." /><figcaption>The Execute icon is highlighted on the SSMS toolbar.</figcaption>
+</figure></li>
+<li><p>In the Object Explorer, expand Tables under the WorldWideImporters database, right-click the new ColumnStore_FactResellerSales table, and select Properties. You may need to select the Refresh button in the Object Explorer, if you don’t see the new table.</p></li>
+<li><p>In the ColumnStore_FactResellerSales properties dialog, select the Storage page and note the Data and Index space.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image118.png" title="Record the data space and index space" alt="In the Table Properties – columnstore_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (12.359 MB) and Index space (0.008 MB) are highlighted under General on the right." /><figcaption>In the Table Properties – columnstore_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (12.359 MB) and Index space (0.008 MB) are highlighted under General on the right.</figcaption>
+</figure></li>
+<li><p>Select Cancel to close the properties dialog.</p></li>
+<li><p>Select New Query again from the toolbar, and copy and paste the below query into the new query window.</p>
+<pre><code>USE [WorldWideImporters]
+
+GO
+
+CREATE CLUSTERED COLUMNSTORE INDEX [cci_FactResllerSales]
+
+ON [dbo].[ColumnStore_FactResellerSales]</code></pre></li>
+<li><p>This query will create a clustered ColumnStore index on the ColumnStore_FactResellerSales table. Run the query by selecting Execute on the toolbar.</p></li>
+<li><p>Return to the properties window of the ColumnStore_FactResellerSales table, select the Storage page, and observe the Data and Index space values. Select Cancel to close the properties window.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image119.png" title="Record the data space and index space" alt="In the Table Properties – columnstore_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (1.664 MB) and Index space (0.000 MB) are highlighted under General on the right." /><figcaption>In the Table Properties – columnstore_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (1.664 MB) and Index space (0.000 MB) are highlighted under General on the right.</figcaption>
+</figure></li>
+<li><p>Create a new query window by selecting New Query from the toolbar, and select the Include Actual Execution Plan by selecting its button in the toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image120.png" title="Select the Include Actual Execution Plan" alt="The Include Actual Execution Plan icon is highlighted on the New Query the toolbar." /><figcaption>The Include Actual Execution Plan icon is highlighted on the New Query the toolbar.</figcaption>
+</figure></li>
+<li><p>Paste the queries below into the new query window, and select Execute on the toolbar.</p>
+<pre><code>select productkey,
+
+salesamount
+
+from ColumnStore_FactResellerSales
+
+select productkey,
+
+salesamount
+
+from FactResellerSales</code></pre></li>
+<li><p>In the Results pane, select the Execution Plan tab. Check the (relative to the batch) percentage value of the two queries and compare them.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image121.png" title="Compare the two queries" alt="The Execution Plan tab is highlighted in the Results pane, 7% is highlighted for Query 1, and 93% is highlighted for Query 2." /><figcaption>The Execution Plan tab is highlighted in the Results pane, 7% is highlighted for Query 1, and 93% is highlighted for Query 2.</figcaption>
+</figure></li>
+<li><p>Run the same queries again, but this time set statistics IO on in the query by adding the following to the top of the query window.</p>
+<pre><code>set statistics io on
+
+GO</code></pre></li>
+<li><p>Your query should look like:</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image122.png" title="Set stastics IO" alt="The query includes the above information at the top." /><figcaption>The query includes the above information at the top.</figcaption>
+</figure></li>
+<li><p>Select Execute from the toolbar to run the query.</p></li>
+<li><p>Statistics IO reports on the amount of logical pages that are read in order to return the query results. Select the Messages tab of the Results pane, and compare two numbers, logical reads and lob logical reads. You should see a significant drop in total number of logical reads on the columns store table. ;</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image123.png" title="Compare the information" alt="Various information is highlighted on the Messages tab of the Results pane." /><figcaption>Various information is highlighted on the Messages tab of the Results pane.</figcaption>
+</figure></li>
+</ol>
+<h2 id="exercise-5-setup-oracle-11g-express-edition">Exercise 5: Setup Oracle 11g Express Edition</h2>
+<p>Duration: 45 minutes</p>
+<p>In this exercise, you will install Oracle XE on your Lab VM, load a sample database supporting an application, and then migrate the database to SQL Server 2017.</p>
+<h3 id="task-1-install-oracle-xe">Task 1: Install Oracle XE</h3>
+<ol type="1">
+<li><p>Connect to your Lab VM using RDP, as you did in <a href="file://Mac/Dropbox/Microsoft%20Cloud%20Workshops/Database%20Upgrade%20and%20Migration/Hands-on%20Lab%20Step%20By%20Step%20-%20Data%20platform%20upgrade%20and%20migration.docx#_Task_2:_Connect">Before the Hands-on Lab, Task 2</a>.</p>
+<ul>
+<li><p>User name: holuser</p></li>
+<li><p>Password: Password.1!!</p></li>
+</ul></li>
+<li><p>Using a web browser, navigate to <a href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html" class="uri">http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html</a></p></li>
+<li><p>Accept the license agreement, and select Oracle Database 11g Express Edition Release 2 for Windows x64.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image124.png" title="Accept the license agreement" alt="Accept the license agreement and Oracle Database 11g Express Edition Release 2 for Windows x64 are highlighted under Oracle Database Express Edition 11g Release 2." /><figcaption>Accept the license agreement and Oracle Database 11g Express Edition Release 2 for Windows x64 are highlighted under Oracle Database Express Edition 11g Release 2.</figcaption>
+</figure></li>
+<li><p>Sign in with your Oracle account to complete the download. If you don’t already have a free Oracle account, you will need to create one.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image125.png" title="Sign in to complete the download" alt="This is a screenshot of the Sign in screen." /><figcaption>This is a screenshot of the Sign in screen.</figcaption>
+</figure></li>
+<li><p>After signing in, the file will download.</p></li>
+<li><p>Unzip the file, and navigate to the DISK1 folder.</p></li>
+<li><p>Right-click setup.exe, and select Run as administrator.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image126.png" title="Run setup.exe as an administrator" alt="In File Explorer, setup.exe is selected, and Run as administrator is highlighted in the shortcut menu." /><figcaption>In File Explorer, setup.exe is selected, and Run as administrator is highlighted in the shortcut menu.</figcaption>
+</figure></li>
+<li><p>Select Next to step through each screen of the installer, accepting the license agreement and default values, until you get to the Specify Database Passwords screen.</p></li>
+<li><p>Set the password to Password.1!!, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image127.png" title="Set the password" alt="The above credentials are entered on the Specify Database Passwords screen." /><figcaption>The above credentials are entered on the Specify Database Passwords screen.</figcaption>
+</figure></li>
+<li><p>On the Summary screen, take note of the ports being assigned, and select Install.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image128.png" title="Note the ports being assigned" alt="Several of the ports being assigned are highlighted on the Summary screen." /><figcaption>Several of the ports being assigned are highlighted on the Summary screen.</figcaption>
+</figure></li>
+<li><p>Select Finish on the final dialog to compete the installation.</p></li>
+</ol>
+<h3 id="task-2-install-oracle-data-access-components">Task 2: Install Oracle Data Access components</h3>
+<ol type="1">
+<li><p>On your Lab VM, open a browser and navigate to <a href="http://www.oracle.com/technetwork/database/windows/downloads/index-090165.html" class="uri">http://www.oracle.com/technetwork/database/windows/downloads/index-090165.html</a></p></li>
+<li><p>Accept the license agreement, and select the ODAC122010_x64.zip download link under 64-bit ODAC 12.2c Release 1 (12.2.0.1.0) for Windows x64.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image129.png" title="64-bit Oracle Data Access Components (ODAC) Downloads screen" alt="Accept the license agreement and ODAC122010_x64.zip are highlighted on the 64-bit Oracle Data Access Components (ODAC) Downloads screen." /><figcaption>Accept the license agreement and ODAC122010_x64.zip are highlighted on the 64-bit Oracle Data Access Components (ODAC) Downloads screen.</figcaption>
+</figure></li>
+<li><p>When the download completes, extract the contents of the ZIP file to a local drive.</p></li>
+<li><p>Navigate to the folder containing the extracted ZIP file, and right-click setup.exe, then select Run as administrator to begin the installation.</p></li>
+<li><p>Select Next to accept the default language, English, on the first screen.</p></li>
+<li><p>On the Specify Oracle Home User screen, accept the default, Use Windows Built-in Account, and select Next.</p></li>
+<li><p>Accept the default installation locations, and select Next.</p></li>
+<li><p>On the Available Product Components, uncheck “Oracle Data Access Components Documentation for Visual Studio”, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image130.png" title="Clear Oracle Data Access Components Documentation for Visual Studio" alt="Oracle Data Access Components Documentation for Visual Studio is cleared on the Available Product Components screen, and Next is selected at the bottom." /><figcaption>Oracle Data Access Components Documentation for Visual Studio is cleared on the Available Product Components screen, and Next is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>On the ODP.NET screen, check the box for Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image131.png" title="Select Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level" alt="Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level is selected on the ODP.NET screen, and Next is selected at the bottom." /><figcaption>Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level is selected on the ODP.NET screen, and Next is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>On the DB Connection Configuration screen, enter the following:</p>
+<ul>
+<li><p>Connection Alias: Northwind</p></li>
+<li><p>Port Number: 1521</p></li>
+<li><p>Database Host Name: localhost</p></li>
+<li><p>Database Service Name: XE</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image132.png" title="Enter the information" alt="The information above is entered on the DB Connection Configuration screen, and Next is selected at the bottom." /><figcaption>The information above is entered on the DB Connection Configuration screen, and Next is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>Select Next.</p></li>
+</ul></li>
+<li><p>If the Next button is disabled on the Perform Prerequisite Checks screen, check the Ignore All box, and then select Next. This screen will be skipped by the installer if no missing requisites are found.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image133.png" title="Clear Ignore All if necessary" alt="The Ignore All box is cleared on highlighted on the Perform Prerequisite Checks screen, and Next is selected at the bottom." /><figcaption>The Ignore All box is cleared on highlighted on the Perform Prerequisite Checks screen, and Next is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>On the Summary screen, select Install.</p></li>
+<li><p>On the Finish screen, select Close.</p></li>
+</ol>
+<h3 id="task-3-install-sql-server-migration-assistant-ssma-7.x-for-oracle">Task 3: Install SQL Server Migration Assistant (SSMA) 7.x for Oracle</h3>
+<ol type="1">
+<li><p>In a web browser on your Lab VM, navigate to <a href="https://www.microsoft.com/en-us/download/details.aspx?id=54258" class="uri">https://www.microsoft.com/en-us/download/details.aspx?id=54258</a></p></li>
+<li><p>Select the Download button to download SSMA.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image134.png" title="Download link" alt="Download is selected and highlighted under Microsoft SQL Server Migration Assistant v7.7 for Oracle." /><figcaption>Download is selected and highlighted under Microsoft SQL Server Migration Assistant v7.7 for Oracle.</figcaption>
+</figure></li>
+<li><p>Check the box next to SSMA for Oracle.7.7.0.msi, and select Next to begin the download.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image135.png" title="Choose the download you want section" alt="SSMAforOracle_7.7.0.msi and Next are selected and highlighted under Choose the download you want." /><figcaption>SSMAforOracle_7.7.0.msi and Next are selected and highlighted under Choose the download you want.</figcaption>
+</figure></li>
+<li><p>Run SSMA for Oracle.7.7.0.msi to start the installation of SSMA. Select Next on the Welcome screen.</p>
+<p>[Next is selected on the SSMA for Oracle Welcome screen.](images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image136.png &quot; SSMA for Oracle Welcome screen&quot;)</p></li>
+<li><p>Accept the License Agreement, and select Next.</p></li>
+<li><p>On the Choose Setup Type screen, select Typical, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image137.png" title="Select Typical" alt="Typical is selected and highlighted on the Choose Setup Type screen." /><figcaption>Typical is selected and highlighted on the Choose Setup Type screen.</figcaption>
+</figure></li>
+<li><p>Select Install on the Ready to Install screen.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image138.png" title="Select Install" alt="Install is selected on the Ready to Install screen." /><figcaption>Install is selected on the Ready to Install screen.</figcaption>
+</figure></li>
+<li><p>Select Finish when the installation is complete.</p></li>
+</ol>
+<h3 id="task-4-install-dbforge-fusion-tool-trial-version">Task 4: Install dbForge Fusion tool (trial version)</h3>
+<p>In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, the Oracle database in Visual Studio 2017 Community Edition. This step is necessary because the Oracle Developer Tools extension does not currently work with Visual Studio 2017 Community Edition.</p>
+<ol type="1">
+<li><p>On your Lab VM, open a web browser and navigate to <a href="https://www.devart.com/dbforge/oracle/fusion/download.html" class="uri">https://www.devart.com/dbforge/oracle/fusion/download.html</a></p></li>
+<li><p>Scroll down on the page, and download a Trial of the current version by selecting the green download link.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image139.png" title="dbForge Fusion, Current Version section" alt="Trial and Download are highlighted under dbForge Fusion, Current Version." /><figcaption>Trial and Download are highlighted under dbForge Fusion, Current Version.</figcaption>
+</figure></li>
+<li><p>Run the installer. If Visual Studio is open, you will need to exit the application prior to running the installer.</p></li>
+<li><p>Select Next on the Welcome screen.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image140.png" title="Select Next on the Welcome screen" alt="Next is selected on the Devart dbForge Fusion for Oracle Welcome screen." /><figcaption>Next is selected on the Devart dbForge Fusion for Oracle Welcome screen.</figcaption>
+</figure></li>
+<li><p>Accept the license agreement, and select Next.</p></li>
+<li><p>Accept the default installation location, and select Next.</p></li>
+<li><p>On the Select Start Menu Folder, select Next, accepting the default value.</p></li>
+<li><p>On the Install Products for Add-in screen, ensure Visual Studio 2017 is checked, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image141.png" title="Select Visual Studio 2017" alt="Visual Studio 2017 and Next are selected on the Install Products for Add-in screen." /><figcaption>Visual Studio 2017 and Next are selected on the Install Products for Add-in screen.</figcaption>
+</figure></li>
+<li><p>On the Merge Help Namespaces screen, leave the check box unchecked, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image142.png" title="Clear Perform pre-merging of namespaces during the installation" alt="Perform pre-merging of namespaces during the installation is cleared and Next is selected on the Merge Help Namespaces screen." /><figcaption>Perform pre-merging of namespaces during the installation is cleared and Next is selected on the Merge Help Namespaces screen.</figcaption>
+</figure></li>
+<li><p>Select Install on the Ready to Install screen.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image143.png" title="Select Install" alt="Install is selected on the Ready to Install screen." /><figcaption>Install is selected on the Ready to Install screen.</figcaption>
+</figure></li>
+<li><p>Select Finish when the installation is complete.</p></li>
+</ol>
+<h3 id="task-5-create-the-northwind-database-in-oracle-11g-xe">Task 5: Create the Northwind database in Oracle 11g XE</h3>
+<p>In this task, you will create a connection to the Oracle database on your Lab VM, and create a database called Northwind.</p>
+<ol type="1">
+<li><p>On your Lab VM, download the starter files from <a href="http://bit.ly/2rwxnwW" class="uri">http://bit.ly/2rwxnwW</a>. (Note the URL is cases sensitive, so you may need copy and paste it into your browser.)</p></li>
+<li><p>When the download completes, unzip the contents to C:\handsonlab.</p></li>
+<li><p>Within the handsonlab folder, open the NorthwindMVC folder, and double-click NorthwindMVC.sln to open the project in Visual Studio 2017.</p></li>
+<li><p>If prompted for how you want to open the file, select Visual Studio 2017, and select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image144.png" title="Open Visual Studio 2017" alt="Visual Studio 2017 is selected and highlighted under How do you want to open this file?" /><figcaption>Visual Studio 2017 is selected and highlighted under How do you want to open this file?</figcaption>
+</figure></li>
+<li><p>Sign into Visual Studio (or create an account if you don’t have one), when prompted.</p></li>
+<li><p>At the Security Warning screen, uncheck Ask me for every project in this solution, and select OK. <img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image145.png" title="Clear Ask me for every project in this solution" alt="Ask me for every project in this solution is cleared and OK is selected on the Security Warning screen." /></p></li>
+<li><p>Once then solution is open in Visual Studio, select the Fusion menu, and select New Connection.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image146.png" title="Select New Connection" alt="New Connection is highlighted in the Fusion menu in Visual Studio." /><figcaption>New Connection is highlighted in the Fusion menu in Visual Studio.</figcaption>
+</figure></li>
+<li><p>In the Database Connection properties dialog, set the following values:</p>
+<ul>
+<li><p>Host: localhost</p></li>
+<li><p>Port: Leave 1521 selected</p></li>
+<li><p>Select SID, and enter XE</p></li>
+<li><p>User: system</p></li>
+<li><p>Password: Password.1!!</p></li>
+<li><p>Check Allow saving password</p></li>
+<li><p>Connect as: Normal</p></li>
+<li><p>Connection Name: Northwind</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image147.png" title="Specify the settings" alt="The information above is entered in the Database Connection Properties - Oracle dialog box, and OK is selected at the bottom." /><figcaption>The information above is entered in the Database Connection Properties - Oracle dialog box, and OK is selected at the bottom.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select Test Connection to verify the settings are correct, and select OK to close the popup.</p></li>
+<li><p>Select OK to create the Database Connection.</p></li>
+<li><p>You will now see the Northwind connection in the Database Explorer window.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image148.png" title="View the Northwind connection" alt="The Northwind connection is selected in the Database Explorer window." /><figcaption>The Northwind connection is selected in the Database Explorer window.</figcaption>
+</figure></li>
+<li><p>Select Fusion from the Visual Studio menu, and select New Query. You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image149.png" title="Select New Query" alt="New Query is highlighted in the Fusion menu in Visual Studio." /><figcaption>New Query is highlighted in the Fusion menu in Visual Studio.</figcaption>
+</figure></li>
+<li><p>You will be working in the Text area of the query window, so at the bottom of the query window, select the Swap views icon to move the Text area to the top of the window, and the Query Builder down. You can then use the mouse to expand the Text area.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image150.png" title="Select the Swap views icon" alt="The Swap views icon is highlighted at the bottom of the query window." /><figcaption>The Swap views icon is highlighted at the bottom of the query window.</figcaption>
+</figure></li>
+<li><p>In Visual Studio, select File, Open File, and navigate to C:\handsonlab\NorthwindMVC\Oracle Scripts, and select the file 1.northwind.oracle.schema.sql. Select Open.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image151.png" title="Open 1.northwind.oracle.schema.sql" alt="The 1.northwind.oracle.schema.sql file is selected and highlighted in the Open File window, and Open is selected at the bottom." /><figcaption>The 1.northwind.oracle.schema.sql file is selected and highlighted in the Open File window, and Open is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>Select and copy all the file contents (use CTRL+A, CTRL+C).</p></li>
+<li><p>Select the tab for your Fusion query.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image152.png" title="Select Query1.sql*" alt="Query1.sql* is selected and highlighted on the tab for your Fusion query." /><figcaption>Query1.sql* is selected and highlighted on the tab for your Fusion query.</figcaption>
+</figure></li>
+<li><p>Paste (CTRL+V) the text copied in the previous step into the Text area at the bottom of the query window.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image153.png" title="Paste the text" alt="The text from the previous step is pasted and highlighted in the text area at the bottom of the query window." /><figcaption>The text from the previous step is pasted and highlighted in the text area at the bottom of the query window.</figcaption>
+</figure></li>
+<li><p>Select the Execute script button on the Visual Studio toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image154.png" title="Run the script" alt="The Execute script icon is highlighted on the Visual Studio toolbar." /><figcaption>The Execute script icon is highlighted on the Visual Studio toolbar.</figcaption>
+</figure></li>
+<li><p>The results of execution can be viewed in the Output window, found at the bottom left of the Visual Studio window.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image155.png" title="View the results" alt="Output is highlighted in the Output window." /><figcaption>Output is highlighted in the Output window.</figcaption>
+</figure></li>
+<li><p>In the Database Explorer window, right-click on the Northwind connection, and select Modify Connection… (If the Database Explorer is not already open, you can open it by selecting Fusion in the menu, then selecting Database Explorer).</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image156.png" title="Select Modify Connection" alt="Modify Connection is highlighted in the submenu for the Northwind connection in the Database Explorer window." /><figcaption>Modify Connection is highlighted in the submenu for the Northwind connection in the Database Explorer window.</figcaption>
+</figure></li>
+<li><p>In the Modify Connection dialog, change the username and password as follows:</p>
+<ul>
+<li><p>User name: NW</p></li>
+<li><p>Password: oracledemo123</p></li>
+</ul></li>
+<li><p>Select Test Connection to verify the new credentials work.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image157.png" title="Specify the settings" alt="The information above is entered and highlighted in the Database Connection Properties - Oracle dialog box, and Test Connection is selected at the bottom." /><figcaption>The information above is entered and highlighted in the Database Connection Properties - Oracle dialog box, and Test Connection is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>Select OK to close the Database Connection properties dialog.</p></li>
+<li><p>Return to your Fusion query window in Visual Studio.</p></li>
+<li><p>Delete all the query text pasted into the Text area previously. (Click in the Text area, press CTRL+A, then press Delete).</p></li>
+<li><p>Select the Open File icon on the Visual Studio toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image158.png" title="Select Open File" alt="The Open File icon is highlighted on the Visual Studio toolbar." /><figcaption>The Open File icon is highlighted on the Visual Studio toolbar.</figcaption>
+</figure></li>
+<li><p>In the Open File dialog, navigate to C:\handsonlab\NorthwindMVC\Oracle Scripts. Select the file 2.northwind.oracle.tables.views.sql, and select Open.</p></li>
+<li><p>As you did previously, copy all the text from the query, and paste it into the Text area in the Fusion query window.</p></li>
+<li><p>Select the Execute script button on the toolbar, and view the results of execute in the Output pane.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image154.png" title="Run the script" alt="The Execute script icon is highlighted on the Visual Studio toolbar." /><figcaption>The Execute script icon is highlighted on the Visual Studio toolbar.</figcaption>
+</figure></li>
+<li><p>Repeat steps 26-29, replacing the file name in step 27 with each of the following:</p>
+<ul>
+<li><p>3.northwind.oracle.packages.sql</p></li>
+<li><p>4.northwind.oracle.sps.sql</p>
+<ul>
+<li><p>During the Execute script step for this file, you will need to execute each CREATE OR REPLACE statement independently.</p></li>
+<li><p>Using your mouse, select the first statement, starting with CREATE and going to END;</p></li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image159.png" title="Select the first statement" alt="The first statement between CREATE and END is highlighted." /><figcaption>The first statement between CREATE and END is highlighted.</figcaption>
+</figure>
+<ul>
+<li>Next, select Execute Selection in the Visual Studio toolbar.</li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image160.png" title="Select Execute Selection" alt="Execute Selection is highlighted on the Visual Studio toolbar." /><figcaption>Execute Selection is highlighted on the Visual Studio toolbar.</figcaption>
+</figure>
+<ul>
+<li>Repeat this for each of the remaining CREATE OR REPLACE… END; blocks in the script file (there are 7 more to execute, for 8 total)</li>
+</ul></li>
+<li><p>5.northwind.oracle.seed.sql</p>
+<ul>
+<li>This query can take a few minutes to run, so make sure you wait until you see Execute succeeded in the output window before executing the next file, like the following.</li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image161.png" title="Execute succeeded message" alt="This is a screenshot of the Execute succeeded message in the output window." /><figcaption>This is a screenshot of the Execute succeeded message in the output window.</figcaption>
+</figure></li>
+<li><p>6.northwind.oracle.constraints.sql</p></li>
+</ul></li>
+</ol>
+<h3 id="task-6-configure-the-starter-application-to-use-oracle">Task 6: Configure the Starter Application to use Oracle</h3>
+<p>In this task, you will add the necessary configuration to the NorthwindMVC solution to connect to the Oracle database you created in the previous task.</p>
+<ol type="1">
+<li><p>In Visual Studio, select Build from the menu, then select Build Solution.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image162.png" title="Select Build Solution" alt="Build Solution is highlighted in the Build menu in Visual Studio." /><figcaption>Build Solution is highlighted in the Build menu in Visual Studio.</figcaption>
+</figure></li>
+<li><p>Open Web.config by double-clicking the file in the Solution Explorer, on the right-hand side in Visual Studio.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image163.png" title="Open Web.config" alt="Web.config is selected under Solution ‘NorthwindMVC’ (1 project) in Solution Explorer." /><figcaption>Web.config is selected under Solution ‘NorthwindMVC’ (1 project) in Solution Explorer.</figcaption>
+</figure></li>
+<li><p>In the Web.config file, locate the connectionString section, and verify the connection string named “OracleConnectionString” matches the values you have used in this hands-on lab:</p>
+<pre><code>DATA SOURCE=localhost:1521/XE;PASSWORD=oracledemo123;USER ID=NW</code></pre>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image164.png" title="Verify the connection string" alt="The information above is highlighted in the Web.config file." /><figcaption>The information above is highlighted in the Web.config file.</figcaption>
+</figure></li>
+<li><p>Run the solution by selecting the green Start button on the toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image165.png" title="Run the solution" alt="Start is selected on the toolbar." /><figcaption>Start is selected on the toolbar.</figcaption>
+</figure></li>
+<li><p>You should see the Northwind Traders Dashboard load in your browser.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image166.png" title="View the dashboard" alt="The Northwind Traders Dashboard is visible in a browser." /><figcaption>The Northwind Traders Dashboard is visible in a browser.</figcaption>
+</figure></li>
+<li><p>Close the browser to stop debugging the application, and return to Visual Studio.</p></li>
+</ol>
+<h2 id="exercise-6-migrate-the-oracle-database-to-sql-server-2017">Exercise 6: Migrate the Oracle database to SQL Server 2017</h2>
+<p>Duration: 30 minutes</p>
+<p>In this exercise, you will migrate the Oracle database into SQL Server 2017 using SSMA.</p>
+<h3 id="task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma">Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA</h3>
+<ol type="1">
+<li><p>Launch Microsoft SQL Server Migration Assistant for Oracle (32-bit) from the Start Menu.</p></li>
+<li><p>Select File, then New Project…</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image167.png" title="Select New Project" alt="File and New Project are highlighted in the SQL Server Migration Assistant for Oracle." /><figcaption>File and New Project are highlighted in the SQL Server Migration Assistant for Oracle.</figcaption>
+</figure></li>
+<li><p>In the New Project dialog, accept the default name and location, select SQL Server 2017 for the Migration To value, and select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image168.png" title="New Project dialog box" alt="In the New Project dialog box, SQL Server 2017 is selected and highlighted in the Migration To box." /><figcaption>In the New Project dialog box, SQL Server 2017 is selected and highlighted in the Migration To box.</figcaption>
+</figure></li>
+<li><p>Select Connect to Oracle in the SSMA toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image169.png" title="Select Connect to Oracle" alt="Connect to Oracle is highlighted on the SSMA toolbar." /><figcaption>Connect to Oracle is highlighted on the SSMA toolbar.</figcaption>
+</figure></li>
+<li><p>In the Connect to Oracle dialog, enter the following:</p>
+<ul>
+<li><p>Provider: Leave set to the default value, Oracle Client Provider</p></li>
+<li><p>Mode: Leave set to Standard mode</p></li>
+<li><p>Server name: Enter localhost</p></li>
+<li><p>Server port: Set to 1521</p></li>
+<li><p>Oracle SID: Enter XE</p></li>
+<li><p>User name: Enter NW</p></li>
+<li><p>Password: Enter oracledemo123</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image170.png" title="Specify the settings" alt="The information above is entered in the Connect to Oracle dialog box, and Connect is selected at the bottom." /><figcaption>The information above is entered in the Connect to Oracle dialog box, and Connect is selected at the bottom.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select Connect.</p></li>
+<li><p>In the Output window, you will see a message that the connection was established successfully, like the following:</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image171.png" title="View the successful connection message" alt="The successful connection message is highlighted in the Output window." /><figcaption>The successful connection message is highlighted in the Output window.</figcaption>
+</figure></li>
+<li><p>Under Oracle Metadata Explorer, expand the localhost node, Schemas, and confirm you can see the NW schema, which will be the source for the migration.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image172.png" title="Confirm the NW schema" alt="The NW schema is highlighted in Oracle Metadata Explorer." /><figcaption>The NW schema is highlighted in Oracle Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>Next, select Connect to SQL Server from the toolbar, to add your SQL 2017 connection.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image173.png" title="Select Connect to SQL Server" alt="Connect to SQL Server is highlighted on the toolbar." /><figcaption>Connect to SQL Server is highlighted on the toolbar.</figcaption>
+</figure></li>
+<li><p>In the connect to SQL Server dialog, provide the following:</p>
+<ul>
+<li><p>Server name: Enter the IP address of your SqlServerDw VM. You can get this from the Azure portal by navigating to your VM’s blade, and looking at the Essentials area.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image174.png" title="Enter the IP address" alt="The IP address of your SqlServerDw VM is highlighted in the Essentials area of your VM’s blade in the Azure portal." /><figcaption>The IP address of your SqlServerDw VM is highlighted in the Essentials area of your VM’s blade in the Azure portal.</figcaption>
+</figure></li>
+<li><p>Server port: Leave set to [default]</p></li>
+<li><p>Database: Enter Northwind</p></li>
+<li><p>Authentication: Set to SQL Server Authentication</p></li>
+<li><p>User name: Enter sa</p></li>
+<li><p>Password: Enter Password.1!!</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image175.png" title="Specify the settings" alt="The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom." /><figcaption>The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select Connect.</p></li>
+<li><p>You will see a success message in the output window.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image176.png" title="View the successful connection message" alt="The successful connection message is highlighted in the Output window." /><figcaption>The successful connection message is highlighted in the Output window.</figcaption>
+</figure></li>
+<li><p>In the SQL Server Metadata Explorer, expand your servers node, then Databases. You should see Northwind listed.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image177.png" title="Verify the Northwind listing" alt="Northwind is highlighted under Databases in SQL Server Metadata Explorer." /><figcaption>Northwind is highlighted under Databases in SQL Server Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>In the Oracle Metadata Explorer, check the box next to NW, and make sure it is selected in the tree.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image178.png" title="Confirm the NW schema" alt="The NW schema is selected and highlighted in Oracle Metadata Explorer." /><figcaption>The NW schema is selected and highlighted in Oracle Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>In the SQL Server Metadata explorer, check the box next to Northwind.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image179.png" title="Select Northwind" alt="Northwind is selected and highlighted under Databases in SQL Server Metadata Explorer." /><figcaption>Northwind is selected and highlighted under Databases in SQL Server Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>In the SSMA toolbar, select Convert Schema. There is a bug in SSMA which prevents this button to being properly enabled, so if the button is disabled, you can expand the NW node in the Oracle Metadata Explorer, which should cause the Convert Schema button to become enabled. You can also right-click on the NW database in the Oracle Metadata Explorer, and select Convert Schema if that does not work.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image180.png" title="Select Convert Schema" alt="Convert Schema is highlighted on the SSMA toolbar." /><figcaption>Convert Schema is highlighted on the SSMA toolbar.</figcaption>
+</figure></li>
+<li><p>After about a minute the conversion should have completed.</p></li>
+<li><p>In the SQL Server Metadata Explorer, observe that new schema objects have been added. For example, under Northwind, Schemas, NW, Tables you should see the tables from the Oracle database.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image181.png" title="Observe new schema objects" alt="NW is selected in the SQL Server Metadata Explorer, and tables from the Oracle database are visible below that." /><figcaption>NW is selected in the SQL Server Metadata Explorer, and tables from the Oracle database are visible below that.</figcaption>
+</figure></li>
+<li><p>In the output pane, you will notice a message that the conversion finished with 1 error, and 22 warnings.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image182.png" title="View the conversion message" alt="The conversion message is highlighted in the Output window." /><figcaption>The conversion message is highlighted in the Output window.</figcaption>
+</figure></li>
+<li><p>To view the errors, select the Errors List at the bottom of the SSMA screen.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image183.png" title="Select Errors List" alt="Errors List is highlighted at the bottom of the SSMA screen." /><figcaption>Errors List is highlighted at the bottom of the SSMA screen.</figcaption>
+</figure></li>
+<li><p>Select Warnings to hide the warnings, and leave only Errors displayed.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image184.png" title="Errors list" alt="The Warnings notification is highlighted in the Errors List." /><figcaption>The Warnings notification is highlighted in the Errors List.</figcaption>
+</figure></li>
+<li><p>Double-click on the error listed. This will display the Table in both Oracle and SQL Server that is causing the error, EMPLOYEETERRITORIES. Notice the Oracle table lists EMPLOYEEID with a data type of NUMBER, while SQL Server is expecting a data type of float(53).</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image185.png" title="View the information" alt="NUMBER and float(53) are highlighted under Data Type, and EMPLOYEEID is selected in the split-screen views of the Table tab for Oracle and SQL Server." /><figcaption>NUMBER and float(53) are highlighted under Data Type, and EMPLOYEEID is selected in the split-screen views of the Table tab for Oracle and SQL Server.</figcaption>
+</figure></li>
+<li><p>Look at the table definition for the table on the Oracle side.</p></li>
+<li><p>To change the data type, select the Type Mapping tab, select the row with source type of number, and select Edit.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image186.png" title="Change the data type" alt="The Type Mapping tab is highlighted, and below that, the row with source type of number is highlighted, and Edit is highlighted on the right." /><figcaption>The Type Mapping tab is highlighted, and below that, the row with source type of number is highlighted, and Edit is highlighted on the right.</figcaption>
+</figure></li>
+<li><p>In the Edit Type Mapping dialog, set the Target type to numeric(precision, scale), set the Precision to 10, and select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image187.png" title="Specify the settings" alt="The information above is entered in the Edit Type Mapping dialog box, and OK is selected at the bottom." /><figcaption>The information above is entered in the Edit Type Mapping dialog box, and OK is selected at the bottom.</figcaption>
+</figure></li>
+<li><p>Select Apply on the Type mapping tab.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image188.png" title="Select Apply" alt="The row with source type of number is highlighted on the Type Mapping tab, and Apply is highlighted at the bottom." /><figcaption>The row with source type of number is highlighted on the Type Mapping tab, and Apply is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>In the Oracle Metadata Explorer, right-click the EMPLOYEETERRITORIES table, and select Convert Schema.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image189.png" title="Select Convert Schema" alt="Convert Schema is highlighted in the submenu of the EMPLOYEETERRITORIES table in Oracle Metadata Explorer." /><figcaption>Convert Schema is highlighted in the submenu of the EMPLOYEETERRITORIES table in Oracle Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>When prompted that the target exists, select Overwrite.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image190.png" title="Select Overwrite" alt="Overwrite is selected and highlighted in the Target Exists prompt." /><figcaption>Overwrite is selected and highlighted in the Target Exists prompt.</figcaption>
+</figure></li>
+<li><p>Notice the error is now gone from the Error List.</p></li>
+<li><p>We are going to fix another data type conversion issue now, which will otherwise appear when we attempt to migrate the data.</p></li>
+<li><p>Select the ORDER_DETAILS table in the Oracle Metadata Explorer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image191.png" title="Select the ORDER_DETAILS table" alt="The ORDER_DETAILS table is selected and highlighted in Oracle Metadata Explorer." /><figcaption>The ORDER_DETAILS table is selected and highlighted in Oracle Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>Next, you are going to convert the type associated with the DISCOUNT column, FLOAT(23) to a numeric(10, 0), similar to what you did for the EMPLOYEETERRITORIES table.</p></li>
+<li><p>Select the Type Mapping tab, then select float[*..53] from the Source Type list, and select Edit.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image192.png" title="Edit float[*..53]" alt="The row with source type of float[*..53] is selected and highlighted on the Type Mapping tab, and Edit is highlighted on the right." /><figcaption>The row with source type of float[*..53] is selected and highlighted on the Type Mapping tab, and Edit is highlighted on the right.</figcaption>
+</figure></li>
+<li><p>In the Edit Type Mapping dialog, change the Target type to numeric(precision, scale), and set the Precision to 10, then select OK.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image193.png" title="Change the Target type" alt="In the Edit Type Mapping dialog box, numeric(precision, scale) is highlighted under Target type, 10 is highlighted next to Replace with under Precision, and OK is highlighted at the bottom." /><figcaption>In the Edit Type Mapping dialog box, numeric(precision, scale) is highlighted under Target type, 10 is highlighted next to Replace with under Precision, and OK is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>Select Apply to save the changes to the ORDER_DETAILS table.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image194.png" title="Apply float[*..53]" alt="The row with source type of float[*..53] is selected and highlighted on the Type Mapping tab, and Apply is highlighted at the bottom." /><figcaption>The row with source type of float[*..53] is selected and highlighted on the Type Mapping tab, and Apply is highlighted at the bottom.</figcaption>
+</figure></li>
+<li><p>Now, right-click on the ORDER_DETAILS table in the Oracle Metadata Explorer, and select Convert Schema.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image195.png" title="Select Convert Schema" alt="Convert Schema is highlighted in the submenu of the ORDER_DETAILS table in Oracle Metadata Explorer." /><figcaption>Convert Schema is highlighted in the submenu of the ORDER_DETAILS table in Oracle Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>When prompted that the target exists, select Overwrite.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image196.png" title="Target Exists prompt" alt="Overwrite is selected and highlighted in the Target Exists prompt." /><figcaption>Overwrite is selected and highlighted in the Target Exists prompt.</figcaption>
+</figure></li>
+<li><p>[Optional] Save the project. This can take a while, and is not necessary to complete the hands-on lab.</p></li>
+<li><p>To apply the resultant schema to the Northwind database in SQL Server, use the SQL Server Metadata Explorer to view the Northwind database. Right-click Northwind, and select Synchronize with Database.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image197.png" title="Select Synchronize with Database" alt="Synchronize with Database is highlighted in the submenu of the Northwind database in SQL Server Metadata Explorer." /><figcaption>Synchronize with Database is highlighted in the submenu of the Northwind database in SQL Server Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>Select OK in the Synchronize with the Database dialog.</p></li>
+<li><p>The Synchronize action will result in multiple errors in the Error List, resulting from attempting to add the SSMA assemblies to the Northwind database.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image198.png" title="View the errors" alt="The Errors notification is highlighted at the top of the Errors List window, and the first of multiple errors is selected and highlighted in the Message list." /><figcaption>The Errors notification is highlighted at the top of the Errors List window, and the first of multiple errors is selected and highlighted in the Message list.</figcaption>
+</figure></li>
+<li><p>These errors are the result of improvements implemented in SQL Server 2017 SQLCLR security model. Specifically, in SQL Server 2017, Microsoft now by default requires that all type of assemblies (SAFE, EXTERNAL_ACCESS, UNSAFE) are authorized for UNSAFE access.</p></li>
+<li><p>For this hands-on lab, you will be adding the assemblies causing the errors to the trusted assembly list, which is synonymous with whitelisting the assemblies. To fix these errors, complete the following:</p>
+<ul>
+<li><p>Under the Northwind database in the SQL Server Metadata Explorer in SSMA, expand Assemblies.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image199.png" title="Expand Assemblies" alt="Three items are listed below Assemblies, which is highlighted below the Northwind database in SQL Server Metadata Explorer." /><figcaption>Three items are listed below Assemblies, which is highlighted below the Northwind database in SQL Server Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>Right-click SSMA4OracleSQLServerCollections.NET, and select Save as Script.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image200.png" title="Select Save as Script" alt="Save as Script is highlighted in the submenu for SSMA4OracleSQLServerCollections.NET." /><figcaption>Save as Script is highlighted in the submenu for SSMA4OracleSQLServerCollections.NET.</figcaption>
+</figure></li>
+<li><p>Save the script to the local machine.</p></li>
+<li><p>Now, you will need to use SSMS on your SqlServerDw VM.</p>
+<ul>
+<li><p>Open an RDP connection to your SqlServerDw VM, if one is not already open.</p></li>
+<li><p>Open SSMS 17.</p></li>
+<li><p>Connect to the SQL Server 2017 instance (SqlServerDw), by selecting Connect, and entering SqlServerDw into the Server name field.</p></li>
+<li><p>Expand Databases.</p></li>
+<li><p>Right-click on Northwind, and select New Query.</p></li>
+<li><p>Paste the following query into the new query window. ``` USE master;</p></li>
+</ul></li>
+</ul>
+<p>GO</p>
+<p>DECLARE <span class="citation" data-cites="clrName">@clrName</span> nvarchar(4000) = ‘SSMA4OracleSQLServerCollections.NET’</p>
+<p>DECLARE <span class="citation" data-cites="asmBin">@asmBin</span> varbinary(max) = [INSERT BINARY];</p>
+<p>DECLARE <span class="citation" data-cites="hash">@hash</span> varbinary(64);</p>
+<p>SELECT <span class="citation" data-cites="hash">@hash</span> = HASHBYTES(‘SHA2_512’, <span class="citation" data-cites="asmBin">@asmBin</span>);</p>
+<p>EXEC sys.sp_add_trusted_assembly <span class="citation" data-cites="hash">@hash</span> = <span class="citation" data-cites="hash">@hash</span>, <span class="citation" data-cites="description">@description</span> = <span class="citation" data-cites="clrName">@clrName</span>; ```</p>
+<ul>
+<li><p>Now, return to your Lab VM, and open the saved SSMA4OracleSQLServerCollections.NET.sql file from the desktop with Notepad.exe.</p></li>
+<li><p>Within the SQL file, locate the line that begins with CREATE ASSEMBLY, then locate the word FROM. Copy the binary string that appears after FROM. This value will span all the way down to the line containing the text “WITH PERMISSION_SET = SAFE”. Be sure not to include any whitespace at the end of the binary value.</p></li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image201.png" title="Copy the binary string" alt="The binary string that appears after FROM is highlighted within the SQL file." /><figcaption>The binary string that appears after FROM is highlighted within the SQL file.</figcaption>
+</figure>
+<ul>
+<li><p>Now, return to SSMS on your SqlServerDw VM, and replace [INSERT BINARY] with the copied binary value. The line should end with “;” and there should be no whitespace before the “;”.</p></li>
+<li><p>Execute the query in SSMS.</p></li>
+</ul></li>
+<li><p>Repeat step 34, this time for the assembly SSMA4OracleSQLServerExtensions.NET. Make sure to replace the @clrName variable in the script with the value “SSMA4OracleSQLServerExtensions.NET”.</p></li>
+<li><p>The SSMA assemblies have now been whitelisted in SQL Server 2017.</p></li>
+<li><p>Return to SSMA on your Lab VM, and rerun the Synchronize with Database action on the Northwind database. This will create all the schema objects in the SQL Server Northwind database. There should now be no errors, and the Output pane should show Synchronization operation is complete.</p></li>
+<li><p>Now you need to migrate the data.</p></li>
+<li><p>In the Oracle Metadata Explorer, select NW and from the command bar, select Migrate Data.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image202.png" title="Select Migrate Data" alt="Migrate Data is highlighted in the command bar of Oracle Metadata Explorer." /><figcaption>Migrate Data is highlighted in the command bar of Oracle Metadata Explorer.</figcaption>
+</figure></li>
+<li><p>You will be prompted to re-enter your Oracle credentials for use by the migration connection.</p>
+<ul>
+<li><p>Recall the Oracle credentials are:</p>
+<ul>
+<li><p>Server name: localhost</p></li>
+<li><p>Server port: 1521</p></li>
+<li><p>Oracle SID: XE</p></li>
+<li><p>User name: NW</p></li>
+<li><p>Password: oracledemo123</p></li>
+</ul></li>
+<li><p>The SQL Server credentials are:</p>
+<ul>
+<li><p>Server name: IP address of your SqlServerDw VM (obtained in the essentials area of your VM’s blade in Azure portal)</p></li>
+<li><p>Server port: [default]</p></li>
+<li><p>Authentication: SQL Server Authentication</p></li>
+<li><p>User name: sa</p></li>
+<li><p>Password: Password.1!!</p></li>
+</ul></li>
+</ul></li>
+<li><p>Select Connect.</p></li>
+<li><p>After the migration completes, you will be presented with a Data Migration Report, similar to the following:</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image203.png" title="View the Data Migration Report" alt="This is screenshot of an example Data Migration Report." /><figcaption>This is screenshot of an example Data Migration Report.</figcaption>
+</figure></li>
+</ol>
+<h2 id="exercise-7-migrate-the-application">Exercise 7: Migrate the Application</h2>
+<p>Duration: 15 minutes</p>
+<p>In this exercise, you will modify the NorthwindMVC application, so it targets SQL Server 2017 instead of Oracle.</p>
+<h3 id="task-1-create-a-new-entity-model-against-sql-server">Task 1: Create a new Entity Model against SQL Server</h3>
+<ol type="1">
+<li><p>On your Lab VM, return to Visual Studio, and open Web.config from the Solution Explorer.</p></li>
+<li><p>Modify the connection string named SqlServerConnectionString to match your remote SQL Server credentials.</p>
+<ul>
+<li><p>Replace the value of “data source” with your SqlServerDw VM’s public IP address.</p></li>
+<li><p>Replace the value of “password” with Password.1!!.</p></li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image204.png" title="Replace the password value" alt="The information above is highlighted in Web.config." /><figcaption>The information above is highlighted in Web.config.</figcaption>
+</figure></li>
+<li><p>Build the solution, by selecting Build in the Visual Studio menu, then selecting Build Solution.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image162.png" title="Select Build Solution" alt="Build and Build Solution are highlighted in Visual Studio." /><figcaption>Build and Build Solution are highlighted in Visual Studio.</figcaption>
+</figure></li>
+<li><p>In the Solution Explorer, expand the Data folder, and select all the files within the folder.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image205.png" title="Expand the Data folder" alt="In Solution Explorer, all the files under Data (highlighted) are selected." /><figcaption>In Solution Explorer, all the files under Data (highlighted) are selected.</figcaption>
+</figure></li>
+<li><p>Right-click, and choose Delete.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image206.png" title="Delete the files" alt="Delete is selected in the shortcut menu for all the files listed under Data." /><figcaption>Delete is selected in the shortcut menu for all the files listed under Data.</figcaption>
+</figure></li>
+<li><p>Select OK at the confirmation prompt.</p></li>
+<li><p>Right-click on the Data folder, and select Add &gt; New Item…</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image207.png" title="Select Add" alt="In the shortcut menu for the Data folder, New Item and Add are highlighted." /><figcaption>In the shortcut menu for the Data folder, New Item and Add are highlighted.</figcaption>
+</figure></li>
+<li><p>In the Add New Item dialog, expand Visual C#, select Data, and select ADO.NET Entity Data Model. Enter DataContext for the name, and select Add.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image208.png" title="Add DataContext" alt="In the Add New Item dialog box, Visual C#, Data, ADO.NET Entity Data Model, and DataContext are highlighted." /><figcaption>In the Add New Item dialog box, Visual C#, Data, ADO.NET Entity Data Model, and DataContext are highlighted.</figcaption>
+</figure></li>
+<li><p>In the wizard’s Choose Model Contents dialog, select Code First from database, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image209.png" title="Select Code First from database" alt="Code First from database is highlighted under What should the model contain? in the Entity Data Model Wizard." /><figcaption>Code First from database is highlighted under What should the model contain? in the Entity Data Model Wizard.</figcaption>
+</figure></li>
+<li><p>In the Choose Your Data Connection dialog, select SqlServerConnectionString (Settings) from the drop down, and select Yes, include the sensitive data in the connection string. Uncheck Save connection settings in Web.Config, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image210.png" title="Choose Your Data Connection settings" alt="SqlServerConnectionString (Settings) and Yes, include the sensitive data in the connection string are selected and highlighted in the Entity Data Model Wizard, and Save connection settings in Web.Config is cleared." /><figcaption>SqlServerConnectionString (Settings) and Yes, include the sensitive data in the connection string are selected and highlighted in the Entity Data Model Wizard, and Save connection settings in Web.Config is cleared.</figcaption>
+</figure></li>
+<li><p>In the Connect to SQL Server dialog, enter the Password, Password.1!!.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image211.png" title="Enter the Password" alt="The password above is entered in the Connect to SQL Server dialog box." /><figcaption>The password above is entered in the Connect to SQL Server dialog box.</figcaption>
+</figure></li>
+<li><p>On the Choose Your Database Objects and Settings screen, expand the Tables node, and check NW only. Ensure Pluralize or singularize generated column names is checked.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image212.png" title="Choose Your Database Objects and Settings" alt="The Tables node is selected, and NW is selected and highlighted in the Entity Data Model Wizard. Pluralize or singularize generated column names is also selected." /><figcaption>The Tables node is selected, and NW is selected and highlighted in the Entity Data Model Wizard. Pluralize or singularize generated column names is also selected.</figcaption>
+</figure></li>
+<li><p>Select Finish, and the model will be generated. This may take a few minutes.</p></li>
+</ol>
+<h3 id="task-2-modify-application-code">Task 2: Modify Application Code</h3>
+<ol type="1">
+<li><p>In Visual Studio, open the file DataContext.cs from the Solution Explorer. You may need to collapse the Data folder, and re-expand it after refreshing if you don’t see the file listed.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image213.png" title="Open DataContext.cs" alt="DataContext.cs is highlighted under the Data folder in Solution Explorer." /><figcaption>DataContext.cs is highlighted under the Data folder in Solution Explorer.</figcaption>
+</figure></li>
+<li><p>The call to base in the DataContext constructor, at the top of the file, needs to be updated to reflect the correct connection string.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image214.png" title="Update the call to base" alt="In the DataContext constructor, : base (“name=DataContext”) is highlighted." /><figcaption>In the DataContext constructor, : base (“name=DataContext”) is highlighted.</figcaption>
+</figure></li>
+<li><dl>
+<dt>Change the line from:</dt>
+<dd><p>base (“name=DataContext”)</p>
+</dd>
+</dl></li>
+<li><dl>
+<dt>To:</dt>
+<dd><p>base (“name=SqlServerConnectionString”)</p>
+</dd>
+</dl></li>
+<li><p>Save the file.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image215.png" title="Update the call to base" alt="In the DataContext constructor, : base (“name=SqlServerConnectionString”) is highlighted." /><figcaption>In the DataContext constructor, : base (“name=SqlServerConnectionString”) is highlighted.</figcaption>
+</figure></li>
+<li><p>Next, open the file HomeController.cs, in the Controllers folder in the Solution Explorer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image216.png" title="Open HomeController.cs" alt="The HomeController.cs file is selected and highlighted under the Controllers folder in Solution Explorer." /><figcaption>The HomeController.cs file is selected and highlighted under the Controllers folder in Solution Explorer.</figcaption>
+</figure></li>
+<li><p>Comment out the code under the Oracle comment. First, select the lines for the Oracle code, then select the Comment button in the toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image217.png" title="Comment out code" alt="The code under the Oracle comment is highlighted and labeled 1, and the Comment button in the toolbar is highlighted and labeled 2." /><figcaption>The code under the Oracle comment is highlighted and labeled 1, and the Comment button in the toolbar is highlighted and labeled 2.</figcaption>
+</figure></li>
+<li><p>Next, uncomment the code under the SQL Server comment. Select the commented out code, then select the Uncomment button on the toolbar. You may need to click the Uncomment button twice to uncomment the code.</p>
+<p>The lines will change from green to colored text when the comment characters have been removed from the front of each line. This code change is done because of differences in how stored procedures are accessed in Oracle versus Sql Server.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image218.png" title="Uncomment code" alt="The code under the SQL Server comment is highlighted and labeled 1, and the Uncomment button in the toolbar is highlighted and labeled 2." /><figcaption>The code under the SQL Server comment is highlighted and labeled 1, and the Uncomment button in the toolbar is highlighted and labeled 2.</figcaption>
+</figure></li>
+<li><p>Save the changes to HomeController.cs.</p></li>
+<li><p>Open the file, SALESBYYEAR.cs, in the Models folder in the Solution Explorer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image219.png" title="Open SALESBYYEAR.cs" alt="SALESBYYEAR.cs is highlighted under the Models folder in the Solution Explorer." /><figcaption>SALESBYYEAR.cs is highlighted under the Models folder in the Solution Explorer.</figcaption>
+</figure></li>
+<li><p>Change the types of the following properties:</p>
+<ul>
+<li><p>Change the SUBTOTAL property from double to decimal.</p></li>
+<li><p>Change the YEAR property from string to int.</p></li>
+</ul>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image220.png" title="Change the SUBTOTAL and YEAR properties" alt="The decimal and int property values are highlighted." /><figcaption>The decimal and int property values are highlighted.</figcaption>
+</figure></li>
+<li><p>Save the file.</p></li>
+<li><p>Open the SalesByYearViewModel.cs file from the Models folder in the Solution Explorer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image221.png" title="Open SalesByYearViewModel.cs" alt="SalesByYearViewModel.cs is highlighted under the Models folder in the Solution Explorer." /><figcaption>SalesByYearViewModel.cs is highlighted under the Models folder in the Solution Explorer.</figcaption>
+</figure></li>
+<li><p>Change the type of the YEAR property from string to int, then save the file.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image222.png" title="Change the YEAR property" alt="The int property value is highlighted." /><figcaption>The int property value is highlighted.</figcaption>
+</figure></li>
+<li><p>Run the solution by selecting the green Start button on the toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image165.png" title="Select Start" alt="Start is highlighted on the toolbar." /><figcaption>Start is highlighted on the toolbar.</figcaption>
+</figure></li>
+<li><p>You will get an exception that the stored procedure call has failed. This is because of an error in migrating the stored procedure. <img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image223.png" title="View the error" alt="An exception appears indicating that the stored procedure call has failed." /></p></li>
+<li><p>Select the red Stop button to end execution of the application.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image224.png" title="Select Stop" alt="The Stop button is highlighted on the toolbar." /><figcaption>The Stop button is highlighted on the toolbar.</figcaption>
+</figure></li>
+<li><p>To resolve the error, open the SALES_BY_YEAR_fix.sql file, located under Solution Items in the Solution Explorer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image225.png" title="Open SALES_BY_YEAR_fix.sql" alt="The SALES_BY_YEAR_fix.sql file is highlighted under the Solution Items folder in Solution Explorer." /><figcaption>The SALES_BY_YEAR_fix.sql file is highlighted under the Solution Items folder in Solution Explorer.</figcaption>
+</figure></li>
+<li><p>Note the database name at the top of the file (within the brackets after the USE keyword).</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image226.png" title="Note the database name" alt="NorthwindMigration is displayed as the database name at the top of the file." /><figcaption>NorthwindMigration is displayed as the database name at the top of the file.</figcaption>
+</figure></li>
+<li><p>Enter the correct database name, Northwind, at the top of the file, and save the file.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image227.png" title="Enter the correct database name" alt="Northwind is listed as the correct database name at the top of the file." /><figcaption>Northwind is listed as the correct database name at the top of the file.</figcaption>
+</figure></li>
+<li><p>From the Visual Studio menu, select View, and then Server Explorer.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image228.png" title="Select Server Explorer" alt="View and Server Explorer are highlighted in the Visual Studio menu." /><figcaption>View and Server Explorer are highlighted in the Visual Studio menu.</figcaption>
+</figure></li>
+<li><p>In the Server Explorer, right-click on Data Connections, and select Add Connections…</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image229.png" title="Select Add Connection" alt="Data Connections is selected in Server Explorer, and Add Connection is highlighted in the shortcut menu." /><figcaption>Data Connections is selected in Server Explorer, and Add Connection is highlighted in the shortcut menu.</figcaption>
+</figure></li>
+<li><p>On the Choose Data Source dialog, select Microsoft SQL Server, and select Next.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image230.png" title="Select Microsoft SQL Server" alt="Microsoft SQL Server is selected and highlighted under Data source in the Choose Data Source dialog box." /><figcaption>Microsoft SQL Server is selected and highlighted under Data source in the Choose Data Source dialog box.</figcaption>
+</figure></li>
+<li><p>On the Add Connection dialog, enter the following:</p>
+<ul>
+<li><p>Data source: Leave Microsoft SQL Server (SqlClient)</p></li>
+<li><p>Server name: Enter the IP address of your SqlServerDw VM.</p></li>
+<li><p>Authentication: Select SQL Server Authentication</p></li>
+<li><p>User name: Enter sa</p></li>
+<li><p>Password: Enter Password.1!!</p></li>
+<li><p>Connect to a database: Choose Select or enter database name, and enter Northwind</p></li>
+<li><p>Select Test Connection to verify your settings are correct, and select OK to close the successful connection dialog.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image231.png" title="Specify the settings" alt="The information above is entered in the Add Connection dialog box, and Test Connection is selected at the bottom." /><figcaption>The information above is entered in the Add Connection dialog box, and Test Connection is selected at the bottom.</figcaption>
+</figure></li>
+</ul></li>
+<li><p>Select OK.</p></li>
+<li><p>Right-click the newly added SQL Server connection in the Server Explorer, and select New Query.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image232.png" title="Select New Query" alt="The newly added SQL Server connection is selected in Server Explorer, and New Query is highlighted in the shortcut menu." /><figcaption>The newly added SQL Server connection is selected in Server Explorer, and New Query is highlighted in the shortcut menu.</figcaption>
+</figure></li>
+<li><p>Select and copy all of the text from the SALES_BY_YEAR_fix.sql file (click CTRL+A, CTRL+C in the SALES_BY_YEAR_fix.sql file).</p></li>
+<li><p>Paste (CTRL+V) the copied text into the new Query window.</p></li>
+<li><p>Verify the Use [Northwind] statement is the first line of the file, and that it matches the database listed in the query bar. Select the green Execute button.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image233.png" title="Verify the Use [Northwind] statement" alt="The Use [Northwind] statement is highlighted, as is the Northwind database and the Execute button in the query bar." /><figcaption>The Use [Northwind] statement is highlighted, as is the Northwind database and the Execute button in the query bar.</figcaption>
+</figure></li>
+<li><p>You should see a message that the command completed successfully.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image234.png" title="View the message" alt="This is a screenshot of a message that the command completed successfully." /><figcaption>This is a screenshot of a message that the command completed successfully.</figcaption>
+</figure></li>
+<li><p>Run the application again by clicking the green Start button in the Visual Studio toolbar.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image165.png" title="Select Start" alt="The Start button is highlighted on the Visual Studio toolbar." /><figcaption>The Start button is highlighted on the Visual Studio toolbar.</figcaption>
+</figure></li>
+<li><p>Verify the graph is showing correctly on the Northwind traders dashboard.</p>
+<figure>
+<img src="images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image166.png" title="View the dashboard" alt="The Northwind Traders Dashboard is visible in a browser." /><figcaption>The Northwind Traders Dashboard is visible in a browser.</figcaption>
+</figure></li>
+<li><p>Congratulations! You have successfully migrated the data and application from Oracle to SQL Server.</p></li>
+</ol>
+<h2 id="after-the-hands-on-lab">After the hands-on lab</h2>
+<p>Duration: 10 mins</p>
+<p>In this exercise, attendees will deprovision any Azure resources that were created in support of the lab. You should follow all steps provided after attending the Hands-on lab.</p>
+<h3 id="task-1-delete-the-resource-group">Task 1: Delete the resource group</h3>
+<ol type="1">
+<li><p>Using the Azure portal, navigate to the Resource group you used throughout this hands-on lab by selecting Resource groups in the left menu.</p></li>
+<li><p>Search for the name of your research group, and select it from the list.</p></li>
+<li><p>Select Delete in the command bar, and confirm the deletion by re-typing the Resource group name, and selecting Delete.</p></li>
+</ol>
+<p>You should follow all steps provided <em>after</em> attending the Hands-on lab.</p>
+</body>
+</html>
