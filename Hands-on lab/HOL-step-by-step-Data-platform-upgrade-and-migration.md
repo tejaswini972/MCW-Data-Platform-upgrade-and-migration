@@ -21,39 +21,33 @@ If you have not yet completed the steps to set up your environment in [Before th
 * [Overview](#overview)
 * [Solution architecture](#solution-architecture)
 * [Requirements](#requirements)
-
-
-    - [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
-        - [Task 1: Provision an Azure VM](#task-1-provision-an-azure-vm)
-        - [Task 2: Allow remote systems to connect with the SQL Server VM](#task-2-allow-remote-systems-to-connect-with-the-sql-server-vm)
-        - [Task 3: Install SQL Server 2017](#task-3-install-sql-server-2017)
-        - [Task 4: Configure the VM as an application server](#task-4-configure-the-vm-as-an-application-server)
-        - [Task 5: Install SQL Server 2008 R2](#task-5-install-sql-server-2008-r2)
-        - [Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
-        - [Task 7: Install the AdventureWorks sample database](#task-7-install-the-adventureworks-sample-database)
-        - [Task 8: Update SQL Server service accounts using Configuration Manager](#task-8-update-sql-server-service-accounts-using-configuration-manager)
-    - [Exercise 2: Perform an assessment for a move to Azure SQL Database](#exercise-2-perform-an-assessment-for-a-move-to-azure-sql-database)
-        - [Task 1: Perform an assessment](#task-1-perform-an-assessment)
-    - [Exercise 3: Upgrade the SQL Server 2008 database to SQL Server 2017](#exercise-3-upgrade-the-sql-server-2008-database-to-sql-server-2017)
-        - [Task 1: Create a shared folder for the database migration](#task-1-create-a-shared-folder-for-the-database-migration)
-        - [Task 2: Migrate using Data Migration Assistant](#task-2-migrate-using-data-migration-assistant)
-    - [Exercise 4: Post upgrade enhancement](#exercise-4-post-upgrade-enhancement)
-        - [Task 1: Table compression](#task-1-table-compression)
-        - [Task 2: Clustered ColumnStore index](#task-2-clustered-columnstore-index)
-    - [Exercise 5: Setup Oracle 11g Express Edition](#exercise-5-setup-oracle-11g-express-edition)
-        - [Task 1: Install Oracle XE](#task-1-install-oracle-xe)
-        - [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
-        - [Task 3: Install SQL Server Migration Assistant (SSMA) 7.x for Oracle](#task-3-install-sql-server-migration-assistant-ssma-7x-for-oracle)
-        - [Task 4: Install dbForge Fusion tool (trial version)](#task-4-install-dbforge-fusion-tool-trial-version)
-        - [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
-        - [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
-    - [Exercise 6: Migrate the Oracle database to SQL Server 2017](#exercise-6-migrate-the-oracle-database-to-sql-server-2017)
-        - [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
-    - [Exercise 7: Migrate the Application](#exercise-7-migrate-the-application)
-        - [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
-        - [Task 2: Modify Application Code](#task-2-modify-application-code)
-    - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
+* [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
+  * [Task 1: Install SQL Server 2017](#task-1-install-sql-server-2017)
+  * [Task 2: Install SQL Server 2008 R2](#task-2-install-sql-server-2008-r2)
+  * [Task 3: Install AdventureWorks sample database](#task-3-install-adventureworks-sample-database)
+  * [Task 4: Update SQL Server service accounts using Configuration Manager](#task-4-update-sql-server-service-accounts-using-configuration-manager)
+* [Exercise 2: Perform an assessment for a move to Azure SQL Database](#exercise-2-perform-an-assessment-for-a-move-to-azure-sql-database)
+  * [Task 1: Perform an assessment](#task-1-perform-an-assessment)
+* [Exercise 3: Upgrade the SQL Server 2008 database to SQL Server 2017](#exercise-3-upgrade-the-sql-server-2008-database-to-sql-server-2017)
+  * [Task 1: Create a shared folder for the database migration](#task-1-create-a-shared-folder-for-the-database-migration)
+  * [Task 2: Migrate using Data Migration Assistant](#task-2-migrate-using-data-migration-assistant)
+* [Exercise 4: Post upgrade enhancement](#exercise-4-post-upgrade-enhancement)
+  * [Task 1: Table compression](#task-1-table-compression)
+  * [Task 2: Clustered ColumnStore index](#task-2-clustered-columnstore-index)
+* [Exercise 5: Setup Oracle 11g Express Edition](#exercise-5-setup-oracle-11g-express-edition)
+  * [Task 1: Install Oracle XE](#task-1-install-oracle-xe)
+  * [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
+  * [Task 3: Install SQL Server Migration Assistant (SSMA) 7.x for Oracle](#task-3-install-sql-server-migration-assistant-ssma-7x-for-oracle)
+  * [Task 4: Install dbForge Fusion tool (trial version)](#task-4-install-dbforge-fusion-tool-trial-version)
+  * [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
+  * [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
+* [Exercise 6: Migrate the Oracle database to SQL Server 2017](#exercise-6-migrate-the-oracle-database-to-sql-server-2017)
+  * [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
+* [Exercise 7: Migrate the Application](#exercise-7-migrate-the-application)
+  * [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
+  * [Task 2: Modify Application Code](#task-2-modify-application-code)
+* [After the hands-on lab](#after-the-hands-on-lab)
+  * [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
 ## Abstract
 
@@ -77,7 +71,7 @@ Below is a diagram of the solution architecture you will build in this lab. Plea
 
 ![This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Data Warehouse for a stretch table. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse. ](./media/preferred-solution-architecture.png "Preferred Solution diagram")
 
-The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to SQL Server 2017 Enterprise, using Data Migration Assistant. A shared folder is created for storing a backup of the database, which is used by Data Migration Assistant to move the database to SQL Server 2017. Two new features of SQL Server 2017, Table Compression and ColumnStore Index, will be applied to demonstrate vale from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrating to SQL Server 2017 Enterprise using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the NorthwindMVC application is updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server.
+The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to SQL Server 2017 Enterprise, using Data Migration Assistant. A shared folder is created for storing a backup of the database, which is used by Data Migration Assistant to move the database to SQL Server 2017. Two new features of SQL Server 2017, Table Compression and ColumnStore Index, will be applied to demonstrate value from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrating to SQL Server 2017 Enterprise using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the NorthwindMVC application is updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server.
 
 ## Requirements
 
@@ -91,135 +85,139 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
 
 Duration: 50 minutes
 
-In this exercise, you will create an Azure VM that contains instances of both SQL Server 2008 and SQL Server 2017.
+In this exercise, you will install and configure SQL Server 2017 and SQL Server 2008 R2 on the SqlServerDw VM.
 
-### Task 3: Install SQL Server 2017
+> TODO: Shift this so the user installs only SQL 2008 R2, and then use the Azure Database Migration Service to migrate from SQL 2008 on-premises to Azure SQL Database.
 
-In this task, you will create a remote desktop protocol (RDP) connection to the SqlServerDw VM, and install SQL Server 2017 and Microsoft SQL Server Management Studio (SSMS) on the SqlServerDw VM.
+### Task 1: Install SQL Server 2017
 
-1.  From the overview blade of your SqlServerDw VM in the Azure portal, select Connect, and follow the prompts to login to the VM, following the same steps used to connect to your Lab VM and disable IE Enhanced Security Configuration in Before the hands-on lab, Task 2
+> TODO: Delete this install, and move the install of SSMS 17.7 into Before the lab.
 
-    ![Connect is highlighted on the overview blade.](./media/image26.png "Select Connect")
+In this task, you will install SQL Server 2017 and Microsoft SQL Server Management Studio (SSMS) on the SqlServerDw VM.
 
-2.  From a web browser on the SqlServerDw VM, download SQL Server 2017 Developer Edition by navigating to <https://www.microsoft.com/sql-server/sql-server-downloads>, and selecting the Download now link under Developer edition. 
+> Connect to the SqlServerDw VM following the steps provided in Task 5 of the [Before the hand-on lab](./Before%20the%20lab.md) exercises.
 
-    ![The Download now link is highlighted under Developer edition at https://www.microsoft.com/sql-server/sql-server-downloads.](./media/image27.png "Download SQL Server 2017 Developer Edition")
+1. On the SqlServerDw VM, open a web browser and navigate to the [SQL Server 2017 Developer edition download](https://www.microsoft.com/sql-server/sql-server-downloads) page, then select the **Download now** link under Developer in the free specialized edition section.
 
-3.  Run the downloaded installer.
+    ![The Download now link is highlighted under Developer edition at https://www.microsoft.com/sql-server/sql-server-downloads.](media/sql-server-2017-developer-edition-download.png "Download SQL Server 2017 Developer Edition")
 
-4.  In the install dialog, select Custom as the installation type on the first screen. 
+2. Run the downloaded installer.
 
-    ![In the installation dialog box, Custom is selected and highlighted under Select an installation type.](./media/image28.png "Select Custom")
+3. In the install dialog, select **Custom** as the installation type on the first screen.
 
-5.  On the next screen, leave the Media Location set to the default value, and select Install. 
-    
-    ![The default value (C:\\SQLServer2017Media) is listed under Media Location, and Install is highlighted at the bottom.](./media/image29.png "Install with the default value")
+    ![In the installation dialog box, Custom is selected and highlighted under Select an installation type.](./media/sql-server-2017-install-type.png "Select Custom")
 
-6.  Once the necessary components are downloaded, the SQL Server Installation Center will open. Select Installation on the left-hand menu, then select New SQL Server stand-alone installation or add features to an existing installation. 
-    
-    ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, New SQL Server stand-alone installation or add features to an existing installation is highlighted.](./media/image30.png "Choose your installation")
+5. On the next screen, leave the Media Location set to the default value, and select **Install**.
 
-7.  On the Product Key screen, select Developer under Specify a free edition, and select Next. 
-    
-    ![Developer displays under Specify a free edition.](./media/image31.png "Specify the edition")
+    ![The default value (C:\\SQLServer2017Media) is listed under Media Location, and Install is highlighted at the bottom.](./media/sql-server-2017-install-location.png "Install with the default value")
 
-8.  On the License Terms screen, check the box to accept the license terms, and select Next.
+6. Once the necessary components are downloaded, the SQL Server Installation Center will open. Select **Installation** on the left-hand menu, then select **New SQL Server stand-alone installation or add features to an existing installation**.
 
-9.  Select Next on each the following screens to accept the defaults, until you get to the Feature Selection screen.
+    ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, New SQL Server stand-alone installation or add features to an existing installation is highlighted.](./media/sql-server-2017-installation-center-installation-new-sql-server.png "Choose your installation")
 
-10. On the Feature Selection screen, check the box next to Database Engine Services, and select Next. 
-    
-    ![Database Engine Services is selected and highlighted under Instance Features on the Feature Selection screen.](./media/image32.png "Select Database Engine Services")
+7. On the Product Key screen, select **Developer** under Specify a free edition, and select **Next**.
 
-11. On the Instance Configuration screen, leave Default instance selected, and select Next.
+    ![Developer displays under Specify a free edition.](./media/sql-server-2017-installation-center-installation-new-sql-server-free-edition.png "Specify the edition")
 
-12. Accept the default values on the Server Configuration screen, and select Next.
+8. On the License Terms screen, check the box to **accept the license terms**, and select **Next**.
 
-13. On the Database Engine Configuration screen:
+9. Select **Next** on each the following screens to accept the defaults, until you get to the Feature Selection screen.
 
-    * Select Mixed Mode
+10. On the **Feature Selection** screen, check the box next to **Database Engine Services**, and select **Next**.
 
-    * Enter Password.1!! for the sa password.
+    ![Database Engine Services is selected and highlighted under Instance Features on the Feature Selection screen.](./media/sql-server-2017-installation-center-feature-selection.png "Select Database Engine Services")
 
-    * Click the Add Current User button to make the holuser windows account a SQL Server administrator. 
-    
-    ![The information above is highlighted on the Database Engine Configuration screen, including the Add Current User button under Specify SQL Server administrators.](./media/image33.png "Specify Database Engine Configuration settings")
+11. On the **Instance Configuration** screen, leave **Default instance** selected, and select **Next**.
 
-    * Select Next.
+12. Accept the default values on the **Server Configuration** screen, and select **Next**.
 
-14. Select Install on the Ready to Install screen to start the installation.
+13. On the **Database Engine Configuration** screen:
 
-15. Select Close when the installation is complete.
+    * Select **Mixed Mode** for the Authentication Mode
 
-16. Back in the SQL Server Installation Center dialog, select Install SQL Server Management Tools on the Installation tab. 
-    
-    ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, Install SQL Server Management Tools is highlighted.](./media/image34.png "Select Install SQL Server Management Tools")
+    * Enter **Password.1!!** for the sa password
 
-17. In the browser window that opens, scroll down and select the Download SQL Server Management Studio 17.x link, then run the installer. 
-    
-    ![Download SQL Server Management Studio 17.5 is highlighted.](./media/image35.png "Browser window")
+    * Click the **Add Current User** button to make the **demouser** windows account a SQL Server administrator
 
-18. In the install window that appears, select Install to complete the installation. 
-    
-    ![Install is highlighted at the bottom of the Microsoft SQL Server Management Studio installation window.](./media/image36.png "Microsoft SQL Server Management Studio Welcome page")
+    ![The information above is highlighted on the Database Engine Configuration screen, including the Add Current User button under Specify SQL Server administrators.](./media/sql-server-2017-installation-center-database-engine-configuration.png "Specify Database Engine Configuration settings")
+
+    * Select **Next**
+
+14. Select **Install** on the Ready to Install screen to start the installation.
+
+15. Select **Close** when the installation is complete.
+
+16. Back in the SQL Server Installation Center dialog, select **Install SQL Server Management Tools** on the Installation tab.
+
+    ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, Install SQL Server Management Tools is highlighted.](./media/sql-server-2017-installation-center-installation-ssms.png "Select Install SQL Server Management Tools")
+
+17. In the browser window that opens, scroll down and select the **Download SQL Server Management Studio 17.x** link, then run the installer.
+
+    ![Download SQL Server Management Studio 17.7 is highlighted.](media/ssms-dowload.png "SSMS Download link")
+
+18. In the install window that appears, select Install to complete the installation.
+
+    ![Install is highlighted at the bottom of the Microsoft SQL Server Management Studio installation window.](media/ssms-install.png "Microsoft SQL Server Management Studio Install Welcome page")
 
 19. Close the SQL Server Management Studio (SSMS) installer once setup is completed.
 
 20. Close the SQL Server Installation Center dialog.
 
-### Task 5: Install SQL Server 2008 R2
+### Task 2: Install SQL Server 2008 R2
 
-1.  On the SqlServerDw VM, open a web browser, and navigate to <https://www.microsoft.com/download/details.aspx?id=30438>.
+In this task, you will install SQL Server 2008 R2 on the SqlServerDw VM.
 
-2.  Select the Download link on the page. 
-    
-    ![Download is selected and highlighted on the https://www.microsoft.com/download/details.aspx?id=30438 page under Microsoft SQL Server 2008 R2 SP2 - Express Edition.](./media/image45.png "Download link")
+1. On the SqlServerDw VM, open a web browser, and navigate to <https://www.microsoft.com/download/details.aspx?id=30438>, and select the **Download** link on the page.
 
-3.  Download SQL Server 2008 R2 Express with Advanced Services by selecting SQLEXPRADV\_x64\_ENU.exe, then selecting Next. 
-    
-    ![SQLEXPRADV\_x64\_ENU.exe is highlighted in the list under Choose the download you want.](./media/image46.png "Download SQL Server 2008 R2 Express with Advanced Services")
+    ![Download is selected and highlighted on the https://www.microsoft.com/download/details.aspx?id=30438 page under Microsoft SQL Server 2008 R2 SP2 * Express Edition.](./media/sql-server-2008-r2-express-edition-download.png "Download link")
 
-4.  Run the installer.
+2. Download SQL Server 2008 R2 Express with Advanced Services by selecting **SQLEXPRADV_x64_ENU.exe**, then selecting **Next**.
 
-5.  In the SQL Server Installation Center window, select New installation or add features to an existing installation. 
-    
-    ![New installation or add features to an existing installation is highlighted in the SQL Server Installation Center window.](./media/image47.png "Select New installation or add features to an existing installation")
+    ![SQLEXPRADV_x64_ENU.exe is highlighted in the list under Choose the download you want.](./media/sql-server-2008-r2-express-edition-download-files.png "Download SQL Server 2008 R2 Express with Advanced Services")
 
-6.  In the SQL Server 2008 R2 Setup dialog, accept the license terms on the License Terms screen, and select Next.
+3. Run the installer.
 
-7.  Accept the default values on each screen by selecting Next, until you get to the Instance Configuration screen.
+4. In the SQL Server Installation Center window, select **New installation or add features to an existing installation**.
 
-8.  On the Installation Configuration screen, select Named Instance, and enter SQLServer2008 for the instance name, then select Next.
-    
-    ![Instance Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, Named instance: SQLServer2008 is highlighted.](./media/image48.png "Enter the instance name")
+    ![New installation or add features to an existing installation is highlighted in the SQL Server Installation Center window.](./media/sql-server-2008-installation-center-installation-new-installation.png "Select New installation or add features to an existing installation")
 
-9.  On the Server Configuration screen, select Use the same account for all SQL Server services. 
-    
-    ![Server Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, SQL Server Database Engine is selected on the Service Accounts tab, and Use the same account for all SQL Server services is highlighted at the bottom.](./media/image49.png "Select Use the same account for all SQL Server services")
+5. In the SQL Server 2008 R2 Setup dialog, accept the license terms on the License Terms screen, and select **Next**.
 
-10. Click Browse, and enter holuser. Select the holuser account you created with you provisioned the VM, then enter the password, Password.1!!, and select OK.
-    
-    ![The credentials above are entered in the Use the same account for all SQL Server 2008 R2 services dialog box.](./media/image50.png "Enter your credentials")
+6. Accept the default values on each screen by selecting **Next**, until you get to the Instance Configuration screen.
 
-11. Select Next on the Server Configuration screen.
+7. On the **Installation Configuration** screen, select **Named Instance**, and enter **SQLServer2008** for the instance name, then select **Next**.
 
-12. On the Database Engine Configuration screen:
+    ![Instance Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, Named instance: SQLServer2008 is highlighted.](./media/sql-server-2008-installation-center-instance-configuration.png "Enter the instance name")
 
-    * Select Mixed Mode.
+8. On the **Server Configuration** screen, select **Use the same account for all SQL Server services**.
 
-    * Enter Password.1!! for the sa password.
+    ![Server Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, SQL Server Database Engine is selected on the Service Accounts tab, and Use the same account for all SQL Server services is highlighted at the bottom.](./media/sql-server-2008-installation-center-server-configuration.png "Select Use the same account for all SQL Server services")
 
-    * Click the Add Current User button to specify the holuser Windows account as a SQL Server Administrator. 
-        
-        ![Database Engine Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. The information above is highlighted at right, including the Add Current User button under Specify SQL Server administrators.](./media/image51.png "Specify Database Engine Configuration settings")
+9. Select **Browse**, and enter **demouser**. Select the **demouser** account you created when you provisioned the VM, then enter the password, **Password.1!!**, and select **OK**.
 
-    * Select Next.
+    ![The credentials above are entered in the Use the same account for all SQL Server 2008 R2 services dialog box.](media/sql-server-2008-installation-center-service-account.png "Service account credentials")
 
-13. Select Next to accept the default values on the remaining screens to complete the installation.
+10. Select Next on the Server Configuration screen.
 
-14. Select Close on the SQL Server 2008 R2 Setup dialog.
+11. On the Database Engine Configuration screen:
 
-### Task 7: Install the AdventureWorks sample database
+    * Select **Mixed Mode**
+
+    * Enter **Password.1!!** for the sa password
+
+    * Click the **Add Current User** button to specify the demouser Windows account as a SQL Server Administrator.
+
+        ![Database Engine Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. The information above is highlighted at right, including the Add Current User button under Specify SQL Server administrators.](media/sql-server-2008-installation-center-database-engine-configuration.png "Specify Database Engine Configuration settings")
+
+    * Select **Next**.
+
+12. Select **Next** to accept the default values on the remaining screens to complete the installation.
+
+13. Select **Close** on the SQL Server 2008 R2 Setup dialog when the installation is complete.
+
+14. Close the SQL Server 2008 R2 Installation Center window.
+
+### Task 3: Install AdventureWorks sample database
 
 In this task, you will install the AdventureWorks database in SQL 2008 R2, as the source database to migrate.
 
@@ -289,7 +287,7 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2, as th
 
     ![WorldWideImporters is highlighted under Databases in Object Explorer.](./media/image73.png "Name the database")
 
-### Task 8: Update SQL Server service accounts using Configuration Manager
+### Task 4: Update SQL Server service accounts using Configuration Manager
 
 1.  From the Start Menu on your SqlServerDw VM, search for SQL Server 2017 Configuration Manager, then select it from the search results.
 
@@ -303,9 +301,9 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2, as th
     
     ![SQL Server (MSSQLSERVER) is highlighted in the list on the right side of SQL Server 2017 Configuration Manager.](./media/image76.png "Select SQL Server (MSSQLSERVER)")
 
-4.  In the SQL Server (MSSQLSERVER) Properties dialog, change the Log On user to use the holuser account, by entering holuser into the Account Name box, then entering the password, Password.1!!, into the Password and Confirm password boxes. 
+4.  In the SQL Server (MSSQLSERVER) Properties dialog, change the Log On user to use the demouser account, by entering demouser into the Account Name box, then entering the password, Password.1!!, into the Password and Confirm password boxes. 
     
-    ![The above credentials are highlighted in the SQL Server (MSSQLSERVER) Properties dialog box.](./media/image77.png "Enter holuser credentials")
+    ![The above credentials are highlighted in the SQL Server (MSSQLSERVER) Properties dialog box.](./media/image77.png "Enter demouser credentials")
 
 5.  Select OK.
 
@@ -313,7 +311,7 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2, as th
     
     ![The Yes button is highlighted in the Confirm Account Change dialog.](./media/image78.png "Confirm Account Change dialog box")
 
-7.  Repeat steps 3 -- 6 above to set the server account to holuser for the SQL Server (SQLSERVER2008) instance as well, if it is not already using the holuser account.
+7.  Repeat steps 3 -* 6 above to set the server account to demouser for the SQL Server (SQLSERVER2008) instance as well, if it is not already using the demouser account.
 
 8.  While still in the SQL Server 2017 Configuration Manager, expand SQL Server Network Configuration, select Protocols for MSSQLSERVER, and double-click TCP/IP to open the properties dialog. 
     
@@ -437,9 +435,9 @@ In this task, you are going to create a shared folder that is accessible by both
     
     ![Share is highlighted on the Sharing tab (highlighted) in the backupshare Properties dialog box.](./media/image96.png "Select Share")
 
-5.  Ensure the Permission Level for the holuser account is set to Read/Write, and select Share. 
+5.  Ensure the Permission Level for the demouser account is set to Read/Write, and select Share. 
     
-    ![The holuser account is highlighted as is the Read/Write Permission Level in the File Sharing dialog box.](./media/image97.png "Check the Permission Level")
+    ![The demouser account is highlighted as is the Read/Write Permission Level in the File Sharing dialog box.](./media/image97.png "Check the Permission Level")
 
 6.  If prompted about turning on network discovery, select No. 
     
@@ -495,9 +493,9 @@ In this task, you are going to create a shared folder that is accessible by both
         
         ![The above information is entered on the Add database screen, and WorldWideImporters and \\\\SqlServerDw\\backupshare are highlighted.](./media/image102.png "Enter information on the Add database screen")
 
-7.  On the Select logins screen, ensure SqlServerDw\\holuser is selected, then select Start Migration. 
+7.  On the Select logins screen, ensure SqlServerDw\\demouser is selected, then select Start Migration. 
     
-    ![SqlServerDw\\holuser is highlighted under Selected Logins (1/3) on the Select logins screen.](./media/image103.png "Select Start Migration")
+    ![SqlServerDw\\demouser is highlighted under Selected Logins (1/3) on the Select logins screen.](./media/image103.png "Select Start Migration")
 
 8.  Review the results. You may also wish to select Export report to save the report as a CSV file for later review. 
     
@@ -525,9 +523,9 @@ In this exercise, you will confirm that the POC was successful. To demonstrate v
     
     ![The FactInternetSales table is selected, and the Properties is highlighted in the submenu.](./media/image107.png "Select Properties")
 
-5.  In the Table Properties -- FactInternetSales dialog, select the Storage page, and record the data space and index space being used. 
+5.  In the Table Properties -* FactInternetSales dialog, select the Storage page, and record the data space and index space being used. 
     
-    ![In the Table Properties -- FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (8.000 MB) and Index space (10.820 MB) are highlighted under General on the right.](./media/image108.png "Record the data space and index space")
+    ![In the Table Properties -* FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (8.000 MB) and Index space (10.820 MB) are highlighted under General on the right.](./media/image108.png "Record the data space and index space")
 
 6.  Select Cancel to close the properties dialog.
 
@@ -539,11 +537,11 @@ In this exercise, you will confirm that the POC was successful. To demonstrate v
 
 9.  On the Select Compression Type pages, select Row from the Compression Type drop down, then select Calculate. Observe the simulated Requested compressed space value. 
     
-    ![Row and 10.023 MB are highlighted under Compression type and Requested compressed space, and Calculate is highlighted in the Data Compression Wizard - FactInternetSales dialog box.](./media/image110.png "Select Row and then select Calculate")
+    ![Row and 10.023 MB are highlighted under Compression type and Requested compressed space, and Calculate is highlighted in the Data Compression Wizard * FactInternetSales dialog box.](./media/image110.png "Select Row and then select Calculate")
 
 10. Now, change the Compression type to Page, select Calculate, and observe the Requested compressed space. 
     
-    ![Page and 6.305 MB are highlighted under Compression type and Requested compressed space in the Data Compression Wizard - FactInternetSales dialog box.](./media/image111.png "Select Page and then select Calculate")
+    ![Page and 6.305 MB are highlighted under Compression type and Requested compressed space in the Data Compression Wizard * FactInternetSales dialog box.](./media/image111.png "Select Page and then select Calculate")
 
 11. Leave the Compression type set to Page, and select Next.
 
@@ -561,7 +559,7 @@ In this exercise, you will confirm that the POC was successful. To demonstrate v
 
 15. Return to the FactInternetSales Properties dialog (right-click the table and select Properties), and select the Storage page. Once again, note the Data space and Index space, and compare those to the values recorded in Step 5, above. Notice the improvement with compression. 
     
-    ![In the Table Properties -- FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (2.086 MB) and Index space (10.789 MB) are highlighted under General on the right.](./media/image115.png "Record the data space and index space")
+    ![In the Table Properties -* FactInternetSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (2.086 MB) and Index space (10.789 MB) are highlighted under General on the right.](./media/image115.png "Record the data space and index space")
 
 16. Compression decreases the load on the Disk I/O subsystem, while increasing the load on the CPU. Since most data warehouse workloads are heavily disk bound, and often have low CPU usage, compression can be a great way to improve performance.
 
@@ -598,7 +596,7 @@ In this task, you will create a new table based on the existing FactResellerSale
 
 6.  In the ColumnStore\_FactResellerSales properties dialog, select the Storage page and note the Data and Index space. 
     
-    ![In the Table Properties -- columnstore\_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (12.359 MB) and Index space (0.008 MB) are highlighted under General on the right.](./media/image118.png "Record the data space and index space")
+    ![In the Table Properties -* columnstore\_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (12.359 MB) and Index space (0.008 MB) are highlighted under General on the right.](./media/image118.png "Record the data space and index space")
 
 7.  Select Cancel to close the properties dialog.
 
@@ -617,7 +615,7 @@ In this task, you will create a new table based on the existing FactResellerSale
 
 10. Return to the properties window of the ColumnStore\_FactResellerSales table, select the Storage page, and observe the Data and Index space values. Select Cancel to close the properties window.
     
-    ![In the Table Properties -- columnstore\_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (1.664 MB) and Index space (0.000 MB) are highlighted under General on the right.](./media/image119.png "Record the data space and index space")
+    ![In the Table Properties -* columnstore\_FactResellerSales dialog box, Storage is selected and highlighted under Select a page on the left, and Data space (1.664 MB) and Index space (0.000 MB) are highlighted under General on the right.](./media/image119.png "Record the data space and index space")
 
 11. Create a new query window by selecting New Query from the toolbar, and select the Include Actual Execution Plan by selecting its button in the toolbar.
 
@@ -669,7 +667,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 1.  Connect to your Lab VM using RDP, as you did in [Before the Hands-on Lab, Task 2](file://Mac/Dropbox/Microsoft%20Cloud%20Workshops/Database%20Upgrade%20and%20Migration/Hands-on%20Lab%20Step%20By%20Step%20-%20Data%20platform%20upgrade%20and%20migration.docx#_Task_2:_Connect).
 
-    * User name: holuser
+    * User name: demouser
 
     * Password: Password.1!!
 
@@ -855,7 +853,7 @@ In this task, you will create a connection to the Oracle database on your Lab VM
 
     * Connection Name: Northwind
 
-        ![The information above is entered in the Database Connection Properties - Oracle dialog box, and OK is selected at the bottom.](./media/image147.png "Specify the settings")
+        ![The information above is entered in the Database Connection Properties * Oracle dialog box, and OK is selected at the bottom.](./media/image147.png "Specify the settings")
 
 9.  Select Test Connection to verify the settings are correct, and select OK to close the popup.
 
@@ -907,7 +905,7 @@ In this task, you will create a connection to the Oracle database on your Lab VM
 
 22. Select Test Connection to verify the new credentials work. 
     
-    ![The information above is entered and highlighted in the Database Connection Properties - Oracle dialog box, and Test Connection is selected at the bottom.](./media/image157.png "Specify the settings")
+    ![The information above is entered and highlighted in the Database Connection Properties * Oracle dialog box, and Test Connection is selected at the bottom.](./media/image157.png "Specify the settings")
 
 23. Select OK to close the Database Connection properties dialog.
 
