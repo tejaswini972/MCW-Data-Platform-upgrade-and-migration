@@ -14,7 +14,6 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 * [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
 * [Task 5: Connect to the SqlServerDw VM](#task-5-connect-to-the-sqlserverdw-vm)
 * [Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
-* [Task 7: Install SQL Server Management Studio](#task-7-install-sql-server-management-studio)
 * [Next steps](#next-steps)
 
 ## Task 1: Provision a resource group
@@ -79,7 +78,7 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
 ## Task 3: Create SQL Server virtual machine
 
-In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instance of both SQL Server 2008 R2. The VM will use the Windows Server 2012 R2 Datacenter image.
+In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instances of both SQL Server 2008 R2 and SQL Server 2017. The VM will use the Windows Server 2012 R2 Datacenter image.
 
 > Note, an older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
 
@@ -294,20 +293,6 @@ In this task, you will add rules to the SqlServerDw VM's Windows firewall to all
     ![Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right.](./media/new-inbound-rule-wizard-name.png "Specify the name")
 
 10. Close the Windows Firewall with Advanced Security window.
-
-## Task 7: Install SQL Server Management Studio
-
-In this task, you will install the latest version of SQL Server Management Studio (SSMS) on the SqlServerDw VM.
-
-1. On the SqlServerDw VM, open a web browser and navigate to <https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017>, then scroll down and select the **Download SQL Server Management Studio 17.x** link, and run the installer.
-
-    ![Download SQL Server Management Studio 17.7 is highlighted.](media/ssms-dowload.png "SSMS Download link")
-
-2. In the installation window that appears, select **Install** to complete the installation.
-
-    ![Install is highlighted at the bottom of the Microsoft SQL Server Management Studio installation window.](media/ssms-install.png "Microsoft SQL Server Management Studio Install Welcome page")
-
-3. Close the SQL Server Management Studio (SSMS) installer once setup is completed.
 
 *These steps should be completed prior to starting the rest of the Lab.*
 
