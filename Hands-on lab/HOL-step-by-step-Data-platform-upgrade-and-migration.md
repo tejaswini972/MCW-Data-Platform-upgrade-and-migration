@@ -1,16 +1,4 @@
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
-
-<div class="MCWHeader1">
-Data platform upgrade and migration
-</div>
-
-<div class="MCWHeader2">
-Hands-on lab step-by-step
-</div>
-
-<div class="MCWHeader3">
-March 2018
-</div>
+![Microsoft Cloud Workshop](../media/ms-cloud-workshop.png "Microsoft Cloud Workshop")
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
@@ -19,17 +7,22 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 © 2018 Microsoft Corporation. All rights reserved.
 
-Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
+Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-**Contents**
+# Data platform upgrade and migration hands-on lab step-by-step
 
-<!-- TOC -->
+Updated June 2018
 
-- [Data platform upgrade and migration hands-on lab step-by-step](#data-platform-upgrade-and-migration-hands-on-lab-step-by-step)
-    - [Abstract and learning objectives](#abstract-and-learning-objectives)
-    - [Overview](#overview)
-    - [Solution Architecture](#solution-architecture)
-    - [Requirements](#requirements)
+If you have not yet completed the steps to set up your environment in [Before the hands-on lab](./Before%20the%20lab.md), you will need to do that before proceeding.
+
+## Contents
+
+* [Abstract](#abstract)
+* [Overview](#overview)
+* [Solution architecture](#solution-architecture)
+* [Requirements](#requirements)
+
+
     - [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
         - [Task 1: Provision an Azure VM](#task-1-provision-an-azure-vm)
         - [Task 2: Allow remote systems to connect with the SQL Server VM](#task-2-allow-remote-systems-to-connect-with-the-sql-server-vm)
@@ -62,58 +55,37 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [After the hands-on lab](#after-the-hands-on-lab)
         - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
-<!-- /TOC -->
+## Abstract
 
+In this hands-on lab, you will implement a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, you will help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as conduct a migration from an old version of SQL Server to Azure SQL Database.
 
-# Data platform upgrade and migration hands-on lab step-by-step
-
-## Abstract and learning objectives
-
-This hands-on lab is designed to help attendees better understand how to build a Proof-of-Concept (POC) and conduct a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, attendees will help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the newest version and consider the impact of migrating from on-premises to the cloud.
-
-Learning Objectives:
-
--   Migrate from Oracle to SQL Server using SQL Server Migration Assistant
-
--   Migrate between different SQL Server editions using Data Migration Assistant
-
--   Use advanced SQL Server features, such as JavaScript Object Notation (JSON) data store, table compression, Transparent Data Encryption, and clustered ColumnStore indexing
-
--   Consider the steps required to update existing applications to use the new data platform
-
--   Analyze and improve database performance
-
--   Implement high availability using Stretch Database and AlwaysOn Availability Groups
+At the end of this hands-on lab, you will be better able to design and build a database migration plan and implement any required application changes associated with changing database technologies.
 
 ## Overview
 
-World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they've had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
+World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
 
-The WWI CIO has recently read about new performance enhancements of SQL Server 2017. She is excited about clustered ColumnStore indexes. In addition, she has chosen to upgrade to Enterprise Edition. She's hoping that table compression will improve performance, backup times, and lessen the load on the Storage Area Network (SAN).
+The WWI CIO has recently read about new performance enhancements of SQL Server 2017. She is excited about clustered ColumnStore indexes. In addition, she has chosen to upgrade to Enterprise Edition. She’s hoping that table compression will improve performance, backup times, and lessen the load on the Storage Area Network (SAN).
 
-WWI is concerned about upgrading their database to SQL Server 2017 or Azure SQL Database. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won't run into any incompatibilities with the storage engine of SQL Server 2017.
+WWI is concerned about upgrading their database to SQL Server 2017 or Azure SQL Database. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of SQL Server 2017.
 
-WWI's CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.
+WWI’s CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.
 
-## Solution Architecture
+## Solution architecture
 
 Below is a diagram of the solution architecture you will build in this lab. Please study this carefully, so you understand the whole of the solution as you are working on the various components.
 
-![This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Data Warehouse for a stretch table. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse.](images/Hands-onlabstep-by-step-Dataplatformupgradeandmigrationimages/media/image2.png "Preferred Solution diagram")
+![This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Data Warehouse for a stretch table. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse. ](./media/preferred-solution-architecture.png "Preferred Solution diagram")
 
 The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to SQL Server 2017 Enterprise, using Data Migration Assistant. A shared folder is created for storing a backup of the database, which is used by Data Migration Assistant to move the database to SQL Server 2017. Two new features of SQL Server 2017, Table Compression and ColumnStore Index, will be applied to demonstrate vale from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrating to SQL Server 2017 Enterprise using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the NorthwindMVC application is updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server.
 
 ## Requirements
 
--   Microsoft Azure subscription must be pay-as-you-go or MSDN.
-
-    -   Trial subscriptions will not work.
-
--   A virtual machine configured with:
-
-    -   Visual Studio Community 2017 or later
-
-    -   Azure SDK 2.9 or later (Included with Visual Studio 2017)
+* Microsoft Azure subscription must be pay-as-you-go or MSDN
+  * Trial subscriptions will not work
+* A virtual machine configured with:
+  * Visual Studio Community 2017 or later
+  * Azure SDK 2.9 or later (Included with Visual Studio 2017)
 
 
 ## Exercise 1: Deploy SQL Server instances

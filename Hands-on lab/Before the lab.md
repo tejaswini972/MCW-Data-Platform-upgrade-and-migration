@@ -1,117 +1,129 @@
-# Data platform upgrade and migration setup
-
-
-## Requirements
-
--   Microsoft Azure subscription must be pay-as-you-go or MSDN.
-
-    -   Trial subscriptions will not work.
-
--   A virtual machine configured with:
-
-    -   Visual Studio Community 2017 or later
-
-    -   Azure SDK 2.9 or later (Included with Visual Studio 2017)
-
-
-## Before the hands-on lab
+# Before the hands-on lab
 
 Duration: 20 minutes
 
-In this exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment before attending the hands-on lab.
+In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
 
-### Task 1: Provision a lab virtual machine (VM)
+> IMPORTANT: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
+
+## Contents
+
+* [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
+* [Task 2: Setup lab virtual machine](#task-2-setup-lab-virtual-machine)
+* [Task 3: Connect to your Lab VM](#task-3-connect-to-your-lab-vm)
+* [Next steps](#next-steps)
+
+## Task 1: Provision a resource group
+
+In this task, you will create an Azure resource group for the resources used throughout this lab.
+
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups**, select **+Add**, then enter the following in the Create an empty resource group blade:
+
+    * **Name**: Enter hands-on-lab-SUFFIX
+
+    * **Subscription**: Select the subscription you are using for this hands-on lab
+
+    * **Resource group location**: Select the region you would like to use for resources in this hands-on lab. Remember this location so you can use it for the other resources you'll provision throughout this lab.
+
+        ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and "hands-on-labs" is entered into the Resource group name box on the Create an empty resource group blade.](./media/create-resource-group.png "Create resource group")
+
+2. Select **Create**.
+
+## Task 2: Setup lab virtual machine
 
 In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2017 installed.
 
-1.  Launch a web browser, and navigate to the [Azure Portal](https://portal.azure.com/).
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the results, and select **Create**.
 
-2.  Select +Create a resource, then type "Visual Studio Community" into the search bar. Select Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) from the results. ![In this screenshot of the Azure Portal, + Create a resource is highlighted on the left. On the right, Visual Studio Community is highlighted in the search bar, and Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is highlighted at the top of the results.](images/Setup/image3.png "Azure Portal")
+    ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png "Create Windows Server 2016 with Visual Studio Community 2017")
 
-3.  On the blade that comes up, ensure the deployment model is set to Resource Manager and select Create. 
-    
-    ![Resource Manager is listed below Select a deployment model, and the Create button appears below that.](images/Setup/image4.png "Select a deployment model section")
+2. Set the following configuration on the Basics tab.
 
-4.  Set the following configuration on the Basics tab.
+    * **Name**: Enter LabVM
 
-    -   Name: Enter LabVM.
+    * **VM disk type**: Select SSD
 
-    -   VM disk type: Select SSD.
+    * **User name**: Enter demouser
 
-    -   User name: Enter holuser
+    * **Password**: Enter Password.1!!
 
-    -   Password: Enter Password.1!!
+    * **Subscription**: Select the same subscription you are using for this hands-on lab
 
-    -   Subscription: Select the subscription you are using for this lab.
+    * **Resource Group**: Select Use existing, and select the hands-on-lab-SUFFIX resource group
 
-    -   Resource Group: Select Create new, and enter hands-on-labs for the resource group name.
+    * **Location**: Select the location you are using for resources in this hands-on lab
 
-    -   Location: Select the region you are using for resources in this lab. 
+        ![Screenshot of the Basics blade, with fields set to the previously mentioned settings.](./media/virtual-machine-basics-blade.png "Create virtual machine Basics blade")
 
-        ![On the Basics tab, the values above are entered in the boxes.](images/Setup/image5.png "Configure the basic settings")
+    * Select **OK** to move to the next step.
 
-5.  Select OK to move to the next step.
+3. On the Choose a size blade, select DS2_V3 Standard.
 
-6.  On the Choose a size blade, ensure the Supported disk type is set to SSD, and select View all. This machine won't be doing much heavy lifting, so selecting D2S\_V3 Standard is a good baseline option. 
+    ![On the Choose a size blade, the D2S_V3 Standard size is selected.](./media/virtual-machine-choose-a-size-blade.png "Choose a size blade")
 
-    ![In this screenshot of the Choose a size blade, SSD is highlighted under Supported disk type, View all is highlighted, and D2S\_V3 Standard is highlighted.](images/Setup/image6.png "Choose a size blade")
+4. Select **Select** to move on to the Settings blade.
 
-7.  Select Select to move on to the Settings blade.
+5. Accept all the default values on the Settings blade, and select **OK**.
 
-8.  Accept all the default values on the Settings blade, and select OK.
+6. Select **Create** on the Create blade to provision the virtual machine.
 
-9.  Select Create on the Create blade to provision the virtual machine. 
-    
-    ![In this screenshot of the Create blade, various information appears below Offer details, Summary, and Terms of use. A Create button appears at the bottom of the blade.](images/Setup/image7.png "Select Create")
+7. It may take 10+ minutes for the virtual machine to complete provisioning.
 
-10. It may take 10+ minutes for the virtual machine to complete provisioning.
+## Task 3: Connect to your Lab VM
 
-### Task 2: Connect to your lab VM
+In this task, you will create an RDP connection to your Lab virtual machine (VM), and disable Internet Explorer Enhanced Security Configuration.
 
-In this step, you will open an RDP connection to your Lab VM, and disable Internet Explorer Enhanced Security Configuration.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
-1.  Connect to the Lab VM. (If you are already connected to your Lab VM, skip to Step 7.)
+    ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2.  From the left side menu in the Azure portal, select Resource groups, then enter your resource group name into the filter box, and select it from the list. 
-    
-    ![Resource groups is highlighted on the left side of the Azure portal, and at right, hands and hands-on-labs are highlighted.](images/Setup/image8.png "Azure Portal")
+2. In the list of resources for your resource group, select the LabVM Virtual Machine.
 
-3.  Next, select your lab virtual machine, LabVM, from the list. 
-    
-    ![LabVM is highlighted in the Name list.](images/Setup/image9.png "Select your lab virtual machine")
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png "LabVM in resource group list")
 
-4.  On your Lab VM blade, select Connect from the top menu. 
-    
-    ![Connect is highlighted at the top of the Lab VM blade.](images/Setup/image10.png "Select Connect")
+3. On your Lab VM blade, select Connect from the top menu.
 
-5.  Download and open the .RDP file.
+    ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png "Connect to LabVM")
 
-6.  Select Connect on the Remote Desktop Connection dialog. 
-    
-    ![Connect is selected and highlighted at the bottom of the Remote Desktop Connection dialog box.](images/Setup/image11.png "Select Connect")
+4. Select **Download RDP file**, then open the downloaded RDP file.
 
-7.  Enter the following credentials (or the non-default credentials if you changed them):
+    ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
 
-    -   User name: holuser
+5. Select **Connect** on the Remote Desktop Connection dialog.
 
-    -   Password: Password.1!!
+    ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
 
-        ![The information above is entered in the Windows Security dialog box.](images/Setup/image12.png "Enter your credentials")
+6. Enter the following credentials when prompted:
 
-8.  Select Yes to connect, if prompted that the identity of the remote computer cannot be verified. 
+    a. **User name**: demouser
 
-    ![Yes is selected and highlighted at the bottom of the Remote Desktop Connection dialog box.](images/Setup/image13.png "Select Yes")
+    b. **Password**: Password.1!!
 
-9.  Once logged in, launch the Server Manager. This should start automatically, but you can access it via the Start menu if it does not start.
+7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
-10. Select Local Server, the select On next to IE Enhanced Security Configuration. 
+    ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification.png "Remote Desktop Connection dialog")
 
-    ![Local Server is selected and highlighted on the left side of Server Manager, and at right, IE Enhanced Security Configuration On is highlighted under Properties For LabVM.](images/Setup/image14.png "Select IE Enhanced Security Configuration")
+8. Once logged in, launch the **Server Manager**. This should start automatically, but you can access it via the Start menu if it does not start.
 
-11. In the Internet Explorer Enhanced Security Configuration dialog, select Off under Administrators, then select OK. 
-    
-    ![Off is selected under Administrators in the Internet Explorer Enhanced Security Configuration dialog box.](images/Setup/image15.png "Disable Administrators")
+    ![The Server Manager tile is circled in the Start Menu.](./media/start-menu-server-manager.png "Server Manager tile in the Start menu")
 
-12. Close the Server Manager.
+9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**.
 
-You should follow all steps provided *before* attending the Hands-on lab.
+    ![Screenshot of the Server Manager. In the left pane, Local Server is selected. In the right, Properties (For LabVM) pane, the IE Enhanced Security Configuration, which is set to On, is highlighted.](./media/windows-server-manager-ie-enhanced-security-configuration.png "Server Manager")
+
+10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**.
+
+    ![Screenshot of the Internet Explorer Enhanced Security Configuration dialog box, with Administrators set to Off.](./media/internet-explorer-enhanced-security-configuration-dialog.png "Internet Explorer Enhanced Security Configuration dialog box")
+
+11. Close the Server Manager.
+
+*These steps should be completed prior to starting the rest of the Lab.*
+
+## Next steps
+
+You are now ready to complete the hands-on lab. Select a guide below to get started, or you can return to the overview page for the lab.
+
+* Complete Hands-on lab
+  * [Step-by-step guide](./HOL-step-by-step-Intelligent-vending-machines.md)
+  * [Unguided guide](./HOL-unguided-Intelligent-vending-machines.md)
+* Return to [Hands-on lab readme](./readme.md)

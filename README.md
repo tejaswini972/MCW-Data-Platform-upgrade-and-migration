@@ -1,52 +1,54 @@
-# Abstract
+# Data platform upgrade and migration
 
-## Workshop
+[Download Cloud Workshop](https://github.com/Microsoft/MCW-Data-platform-upgrade-and-migration/archive/master.zip)
 
-This hands-on lab is designed to help attendees better understand how to build a Proof-of-Concept (POC) and conduct a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated and come up with a migration plan. In addition, attendees will help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the newest version and consider the impact of migrating from on-premises to the cloud.
+World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
 
-Learning Objectives:
+The WWI CIO has recently read about new performance enhancements of SQL Server 2017. She is excited about clustered ColumnStore indexes. In addition, she has chosen to upgrade to Enterprise Edition. She’s hoping that table compression will improve performance, backup times, and lessen the load on the Storage Area Network (SAN).
 
--   Migrate from Oracle to SQL Server using SQL Server Migration Assistant
+WWI is concerned about upgrading their database to SQL Server 2017 or Azure SQL Database. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of SQL Server 2017.
 
--   Migrate between different SQL Server editions using Data Migration Assistant
+WWI’s CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.
 
--   Use advanced SQL Server features, such as JavaScript Object Notation (JSON) data store, table compression, Transparent Data Encryption, and clustered ColumnStore indexing
+## Target Audience
 
--   Consider the steps required to update existing applications to use the new data platform
+* Application developer
+* SQL Developer
+* Database Administrator
 
--   Analyze and improve database performance
+## Abstract
 
--   Implement high availability using Stretch Database and AlwaysOn Availability Groups
+### Workshop
 
+In this workshop, you will gain a better understand of how to conduct a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, you will design and build a Proof-of-Concept (POC) and help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the latest version and consider the impact of migrating from on-premises to the cloud.
 
+At the end of this workshop, you will be better able to conduct a site analysis for compare cost, performance, and level of effort required to migrate from Oracle to SQL Server.
 
-## Whiteboard Design Session
-TBD
+### Whiteboard design session
 
-## Hand-on Lab
-TBD
+In this whiteboard design session, you will design a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, you will look at ways to help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the latest version and consider the impact of migrating from on-premises to the cloud.
 
+At the end of this whiteboard design session, you will be better able to design a database migration plan and implementation.
 
-## Azure services and related products
-- SQL Server 2008 to 2016 Upgrade
-- Azure SQL DB
-- Azure Portal
-- Azure VMs
-- Data Migration Assistant
-- Oracle to SQL Server migration
-- Entity Models
+### Hands-on lab
 
-# Contributing
+In this hands-on lab, you will implement a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, you will help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as conduct a migration from an old version of SQL Server to Azure SQL Database.
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.microsoft.com.
+At the end of this hands-on lab, you will be better able to design and build a database migration plan and implement any required application changes associated with changing database technologies.
 
-When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+## Azure Services and Related Products
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+* Azure App Services
+* Azure SQL Database
+* Azure SQL Data Warehouse
+* Data Migration Assistant (DMA)
+* SQL Server 2008 and 2017
+* SQL Server Management Studio (SSMS)
+* SQL Server Migration Assistant (SSMA)
+* Visual Studio 2017
 
+## Azure Solution
+
+## Related References
+
+[MCW](https://github.com/Microsoft/MCW)
