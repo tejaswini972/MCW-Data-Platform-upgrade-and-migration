@@ -322,7 +322,9 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 
     * Under Want to use SQL elastic pool, select **Not now**
 
-    * **Pricing tier**: Select Standard S0: 10 DTUs, 250 GB
+    * **Pricing tier**: Select Premium P1: 125 DTUs, 500 GB, and select **Apply**
+
+        ![The Configure pricing tier for SQL Server is displayed, with Premium selected and highlighted.](media/azure-sql-database-pricing-tier-premium.png "SQL Pricing tier configuration")
 
     * **Collation**: Leave set to SQL_Latin1_General_CP1_CI_AS
 
