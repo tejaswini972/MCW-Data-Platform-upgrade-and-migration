@@ -765,7 +765,7 @@ In this exercise, you will confirm that the POC was successful. To demonstrate v
 
 6. In the Object Explorer, expand Databases, WorldWideImporters, and Tables.
 
-    ![Databases is highlighted in Object Explorer, WorldWideImporters is highlighted below that, and then Tables is highlighted below that.](./media/image106.png "Select Tables")
+    ![Databases is highlighted in Object Explorer, WorldWideImporters is highlighted below that, and then Tables is highlighted below that.](./media/ssms-object-explorer-tables.png "Select Tables")
 
 7. Right-click the `FactInternetSales` table, select the **Storage** context menu, and then select **Manage Compression** from the fly-out menu.
 
