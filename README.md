@@ -4,13 +4,13 @@
 
 World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
 
-The WWI CIO has recently read about new performance enhancements of SQL Server 2017. She is excited about clustered ColumnStore indexes. In addition, she has chosen to upgrade to Enterprise Edition. She’s hoping that table compression will improve performance, backup times, and lessen the load on the Storage Area Network (SAN).
+The WWI CIO has recently read about new performance enhancements of Azure SQL Database and SQL Server 2017. She is excited about the potential performance improvements related to clustered ColumnStore indexes. She is also hoping that table compression will improve performance and backup times.
 
-WWI is concerned about upgrading their database to SQL Server 2017 or Azure SQL Database. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of SQL Server 2017.
+WWI is concerned about upgrading their database to Azure SQL Database or SQL Server 2017. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of Azure SQL Database or SQL Server 2017.
 
 WWI’s CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.
 
-## Target Audience
+## Target audience
 
 * Application developer
 * SQL Developer
@@ -36,19 +36,20 @@ In this hands-on lab, you will implement a proof of concept (POC) for conducting
 
 At the end of this hands-on lab, you will be better able to design and build a database migration plan and implement any required application changes associated with changing database technologies.
 
-## Azure Services and Related Products
+## Azure services and related products
 
 * Azure App Services
+* Azure Database Migration Service (DMS)
 * Azure SQL Database
 * Azure SQL Data Warehouse
 * Data Migration Assistant (DMA)
-* SQL Server 2008 and 2017
+* SQL Server 2008 R2 and 2017
 * SQL Server Management Studio (SSMS)
 * SQL Server Migration Assistant (SSMA)
 * Visual Studio 2017
 
-## Azure Solution
+## Azure solution
 
-## Related References
+## Related references
 
 [MCW](https://github.com/Microsoft/MCW)
