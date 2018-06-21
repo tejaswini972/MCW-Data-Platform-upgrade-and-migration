@@ -42,8 +42,8 @@ If you have not yet completed the steps to set up your environment in [Before th
 * [Exercise 4: Setup Oracle 11g Express Edition](#exercise-4-setup-oracle-11g-express-edition)
   * [Task 1: Install Oracle XE](#task-1-install-oracle-xe)
   * [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
-  * [Task 3: Install SQL Server Migration Assistant (SSMA) 7.x for Oracle](#task-3-install-sql-server-migration-assistant-ssma-7x-for-oracle)
-  * [Task 4: Install dbForge Fusion tool (trial version)](#task-4-install-dbforge-fusion-tool-trial-version)
+  * [Task 3: Install SQL Server Migration Assistant for Oracle](#task-3-install-sql-server-migration-assistant-for-oracle)
+  * [Task 4: Install dbForge Fusion tool](#task-4-install-dbforge-fusion-tool)
   * [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
   * [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
 * [Exercise 5: Migrate the Oracle database to SQL Server 2017](#exercise-5-migrate-the-oracle-database-to-sql-server-2017)
@@ -62,25 +62,21 @@ At the end of this hands-on lab, you will be better able to design and build a d
 
 ## Overview
 
-> TODO: Update this based on the changes to move the "data warehouse" into Azure SQL Database using DMS.
-
 World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
 
-The WWI CIO has recently read about new performance enhancements of SQL Server 2017. She is excited about clustered ColumnStore indexes. In addition, she has chosen to upgrade to Enterprise Edition. She’s hoping that table compression will improve performance, backup times, and lessen the load on the Storage Area Network (SAN).
+The WWI CIO has recently read about new performance enhancements of Azure SQL Database and SQL Server 2017. She is excited about the potential performance improvements related to clustered ColumnStore indexes. She is also hoping that table compression will improve performance and backup times.
 
-WWI is concerned about upgrading their database to SQL Server 2017 or Azure SQL Database. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of SQL Server 2017.
+WWI is concerned about upgrading their database to Azure SQL Database or SQL Server 2017. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of Azure SQL Database or SQL Server 2017.
 
 WWI’s CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.
 
 ## Solution architecture
 
-> TODO: Update this based on the changes to move the "data warehouse" into Azure SQL Database using DMS.
-
 Below is a diagram of the solution architecture you will build in this lab. Please study this carefully, so you understand the whole of the solution as you are working on the various components.
 
 ![This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Data Warehouse for a stretch table. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse. ](./media/preferred-solution-architecture.png "Preferred Solution diagram")
 
-The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to SQL Server 2017 Enterprise, using Data Migration Assistant. A shared folder is created for storing a backup of the database, which is used by Data Migration Assistant to move the database to SQL Server 2017. Two new features of SQL Server 2017, Table Compression and ColumnStore Index, will be applied to demonstrate value from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrating to SQL Server 2017 Enterprise using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the NorthwindMVC application is updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server.
+The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to Azure SQL Database, using the Azure Database Migration Service. Two features of Azure SQL Database, Table Compression and ColumnStore Index, will be applied to demonstrate value and performance improvements from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrated to an on-premises SQL Server 2017 Enterprise instance using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the NorthwindMVC application will be updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server.
 
 ## Requirements
 
@@ -706,6 +702,8 @@ In this task, you will create a new activity in the Azure Database Migration Ser
 
 ### Task 7: Verify data migration
 
+In this task, you will use SSMS to verify the database was successfully migrated to Azure SQL Database.
+
 1. Open SSMS on the SqlServerDw VM, and connect to your Azure SQL Database. In the Connect to Server dialog, enter the following:
 
     * **Server name**: Enter the server name of your Azure SQL Database
@@ -1023,7 +1021,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 8. Select **Finish** when the installation is complete.
 
-### Task 4: Install dbForge Fusion tool (trial version)
+### Task 4: Install dbForge Fusion tool
 
 In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio 2017 Community Edition. This step is required because the Oracle Developer Tools extension does not currently work with Visual Studio 2017 Community Edition.
 
@@ -1051,168 +1049,177 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 ### Task 5: Create the Northwind database in Oracle 11g XE
 
-In this task, you will create a connection to the Oracle database on your Lab VM, and create a database called Northwind.
+WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to SQL Server 2017. In this task, you will create a connection to the Oracle database on your Lab VM, and create a database called Northwind.
 
-1. On your Lab VM, download the starter files from <http://bit.ly/2rwxnwW>. (Note the URL is cases sensitive, so you may need copy and paste it into your browser.)
+1. From your LabVM, download the starter project by downloading a .zip copy of the Data platform upgrade and migration GitHub repo.
 
-2. When the download completes, unzip the contents to C:\\handsonlab.
+2. In a web browser, navigate to the [Data platform upgrade and migration MCW repo](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration).
 
-3. Within the handsonlab folder, open the NorthwindMVC folder, and double-click NorthwindMVC.sln to open the project in Visual Studio 2017.
+3. On the repo page, select **Clone or download**, then select **Download ZIP**.
 
-4. If prompted for how you want to open the file, select Visual Studio 2017, and select OK. 
-    
-    ![Visual Studio 2017 is selected and highlighted under How do you want to open this file?](./media/image144.png "Open Visual Studio 2017")
+    ![Download .zip containing the Data platform upgrade and migration repository](media/git-hub-download-repo.png "Download ZIP")
 
-5. Sign into Visual Studio (or create an account if you don't have one), when prompted.
+4. Unzip the contents to **C:\handsonlab**.
 
-6. At the Security Warning screen, uncheck Ask me for every project in this solution, and select OK. ![Ask me for every project in this solution is cleared and OK is selected on the Security Warning screen.](./media/image145.png "Clear Ask me for every project in this solution")
+5. Within the **handsonlab** folder, navigate to the **starter-project** folder under `Hands-on lab`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017.
 
-7. Once then solution is open in Visual Studio, select the Fusion menu, and select New Connection. 
-    
-    ![New Connection is highlighted in the Fusion menu in Visual Studio.](./media/image146.png "Select New Connection")
+6. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**.
 
-8. In the Database Connection properties dialog, set the following values:
+    ![Visual Studio 2017 is selected and highlighted under How do you want to open this file?](./media/visual-studio-version-selector.png "Open Visual Studio 2017")
 
-    * Host: localhost
+7. Sign into Visual Studio (or create an account if you don't have one), when prompted.
 
-    * Port: Leave 1521 selected
+8. At the Security Warning screen, uncheck **Ask me for every project in this solution*, and select **OK**.
 
-    * Select SID, and enter XE
+    ![Ask me for every project in this solution is cleared and OK is selected on the Security Warning screen.](./media/visual-studio-security-warning.png "Clear Ask me for every project in this solution")
 
-    * User: system
+9. Once then solution is open in Visual Studio, select the **Fusion** menu, and select **New Connection**.
 
-    * Password: Password.1!!
+    ![New Connection is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-connection.png "Select New Connection")
 
-    * Check Allow saving password
+10. In the Database Connection properties dialog, set the following values:
 
-    * Connect as: Normal
+    * **Host**: localhost
 
-    * Connection Name: Northwind
+    * **Port**: Leave 1521 selected
 
-        ![The information above is entered in the Database Connection Properties * Oracle dialog box, and OK is selected at the bottom.](./media/image147.png "Specify the settings")
+    * Select **SID**, and enter **XE**
 
-9. Select Test Connection to verify the settings are correct, and select OK to close the popup.
+    * **User**: system
 
-10. Select OK to create the Database Connection.
+    * **Password**: Password.1!!
 
-11. You will now see the Northwind connection in the Database Explorer window. 
+    * Check **Allow saving password**
 
-    ![The Northwind connection is selected in the Database Explorer window.](./media/image148.png "View the Northwind connection")
+    * **Connect as**: Normal
 
-12. Select Fusion from the Visual Studio menu, and select New Query. You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.
+    * **Connection Name**: Northwind
 
-    ![New Query is highlighted in the Fusion menu in Visual Studio.](./media/image149.png "Select New Query")
+        ![The information above is entered in the Database Connection Properties * Oracle dialog box, and OK is selected at the bottom.](./media/visual-studio-fusion-new-database-connection.png "Specify the settings")
 
-13. You will be working in the Text area of the query window, so at the bottom of the query window, select the Swap views icon to move the Text area to the top of the window, and the Query Builder down. You can then use the mouse to expand the Text area.
+11. Select **Test Connection** to verify the settings are correct, and select **OK** to close the popup.
 
-    ![The Swap views icon is highlighted at the bottom of the query window. ](./media/image150.png "Select the Swap views icon")
+12. Select **OK** to create the Database Connection.
 
-14. In Visual Studio, select File, Open File, and navigate to C:\\handsonlab\\NorthwindMVC\\Oracle Scripts, and select the file 1.northwind.oracle.schema.sql. Select Open. 
-    
-    ![The 1.northwind.oracle.schema.sql file is selected and highlighted in the Open File window, and Open is selected at the bottom.](./media/image151.png "Open 1.northwind.oracle.schema.sql")
+13. You will now see the Northwind connection in the Database Explorer window.
 
-15. Select and copy all the file contents (use CTRL+A, CTRL+C).
+    ![The Northwind connection is selected in the Database Explorer window.](./media/visual-studio-fusion-database-explorer.png "View the Northwind connection")
 
-16. Select the tab for your Fusion query. 
-    
-    ![Query1.sql\* is selected and highlighted on the tab for your Fusion query.](./media/image152.png "Select Query1.sql*")
+14. Select **Fusion** again from the Visual Studio menu, and then select **New Query**. Note: You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.
 
-17. Paste (CTRL+V) the text copied in the previous step into the Text area at the bottom of the query window. 
-    
-    ![The text from the previous step is pasted and highlighted in the text area at the bottom of the query window.](./media/image153.png "Paste the text")
+    ![New Query is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-query.png "Select New Query")
 
-18. Select the Execute script button on the Visual Studio toolbar. 
-    
-    ![The Execute script icon is highlighted on the Visual Studio toolbar.](./media/image154.png "Run the script")
+15. You will be working in the Text area of the query window, so at the bottom of the query window, select the **Swap views** icon to move the Text area to the top of the window, and the Query Builder to the bottom. You can then use the mouse to expand the Text area. Note: You may need to select **Text** before it allows you to swap the positions of the two windows.
 
-19. The results of execution can be viewed in the Output window, found at the bottom left of the Visual Studio window.
+    ![The Swap views icon is highlighted at the bottom of the query window. ](./media/visual-studio-fusion-swap-view.png "Select the Swap views icon")
 
-    ![Output is highlighted in the Output window.](./media/image155.png "View the results")
+16. In Visual Studio, select **File** in the menu, then select **Open File**, and navigate to `C:\handsonlab\MCW-Data-platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `1.northwind.oracle.schema.sql`, and then select **Open**.
 
-20. In the Database Explorer window, right-click on the Northwind connection, and select Modify Connection... (If the Database Explorer is not already open, you can open it by selecting Fusion in the menu, then selecting Database Explorer).
+    ![The file, 1.northwind.oracle.schema.sql, is selected and highlighted in the Open File window.](./media/visual-studio-open-file.png "Open File dialog")
 
-    ![Modify Connection is highlighted in the submenu for the Northwind connection in the Database Explorer window.](./media/image156.png "Select Modify Connection")
+17. Select and copy all the file contents (use CTRL+A, CTRL+C).
 
-21. In the Modify Connection dialog, change the username and password as follows:
+18. Select the tab for your Fusion query (Query1.sql).
 
-    * User name: NW
+    ![Query1.sql is selected and highlighted on the tab for your Fusion query.](./media/visual-studio-fusion-query.png "Fusion query window")
 
-    * Password: oracledemo123
+19. Paste (CTRL+V) the text copied in the previous step into the Text area of the query window.
 
-22. Select Test Connection to verify the new credentials work. 
-    
-    ![The information above is entered and highlighted in the Database Connection Properties * Oracle dialog box, and Test Connection is selected at the bottom.](./media/image157.png "Specify the settings")
+    ![The text from the previous step is pasted and highlighted in the text area at the bottom of the query window.](./media/visual-studio-fusion-query-window.png "Paste the text")
 
-23. Select OK to close the Database Connection properties dialog.
+20. Select the **Execute** Fusion script button on the Visual Studio toolbar.
 
-24. Return to your Fusion query window in Visual Studio.
+    ![The Execute Fusion script icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-fusion-execute.png "Run the script")
 
-25. Delete all the query text pasted into the Text area previously. (Click in the Text area, press CTRL+A, then press Delete).
+21. The results of execution can be viewed in the Output window, found at the bottom left of the Visual Studio window.
 
-26. Select the Open File icon on the Visual Studio toolbar. 
-    
-    ![The Open File icon is highlighted on the Visual Studio toolbar.](./media/image158.png "Select Open File")
+    ![Output is highlighted in the Output window.](./media/visual-studio-fusion-output-query-1.png "View the results")
 
-27. In the Open File dialog, navigate to C:\\handsonlab\\NorthwindMVC\\Oracle Scripts. Select the file 2.northwind.oracle.tables.views.sql, and select Open.
+22. In the Database Explorer window, right-click on the **Northwind** connection, and select **Modify Connection** (If the Database Explorer is not already open, you can open it by selecting Fusion in the menu, then selecting Database Explorer).
 
-28. As you did previously, copy all the text from the query, and paste it into the Text area in the Fusion query window.
+    ![Modify Connection is highlighted in the submenu for the Northwind connection in the Database Explorer window.](./media/visual-studio-database-explorer-modify-connection.png "Modify Connection")
 
-29. Select the Execute script button on the toolbar, and view the results of execute in the Output pane. 
-    
-    ![The Execute script icon is highlighted on the Visual Studio toolbar.](./media/image154.png "Run the script")
+23. In the Modify Connection dialog, change the username and password as follows:
 
-30. Repeat steps 26-29, replacing the file name in step 27 with each of the following:
+    * **User name**: NW
 
-    * 3.northwind.oracle.packages.sql
+    * **Password**: oracledemo123
 
-    * 4.northwind.oracle.sps.sql
+24. Select **Test Connection** to verify the new credentials work.
+
+    ![The information above is entered and highlighted in the Database Connection Properties * Oracle dialog box, and Test Connection is selected at the bottom.](./media/visual-studio-database-explorer-modify-connection-update.png "Specify the settings")
+
+25. Select **OK** to close the Database Connection properties dialog.
+
+26. Return to your Fusion query window in Visual Studio.
+
+27. Delete all the query text pasted into the Text area previously. (Click in the Text area, press CTRL+A, then press Delete).
+
+28. Select the **Open File** icon on the Visual Studio toolbar.
+
+    ![The Open File icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-open-file.png "Select Open File")
+
+29. In the Open File dialog, navigate to `C:\handsonlab\MCW-Data-platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
+
+30. As you did previously, copy all the text from the file, and paste it into the Text area of the Fusion query window.
+
+31. Select the **Execute** Fusion script button on the toolbar, and view the results of execute in the Output pane.
+
+    ![The Execute Fusion script icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-fusion-execute.png "Run the script")
+
+32. Repeat steps 29 - 31, replacing the file name in step 29 with each of the following:
+
+    * `3.northwind.oracle.packages.sql`
+
+    * `4.northwind.oracle.sps.sql`
 
         * During the Execute script step for this file, you will need to execute each CREATE OR REPLACE statement independently.
 
-        * Using your mouse, select the first statement, starting with CREATE and going to END; 
-        
-        ![The first statement between CREATE and END is highlighted.](./media/image159.png "Select the first statement")
+        * Using your mouse, select the first statement, starting with CREATE and going to END;
 
-        * Next, select Execute Selection in the Visual Studio toolbar. 
-        
-        ![Execute Selection is highlighted on the Visual Studio toolbar.](./media/image160.png "Select Execute Selection")
+        ![The first statement between CREATE and END is highlighted.](./media/visual-studio-fusion-query-selection.png "Select the first statement")
+
+        * Next, select Execute Selection in the Visual Studio toolbar.
+
+        ![Execute Selection is highlighted on the Visual Studio toolbar.](./media/visual-studio-fusion-query-execute-selection.png "Select Execute Selection")
 
         * Repeat this for each of the remaining CREATE OR REPLACE... END; blocks in the script file (there are 7 more to execute, for 8 total)
 
-    * 5.northwind.oracle.seed.sql
+    * `5.northwind.oracle.seed.sql`
 
-        * This query can take a few minutes to run, so make sure you wait until you see Execute succeeded in the output window before executing the next file, like the following.
-        
-        ![This is a screenshot of the Execute succeeded message in the output window.](./media/image161.png "Execute succeeded message")
+        * This query can take several minutes to run, so make sure you wait until you see **Execute succeeded** in the output window before executing the next file, like the following.
 
-    * 6.northwind.oracle.constraints.sql
+        ![This is a screenshot of the Execute succeeded message in the output window.](./media/visual-studio-fusion-query-completed.png "Execute succeeded message")
+
+    * `6.northwind.oracle.constraints.sql`
 
 ### Task 6: Configure the Starter Application to use Oracle
 
 In this task, you will add the necessary configuration to the NorthwindMVC solution to connect to the Oracle database you created in the previous task.
 
-1. In Visual Studio, select Build from the menu, then select Build Solution. 
-    
-    ![Build Solution is highlighted in the Build menu in Visual Studio.](./media/image162.png "Select Build Solution")
+1. In Visual Studio on your LabVM, select **Build** from the menu, then select **Build Solution**.
 
-2. Open Web.config by double-clicking the file in the Solution Explorer, on the right-hand side in Visual Studio. 
-    
-    ![Web.config is selected under Solution 'NorthwindMVC' (1 project) in Solution Explorer.](./media/image163.png "Open Web.config")
+    ![Build Solution is highlighted in the Build menu in Visual Studio.](./media/visual-studio-menu-build-build-solution.png "Select Build Solution")
 
-3. In the Web.config file, locate the connectionString section, and verify the connection string named "OracleConnectionString" matches the values you have used in this hands-on lab:
-    ```
+2. Open `Web.config` by double-clicking the file in the Solution Explorer, on the right-hand side in Visual Studio.
+
+    ![Web.config is selected under Solution 'NorthwindMVC' (1 project) in Solution Explorer.](./media/visual-studio-solution-explorer-northwindmvc-web-config.png "Open Web.config")
+
+3. In the `Web.config` file, locate the `connectionStrings` section, and verify the connection string named **OracleConnectionString** matches the values you have used in this hands-on lab:
+
+    ```csharp
     DATA SOURCE=localhost:1521/XE;PASSWORD=oracledemo123;USER ID=NW
     ```
 
-    ![The information above is highlighted in the Web.config file.](./media/image164.png "Verify the connection string")
+    ![The information above is highlighted in the Web.config file.](./media/visual-studio-web-config-connection-strings.png "Verify the connection string")
 
-4. Run the solution by selecting the green Start button on the toolbar. 
+4. Run the solution by selecting the green **Start** button on the Visual Studio toolbar.
 
-    ![Start is selected on the toolbar.](./media/image165.png "Run the solution")
+    ![Start is selected on the toolbar.](./media/visual-studio-toolbar-start.png "Run the solution")
 
-5. You should see the Northwind Traders Dashboard load in your browser. 
-    
-    ![The Northwind Traders Dashboard is visible in a browser.](./media/image166.png "View the dashboard")
+5. You should see the Northwind Traders Dashboard load in your browser.
+
+    ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
 
 6. Close the browser to stop debugging the application, and return to Visual Studio.
 
@@ -1224,189 +1231,183 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
 ### Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA
 
-1. Launch Microsoft SQL Server Migration Assistant for Oracle (32-bit) from the Start Menu.
+1. On your LabVM, launch **Microsoft SQL Server Migration Assistant for Oracle** from the Start Menu.
 
-2. Select File, then New Project...
+2. Select **File**, then **New Project...**
 
-    ![File and New Project are highlighted in the SQL Server Migration Assistant for Oracle.](./media/image167.png "Select New Project")
+    ![File and New Project are highlighted in the SQL Server Migration Assistant for Oracle.](./media/ssma-menu-file-new-project.png "Select New Project")
 
-3. In the New Project dialog, accept the default name and location, select SQL Server 2017 for the Migration To value, and select OK. 
-    
-    ![In the New Project dialog box, SQL Server 2017 is selected and highlighted in the Migration To box.](./media/image168.png "New Project dialog box")
+3. In the New Project dialog, accept the default name and location, select **SQL Server 2017** for the Migration To value, and select **OK**.
 
-4. Select Connect to Oracle in the SSMA toolbar. 
-    
-    ![Connect to Oracle is highlighted on the SSMA toolbar.](./media/image169.png "Select Connect to Oracle")
+    ![In the New Project dialog box, SQL Server 2017 is selected and highlighted in the Migration To box.](./media/ssma-new-project.png "New Project dialog box")
+
+4. Select **Connect to Oracle** in the SSMA toolbar.
+
+    ![Connect to Oracle is highlighted on the SSMA toolbar.](./media/ssma-toolbar-connect-to-oracle.png "Select Connect to Oracle")
 
 5. In the Connect to Oracle dialog, enter the following:
 
-    * Provider: Leave set to the default value, Oracle Client Provider
+    * **Provider**: Leave set to the default value, Oracle Client Provider
 
-    * Mode: Leave set to Standard mode
+    * **Mode**: Leave set to Standard mode
 
-    * Server name: Enter localhost
+    * **Server name**: Enter localhost
 
-    * Server port: Set to 1521
+    * **Server port**: Set to 1521
 
-    * Oracle SID: Enter XE
+    * **Oracle SID**: Enter XE
 
-    * User name: Enter NW
+    * **User name**: Enter NW
 
-    * Password: Enter oracledemo123
+    * **Password**: Enter oracledemo123
 
-        ![The information above is entered in the Connect to Oracle dialog box, and Connect is selected at the bottom.](./media/image170.png "Specify the settings")
+        ![The information above is entered in the Connect to Oracle dialog box, and Connect is selected at the bottom.](./media/ssma-connect-to-oracle.png "Specify the settings")
 
-6. Select Connect.
+6. Select **Connect**.
 
-7. In the Output window, you will see a message that the connection was established successfully, like the following: 
-    
-    ![The successful connection message is highlighted in the Output window.](./media/image171.png "View the successful connection message")
+7. In the Output window, you will see a message that the connection was established successfully, similar to the following:
+
+    ![The successful connection message is highlighted in the Output window.](./media/ssma-connect-to-oracle-success.png "View the successful connection message")
 
 8. Under Oracle Metadata Explorer, expand the localhost node, Schemas, and confirm you can see the NW schema, which will be the source for the migration.
 
-    ![The NW schema is highlighted in Oracle Metadata Explorer.](./media/image172.png "Confirm the NW schema")
+    ![The NW schema is highlighted in Oracle Metadata Explorer.](./media/ssma-oracle-metadata-explorer-nw.png "Confirm the NW schema")
 
-9. Next, select Connect to SQL Server from the toolbar, to add your SQL 2017 connection. 
-    
-    ![Connect to SQL Server is highlighted on the toolbar.](./media/image173.png "Select Connect to SQL Server")
+9. Next, select **Connect to SQL Server** from the toolbar, to add your SQL 2017 connection.
+
+    ![Connect to SQL Server is highlighted on the toolbar.](./media/ssma-toolbar-connect-to-sql-server.png "Select Connect to SQL Server")
 
 10. In the connect to SQL Server dialog, provide the following:
 
-    * Server name: Enter the IP address of your SqlServerDw VM. You can get this from the Azure portal by navigating to your VM's blade, and looking at the Essentials area. 
-        
-        ![The IP address of your SqlServerDw VM is highlighted in the Essentials area of your VM's blade in the Azure portal.](./media/image174.png "Enter the IP address ")
+    * **Server name**: Enter the IP address of your SqlServerDw VM. You can get this from the Azure portal by navigating to your VM's blade, and looking at the Essentials area.
 
-    * Server port: Leave set to \[default\]
+        ![The IP address of your SqlServerDw VM is highlighted in the Essentials area of your VM's blade in the Azure portal.](./media/azure-sql-database-public-ip-address.png "Enter the IP address ")
 
-    * Database: Enter Northwind
+    * **Server port**: Leave set to [default]
 
-    * Authentication: Set to SQL Server Authentication
+    * **Database**: Enter Northwind
 
-    * User name: Enter sa
+    * **Authentication**: Set to SQL Server Authentication
 
-    * Password: Enter Password.1!!
+    * **User name**: Enter sa
 
-        ![The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom.](./media/image175.png "Specify the settings")
+    * **Password**: Enter Password.1!!
 
-11. Select Connect.
+        ![The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom.](./media/ssma-connect-to-sql-server.png "Specify the settings")
 
-12. You will see a success message in the output window. 
-    
-    ![The successful connection message is highlighted in the Output window.](./media/image176.png "View the successful connection message")
+11. Select **Connect**.
 
-13. In the SQL Server Metadata Explorer, expand your servers node, then Databases. You should see Northwind listed. 
-    
-    ![Northwind is highlighted under Databases in SQL Server Metadata Explorer.](./media/image177.png "Verify the Northwind listing")
+12. You will see a success message in the output window.
 
-14. In the Oracle Metadata Explorer, check the box next to NW, and make sure it is selected in the tree. 
-    
-    ![The NW schema is selected and highlighted in Oracle Metadata Explorer.](./media/image178.png "Confirm the NW schema")
+    ![The successful connection message is highlighted in the Output window.](./media/ssma-connect-to-sql-server-success.png "View the successful connection message")
 
-15. In the SQL Server Metadata explorer, check the box next to Northwind. 
-    
-    ![Northwind is selected and highlighted under Databases in SQL Server Metadata Explorer.](./media/image179.png "Select Northwind")
+13. In the SQL Server Metadata Explorer, expand your servers node, then Databases. You should see Northwind listed.
 
-16. In the SSMA toolbar, select Convert Schema. There is a bug in SSMA which prevents this button to being properly enabled, so if the button is disabled, you can expand the NW node in the Oracle Metadata Explorer, which should cause the Convert Schema button to become enabled. You can also right-click on the NW database in the Oracle Metadata Explorer, and select Convert Schema if that does not work.
-    
-    ![Convert Schema is highlighted on the SSMA toolbar.](./media/image180.png "Select Convert Schema")
+    ![Northwind is highlighted under Databases in SQL Server Metadata Explorer.](./media/ssma-sql-server-metadata-explorer-northwind.png "Verify the Northwind listing")
+
+14. In the Oracle Metadata Explorer, check the box next to NW, and make sure it is selected in the tree.
+
+    ![The NW schema is selected and highlighted in Oracle Metadata Explorer.](./media/ssma-oracle-metadata-explorer-nw-selected.png "Confirm the NW schema")
+
+15. In the SQL Server Metadata explorer, check the box next to Northwind.
+
+    ![Northwind is selected and highlighted under Databases in SQL Server Metadata Explorer.](./media/ssma-sql-server-metadata-explorer-northwind-selected.png "Select Northwind")
+
+16. In the SSMA toolbar, select **Convert Schema**. There is a bug in SSMA which prevents this button to being properly enabled, so if the button is disabled, you can expand the NW node in the Oracle Metadata Explorer, which should cause the Convert Schema button to become enabled. You can also right-click on the NW database in the Oracle Metadata Explorer, and select Convert Schema if that does not work.
+
+    ![Convert Schema is highlighted on the SSMA toolbar.](./media/ssma-toolbar-convert-schema.png "Select Convert Schema")
 
 17. After about a minute the conversion should have completed.
 
-18. In the SQL Server Metadata Explorer, observe that new schema objects have been added. For example, under Northwind, Schemas, NW, Tables you should see the tables from the Oracle database. 
-    
-    ![NW is selected in the SQL Server Metadata Explorer, and tables from the Oracle database are visible below that.](./media/image181.png "Observe new schema objects")
+18. In the SQL Server Metadata Explorer, observe that new schema objects have been added. For example, under Northwind, Schemas, NW, Tables you should see the tables from the Oracle database.
 
-19. In the output pane, you will notice a message that the conversion finished with 1 error, and 22 warnings. 
-    
-    ![The conversion message is highlighted in the Output window.](./media/image182.png "View the conversion message")
+    ![NW is selected in the SQL Server Metadata Explorer, and tables from the Oracle database are visible below that.](./media/ssma-sql-server-metadata-explorer-nw-tables.png "Observe new schema objects")
 
-20. To view the errors, select the Errors List at the bottom of the SSMA screen. 
-    
-    ![Errors List is highlighted at the bottom of the SSMA screen.](./media/image183.png "Select Errors List")
+19. In the output pane, you will notice a message that the conversion finished with 1 error, and 22 warnings.
 
-21. Select Warnings to hide the warnings, and leave only Errors displayed. 
-    
-    ![The Warnings notification is highlighted in the Errors List.](./media/image184.png "Errors list")
+    ![The conversion message is highlighted in the Output window.](./media/ssma-convert-schema-output.png "View the conversion message")
 
-22. Double-click on the error listed. This will display the Table in both Oracle and SQL Server that is causing the error, EMPLOYEETERRITORIES. Notice the Oracle table lists EMPLOYEEID with a data type of NUMBER, while SQL Server is expecting a data type of float(53). 
-    
-    ![NUMBER and float(53) are highlighted under Data Type, and EMPLOYEEID is selected in the split-screen views of the Table tab for Oracle and SQL Server.](./media/image185.png "View the information")
+20. To view the errors, select the **Error List** at the bottom of the SSMA screen.
+
+    ![Errors List is highlighted at the bottom of the SSMA screen.](./media/ssma-error-list.png "Select Errors List")
+
+21. Select **Warnings** to hide the warnings, and leave only Errors displayed.
+
+    ![The Warnings notification is highlighted in the Errors List.](./media/ssma-warnings.png "Warning tab")
+
+22. Double-click on the error listed. This will display the Table in both Oracle and SQL Server that is causing the error, `EMPLOYEETERRITORIES`. Notice the Oracle table lists `EMPLOYEEID` with a data type of `NUMBER`, while SQL Server is expecting a data type of `float(53)`.
+
+    ![NUMBER and float(53) are highlighted under Data Type, and EMPLOYEEID is selected in the split-screen views of the Table tab for Oracle and SQL Server.](./media/ssma-data-type-error.png "View the information")
 
 23. Look at the table definition for the table on the Oracle side.
 
-24. To change the data type, select the Type Mapping tab, select the row with source type of number, and select Edit.
-    
-    ![The Type Mapping tab is highlighted, and below that, the row with source type of number is highlighted, and Edit is highlighted on the right.](./media/image186.png "Change the data type")
+24. To change the data type, select the **Type Mapping** tab, select the row with source type of number, and select **Edit**.
 
-25. In the Edit Type Mapping dialog, set the Target type to numeric(precision, scale), set the Precision to 10, and select OK.
+    ![The Type Mapping tab is highlighted, and below that, the row with source type of number is highlighted, and Edit is highlighted on the right.](./media/ssma-source-type-mapping-number-edit.png "Change the data type")
 
-    ![The information above is entered in the Edit Type Mapping dialog box, and OK is selected at the bottom.](./media/image187.png "Specify the settings")
+25. In the Edit Type Mapping dialog, set the Target type to **numeric(precision, scale)**, set the Precision to **10**, and select **OK**.
 
-26. Select Apply on the Type mapping tab. 
-    
-    ![The row with source type of number is highlighted on the Type Mapping tab, and Apply is highlighted at the bottom.](./media/image188.png "Select Apply")
+    ![The information above is entered in the Edit Type Mapping dialog box, and OK is selected at the bottom.](./media/ssma-source-type-mapping-edit-type-mapping-number.png "Specify the settings")
 
-27. In the Oracle Metadata Explorer, right-click the EMPLOYEETERRITORIES table, and select Convert Schema. 
-    
-    ![Convert Schema is highlighted in the submenu of the EMPLOYEETERRITORIES table in Oracle Metadata Explorer.](./media/image189.png "Select Convert Schema")
+26. Select **Apply** on the Type mapping tab.
 
-28. When prompted that the target exists, select Overwrite. 
-    
-    ![Overwrite is selected and highlighted in the Target Exists prompt.](./media/image190.png "Select Overwrite")
+    ![The row with source type of number is highlighted on the Type Mapping tab, and Apply is highlighted at the bottom.](./media/ssma-source-type-mapping-number-edit-apply.png "Select Apply")
+
+27. In the Oracle Metadata Explorer, right-click the `EMPLOYEETERRITORIES` table, and select **Convert Schema**.
+
+    ![Convert Schema is highlighted in the submenu of the EMPLOYEETERRITORIES table in Oracle Metadata Explorer.](./media/ssma-table-convert-schema.png "Select Convert Schema")
+
+28. When prompted that the target exists, select **Overwrite**.
+
+    ![Overwrite is selected and highlighted in the Target Exists prompt.](./media/ssma-table-convert-schema-overwrite.png "Select Overwrite")
 
 29. Notice the error is now gone from the Error List.
 
 30. We are going to fix another data type conversion issue now, which will otherwise appear when we attempt to migrate the data.
 
-31. Select the ORDER\_DETAILS table in the Oracle Metadata Explorer. 
-    
-    ![The ORDER\_DETAILS table is selected and highlighted in Oracle Metadata Explorer.](./media/image191.png "Select the ORDER_DETAILS table ")
+31. Select the `ORDER_DETAILS` table in the Oracle Metadata Explorer.
 
-32. Next, you are going to convert the type associated with the DISCOUNT column, FLOAT(23) to a numeric(10, 0), similar to what you did for the EMPLOYEETERRITORIES table.
+    ![The ORDER_DETAILS table is selected and highlighted in Oracle Metadata Explorer.](./media/ssma-oracle-metadata-explorer-order-details.png "Select the ORDER_DETAILS table ")
 
-33. Select the Type Mapping tab, then select float\[\*..53\] from the Source Type list, and select Edit. 
-    
-    ![The row with source type of float\[\*..53\] is selected and highlighted on the Type Mapping tab, and Edit is highlighted on the right.](./media/image192.png "Edit float[*..53]")
+32. Next, you are going to convert the type associated with the `DISCOUNT` column, `FLOAT(23)` to a `numeric(10, 0)`, similar to what you did for the `EMPLOYEETERRITORIES` table.
 
-34. In the Edit Type Mapping dialog, change the Target type to numeric(precision, scale), and set the Precision to 10, then select OK.
+33. Select the **Type Mapping** tab, then select `float[*..53]` from the Source Type list, and select **Edit**.
 
-    ![In the Edit Type Mapping dialog box, numeric(precision, scale) is highlighted under Target type, 10 is highlighted next to Replace with under Precision, and OK is highlighted at the bottom.](./media/image193.png "Change the Target type")
+    ![The row with source type of float\[\*..53\] is selected and highlighted on the Type Mapping tab, and Edit is highlighted on the right.](./media/ssma-type-mapping-float-edit.png "Edit float[*..53]")
 
-35. Select Apply to save the changes to the ORDER\_DETAILS table. 
-    
-    ![The row with source type of float\[\*..53\] is selected and highlighted on the Type Mapping tab, and Apply is highlighted at the bottom.](./media/image194.png "Apply float[*..53]")
+34. In the Edit Type Mapping dialog, change the Target type to `numeric(precision, scale)`, and set the Precision to **10**, then select **OK**.
 
-36. Now, right-click on the ORDER\_DETAILS table in the Oracle Metadata Explorer, and select Convert Schema. 
-    
-    ![Convert Schema is highlighted in the submenu of the ORDER\_DETAILS table in Oracle Metadata Explorer.](./media/image195.png "Select Convert Schema")
+    ![In the Edit Type Mapping dialog box, numeric(precision, scale) is highlighted under Target type, 10 is highlighted next to Replace with under Precision, and OK is highlighted at the bottom.](./media/ssma-edit-type-mapping-float-to-numeric.png "Change the Target type")
 
-37. When prompted that the target exists, select Overwrite. 
-    
-    ![Overwrite is selected and highlighted in the Target Exists prompt.](./media/image196.png "Target Exists prompt")
+35. Select Apply to save the changes to the `ORDER_DETAILS` table.
 
-38. \[Optional\] Save the project. This can take a while, and is not necessary to complete the hands-on lab.
+36. Now, right-click on the `ORDER_DETAILS` table in the Oracle Metadata Explorer, and select **Convert Schema**.
 
-39. To apply the resultant schema to the Northwind database in SQL Server, use the SQL Server Metadata Explorer to view the Northwind database. Right-click Northwind, and select Synchronize with Database. 
-    
-    ![Synchronize with Database is highlighted in the submenu of the Northwind database in SQL Server Metadata Explorer.](./media/image197.png "Select Synchronize with Database")
+37. When prompted that the target exists, select **Overwrite**.
 
-40. Select OK in the Synchronize with the Database dialog.
+38. [Optional] Save the project. This can take a while, and is not necessary to complete the hands-on lab.
 
-41. The Synchronize action will result in multiple errors in the Error List, resulting from attempting to add the SSMA assemblies to the Northwind database. 
-    
-    ![The Errors notification is highlighted at the top of the Errors List window, and the first of multiple errors is selected and highlighted in the Message list.](./media/image198.png "View the errors")
+39. To apply the resultant schema to the Northwind database in SQL Server, use the SQL Server Metadata Explorer to view the Northwind database. Right-click Northwind, and select **Synchronize with Database**.
 
-42. These errors are the result of improvements implemented in SQL Server 2017 SQLCLR security model. Specifically, in SQL Server 2017, Microsoft now by default requires that all type of assemblies (SAFE, EXTERNAL\_ACCESS, UNSAFE) are authorized for UNSAFE access.
+    ![Synchronize with Database is highlighted in the submenu of the Northwind database in SQL Server Metadata Explorer.](./media/ssma-synchronize-with-database.png "Select Synchronize with Database")
+
+40. Select **OK** in the Synchronize with the Database dialog.
+
+41. The Synchronize action will result in multiple errors in the Error List, resulting from attempting to add the SSMA assemblies to the Northwind database.
+
+    ![The Errors notification is highlighted at the top of the Errors List window, and the first of multiple errors is selected and highlighted in the Message list.](./media/ssma-synchronize-errors.png "View the errors")
+
+42. These errors are the result of improvements implemented in SQL Server 2017 SQLCLR security model. Specifically, in SQL Server 2017, Microsoft now by default requires that all type of assemblies (SAFE, EXTERNAL_ACCESS, UNSAFE) are authorized for UNSAFE access.
 
 43. For this hands-on lab, you will be adding the assemblies causing the errors to the trusted assembly list, which is synonymous with whitelisting the assemblies. To fix these errors, complete the following:
 
-    * Under the Northwind database in the SQL Server Metadata Explorer in SSMA, expand Assemblies. 
-        
-        ![Three items are listed below Assemblies, which is highlighted below the Northwind database in SQL Server Metadata Explorer.](./media/image199.png "Expand Assemblies")
+    * Under the **Northwind** database in the SQL Server Metadata Explorer in SSMA, expand **Assemblies**.
 
-    * Right-click SSMA4OracleSQLServerCollections.NET, and select Save as Script. 
-        
-        ![Save as Script is highlighted in the submenu for SSMA4OracleSQLServerCollections.NET.](./media/image200.png "Select Save as Script")
+        ![Three items are listed below Assemblies, which is highlighted below the Northwind database in SQL Server Metadata Explorer.](./media/ssma-sql-server-metadata-explorer-northwind-assemblies.png "Expand Assemblies")
+
+    * Right-click `SSMA4OracleSQLServerCollections.NET`, and select **Save as Script**.
+
+        ![Save as Script is highlighted in the submenu for SSMA4OracleSQLServerCollections.NET.](./media/ssma-sql-server-metadata-explorer-northwind-assemblies-save-as-script.png "Select Save as Script")
 
     * Save the script to the local machine.
 
@@ -1416,32 +1417,30 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
         * Open SSMS 17.
 
-        * Connect to the SQL Server 2017 instance (SqlServerDw), by selecting Connect, and entering SqlServerDw into the Server name field.
+        * Connect to the SQL Server 2017 instance (SqlServerDw), by entering **SqlServerDw** into the Server name field, using Windows Authentication, and selecting **Connect**.
 
-        * Expand Databases.
+        * Expand **Databases**, right-click on **Northwind**, and select **New Query**.
 
-        * Right-click on Northwind, and select New Query.
+        * Paste the following query into the new query window, but don't execute it until you complete the steps below.
 
-        * Paste the following query into the new query window.
+            ```sql
+            USE master;
+            GO
 
-    ```sql
-    USE master;
-    GO
+            DECLARE @clrName nvarchar(4000) = 'SSMA4OracleSQLServerCollections.NET'
+            DECLARE @asmBin varbinary(max) = [INSERT BINARY];
+            DECLARE @hash varbinary(64);
 
-    DECLARE @clrName nvarchar(4000) = 'SSMA4OracleSQLServerCollections.NET'
-    DECLARE @asmBin varbinary(max) = [INSERT BINARY];
-    DECLARE @hash varbinary(64);
+            SELECT @hash = HASHBYTES('SHA2_512', @asmBin);
 
-    SELECT @hash = HASHBYTES('SHA2_512', @asmBin);
-
-    EXEC sys.sp_add_trusted_assembly @hash = @hash, @description = @clrName;
-    ```
+            EXEC sys.sp_add_trusted_assembly @hash = @hash, @description = @clrName;
+            ```
 
     * Now, return to your Lab VM, and open the saved `SSMA4OracleSQLServerCollections.NET.sql` file from the desktop with Notepad.exe.
 
-    * Within the SQL file, locate the line that begins with `CREATE ASSEMBLY`, then locate the word `FROM`. Copy the binary string that appears after `FROM`. This value will span all the way down to the line containing the text "WITH PERMISSION_SET = SAFE". Be sure not to include any whitespace at the end of the binary value.
+    * Within the SQL file, locate the line that begins with `CREATE ASSEMBLY`, then locate the word `FROM`. Copy the binary string that appears after `FROM`. This value will span all the way down to the line containing the text `WITH PERMISSION_SET = SAFE`. Be sure not to include any whitespace at the end of the binary value.
 
-    ![The binary string that appears after FROM is highlighted within the SQL file.](./media/image201.png "Copy the binary string")
+    ![The binary string that appears after FROM is highlighted within the SQL file.](./media/assembly-binary-value.png "Copy the binary string")
 
     * Now, return to SSMS on your SqlServerDw VM, and replace `INSERT BINARY` with the copied binary value. The line should end with ";" and there should be no whitespace before the ";".
 
@@ -1451,13 +1450,13 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
 45. The SSMA assemblies have now been whitelisted in SQL Server 2017.
 
-46. Return to SSMA on your Lab VM, and rerun the Synchronize with Database action on the Northwind database. This will create all the schema objects in the SQL Server Northwind database. There should now be no errors, and the Output pane should show Synchronization operation is complete.
+46. Return to SSMA on your Lab VM, and rerun the **Synchronize with Database** action on the Northwind database. This will create all the schema objects in the SQL Server Northwind database. There should now be no errors, and the Output pane should show **Synchronization operation is complete**.
 
 47. Now you need to migrate the data.
 
 48. In the Oracle Metadata Explorer, select **NW** and from the command bar, select **Migrate Data**.
 
-    ![Migrate Data is highlighted in the command bar of Oracle Metadata Explorer.](./media/image202.png "Select Migrate Data")
+    ![Migrate Data is highlighted in the command bar of Oracle Metadata Explorer.](./media/ssma-toolbar-migrate-data.png "Select Migrate Data")
 
 49. You will be prompted to re-enter your Oracle credentials for use by the migration connection.
 
@@ -1489,7 +1488,11 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
 51. After the migration completes, you will be presented with a Data Migration Report, similar to the following:
 
-    ![This is screenshot of an example Data Migration Report.](./media/image203.png "View the Data Migration Report")
+    ![This is screenshot of an example Data Migration Report.](./media/ssma-data-migration-report.png "View the Data Migration Report")
+
+52. Select **Close** on the migration report.
+
+53. Close SSMA for Oracle.
 
 ## Exercise 6: Migrate the Application
 
@@ -1499,196 +1502,195 @@ In this exercise, you will modify the NorthwindMVC application, so it targets SQ
 
 ### Task 1: Create a new Entity Model against SQL Server
 
-1. On your Lab VM, return to Visual Studio, and open Web.config from the Solution Explorer.
+1. On your Lab VM, return to Visual Studio, and open `Web.config` from the Solution Explorer.
 
-2. Modify the connection string named SqlServerConnectionString to match your remote SQL Server credentials.
+2. Modify the connection string named `SqlServerConnectionString` to match your remote SQL Server credentials.
 
     * Replace the value of "data source" with your SqlServerDw VM's public IP address.
 
     * Replace the value of "password" with Password.1!!.
-    
-    ![The information above is highlighted in Web.config.](./media/image204.png "Replace the password value")
 
-3. Build the solution, by selecting Build in the Visual Studio menu, then selecting Build Solution. 
-    
-    ![Build and Build Solution are highlighted in Visual Studio.](./media/image162.png "Select Build Solution")
+    ![The information above is highlighted in Web.config.](./media/visual-studio-web-config-connection-string-sql-server.png "Replace the password value")
 
-4. In the Solution Explorer, expand the Data folder, and select all the files within the folder. 
-    
-    ![In Solution Explorer, all the files under Data (highlighted) are selected.](./media/image205.png "Expand the Data folder")
+3. Build the solution, by selecting Build in the Visual Studio menu, then selecting Build Solution.
 
-5. Right-click, and choose Delete.
+4. In the Solution Explorer, expand the Data folder, and select all the files within the folder.
 
-    ![Delete is selected in the shortcut menu for all the files listed under Data.](./media/image206.png "Delete the files")
+    ![In Solution Explorer, all the files under Data (highlighted) are selected.](./media/visual-studio-solution-explorer-data-folder.png "Expand the Data folder")
 
-6. Select OK at the confirmation prompt.
+5. Right-click, and choose **Delete**.
 
-7. Right-click on the Data folder, and select Add \> New Item...
-    
-    ![In the shortcut menu for the Data folder, New Item and Add are highlighted.](./media/image207.png "Select Add")
+    ![Delete is selected in the shortcut menu for all the files listed under Data.](./media/visual-studio-solution-explorer-data-folder-delete.png "Delete the files")
 
-8. In the Add New Item dialog, expand Visual C\#, select Data, and select ADO.NET Entity Data Model. Enter DataContext for the name, and select Add.
-    
-    ![In the Add New Item dialog box, Visual C\#, Data, ADO.NET Entity Data Model, and DataContext are highlighted.](./media/image208.png "Add DataContext")
+6. Select **OK** at the confirmation prompt.
 
-9. In the wizard's Choose Model Contents dialog, select Code First from database, and select Next. 
-    
-    ![Code First from database is highlighted under What should the model contain? in the Entity Data Model Wizard.](./media/image209.png "Select Code First from database")
+7. Right-click on the Data folder, and select **Add > New Item...**
 
-10. In the Choose Your Data Connection dialog, select SqlServerConnectionString (Settings) from the drop down, and select Yes, include the sensitive data in the connection string. Uncheck Save connection settings in Web.Config, and select Next. 
-    
-    ![SqlServerConnectionString (Settings) and Yes, include the sensitive data in the connection string are selected and highlighted in the Entity Data Model Wizard, and Save connection settings in Web.Config is cleared.](./media/image210.png "Choose Your Data Connection settings")
+    ![In the shortcut menu for the Data folder, New Item and Add are highlighted.](./media/visual-studio-solution-explorer-data-add-new-item.png "Select Add")
 
-11. In the Connect to SQL Server dialog, enter the Password, Password.1!!. 
-    
-    ![The password above is entered in the Connect to SQL Server dialog box.](./media/image211.png "Enter the Password")
+8. In the Add New Item dialog, expand Visual C#, select **Data**, and select **ADO.NET Entity Data Model**. Enter **DataContext** for the name, and select **Add**.
 
-12. On the Choose Your Database Objects and Settings screen, expand the Tables node, and check NW only. Ensure Pluralize or singularize generated column names is checked.
-    
-    ![The Tables node is selected, and NW is selected and highlighted in the Entity Data Model Wizard. Pluralize or singularize generated column names is also selected.](./media/image212.png "Choose Your Database Objects and Settings")
+    ![In the Add New Item dialog box, Visual C#, Data, ADO.NET Entity Data Model, and DataContext are highlighted.](./media/visual-studio-solution-explorer-data-add-new-data-context.png "Add DataContext")
 
-13. Select Finish, and the model will be generated. This may take a few minutes.
+9. In the wizard's Choose Model Contents dialog, select **Code First from database**, and select **Next**.
+
+    ![Code First from database is highlighted under What should the model contain? in the Entity Data Model Wizard.](./media/visual-studio-entity-data-model-wizard-choose-model.png "Select Code First from database")
+
+10. In the Choose Your Data Connection dialog, select **SqlServerConnectionString (Settings)** from the drop down, and select **Yes, include the sensitive data in the connection string**. **Uncheck Save connection settings in Web.Config**, and select **Next**.
+
+    ![SqlServerConnectionString (Settings) and Yes, include the sensitive data in the connection string are selected and highlighted in the Entity Data Model Wizard, and Save connection settings in Web.Config is cleared.](./media/visual-studio-entity-data-model-wizard-data-connection.png "Choose Your Data Connection settings")
+
+11. If prompted, in the Connect to SQL Server dialog, enter the Password, **Password.1!!**.
+
+    ![The password above is entered in the Connect to SQL Server dialog box.](./media/visual-studio-entity-data-model-wizard-connect-to-sql-server.png "Enter the Password")
+
+12. On the Choose Your Database Objects and Settings screen, expand the Tables node, and check **NW** only. Ensure **Pluralize or singularize generated column names** is checked.
+
+    ![The Tables node is selected, and NW is selected and highlighted in the Entity Data Model Wizard. Pluralize or singularize generated column names is also selected.](./media/visual-studio-entity-data-model-wizard-database-objects.png "Choose Your Database Objects and Settings")
+
+13. Select **Finish**, and the model will be generated. This may take a few minutes.
 
 ### Task 2: Modify Application Code
 
-1. In Visual Studio, open the file DataContext.cs from the Solution Explorer. You may need to collapse the Data folder, and re-expand it after refreshing if you don't see the file listed.
-    
-    ![DataContext.cs is highlighted under the Data folder in Solution Explorer.](./media/image213.png "Open DataContext.cs")
+1. In Visual Studio, open the file `DataContext.cs` from the Solution Explorer. You may need to collapse the Data folder, and re-expand it after refreshing if you don't see the file listed.
+
+    ![DataContext.cs is highlighted under the Data folder in Solution Explorer.](./media/visual-studio-solution-explorer-data-datacontext.png "Open DataContext.cs")
 
 2. The call to base in the DataContext constructor, at the top of the file, needs to be updated to reflect the correct connection string.
 
-    ![In the DataContext constructor, : base ("name=DataContext") is highlighted.](./media/image214.png "Update the call to base")
+    ![In the DataContext constructor, : base ("name=DataContext") is highlighted.](./media/visual-studio-solution-explorer-data-datacontext-base.png "Update the call to base")
 
 3. Change the line from:
 
     ```csharp
     : base ("name=DataContext")
     ```
-    
+
 4. To:
 
     ```csharp
     : base ("name=SqlServerConnectionString")
     ```
+
 5. Save the file.
 
-    ![In the DataContext constructor, : base ("name=SqlServerConnectionString") is highlighted.](./media/image215.png "Update the call to base")
+    ![In the DataContext constructor, : base ("name=SqlServerConnectionString") is highlighted.](./media/visual-studio-solution-explorer-data-datacontext-base-updated.png "Update the call to base")
 
-6. Next, open the file HomeController.cs, in the Controllers folder in the Solution Explorer. 
-    
-    ![The HomeController.cs file is selected and highlighted under the Controllers folder in Solution Explorer.](./media/image216.png "Open HomeController.cs")
+6. Next, open the file `HomeController.cs`, in the Controllers folder in the Solution Explorer.
 
-7. Comment out the code under the Oracle comment. First, select the lines for the Oracle code, then select the Comment button in the toolbar. 
-    
-    ![The code under the Oracle comment is highlighted and labeled 1, and the Comment button in the toolbar is highlighted and labeled 2.](./media/image217.png "Comment out code")
+    ![The HomeController.cs file is selected and highlighted under the Controllers folder in Solution Explorer.](./media/visual-studio-solution-explorer-controllers-home-controller.png "Open HomeController.cs")
+
+7. Comment out the code under the Oracle comment. First, select the lines for the Oracle code, then select the Comment button in the toolbar.
+
+    ![The code under the Oracle comment is highlighted and labeled 1, and the Comment button in the toolbar is highlighted and labeled 2.](./media/visual-studio-home-controller-comment-out-oracle-lines.png "Comment out code")
 
 8. Next, uncomment the code under the SQL Server comment. Select the commented out code, then select the Uncomment button on the toolbar. You may need to click the Uncomment button twice to uncomment the code.
 
-    The lines will change from green to colored text when the comment characters have been removed from the front of each line. This code change is done because of differences in how stored procedures are accessed in Oracle versus Sql Server.
-        
-    ![The code under the SQL Server comment is highlighted and labeled 1, and the Uncomment button in the toolbar is highlighted and labeled 2.](./media/image218.png "Uncomment code")
+    > The lines will change from green to colored text when the comment characters have been removed from the front of each line. This code change is done because of differences in how stored procedures are accessed in Oracle versus Sql Server.
 
-9. Save the changes to HomeController.cs.
+    ![The code under the SQL Server comment is highlighted and labeled 1, and the Uncomment button in the toolbar is highlighted and labeled 2.](./media/visual-studio-home-controller-uncomment-sql-server-lines.png "Uncomment code")
 
-10. Open the file, SALESBYYEAR.cs, in the Models folder in the Solution Explorer. 
-    
-    ![SALESBYYEAR.cs is highlighted under the Models folder in the Solution Explorer.](./media/image219.png "Open SALESBYYEAR.cs")
+9. Save the changes to `HomeController.cs`.
+
+10. Open the file, `SALESBYYEAR.cs`, in the Models folder in the Solution Explorer.
+
+    ![SALESBYYEAR.cs is highlighted under the Models folder in the Solution Explorer.](./media/visual-studio-models-salesbyyear.png "Open SALESBYYEAR.cs")
 
 11. Change the types of the following properties:
 
-    * Change the SUBTOTAL property from double to decimal.
+    * Change the `SUBTOTAL` property from double to decimal.
 
-    * Change the YEAR property from string to int.
-    
-    ![The decimal and int property values are highlighted.](./media/image220.png "Change the SUBTOTAL and YEAR properties")
+    * Change the `YEAR` property from string to int.
+
+    ![The decimal and int property values are highlighted.](./media/visual-studio-models-salesbyyear-updated.png "Change the SUBTOTAL and YEAR properties")
 
 12. Save the file.
 
-13. Open the SalesByYearViewModel.cs file from the Models folder in the Solution Explorer. 
+13. Open the `SalesByYearViewModel.cs` file from the Models folder in the Solution Explorer.
 
-    ![SalesByYearViewModel.cs is highlighted under the Models folder in the Solution Explorer.](./media/image221.png "Open SalesByYearViewModel.cs")
+    ![SalesByYearViewModel.cs is highlighted under the Models folder in the Solution Explorer.](./media/visual-studio-models-salesbyyearviewmodel.png "Open SalesByYearViewModel.cs")
 
-14. Change the type of the YEAR property from string to int, then save the file. 
-    
-    ![The int property value is highlighted.](./media/image222.png "Change the YEAR property")
+14. Change the type of the `YEAR` property from string to int, then save the file.
 
-15. Run the solution by selecting the green Start button on the toolbar. 
+    ![The int property value is highlighted.](./media/visual-studio-models-salesbyyearviewmodel-updated.png "Change the YEAR property")
 
-    ![Start is highlighted on the toolbar.](./media/image165.png "Select Start")
+15. Run the solution by selecting the green Start button on the toolbar.
 
-16. You will get an exception that the stored procedure call has failed. This is because of an error in migrating the stored procedure. ![An exception appears indicating that the stored procedure call has failed.](./media/image223.png "View the error")
+    ![Start is highlighted on the toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
 
-17. Select the red Stop button to end execution of the application. 
-    
-    ![The Stop button is highlighted on the toolbar.](./media/image224.png "Select Stop")
+16. You will get an exception that the stored procedure call has failed. This is because of an error in migrating the stored procedure.
 
-18. To resolve the error, open the SALES\_BY\_YEAR\_fix.sql file, located under Solution Items in the Solution Explorer. 
-    
-    ![The SALES\_BY\_YEAR\_fix.sql file is highlighted under the Solution Items folder in Solution Explorer.](./media/image225.png "Open SALES_BY_YEAR_fix.sql")
+    ![An exception appears indicating that the stored procedure call has failed.](./media/visual-studio-exception-sqlexception.png "View the error")
 
-19. Note the database name at the top of the file (within the brackets after the USE keyword). 
-    
-    ![NorthwindMigration is displayed as the database name at the top of the file.](./media/image226.png "Note the database name")
+17. Select the red Stop button to end execution of the application.
 
-20. Enter the correct database name, Northwind, at the top of the file, and save the file.
+    ![The Stop button is highlighted on the toolbar.](./media/visual-studio-toolbar-stop.png "Select Stop")
 
-    ![Northwind is listed as the correct database name at the top of the file.](./media/image227.png "Enter the correct database name")
+18. To resolve the error, open the `SALES_BY_YEAR_fix.sql` file, located under Solution Items in the Solution Explorer.
 
-21. From the Visual Studio menu, select View, and then Server Explorer. 
-    
-    ![View and Server Explorer are highlighted in the Visual Studio menu.](./media/image228.png "Select Server Explorer")
+19. Note the database name at the top of the file (within the brackets after the `USE` keyword).
 
-22. In the Server Explorer, right-click on Data Connections, and select Add Connections...
-    
-    ![Data Connections is selected in Server Explorer, and Add Connection is highlighted in the shortcut menu.](./media/image229.png "Select Add Connection")
+    ![NorthwindMigration is displayed as the database name at the top of the file.](./media/visual-studio-sql-file-use-statement-northwindmigration.png "Note the database name")
 
-23. On the Choose Data Source dialog, select Microsoft SQL Server, and select Next. 
-    
-    ![Microsoft SQL Server is selected and highlighted under Data source in the Choose Data Source dialog box.](./media/image230.png "Select Microsoft SQL Server")
+20. Replace this with the correct database name, **Northwind**, and save the file.
+
+    ![Northwind is listed as the correct database name at the top of the file.](./media/visual-studio-sql-file-use-statement-northwind.png "Enter the correct database name")
+
+21. From the Visual Studio menu, select **View**, and then **Server Explorer**.
+
+    ![View and Server Explorer are highlighted in the Visual Studio menu.](./media/visual-studio-menu-view-server-explorer.png "Select Server Explorer")
+
+22. In the Server Explorer, right-click on **Data Connections**, and select **Add Connections...**
+
+    ![Data Connections is selected in Server Explorer, and Add Connection is highlighted in the shortcut menu.](./media/visual-studio-server-explorer-data-connections.png "Select Add Connection")
+
+23. On the Choose Data Source dialog, select **Microsoft SQL Server**, and select **Next**.
+
+    ![Microsoft SQL Server is selected and highlighted under Data source in the Choose Data Source dialog box.](./media/visual-studio-server-explorer-data-connections-add.png "Select Microsoft SQL Server")
 
 24. On the Add Connection dialog, enter the following:
 
-    * Data source: Leave Microsoft SQL Server (SqlClient)
+    * **Data source**: Leave Microsoft SQL Server (SqlClient)
 
-    * Server name: Enter the IP address of your SqlServerDw VM.
+    * **Server name**: Enter the IP address of your SqlServerDw VM.
 
-    * Authentication: Select SQL Server Authentication
+    * **Authentication**: Select SQL Server Authentication
 
-    * User name: Enter sa
+    * **User name**: Enter sa
 
-    * Password: Enter Password.1!!
+    * **Password**: Enter Password.1!!
 
-    * Connect to a database: Choose Select or enter database name, and enter Northwind
+    * **Connect to a database**: Choose Select or enter database name, and enter Northwind
 
-    * Select Test Connection to verify your settings are correct, and select OK to close the successful connection dialog.
+    * Select **Test Connection** to verify your settings are correct, and select **OK** to close the successful connection dialog.
 
-        ![The information above is entered in the Add Connection dialog box, and Test Connection is selected at the bottom.](./media/image231.png "Specify the settings")
+        ![The information above is entered in the Add Connection dialog box, and Test Connection is selected at the bottom.](./media/visual-studio-server-explorer-data-connections-add-connection.png "Specify the settings")
 
-25. Select OK.
+25. Select **OK**.
 
-26. Right-click the newly added SQL Server connection in the Server Explorer, and select New Query. 
-    
-    ![The newly added SQL Server connection is selected in Server Explorer, and New Query is highlighted in the shortcut menu.](./media/image232.png "Select New Query")
+26. Right-click the newly added SQL Server connection in the Server Explorer, and select **New Query**.
 
-27. Select and copy all of the text from the SALES\_BY\_YEAR\_fix.sql file (click CTRL+A, CTRL+C in the SALES\_BY\_YEAR\_fix.sql file).
+    ![The newly added SQL Server connection is selected in Server Explorer, and New Query is highlighted in the shortcut menu.](./media/visual-studio-server-explorer-data-connections-new-query.png "Select New Query")
+
+27. Select and copy all of the text from the `SALES_BY_YEAR_fix.sql` file (click CTRL+A, CTRL+C in the `SALES_BY_YEAR_fix.sql` file).
 
 28. Paste (CTRL+V) the copied text into the new Query window.
 
-29. Verify the Use \[Northwind\] statement is the first line of the file, and that it matches the database listed in the query bar. Select the green Execute button. 
-    
-    ![The Use \[Northwind\] statement is highlighted, as is the Northwind database and the Execute button in the query bar.](./media/image233.png "Verify the Use [Northwind] statement")
+29. Verify `Use [Northwind]` is the first line of the file, and that it matches the database listed in the query bar, then select the green **Execute** button.
 
-30. You should see a message that the command completed successfully. 
-    
-    ![This is a screenshot of a message that the command completed successfully.](./media/image234.png "View the message")
+    ![The Use [Northwind] statement is highlighted, as is the Northwind database and the Execute button in the query bar.](./media/visual-studio-sql-query-execute.png "Verify the Use [Northwind] statement")
 
-31. Run the application again by clicking the green Start button in the Visual Studio toolbar. 
-    
-    ![The Start button is highlighted on the Visual Studio toolbar.](./media/image165.png "Select Start")
+30. You should see a message that the command completed successfully.
 
-32. Verify the graph is showing correctly on the Northwind traders dashboard. 
-    
-    ![The Northwind Traders Dashboard is visible in a browser.](./media/image166.png "View the dashboard")
+    ![This is a screenshot of a message that the command completed successfully.](./media/visual-studio-sql-query-completed-successfully.png "View the message")
+
+31. Run the application again by clicking the green Start button in the Visual Studio toolbar.
+
+    ![The Start button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
+
+32. Verify the graph is showing correctly on the Northwind traders dashboard.
+
+    ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
 
 33. Congratulations! You have successfully migrated the data and application from Oracle to SQL Server.
 
