@@ -1,6 +1,6 @@
 # Before the hands-on lab
 
-Duration: 50 minutes
+Duration: 45 minutes
 
 In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
 
@@ -14,6 +14,7 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 * [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
 * [Task 5: Connect to the SqlServerDw VM](#task-5-connect-to-the-sqlserverdw-vm)
 * [Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
+* [Task 7: Provision Azure SQL Database](#task-7-provision-azure-sql-database)
 * [Next steps](#next-steps)
 
 ## Task 1: Provision a resource group
@@ -52,7 +53,7 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
     * **Subscription**: Select the same subscription you are using for this hands-on lab
 
-    * **Resource Group**: Select Use existing, and select the hands-on-lab-SUFFIX resource group
+    * **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
 
     * **Location**: Select the location you are using for resources in this hands-on lab
 
@@ -98,7 +99,7 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
     * **Subscription**: Select the same subscription you are using for this hands-on lab
 
-    * **Resource Group**: Select Use existing, and select the hands-on-lab-SUFFIX resource group
+    * **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
 
     * **Location**: Select the location you are using for resources in this hands-on lab
 
@@ -293,6 +294,43 @@ In this task, you will add rules to the SqlServerDw VM's Windows firewall to all
     ![Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right.](./media/new-inbound-rule-wizard-name.png "Specify the name")
 
 10. Close the Windows Firewall with Advanced Security window.
+
+## Task 7: Provision Azure SQL Database
+
+In this task, you will create an Azure SQL Database, which will server as the target database for migration of the on-premises WorldWideImporters database into the cloud.
+
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql database" into the Search the Marketplace box, select **SQL Database** from the results, and select **Create**.
+
+    ![+Create a resource is selected in the Azure navigation pane, and "sql database" is entered into the Search the Marketplace box. SQL Database is selected in the results.](media/create-resource-azure-sql-database.png "Create SQL Server")
+
+2. On the SQL Database blade, enter the following:
+
+    * **Database name**: Enter WorldWideImporters
+
+    * **Subscription**: Select the same subscription you are using for this hands-on lab
+
+    * **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+
+    * **Select source**: Select Blank database
+
+    * **Server**: Select this, and select Create a new server, then on the New server blade, enter the following:
+        * **Server name**: Enter a unique name, such as wwiSUFFIX
+        * **Server admin login**: Enter demouser
+        * **Password**: Enter Password.1!!
+        * **Location**: Select the location you are using for resources in this hands-on lab
+        * Select **OK**
+
+    * Under Want to use SQL elastic pool, select **Not now**
+
+    * **Pricing tier**: Select Standard S0: 10 DTUs, 250 GB
+
+    * **Collation**: Leave set to SQL_Latin1_General_CP1_CI_AS
+
+    ![The SQL Database blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-sql-database-create.png "Create Azure SQL Database")
+
+3. Select **Create**
+
+    > **NOTE**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
 
 *These steps should be completed prior to starting the rest of the Lab.*
 
