@@ -12,9 +12,9 @@ WWI’s CIO would like a POC of a data warehouse move and proof that the new tec
 
 ## Target audience
 
-* Application developer
-* SQL Developer
-* Database Administrator
+- Application developer
+- SQL Developer
+- Database Administrator
 
 ## Abstract
 
@@ -38,15 +38,15 @@ At the end of this hands-on lab, you will be better able to design and build a d
 
 ## Azure services and related products
 
-* Azure App Services
-* Azure Database Migration Service (DMS)
-* Azure SQL Database
-* Azure SQL Data Warehouse
-* Data Migration Assistant (DMA)
-* SQL Server 2008 R2 and 2017
-* SQL Server Management Studio (SSMS)
-* SQL Server Migration Assistant (SSMA)
-* Visual Studio 2017
+- Azure App Services
+- Azure Database Migration Service (DMS)
+- Azure SQL Database
+- Azure SQL Data Warehouse
+- Data Migration Assistant (DMA)
+- SQL Server 2008 R2 and 2017
+- SQL Server Management Studio (SSMS)
+- SQL Server Migration Assistant (SSMA)
+- Visual Studio 2017
 
 ## Azure solution
 

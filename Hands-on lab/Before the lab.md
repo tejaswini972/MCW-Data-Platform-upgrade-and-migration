@@ -8,14 +8,14 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 
 ## Contents
 
-* [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
-* [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
-* [Task 3: Create SQL Server virtual machine](#task-3-create-sql-server-virtual-machine)
-* [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
-* [Task 5: Connect to the SqlServerDw VM](#task-5-connect-to-the-sqlserverdw-vm)
-* [Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
-* [Task 7: Provision Azure SQL Database](#task-7-provision-azure-sql-database)
-* [Next steps](#next-steps)
+- [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
+- [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
+- [Task 3: Create SQL Server virtual machine](#task-3-create-sql-server-virtual-machine)
+- [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
+- [Task 5: Connect to the SqlServerDw VM](#task-5-connect-to-the-sqlserverdw-vm)
+- [Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
+- [Task 7: Provision Azure SQL Database](#task-7-provision-azure-sql-database)
+- [Next steps](#next-steps)
 
 ## Task 1: Provision a resource group
 
@@ -23,11 +23,11 @@ In this task, you will create an Azure resource group for the resources used thr
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups**, select **+Add**, then enter the following in the Create an empty resource group blade:
 
-    * **Name**: Enter hands-on-lab-SUFFIX
+    - **Name**: Enter hands-on-lab-SUFFIX
 
-    * **Subscription**: Select the subscription you are using for this hands-on lab
+    - **Subscription**: Select the subscription you are using for this hands-on lab
 
-    * **Resource group location**: Select the region you would like to use for resources in this hands-on lab. Remember this location so you can use it for the other resources you'll provision throughout this lab.
+    - **Resource group location**: Select the region you would like to use for resources in this hands-on lab. Remember this location so you can use it for the other resources you'll provision throughout this lab.
 
         ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and "hands-on-labs" is entered into the Resource group name box on the Create an empty resource group blade.](./media/create-resource-group.png "Create resource group")
 
@@ -43,23 +43,23 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
 2. Set the following configuration on the Basics tab.
 
-    * **Name**: Enter LabVM
+    - **Name**: Enter LabVM
 
-    * **VM disk type**: Select SSD
+    - **VM disk type**: Select SSD
 
-    * **User name**: Enter demouser
+    - **User name**: Enter demouser
 
-    * **Password**: Enter Password.1!!
+    - **Password**: Enter Password.1!!
 
-    * **Subscription**: Select the same subscription you are using for this hands-on lab
+    - **Subscription**: Select the same subscription you are using for this hands-on lab
 
-    * **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
 
-    * **Location**: Select the location you are using for resources in this hands-on lab
+    - **Location**: Select the location you are using for resources in this hands-on lab
 
         ![Screenshot of the Basics blade, with fields set to the previously mentioned settings.](./media/virtual-machine-basics-blade.png "Create virtual machine Basics blade")
 
-    * Select **OK** to move to the next step.
+    - Select **OK** to move to the next step.
 
 3. On the Choose a size blade, select DS2_v3 Standard.
 
@@ -89,23 +89,23 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
 2. On the Create virtual machine blade, enter the following:
 
-    * **Name**: Enter SqlServerDw
+    - **Name**: Enter SqlServerDw
 
-    * **VM disk type**: Select SSD
+    - **VM disk type**: Select SSD
 
-    * **User name**: Enter demouser
+    - **User name**: Enter demouser
 
-    * **Password**: Enter Password.1!!
+    - **Password**: Enter Password.1!!
 
-    * **Subscription**: Select the same subscription you are using for this hands-on lab
+    - **Subscription**: Select the same subscription you are using for this hands-on lab
 
-    * **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
 
-    * **Location**: Select the location you are using for resources in this hands-on lab
+    - **Location**: Select the location you are using for resources in this hands-on lab
 
         ![On the Basics blade, the values above are entered in the boxes.](media/sql-virtual-machine-basics-blade.png "Create virtual machine Basics blade")
 
-    * Select **OK** to move on to the Size blade.
+    - Select **OK** to move on to the Size blade.
 
 3. On the Choose a size blade, select DS1_v2 Standard.
 
@@ -305,28 +305,28 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 
 2. On the SQL Database blade, enter the following:
 
-    * **Database name**: Enter WorldWideImporters
+    - **Database name**: Enter WorldWideImporters
 
-    * **Subscription**: Select the same subscription you are using for this hands-on lab
+    - **Subscription**: Select the same subscription you are using for this hands-on lab
 
-    * **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
 
-    * **Select source**: Select Blank database
+    - **Select source**: Select Blank database
 
-    * **Server**: Select this, and select Create a new server, then on the New server blade, enter the following:
-        * **Server name**: Enter a unique name, such as wwiSUFFIX
-        * **Server admin login**: Enter demouser
-        * **Password**: Enter Password.1!!
-        * **Location**: Select the location you are using for resources in this hands-on lab
-        * Select **OK**
+    - **Server**: Select this, and select Create a new server, then on the New server blade, enter the following:
+        - **Server name**: Enter a unique name, such as wwiSUFFIX
+        - **Server admin login**: Enter demouser
+        - **Password**: Enter Password.1!!
+        - **Location**: Select the location you are using for resources in this hands-on lab
+        - Select **OK**
 
-    * Under Want to use SQL elastic pool, select **Not now**
+    - Under Want to use SQL elastic pool, select **Not now**
 
-    * **Pricing tier**: Select Premium P1: 125 DTUs, 500 GB, and select **Apply**
+    - **Pricing tier**: Select Premium P1: 125 DTUs, 500 GB, and select **Apply**
 
         ![The Configure pricing tier for SQL Server is displayed, with Premium selected and highlighted.](media/azure-sql-database-pricing-tier-premium.png "SQL Pricing tier configuration")
 
-    * **Collation**: Leave set to SQL_Latin1_General_CP1_CI_AS
+    - **Collation**: Leave set to SQL_Latin1_General_CP1_CI_AS
 
     ![The SQL Database blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-sql-database-create.png "Create Azure SQL Database")
 
@@ -340,7 +340,7 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 
 You are now ready to complete the hands-on lab. Select a guide below to get started, or you can return to the overview page for the lab.
 
-* Complete Hands-on lab
-  * [Step-by-step guide](./HOL-step-by-step-Intelligent-vending-machines.md)
-  * [Unguided guide](./HOL-unguided-Intelligent-vending-machines.md)
-* Return to [Hands-on lab readme](./readme.md)
+- Complete Hands-on lab
+  - [Step-by-step guide](./HOL-step-by-step-Intelligent-vending-machines.md)
+  - [Unguided guide](./HOL-unguided-Intelligent-vending-machines.md)
+- Return to [Hands-on lab readme](./readme.md)

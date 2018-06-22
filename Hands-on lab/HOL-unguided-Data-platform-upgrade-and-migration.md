@@ -17,42 +17,42 @@ If you have not yet completed the steps to set up your environment in [Before th
 
 ## Contents
 
-* [Abstract](#abstract)
-* [Overview](#overview)
-* [Solution architecture](#solution-architecture)
-* [Requirements](#requirements)
-* [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
-  * [Task 1: Install SQL Server 2017](#task-1-install-sql-server-2017)
-  * [Task 2: Install SQL Server 2008 R2](#task-2-install-sql-server-2008-r2)
-  * [Task 3: Install AdventureWorks sample database](#task-3-install-adventureworks-sample-database)
-  * [Task 4: Update SQL Server settings using Configuration Manager](#task-4-update-sql-server-settings-using-configuration-manager)
-  * [Task 5: Add inbound port rule](task-5-add-inbound-port-rule)
-  * [Task 6: Copy the SqlServerDw VM IP address](task-6-copy-the-sqlserverdw-vm-ip-address)
-* [Exercise 2: Migrate SQL Server to Azure SQL Database using DMS](#exercise-2-migrate-sql-server-to-azure-sql-database-using-dms)
-  * [Task 1: Register the Microsoft DataMigration resource provider](#task-1-register-the-microsoft-datamigratin-resource-provider)
-  * [Task 2: Create Azure Database Migration Service](#task-2-create-azure-database-migration-service)
-  * [Task 3: Assess the on-premises database](#task-3-assess-the-on-premises-database)
-  * [Task 4: Migrate the database schema](#task-4-migrate-the-database-schema)
-  * [Task 5: Create a migration project](#task-5-create-a-migration-project)
-  * [Task 6: Run the migration](#task-6-run-the-migration)
-  * [Task 7: Verify data migration](#task-7-verify-data-migration)
-* [Exercise 3: Post upgrade enhancement](#exercise-3-post-upgrade-enhancement)
-  * [Task 1: Table compression](#task-1-table-compression)
-  * [Task 2: Clustered ColumnStore index](#task-2-clustered-columnstore-index)
-* [Exercise 4: Setup Oracle 11g Express Edition](#exercise-4-setup-oracle-11g-express-edition)
-  * [Task 1: Install Oracle XE](#task-1-install-oracle-xe)
-  * [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
-  * [Task 3: Install SQL Server Migration Assistant for Oracle](#task-3-install-sql-server-migration-assistant-for-oracle)
-  * [Task 4: Install dbForge Fusion tool](#task-4-install-dbforge-fusion-tool)
-  * [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
-  * [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
-* [Exercise 5: Migrate the Oracle database to SQL Server 2017](#exercise-5-migrate-the-oracle-database-to-sql-server-2017)
-  * [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
-* [Exercise 6: Migrate the Application](#exercise-6-migrate-the-application)
-  * [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
-  * [Task 2: Modify Application Code](#task-2-modify-application-code)
-* [After the hands-on lab](#after-the-hands-on-lab)
-  * [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
+- [Abstract](#abstract)
+- [Overview](#overview)
+- [Solution architecture](#solution-architecture)
+- [Requirements](#requirements)
+- [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
+  - [Task 1: Install SQL Server 2017](#task-1-install-sql-server-2017)
+  - [Task 2: Install SQL Server 2008 R2](#task-2-install-sql-server-2008-r2)
+  - [Task 3: Install AdventureWorks sample database](#task-3-install-adventureworks-sample-database)
+  - [Task 4: Update SQL Server settings using Configuration Manager](#task-4-update-sql-server-settings-using-configuration-manager)
+  - [Task 5: Add inbound port rule](task-5-add-inbound-port-rule)
+  - [Task 6: Copy the SqlServerDw VM IP address](task-6-copy-the-sqlserverdw-vm-ip-address)
+- [Exercise 2: Migrate SQL Server to Azure SQL Database using DMS](#exercise-2-migrate-sql-server-to-azure-sql-database-using-dms)
+  - [Task 1: Register the Microsoft DataMigration resource provider](#task-1-register-the-microsoft-datamigratin-resource-provider)
+  - [Task 2: Create Azure Database Migration Service](#task-2-create-azure-database-migration-service)
+  - [Task 3: Assess the on-premises database](#task-3-assess-the-on-premises-database)
+  - [Task 4: Migrate the database schema](#task-4-migrate-the-database-schema)
+  - [Task 5: Create a migration project](#task-5-create-a-migration-project)
+  - [Task 6: Run the migration](#task-6-run-the-migration)
+  - [Task 7: Verify data migration](#task-7-verify-data-migration)
+- [Exercise 3: Post upgrade enhancement](#exercise-3-post-upgrade-enhancement)
+  - [Task 1: Table compression](#task-1-table-compression)
+  - [Task 2: Clustered ColumnStore index](#task-2-clustered-columnstore-index)
+- [Exercise 4: Setup Oracle 11g Express Edition](#exercise-4-setup-oracle-11g-express-edition)
+  - [Task 1: Install Oracle XE](#task-1-install-oracle-xe)
+  - [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
+  - [Task 3: Install SQL Server Migration Assistant for Oracle](#task-3-install-sql-server-migration-assistant-for-oracle)
+  - [Task 4: Install dbForge Fusion tool](#task-4-install-dbforge-fusion-tool)
+  - [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
+  - [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
+- [Exercise 5: Migrate the Oracle database to SQL Server 2017](#exercise-5-migrate-the-oracle-database-to-sql-server-2017)
+  - [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
+- [Exercise 6: Migrate the Application](#exercise-6-migrate-the-application)
+  - [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
+  - [Task 2: Modify Application Code](#task-2-modify-application-code)
+- [After the hands-on lab](#after-the-hands-on-lab)
+  - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
 ## Abstract
 
@@ -80,11 +80,11 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
 
 ## Requirements
 
-* Microsoft Azure subscription must be pay-as-you-go or MSDN
-  * Trial subscriptions will not work
-* A virtual machine configured with:
-  * Visual Studio Community 2017 or later
-  * Azure SDK 2.9 or later (Included with Visual Studio 2017)
+- Microsoft Azure subscription must be pay-as-you-go or MSDN
+  - Trial subscriptions will not work
+- A virtual machine configured with:
+  - Visual Studio Community 2017 or later
+  - Azure SDK 2.9 or later (Included with Visual Studio 2017)
 
 ## Exercise 1: Deploy SQL Server instances
 
@@ -98,16 +98,16 @@ In this task, you will install SQL Server 2017 and Microsoft SQL Server Manageme
 
 #### Tasks to Complete
 
-* Install SQL Server 2017 Developer Edition on the VM from <https://www.microsoft.com/sql-server/sql-server-downloads>
-  * Ensure the SQL Server Database Engine runs under the demouser Windows account.
-  * Enable Mixed Mode Authentication
-    * Ensure the SA password is set to Password.1!!
-  * Make sure to add the demouser to the SQL Server Administrators group.
-* Install SQL Server Management Studio (SSMS) 17.
+- Install SQL Server 2017 Developer Edition on the VM from <https://www.microsoft.com/sql-server/sql-server-downloads>
+  - Ensure the SQL Server Database Engine runs under the demouser Windows account.
+  - Enable Mixed Mode Authentication
+    - Ensure the SA password is set to Password.1!!
+  - Make sure to add the demouser to the SQL Server Administrators group.
+- Install SQL Server Management Studio (SSMS) 17.
 
 #### Exit Criteria
 
-* You have successfully installed SQL Server 2017 Developer Edition and SSMS 17 on the VM.
+- You have successfully installed SQL Server 2017 Developer Edition and SSMS 17 on the VM.
 
 ### Task 2: Install SQL Server 2008 R2
 
@@ -115,15 +115,15 @@ In this task, you will install SQL Server 2008 R2 as a Named Instance on the Sql
 
 #### Tasks to Complete
 
-* Install SQL Server 2008 R2 Express with Advanced Services on the VM from <https://www.microsoft.com/download/details.aspx?id=30438>
-  * Be sure that the SQL Database Engine runs under the demouser Windows account.
-  * Enable Mixed Mode Authentication
-    * Ensure the SA password is set to Password.1!!
-  * Ensure the demouser account is added to the SQL Server Administrators group
+- Install SQL Server 2008 R2 Express with Advanced Services on the VM from <https://www.microsoft.com/download/details.aspx?id=30438>
+  - Be sure that the SQL Database Engine runs under the demouser Windows account.
+  - Enable Mixed Mode Authentication
+    - Ensure the SA password is set to Password.1!!
+  - Ensure the demouser account is added to the SQL Server Administrators group
 
 #### Exit Criteria
 
-* You have successfully installed both versions of SQL Server on the same VM.
+- You have successfully installed both versions of SQL Server on the same VM.
 
 ### Task 3: Install AdventureWorks sample database
 
@@ -131,13 +131,13 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2. It wi
 
 #### Tasks to Complete
 
-* Download the AdventureWorks 2008R2 DW script from <https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2>
-* Execute `instawdwdb.sql` against the SQL Server 2008 instance on your VM
-* Rename the database to WorldWideImporters
+- Download the AdventureWorks 2008R2 DW script from <https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2>
+- Execute `instawdwdb.sql` against the SQL Server 2008 instance on your VM
+- Rename the database to WorldWideImporters
 
 #### Exit Criteria
 
-* You have successfully created the WorldWideImporters database.
+- You have successfully created the WorldWideImporters database.
 
 ### Task 4: Update SQL Server settings using Configuration Manager
 
@@ -145,15 +145,15 @@ In this task, you will update the SQL Server service accounts and other settings
 
 #### Tasks to Complete
 
-* Set the services account for the SQL Server service (in both the SQL Server 2008 and 2017 instances) to use the demouser Windows account.
-* Ensure that remote TCP/IP connections are allowed to the SQL Server 2008 and 2017 instances.
-* Enable the SA login with the password Password.1!!
-* Create a new, empty database called Northwind in the SQL Server 2017 instance
-* Copy the dynamic port assign to the SQL Server 2008 R2 named instance
+- Set the services account for the SQL Server service (in both the SQL Server 2008 and 2017 instances) to use the demouser Windows account.
+- Ensure that remote TCP/IP connections are allowed to the SQL Server 2008 and 2017 instances.
+- Enable the SA login with the password Password.1!!
+- Create a new, empty database called Northwind in the SQL Server 2017 instance
+- Copy the dynamic port assign to the SQL Server 2008 R2 named instance
 
 #### Exit Criteria
 
-* You have successfully created the Northwind target database in SQL Server 2017, and can access this SQL Server using SQL Server credentials.
+- You have successfully created the Northwind target database in SQL Server 2017, and can access this SQL Server using SQL Server credentials.
 
 ### Task 5: Add inbound port rule
 
@@ -161,21 +161,21 @@ In this task, you will add an inbound port rule for the SqlServerDw VM, to allow
 
 #### Tasks to Complete
 
-* Create an inbound port rule for the SqlServerDw VM, opening the dynamic port assigned to the SQL Server 2008 R2 named instance.
+- Create an inbound port rule for the SqlServerDw VM, opening the dynamic port assigned to the SQL Server 2008 R2 named instance.
 
 #### Exit Criteria
 
-* The SQL Server 2008 R2 named instance on the SqlServerDw VM is accessible from external applications.
+- The SQL Server 2008 R2 named instance on the SqlServerDw VM is accessible from external applications.
 
 ### Task 6: Copy the SqlServerDw VM IP address
 
 #### Tasks to Complete
 
-* Copy the IP address assigned to the SqlServerDw VM.
+- Copy the IP address assigned to the SqlServerDw VM.
 
 #### Exit Criteria
 
-* You have copied the IP address of the SqlServerDw VM into a text editor, such as Notepad, for later reference.
+- You have copied the IP address of the SqlServerDw VM into a text editor, such as Notepad, for later reference.
 
 ## Exercise 2: Migrate SQL Server to Azure SQL Database using DMS
 
@@ -189,11 +189,11 @@ In this task, you will register the Microsoft.DataMigration resource provider wi
 
 #### Tasks to Complete
 
-* Register the Microsoft.DataMigration resource provider with your Azure subscription.
+- Register the Microsoft.DataMigration resource provider with your Azure subscription.
 
 #### Exit Criteria
 
-* The Microsoft.DataMigration resource provider is accessible from your Azure subscription.
+- The Microsoft.DataMigration resource provider is accessible from your Azure subscription.
 
 ### Task 2: Create Azure Database Migration Service
 
@@ -201,11 +201,11 @@ In this task, you will provision an instance of the Azure Database Migration Ser
 
 #### Tasks to Complete
 
-* Create an instance of the Azure Database Migration Service (DMS).
+- Create an instance of the Azure Database Migration Service (DMS).
 
 #### Exit Criteria
 
-* DMS has been provisioned in Azure.
+- DMS has been provisioned in Azure.
 
 ### Task 3: Assess the on-premises database
 
@@ -213,12 +213,12 @@ World Wide Importers would like an assessment to see what potential issues they 
 
 #### Tasks to Complete
 
-* Download the Data Migration Assistant (DMA) v3.x from <https://www.microsoft.com/download/details.aspx?id=53595>
-* Perform an assessment of the migration of the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database using DMA.
+- Download the Data Migration Assistant (DMA) v3.x from <https://www.microsoft.com/download/details.aspx?id=53595>
+- Perform an assessment of the migration of the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database using DMA.
 
 #### Exit Criteria
 
-* You have a list of the issues WWI will need to consider in upgrading their database to Azure SQL Database.
+- You have a list of the issues WWI will need to consider in upgrading their database to Azure SQL Database.
 
 ### Task 4: Migrate the database schema
 
@@ -226,11 +226,11 @@ After you have reviewed the assessment results and you have ensured the database
 
 #### Tasks to Complete
 
-* Using DMA, deploy the database schema for the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database.
+- Using DMA, deploy the database schema for the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database.
 
 #### Exit Criteria
 
-* You are able to view the empty tables created by the schema deployment in the WorldWideImporters database in Azure SQL Database.
+- You are able to view the empty tables created by the schema deployment in the WorldWideImporters database in Azure SQL Database.
 
 ### Task 5: Create a migration project
 
@@ -238,11 +238,11 @@ In this task, you will create a new migration project for the WorldWideImporters
 
 #### Tasks to Complete
 
-* Using DMs, create a new migration project for the migration of the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database.
+- Using DMs, create a new migration project for the migration of the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database.
 
 #### Exit Criteria
 
-* On the Azure Database Migration Project blade, you see a success message, similar to the following.
+- On the Azure Database Migration Project blade, you see a success message, similar to the following.
 
     ![On the Azure Database Migration Project blade, a success message is displayed.](media/dms-migration-project-successfully-created.png "DMS project created successfully")
 
@@ -252,11 +252,11 @@ In this task, you will create a new activity in the Azure Database Migration Ser
 
 #### Tasks to Complete
 
-* Using DMs, migrate the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database.
+- Using DMs, migrate the SQL Server 2008 R2 WorldWideImporters database to Azure SQL Database.
 
 #### Exit Criteria
 
-* You successfully migrated the SQL Server 2008 R2 database to Azure SQL Database.
+- You successfully migrated the SQL Server 2008 R2 database to Azure SQL Database.
 
 ### Task 7: Verify data migration
 
@@ -264,11 +264,11 @@ In this task, you will use SSMS to verify the database was successfully migrated
 
 #### Tasks to Complete
 
-* Connect to your Azure SQL Database in SSMS and verify data exists in the tables.
+- Connect to your Azure SQL Database in SSMS and verify data exists in the tables.
 
 #### Exit Criteria
 
-* You can access data in the tables migrated by DMS.
+- You can access data in the tables migrated by DMS.
 
 ## Exercise 3: Post Upgrade Enhancement
 
@@ -280,12 +280,12 @@ In this exercise, you will confirm that the POC was successful. To demonstrate v
 
 #### Tasks to Complete
 
-* Take note of the data space and index space used by the FactInternetSales table.
-* Enable Table Compression (page type) on the FactInternetSales table.
+- Take note of the data space and index space used by the FactInternetSales table.
+- Enable Table Compression (page type) on the FactInternetSales table.
 
 #### Exit Criteria
 
-* You observe a change in the data space and index space.
+- You observe a change in the data space and index space.
 
 ### Task 2: Clustered ColumnStore Index
 
@@ -293,14 +293,14 @@ In this task, you will create a new table based on the existing FactResellerSale
 
 #### Tasks to Complete
 
-* Create a new table called ColumnStore_FactResellerSales from the FactResellersSales table.
-* Create a clustered ColumnStore index on the new table.
-* Query the tables and compare the execution plan query costs, batch percentage.
-* Query the tables with statistic IO on and compare the logical and lob logical reads.
+- Create a new table called ColumnStore_FactResellerSales from the FactResellersSales table.
+- Create a clustered ColumnStore index on the new table.
+- Query the tables and compare the execution plan query costs, batch percentage.
+- Query the tables with statistic IO on and compare the logical and lob logical reads.
 
 #### Exit Criteria
 
-* You observe a performance improvement.
+- You observe a performance improvement.
 
     ![Various information is highlighted on the Messages tab of the Results pane.](./media/ssms-query-results-messages-stastics-io.png "Compare the information")
 
@@ -314,34 +314,34 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 #### Tasks to Complete
 
-* Install Oracle XE on your lab VM from: <http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html>
-* Be sure to set the SYS and SYSTEM password to Password.1!!
+- Install Oracle XE on your lab VM from: <http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html>
+- Be sure to set the SYS and SYSTEM password to Password.1!!
 
 #### Exit Criteria
 
-* You have successfully installed Oracle.
+- You have successfully installed Oracle.
 
 ### Task 2: Install Oracle Data Access Components
 
 #### Tasks to Complete
 
-* Install Oracle Data Access Components (ODAC) from <http://www.oracle.com/technetwork/database/windows/downloads/index-090165.html>
-* Be sure the install the 64-bit ODAC components
-* Ensure you configure ODP.NET and Oracle Providers for ASP.NET at machine-wide level
+- Install Oracle Data Access Components (ODAC) from <http://www.oracle.com/technetwork/database/windows/downloads/index-090165.html>
+- Be sure the install the 64-bit ODAC components
+- Ensure you configure ODP.NET and Oracle Providers for ASP.NET at machine-wide level
 
 #### Exit Criteria
 
-* You have successfully installed ODAC.
+- You have successfully installed ODAC.
 
 ### Task 3: Install SQL Server Migration Assistant for Oracle
 
 #### Tasks to Complete
 
-* Install SSMA 7.x from <https://www.microsoft.com/en-us/download/details.aspx?id=54258>
+- Install SSMA 7.x from <https://www.microsoft.com/en-us/download/details.aspx?id=54258>
 
 #### Exit Criteria
 
-* You have successfully installed SSMA on your Lab VM.
+- You have successfully installed SSMA on your Lab VM.
 
 ### Task 4: Install dbForge Fusion tool
 
@@ -349,11 +349,11 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 #### Tasks to Complete
 
-* Install dbForge Fusion for Oracle Professional trial version from <https://www.devart.com/dbforge/oracle/fusion/download.html>
+- Install dbForge Fusion for Oracle Professional trial version from <https://www.devart.com/dbforge/oracle/fusion/download.html>
 
 #### Exit Criteria
 
-* The dbForge Fusion extension is successfully installed in Visual Studio 2017.
+- The dbForge Fusion extension is successfully installed in Visual Studio 2017.
 
 ### Task 5: Create the Northwind database in Oracle 11g XE
 
@@ -361,13 +361,13 @@ In this task, you will create a connection to the Oracle database on your Lab VM
 
 #### Tasks to Complete
 
-* Download the Data platform upgrade and migration GitHub repo to obtain the start project files from <https://github.com/Microsoft/MCW-Data-platform-upgrade-and-migration>
-* Using Database Explorer provided under the Fusion menu installed by dbForge Fusion in Visual Studio, create a connection to the Oracle database.
-* Run the SQL scripts in order provided under the Oracle Scripts folder of the starter.
+- Download the Data platform upgrade and migration GitHub repo to obtain the start project files from <https://github.com/Microsoft/MCW-Data-platform-upgrade-and-migration>
+- Using Database Explorer provided under the Fusion menu installed by dbForge Fusion in Visual Studio, create a connection to the Oracle database.
+- Run the SQL scripts in order provided under the Oracle Scripts folder of the starter.
 
 #### Exit Criteria
 
-* You have created the Northwind database with schema and data in Oracle.
+- You have created the Northwind database with schema and data in Oracle.
 
 ### Task 6: Configure the Starter Application to use Oracle
 
@@ -375,11 +375,11 @@ In this task, you will add the necessary configuration to the NorthwindMVC solut
 
 #### Tasks to Complete
 
-* Modify the web.config of the NorthwindMVC web app so the OracleConnectionString points to your Oracle instance of Northwind.
+- Modify the web.config of the NorthwindMVC web app so the OracleConnectionString points to your Oracle instance of Northwind.
 
 #### Exit Criteria
 
-* You can run the application and see the Dashboard from Northwind Traders load.
+- You can run the application and see the Dashboard from Northwind Traders load.
 
     ![This is a screenshot of the Northwind Traders Dashboard.](./media/northwind-traders-dashboard.png "View the dashboard")
 
@@ -393,10 +393,10 @@ In this exercise, you will migrate the Oracle database into SQL Server 2017 usin
 
 #### Tasks to Complete
 
-* Use SSMA to migrate the schema and data from the NW database on Oracle to the Northwind database in SQL Server 2017.
-  * Fix data type errors reported during schema conversion
-  * In SQL Server 2017, Microsoft now by default requires that all type of assemblies (SAFE, EXTERNAL_ACCESS, UNSAFE) are authorized for UNSAFE access. Add the `SSMA4OracleSQLServerCollections.NET` and `SSMA4OracleSQLServerExtensions.NET` assemblies to the SQLCLR whitelist for the SQL Server 2017 instance.
-  * Execute the script below in SSMS for each assembly. Note: The binary value for each assembly can be obtained by saving the assemblies as a script in SSMA.
+- Use SSMA to migrate the schema and data from the NW database on Oracle to the Northwind database in SQL Server 2017.
+  - Fix data type errors reported during schema conversion
+  - In SQL Server 2017, Microsoft now by default requires that all type of assemblies (SAFE, EXTERNAL_ACCESS, UNSAFE) are authorized for UNSAFE access. Add the `SSMA4OracleSQLServerCollections.NET` and `SSMA4OracleSQLServerExtensions.NET` assemblies to the SQLCLR whitelist for the SQL Server 2017 instance.
+  - Execute the script below in SSMS for each assembly. Note: The binary value for each assembly can be obtained by saving the assemblies as a script in SSMA.
 
     ```sql
     USE master;
@@ -413,7 +413,7 @@ In this exercise, you will migrate the Oracle database into SQL Server 2017 usin
 
 #### Exit Criteria
 
-* Your Northwind database in SQL Server has the schema objects and the tables have data.
+- Your Northwind database in SQL Server has the schema objects and the tables have data.
 
 ## Exercise 6: Migrate the application
 
@@ -425,28 +425,28 @@ In this exercise, you will modify the NorthwindMVC application, so it targets SQ
 
 #### Tasks to Complete
 
-* Modify the web.config so that SqlServerConnectionString is correct for your environment.
-* Delete the existing entity model present in the files under the Data folder in Solution explorer.
-* Connect to the SQL Server database through Server Explorer in Visual Studio.
-* Create a new Code First model against the SQL Server database.
+- Modify the web.config so that SqlServerConnectionString is correct for your environment.
+- Delete the existing entity model present in the files under the Data folder in Solution explorer.
+- Connect to the SQL Server database through Server Explorer in Visual Studio.
+- Create a new Code First model against the SQL Server database.
 
 #### Exit Criteria
 
-* You have successfully generated a new model.
+- You have successfully generated a new model.
 
 ### Task 2: Modify Application Code
 
 #### Tasks to Complete
 
-* Change the DataContext to use your SqlServerConnectionString.
-* Within `HomeController.cs` uncomment the SQL Server specific code and comment out the Oracle specific code.
-* Modify `SALESBYYEAR.cs` so that `YEAR` is of type int and `SUBTOTAL` is of type decimal.
-* Modify `SalesByYearViewModel.cs` so that `Year` is of type int.
-* Run the SALES_BY_YEAR_fix.sql
+- Change the DataContext to use your SqlServerConnectionString.
+- Within `HomeController.cs` uncomment the SQL Server specific code and comment out the Oracle specific code.
+- Modify `SALESBYYEAR.cs` so that `YEAR` is of type int and `SUBTOTAL` is of type decimal.
+- Modify `SalesByYearViewModel.cs` so that `Year` is of type int.
+- Run the SALES_BY_YEAR_fix.sql
 
 #### Exit Criteria
 
-* You can run the application and see the dashboard showing correctly, this time with data coming from SQL Server.
+- You can run the application and see the dashboard showing correctly, this time with data coming from SQL Server.
 
     ![This is a screenshot of the Northwind Traders Dashboard.](./media/northwind-traders-dashboard.png "View the dashboard")
 

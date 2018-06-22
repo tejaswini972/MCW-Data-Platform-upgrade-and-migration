@@ -15,32 +15,32 @@ Updated June 2018
 
 ## Contents
 
-* [Trainer information](#trainer-information)
-  * [Role of the trainer](#role-of-the-trainer)
-  * [Whiteboard design session flow](#whiteboard-design-session-flow)
-  * [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
-  * [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-* [Data platform upgrade and migration whiteboard design session student guide](#data-platform-upgrade-and-migration-whiteboard-design-session-student-guide)
-  * [Abstract and learning objectives](#abstract-and-learning-objectives)
-  * [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-    * [Customer situation](#customer-situation)
-    * [Customer needs](#customer-needs)
-    * [Customer objections](#customer-objections)
-    * [Infographic of common scenarios](#infographic-of-common-scenarios)
-  * [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-  * [Step 3: Present the solution](#step-3-present-the-solution)
-  * [Step 3: Present the solution](#step-3-present-the-solution-1)
-  * [Wrap-up](#wrap-up)
-  * [Additional references](#additional-references)
-* [Data platform upgrade and migration whiteboard design session trainer guide](#data-platform-upgrade-and-migration-whiteboard-design-session-trainer-guide)
-  * [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
-  * [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
-  * [Step 3: Present the solution](#step-3-present-the-solution-2)
-  * [Wrap-up](#wrap-up-1)
-  * [Preferred target audience](#preferred-target-audience)
-  * [Preferred solution](#preferred-solution)
-  * [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
-  * [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
+- [Trainer information](#trainer-information)
+  - [Role of the trainer](#role-of-the-trainer)
+  - [Whiteboard design session flow](#whiteboard-design-session-flow)
+  - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
+  - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
+- [Data platform upgrade and migration whiteboard design session student guide](#data-platform-upgrade-and-migration-whiteboard-design-session-student-guide)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+    - [Customer situation](#customer-situation)
+    - [Customer needs](#customer-needs)
+    - [Customer objections](#customer-objections)
+    - [Infographic of common scenarios](#infographic-of-common-scenarios)
+  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+  - [Step 3: Present the solution](#step-3-present-the-solution)
+  - [Step 3: Present the solution](#step-3-present-the-solution-1)
+  - [Wrap-up](#wrap-up)
+  - [Additional references](#additional-references)
+- [Data platform upgrade and migration whiteboard design session trainer guide](#data-platform-upgrade-and-migration-whiteboard-design-session-trainer-guide)
+  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
+  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
+  - [Step 3: Present the solution](#step-3-present-the-solution-2)
+  - [Wrap-up](#wrap-up-1)
+  - [Preferred target audience](#preferred-target-audience)
+  - [Preferred solution](#preferred-solution)
+  - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
+  - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
 
 ## Trainer information
 
@@ -50,16 +50,16 @@ Thank you for taking time to support the whiteboard design sessions as a trainer
 
 An amazing trainer:
 
-* Creates a safe environment in which learning can take place.
-* Stimulates the participant's thinking.
-* Involves the participant in the learning process.
-* Manages the learning process (on time, on topic, and adjusting to benefit participants).
-* Ensures individual participant accountability.
-* Ties it all together for the participant.
-* Provides insight and experience to the learning process.
-* Effectively leads the whiteboard design session discussion.
-* Monitors quality and appropriateness of participant deliverables.
-* Effectively leads the feedback process.
+- Creates a safe environment in which learning can take place.
+- Stimulates the participant's thinking.
+- Involves the participant in the learning process.
+- Manages the learning process (on time, on topic, and adjusting to benefit participants).
+- Ensures individual participant accountability.
+- Ties it all together for the participant.
+- Provides insight and experience to the learning process.
+- Effectively leads the whiteboard design session discussion.
+- Monitors quality and appropriateness of participant deliverables.
+- Effectively leads the feedback process.
 
 ### Whiteboard design session flow
 
@@ -69,40 +69,40 @@ Each whiteboard design session uses the following flow:
 
 **Outcome**: Analyze your customer's needs
 
-* Customer's background, situation, needs and technical requirements
-* Current customer infrastructure and architecture
-* Potential issues, objectives and blockers
+- Customer's background, situation, needs and technical requirements
+- Current customer infrastructure and architecture
+- Potential issues, objectives and blockers
 
 #### Step 2: Design a proof of concept solution (60 minutes)
 
 **Outcome**: Prepare to present a solution for your target customer audience
 
-* Determine your target customer audience
-* Determine customer's business needs to address your solution
-* Design and diagram your solution
-* Prepare to present your solution
+- Determine your target customer audience
+- Determine customer's business needs to address your solution
+- Design and diagram your solution
+- Prepare to present your solution
 
 #### Step 3: Present the solution (30 minutes)
 
 **Outcome**: Present solution to your customer
 
-* Present solution
-* Respond to customer objections
-* Receive feedback
+- Present solution
+- Respond to customer objections
+- Receive feedback
 
 #### Wrap-up (15 minutes)
 
-* Review preferred solution
+- Review preferred solution
 
 ### Before the whiteboard design session: How to prepare
 
 Before conducting your first whiteboard design session:
 
-* Read the Student guide (including the case study) and Trainer guide
-* Become familiar with all key points and activities.
-* Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions.
-* Prior to the whiteboard design session, discuss the case study to pick up more ideas.
-* Make notes for later.
+- Read the Student guide (including the case study) and Trainer guide
+- Become familiar with all key points and activities.
+- Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions.
+- Prior to the whiteboard design session, discuss the case study to pick up more ideas.
+- Make notes for later.
 
 ### During the whiteboard design session: Tips for an effective whiteboard design session
 
@@ -112,9 +112,9 @@ Before conducting your first whiteboard design session:
 
 When participants are doing activities, you can **look ahead to refresh your memory**.
 
-* **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing.
-* **Add examples, points, and stories** from your own experience. Think about stories you can share that help you make your points clearly and effectively.
-* **Consider creating a "parking lot"** to record issues or questions raised that are outside the scope of the whiteboard design session or can be answered later. Decide how you will address these issues, so you can acknowledge them without being derailed by them.
+- **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing.
+- **Add examples, points, and stories** from your own experience. Think about stories you can share that help you make your points clearly and effectively.
+- **Consider creating a "parking lot"** to record issues or questions raised that are outside the scope of the whiteboard design session or can be answered later. Decide how you will address these issues, so you can acknowledge them without being derailed by them.
 
 **Have fun**! Encourage participants to have fun and share!
 
@@ -173,11 +173,11 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 3. Wants a better understanding on what to do with the internal Oracle Forms application.
 4. Has multiple touch points with external vendors and needs to know what needs to change with those web services.
 5. Wants to upgrade their existing data warehouse from SQL Server 2008 R2 Standard Edition to Azure SQL Database or SQL Server 2017 Enterprise Edition to take advantage of some new features:
-    * They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
-    * They want compression for some of their large fact tables.
-    * They want to implement SSRS mobile reporting.
-    * They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
-    * They have a lot of SQL Server Integration Services (SSIS) packages that are executed through SQL Server Agent jobs. They'd like to know the upgrade path for those.
+    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
+    - They want compression for some of their large fact tables.
+    - They want to implement SSRS mobile reporting.
+    - They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
+    - They have a lot of SQL Server Integration Services (SSIS) packages that are executed through SQL Server Agent jobs. They'd like to know the upgrade path for those.
 6. Need web-based visualizations on sales and forecasting, and a plan on how to upgrade their existing reporting infrastructure.
 7. Have a new requirement on what to do with JSON data.
 8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
@@ -315,38 +315,38 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
 ### Step 1: Review the customer case study
 
-* Check in with your table participants to introduce yourself as the trainer.
-* Ask, "What questions do you have about the customer case study?"
-* Briefly review the steps and timeframes of the whiteboard design session.
-* Ready, set, go! Let the table participants begin.
+- Check in with your table participants to introduce yourself as the trainer.
+- Ask, "What questions do you have about the customer case study?"
+- Briefly review the steps and timeframes of the whiteboard design session.
+- Ready, set, go! Let the table participants begin.
 
 ### Step 2: Design a proof of concept solution
 
-* Check in with your tables to ensure that they are transitioning from step to step on time.
-* Provide some feedback on their responses to the business needs and design.
-  * Try asking questions first that will lead the participants to discover the answers on their own.
-* Provide feedback for their responses to the customer's objections.
-  * Try asking questions first that will lead the participants to discover the answers on their own.
+- Check in with your tables to ensure that they are transitioning from step to step on time.
+- Provide some feedback on their responses to the business needs and design.
+  - Try asking questions first that will lead the participants to discover the answers on their own.
+- Provide feedback for their responses to the customer's objections.
+  - Try asking questions first that will lead the participants to discover the answers on their own.
 
 ### Step 3: Present the solution
 
-* Determine which table will be paired with your table before Step 3 begins.
-* For the first round, assign one table as the Microsoft team and the other table as the customer.
-* Have the Microsoft team present their solution to the customer team.
-  * Have the customer team provide one objection for the Microsoft team to respond to.
-  * The presentation and objections should be no longer than 10 minutes.
-* Have participants on the customer team give feedback to the Microsoft team.
-  * The feedback should be no longer than 5 minutes.
-  * If needed, the trainer may also provide feedback.
+- Determine which table will be paired with your table before Step 3 begins.
+- For the first round, assign one table as the Microsoft team and the other table as the customer.
+- Have the Microsoft team present their solution to the customer team.
+  - Have the customer team provide one objection for the Microsoft team to respond to.
+  - The presentation and objections should be no longer than 10 minutes.
+- Have participants on the customer team give feedback to the Microsoft team.
+  - The feedback should be no longer than 5 minutes.
+  - If needed, the trainer may also provide feedback.
 
 ### Wrap-up
 
-* Have the table participants reconvene with the larger session group to hear a SME share the following preferred solution.
+- Have the table participants reconvene with the larger session group to hear a SME share the following preferred solution.
 
 ### Preferred target audience
 
-* Kathleen Sloan, CIO of World Wide Importers (WWI)
-* The primary audience is the business decision makers and technology decision makers. From the case study scenario, it would include the Director of Analytics. Usually we talk to the infrastructure managers who report to the chief information officers (CIOs), or to application sponsors, such as a line of business (LOB) vice president (VP), chief marketing officer (CMO), or to those who represent the business unit IT or developers who report to application sponsors.
+- Kathleen Sloan, CIO of World Wide Importers (WWI)
+- The primary audience is the business decision makers and technology decision makers. From the case study scenario, it would include the Director of Analytics. Usually we talk to the infrastructure managers who report to the chief information officers (CIOs), or to application sponsors, such as a line of business (LOB) vice president (VP), chief marketing officer (CMO), or to those who represent the business unit IT or developers who report to application sponsors.
 
 ### Preferred solution
 
@@ -388,20 +388,20 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     For the POC we should include the following:
 
-    * An MVC app that changes connectionString from Oracle to SQL Server in Entity Framework.
-    * A basic form that mirrors what's in the Oracle Forms application.
-    * The current Oracle database migrated to SQL Server 2017 Enterprise in a test environment.
-    * An upgraded data warehouse using Azure Database Migration Service, including:
-    * Including upgraded SSIS, SSAS, and SSRS projects
-    * Testing repointing some of the Excel worksheets to a new test data warehouse.
-    * Implement new features in the new OLTP SQL Server database including:
-        * JSON Data Store
-        * SQL Server Stretch Database
-        * AlwaysOn Availability Groups
-    * Implement new features in the new Azure SQL Database data warehouse features:
-        * Table Compression
-        * Transparent Data Encryption
-        * Clustered ColumnStore Indexing
+    - An MVC app that changes connectionString from Oracle to SQL Server in Entity Framework.
+    - A basic form that mirrors what's in the Oracle Forms application.
+    - The current Oracle database migrated to SQL Server 2017 Enterprise in a test environment.
+    - An upgraded data warehouse using Azure Database Migration Service, including:
+    - Including upgraded SSIS, SSAS, and SSRS projects
+    - Testing repointing some of the Excel worksheets to a new test data warehouse.
+    - Implement new features in the new OLTP SQL Server database including:
+        - JSON Data Store
+        - SQL Server Stretch Database
+        - AlwaysOn Availability Groups
+    - Implement new features in the new Azure SQL Database data warehouse features:
+        - Table Compression
+        - Transparent Data Encryption
+        - Clustered ColumnStore Indexing
 
 3. How will SQL Server save them on licensing costs?
 
@@ -471,24 +471,24 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     *A proper upgrade plan might look something like this:*
 
-    * Assess
-        * Identify and Understand required changes
-        * Understand how to leverage new features
-    * Plan
-        * When can I perform the migration?
-        * How will I apply required fixes?
-    * Migrate
-        * Perform schema and data movement
-        * Execute post migration fixes
+    - Assess
+        - Identify and Understand required changes
+        - Understand how to leverage new features
+    - Plan
+        - When can I perform the migration?
+        - How will I apply required fixes?
+    - Migrate
+        - Perform schema and data movement
+        - Execute post migration fixes
 
 5. Are there any tools or processes that would make this easier? How does Azure Database Migration Service (DMS) compare to other Microsoft database migration tools, such as Database Migration Assistant (DMA) or SQL Server Migration Assistant (SSMA)?
 
     *The Azure Database Migration Service is the preferred method for database migration to Microsoft Azure at scale.*
 
-    * *Supports migration of SQL Server or Oracle on-premises databases to Azure SQL Database and Azure SQL Database Managed Instance.*
-    * *Represents a fully managed database migration service for both operational databases and data warehouses.*
-    * *Provides a resilient and reliable migration pipeline that requires minimal user involvement during the overall migration process.*
-    * *Is recommended for large (in terms of number and size of databases) migrations – DMS can migrate databases at scale.*
+    - *Supports migration of SQL Server or Oracle on-premises databases to Azure SQL Database and Azure SQL Database Managed Instance.*
+    - *Represents a fully managed database migration service for both operational databases and data warehouses.*
+    - *Provides a resilient and reliable migration pipeline that requires minimal user involvement during the overall migration process.*
+    - *Is recommended for large (in terms of number and size of databases) migrations – DMS can migrate databases at scale.*
 
     *Microsoft's Data Migration Assistant can be used to upgrade the SQL Server Data Warehouse. That tool can not only upgrade the data and schema in the database, but the SSIS database (if there is one), SQL Logins, SQL Agent Jobs, and SSIS packages.*
 
@@ -531,19 +531,19 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     *There are other possible answers below:*
 
-    * *Use views to extend the table to another drive. Create a view with the original table name. Have two tables behind it, one on each different drive. Use instead of triggers to intercept the inserts and in the trigger, choose the active table.*
-    * *Use table partitions and move a newer partition to a new drive.*
-    * *Archive older records temporarily while we implement a longer-term solution.*
+    - *Use views to extend the table to another drive. Create a view with the original table name. Have two tables behind it, one on each different drive. Use instead of triggers to intercept the inserts and in the trigger, choose the active table.*
+    - *Use table partitions and move a newer partition to a new drive.*
+    - *Archive older records temporarily while we implement a longer-term solution.*
 
 2. What are the SQL Server options for high availability?
 
     *SQL Server provides several options for creating high availability for a server or database. High-availability options include the following:*
 
-    * *Failover clustering*
-    * *Database mirroring*
-    * *Log shipping*
-    * *Replication*
-    * *Scalable shared databases*
+    - *Failover clustering*
+    - *Database mirroring*
+    - *Log shipping*
+    - *Replication*
+    - *Scalable shared databases*
 
 #### Azure SQL Database POC
 
@@ -563,10 +563,10 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
 3. Are there any questions we need answered before we can begin a POC directly to Microsoft Azure?
 
-    * *What is network connectivity like between on-premises and the cloud?*
-    * *What are our long-term cloud plans? Is there a mandate to go there any way?*
-    * *Where is the rest of the data integration points stored? Are they on-premises? Is anything in Microsoft Azure already?*
-    * *Are there any cloud products that are already on the roadmap for the organization?*
+    - *What is network connectivity like between on-premises and the cloud?*
+    - *What are our long-term cloud plans? Is there a mandate to go there any way?*
+    - *Where is the rest of the data integration points stored? Are they on-premises? Is anything in Microsoft Azure already?*
+    - *Are there any cloud products that are already on the roadmap for the organization?*
 
 #### Checklist of preferred objection handling
 

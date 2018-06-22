@@ -2,12 +2,12 @@
 
 ## Contents
 
-* [Abstract](#abstract)
-* [Overview](#overview)
-* [Solution architecture](#solution-architecture)
-* [Requirements](#requirements)
-* [Before the hands-on lab](#before-the-hands-on-lab)
-* [Hands-on lab](#hands-on-lab)
+- [Abstract](#abstract)
+- [Overview](#overview)
+- [Solution architecture](#solution-architecture)
+- [Requirements](#requirements)
+- [Before the hands-on lab](#before-the-hands-on-lab)
+- [Hands-on lab](#hands-on-lab)
 
 ## Abstract
 
@@ -35,11 +35,11 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
 
 ## Requirements
 
-* Microsoft Azure subscription must be pay-as-you-go or MSDN
-  * Trial subscriptions will not work
-* A virtual machine configured with:
-  * Visual Studio Community 2017 or later
-  * Azure SDK 2.9 or later (Included with Visual Studio 2017)
+- Microsoft Azure subscription must be pay-as-you-go or MSDN
+  - Trial subscriptions will not work
+- A virtual machine configured with:
+  - Visual Studio Community 2017 or later
+  - Azure SDK 2.9 or later (Included with Visual Studio 2017)
 
 ## Before the hands-on lab
 
@@ -51,7 +51,7 @@ You should follow all the steps provided in the [Before the hands-on lab](./Befo
 
 Select the guide you are using to complete the Hands-on lab below.
 
-* [Step-by-step guide](./HOL-step-by-step-Data-platform-upgrade-and-migration.md)
-  * Provides detailed, step-by-step instructions for completing the lab.
-* [Unguided](./HOL-uguided-Data-platform-upgrade-and-migration.md)
-  * This guide provides minimal instruction, and assumes a high-level of knowledge about the technologies used in this lab. This should typically only be used if you are doing this as part of a group.
+- [Step-by-step guide](./HOL-step-by-step-Data-platform-upgrade-and-migration.md)
+  - Provides detailed, step-by-step instructions for completing the lab.
+- [Unguided](./HOL-uguided-Data-platform-upgrade-and-migration.md)
+  - This guide provides minimal instruction, and assumes a high-level of knowledge about the technologies used in this lab. This should typically only be used if you are doing this as part of a group.

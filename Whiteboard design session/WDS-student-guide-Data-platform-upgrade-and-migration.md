@@ -15,16 +15,16 @@ Updated June 2018
 
 ## Contents
 
-* [Abstract](#abstract)
-* [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-  * [Customer situation](#customer-situation)
-  * [Customer needs](#customer-needs)
-  * [Customer objections](#customer-objections)
-  * [Infographic for common scenarios](#infographic-for-common-scenarios)
-* [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-* [Step 3: Present the solution](#step-3-present-the-solution)
-* [Wrap-up](#wrap-up)
-* [Additional references](#additional-references)
+- [Abstract](#abstract)
+- [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+  - [Customer situation](#customer-situation)
+  - [Customer needs](#customer-needs)
+  - [Customer objections](#customer-objections)
+  - [Infographic for common scenarios](#infographic-for-common-scenarios)
+- [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+- [Step 3: Present the solution](#step-3-present-the-solution)
+- [Wrap-up](#wrap-up)
+- [Additional references](#additional-references)
 
 ## Abstract
 
@@ -71,11 +71,11 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 3. Wants a better understanding on what to do with the internal Oracle Forms application.
 4. Has multiple touch points with external vendors and needs to know what needs to change with those web services.
 5. Wants to upgrade their existing data warehouse from SQL Server 2008 R2 Standard Edition to Azure SQL Database or SQL Server 2017 Enterprise Edition to take advantage of some new features:
-    * They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
-    * They want compression for some of their large fact tables.
-    * They want to implement SSRS mobile reporting.
-    * They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
-    * They have a lot of SQL Server Integration Services (SSIS) packages that are executed through SQL Server Agent jobs. They'd like to know the upgrade path for those.
+    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
+    - They want compression for some of their large fact tables.
+    - They want to implement SSRS mobile reporting.
+    - They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
+    - They have a lot of SQL Server Integration Services (SSIS) packages that are executed through SQL Server Agent jobs. They'd like to know the upgrade path for those.
 6. Need web-based visualizations on sales and forecasting, and a plan on how to upgrade their existing reporting infrastructure.
 7. Have a new requirement on what to do with JSON data.
 8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
