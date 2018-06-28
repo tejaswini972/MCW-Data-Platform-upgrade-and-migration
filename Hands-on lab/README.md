@@ -1,4 +1,4 @@
-# Data platform upgrade and migration hands-on lab
+# Data Platform upgrade and migration hands-on lab
 
 ## Contents
 
@@ -51,7 +51,7 @@ You should follow all the steps provided in the [Before the hands-on lab](./Befo
 
 Select the guide you are using to complete the Hands-on lab below.
 
-- [Step-by-step guide](./HOL-step-by-step-Data-platform-upgrade-and-migration.md)
+- [Step-by-step guide](./HOL-step-by-step-Data-Platform-upgrade-and-migration.md)
   - Provides detailed, step-by-step instructions for completing the lab.
-- [Unguided](./HOL-uguided-Data-platform-upgrade-and-migration.md)
+- [Unguided](./HOL-uguided-Data-Platform-upgrade-and-migration.md)
   - This guide provides minimal instruction, and assumes a high-level of knowledge about the technologies used in this lab. This should typically only be used if you are doing this as part of a group.

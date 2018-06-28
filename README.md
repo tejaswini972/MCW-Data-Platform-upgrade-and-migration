@@ -1,4 +1,4 @@
-# Data platform upgrade and migration
+# Data Platform upgrade and migration
 
 [Download Cloud Workshop](https://github.com/Microsoft/MCW-Data-platform-upgrade-and-migration/archive/master.zip)
 

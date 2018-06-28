@@ -9,7 +9,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-# Data platform upgrade and migration hands-on lab unguided
+# Data Platform upgrade and migration hands-on lab unguided
 
 Updated June 2018
 
@@ -361,7 +361,7 @@ In this task, you will create a connection to the Oracle database on your Lab VM
 
 #### Tasks to Complete
 
-- Download the Data platform upgrade and migration GitHub repo to obtain the start project files from <https://github.com/Microsoft/MCW-Data-platform-upgrade-and-migration>
+- Download the Data Platform upgrade and migration GitHub repo to obtain the start project files from <https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration>
 - Using Database Explorer provided under the Fusion menu installed by dbForge Fusion in Visual Studio, create a connection to the Oracle database.
 - Run the SQL scripts in order provided under the Oracle Scripts folder of the starter.
 

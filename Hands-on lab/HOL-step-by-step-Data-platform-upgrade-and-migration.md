@@ -9,7 +9,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-# Data platform upgrade and migration hands-on lab step-by-step
+# Data Platform upgrade and migration hands-on lab step-by-step
 
 Updated June 2018
 
@@ -1051,13 +1051,13 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to SQL Server 2017. In this task, you will create a connection to the Oracle database on your Lab VM, and create a database called Northwind.
 
-1. From your LabVM, download the starter project by downloading a .zip copy of the Data platform upgrade and migration GitHub repo.
+1. From your LabVM, download the starter project by downloading a .zip copy of the Data Platform upgrade and migration GitHub repo.
 
-2. In a web browser, navigate to the [Data platform upgrade and migration MCW repo](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration).
+2. In a web browser, navigate to the [Data Platform upgrade and migration MCW repo](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration).
 
 3. On the repo page, select **Clone or download**, then select **Download ZIP**.
 
-    ![Download .zip containing the Data platform upgrade and migration repository](media/git-hub-download-repo.png "Download ZIP")
+    ![Download .zip containing the Data Platform upgrade and migration repository](media/git-hub-download-repo.png "Download ZIP")
 
 4. Unzip the contents to **C:\handsonlab**.
 
@@ -1113,7 +1113,7 @@ WWI has provided you with a copy of their application, including a database scri
 
     ![The Swap views icon is highlighted at the bottom of the query window. ](./media/visual-studio-fusion-swap-view.png "Select the Swap views icon")
 
-16. In Visual Studio, select **File** in the menu, then select **Open File**, and navigate to `C:\handsonlab\MCW-Data-platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `1.northwind.oracle.schema.sql`, and then select **Open**.
+16. In Visual Studio, select **File** in the menu, then select **Open File**, and navigate to `C:\handsonlab\MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `1.northwind.oracle.schema.sql`, and then select **Open**.
 
     ![The file, 1.northwind.oracle.schema.sql, is selected and highlighted in the Open File window.](./media/visual-studio-open-file.png "Open File dialog")
 
@@ -1159,7 +1159,7 @@ WWI has provided you with a copy of their application, including a database scri
 
     ![The Open File icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-open-file.png "Select Open File")
 
-29. In the Open File dialog, navigate to `C:\handsonlab\MCW-Data-platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
+29. In the Open File dialog, navigate to `C:\handsonlab\MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
 
 30. As you did previously, copy all the text from the file, and paste it into the Text area of the Fusion query window.
 
