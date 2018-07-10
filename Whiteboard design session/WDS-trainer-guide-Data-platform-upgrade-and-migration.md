@@ -1,4 +1,17 @@
-![Microsoft Cloud Workshop](../media/ms-cloud-workshop.png "Microsoft Cloud Workshop")
+
+![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+
+<div class="MCWHeader1">
+Data Platform upgrade and migratiion
+</div>
+
+<div class="MCWHeader2">
+Whiteboard design session trainer guide
+</div>
+
+<div class="MCWHeader3">
+June 2018
+</div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
@@ -11,9 +24,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 # Data Platform upgrade and migration whiteboard design session trainer guide
 
-Updated June 2018
-
-## Contents
+**Contents**
 
 - [Trainer information](#trainer-information)
   - [Role of the trainer](#role-of-the-trainer)
@@ -29,7 +40,6 @@ Updated June 2018
     - [Infographic of common scenarios](#infographic-of-common-scenarios)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
   - [Step 3: Present the solution](#step-3-present-the-solution)
-  - [Step 3: Present the solution](#step-3-present-the-solution-1)
   - [Wrap-up](#wrap-up)
   - [Additional references](#additional-references)
 - [Data Platform upgrade and migration whiteboard design session trainer guide](#data-platform-upgrade-and-migration-whiteboard-design-session-trainer-guide)
@@ -42,7 +52,7 @@ Updated June 2018
   - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
   - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
 
-## Trainer information
+# Trainer information
 
 Thank you for taking time to support the whiteboard design sessions as a trainer!
 
@@ -50,61 +60,61 @@ Thank you for taking time to support the whiteboard design sessions as a trainer
 
 An amazing trainer:
 
-- Creates a safe environment in which learning can take place.
-- Stimulates the participant's thinking.
-- Involves the participant in the learning process.
-- Manages the learning process (on time, on topic, and adjusting to benefit participants).
-- Ensures individual participant accountability.
-- Ties it all together for the participant.
-- Provides insight and experience to the learning process.
-- Effectively leads the whiteboard design session discussion.
-- Monitors quality and appropriateness of participant deliverables.
-- Effectively leads the feedback process.
+- Creates a safe environment in which learning can take place
+- Stimulates the participant's thinking
+- Involves the participant in the learning process
+- Manages the learning process (on time, on topic, and adjusting to benefit participants)
+- Ensures individual participant accountability
+- Ties it all together for the participant
+- Provides insight and experience to the learning process
+- Effectively leads the whiteboard design session discussion
+- Monitors quality and appropriateness of participant deliverables
+- Effectively leads the feedback process
 
-### Whiteboard design session flow
+## Whiteboard design session flow
 
 Each whiteboard design session uses the following flow:
 
-#### Step 1: Review the customer case study (15 minutes)
+**Step 1: Review the customer case study (15 minutes)**
 
-**Outcome**: Analyze your customer's needs
+Outcome: Analyze your customer's needs
 
 - Customer's background, situation, needs and technical requirements
 - Current customer infrastructure and architecture
 - Potential issues, objectives and blockers
 
-#### Step 2: Design a proof of concept solution (60 minutes)
+**Step 2: Design a proof of concept solution (60 minutes)**
 
-**Outcome**: Prepare to present a solution for your target customer audience
+Outcome: Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
 - Determine your target customer audience
 - Determine customer's business needs to address your solution
 - Design and diagram your solution
 - Prepare to present your solution
 
-#### Step 3: Present the solution (30 minutes)
+**Step 3: Present the solution (30 minutes)**
 
-**Outcome**: Present solution to your customer
+Outcome: Present solution to your customer
 
 - Present solution
 - Respond to customer objections
 - Receive feedback
 
-#### Wrap-up (15 minutes)
+**Wrap-up (15 minutes)**
 
 - Review preferred solution
 
-### Before the whiteboard design session: How to prepare
+## Before the whiteboard design session: How to prepare
 
 Before conducting your first whiteboard design session:
 
 - Read the Student guide (including the case study) and Trainer guide
-- Become familiar with all key points and activities.
-- Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions.
-- Prior to the whiteboard design session, discuss the case study to pick up more ideas.
-- Make notes for later.
+- Become familiar with all key points and activities
+- Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions
+- Prior to the whiteboard design session, discuss the case study to pick up more ideas
+- Make notes for later
 
-### During the whiteboard design session: Tips for an effective whiteboard design session
+## During the whiteboard design session: Tips for an effective whiteboard design session
 
 **Refer to the Trainer guide** to stay on track and observe the timings.
 
@@ -112,7 +122,7 @@ Before conducting your first whiteboard design session:
 
 When participants are doing activities, you can **look ahead to refresh your memory**.
 
-- **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing.
+- **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing
 - **Add examples, points, and stories** from your own experience. Think about stories you can share that help you make your points clearly and effectively.
 - **Consider creating a "parking lot"** to record issues or questions raised that are outside the scope of the whiteboard design session or can be answered later. Decide how you will address these issues, so you can acknowledge them without being derailed by them.
 
@@ -126,27 +136,29 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 **Wait for responses**. If you ask a question such as, "What's your experience with (fill in the blank)?" then wait. Do not be afraid of a little silence. If you leap into the silence, your participants will feel you are not serious about involving them and will become passive. Give participants a chance to think, and if no one answers, patiently ask again. You will usually get a response.
 
-## Data Platform upgrade and migration whiteboard design session student guide
+# Data Platform upgrade and migration whiteboard design session student guide
 
-### Abstract
+## Abstract and learning objectives
 
 In this whiteboard design session, you will work with a group to design a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, you will look at ways to help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the latest version and consider the impact of migrating from on-premises to the cloud.
 
 At the end of this whiteboard design session, you will be better able to design a database migration plan and implementation.
 
-### Step 1: Review the customer case study
+## Step 1: Review the customer case study
 
-**Outcome**: Analyze your customer’s needs.
+**Outcome**: 
 
-**Time frame**: 15 minutes
+Analyze your customer’s needs.
 
-**Directions**: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
+Timeframe: 15 minutes
+
+Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
 1. Meet your table participants and trainer
 2. Read all of the directions for steps 1–3 in the student guide
 3. As a table team, review the following customer case study
 
-#### Customer situation
+### Customer situation
 
 World Wide Importers (WWI) has experienced huge growth over the last few years. With that growth has come a tremendous influx in new data they need to maintain their business. This data has become increasingly expensive to store in an Oracle relational database management system (RDBMS). Oracle upgrades are long and expensive projects. Business stakeholders have tired of the process and have requested a proof of concept (POC) for replacing Oracle with Microsoft SQL Server.
 
@@ -166,7 +178,7 @@ Also, they had a significant outage last year because one of their audit tables 
 
 Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fees, take advantage of a modern data warehouse, and provide a strong vision of availability for the future that will handle their momentous growth. She is sold on SQL Server, but her Oracle DBAs keep telling her that a migration to SQL Server is simply impossible. They cite that they have never done it before. They say it's hard to find tools that make it possible. The Oracle DBAs say that SQL Server is not as high performing as Oracle, does not have great high availability like Oracle Real Application Clusters (RAC), and doesn't have a replacement for Oracle Forms. She's tired of hearing "no" whenever the topic is brought up and would love to prove them wrong. She is also exploring the cloud and is wondering if she can make a direct migration to a cloud database or if she must stay on-premises because of her requirements. She has seen SQL Server make tremendous gains in features over the last several versions, particularly in business intelligence. Her data warehouse has slowed down as the data has increased. On one hand, this is because the data warehouse SQL Server has gotten very popular, but it's still a negative in her mind. She's concerned about the upgrade path because of all the dependencies on the data warehouse in her organization.
 
-#### Customer needs
+### Customer needs
 
 1. Wants to migrate an existing Oracle database to SQL Server 2017 on-premises, SQL Server 2017 in an Azure VM, or Azure SQL Database.
 2. Needs to know what's involved in migrating the external sales application to SQL Server.
@@ -183,7 +195,7 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
 9. As a follow up, they'd also like to know how to answer the Oracle DBA's allegation that SQL Server doesn't have an answer for Oracle RAC
 
-#### Customer objections
+### Customer objections
 
 1. Do we need to upgrade to on-premises SQL Server first or go can we go straight to Azure?
 2. Can we have two proof of concepts that demonstrate both migrations?
@@ -200,45 +212,47 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 13. What will happen with SSIS, SSRS, and SQL Server Analysis Services (SSAS)?
 14. How will security and SQL Agent Jobs migrate over?
 
-#### Infographic for common scenarios
+### Infographic for common scenarios
 
 ![This common scenario diagram includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; Oracle Forms App for inventory management;Oracle DB OLTP RAC Server; SSRS 2008 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2008 for a Data Warehouse Load; Excel for reporting; SQL Server 2008 R2 Standard for a Data Warehouse; and SSAS2008 for a Data Warehouse. ](media/common-scenarios.png "Common Scenario diagram")
 
-### Step 2: Design a proof of concept solution
+## Step 2: Design a proof of concept solution
 
-**Outcome**: Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+**Outcome**
 
-Time frame: 60 minutes
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
-#### Business needs
+Timeframe: 60 minutes
 
-**Directions**: With all participants at your table, answer the following questions and list the answers on a flip chart.
+**Business needs**
+
+Directions: With all participants at your table, answer the following questions and list the answers on a flip chart.
 
 1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
 2. What customer business needs do you need to address with your solution?
 
-#### Design
+**Design**
 
-**Directions**: With all participants at your table, respond to the following questions on a flip chart.
+Directions: With all participants at your table, respond to the following questions on a flip chart.
 
-##### High-level architecture
+*High-level architecture*
 
 1. Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements for data loading, data preparation, storage, high availability, application migration, and reporting. You will refine this diagram as you proceed.
 2. What should be included in the POC and what should be excluded?
 3. How will SQL Server save them on licensing costs?
 
-##### Schema and data movement
+*Schema and data movement*
 
 1. How would you recommend that WWI move their data and schema into SQL Server? What services would you suggest and what are the specific steps they would need to take to prepare the data, to transfer the data, and where would the loaded data land?
 2. Update your diagram with the data loading process with the steps you identified.
 
-##### Application changes
+*Application changes*
 
 1. What product would you recommend to WWI to migrate their store front MVC application to the new SQL Server database?
 2. How would you migrate the Oracle Forms applications? How would you define success? Are there any technologies the customer needs to know about?
 3. What will you do about the vendor touch points? How will you recommend they store the JSON data?
 
-##### Data warehouse and reporting
+*Data warehouse and reporting*
 
 1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
 2. What must change about the way WWI loads their data warehouse?
@@ -248,51 +262,54 @@ Time frame: 60 minutes
 6. What are the major steps required to use the Azure Database Migration Service to perform a database migration?
 7. What are the post upgrade steps we should consider in the POC? How would this address their concerns?
 
-##### High Availability and Audit Table
+*High Availability and Audit Table*
 
 1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
 2. What are the SQL Server options for high availability?
 
-##### Azure SQL Database POC
+*Azure SQL Database POC*
 
 1. Should they move to on-premises first?
 2. Is there any benefit to going straight to Microsoft Azure? Does Azure SQL Database take care of all their requirements?
 3. Are there any questions we need answered before we can begin a POC directly to Microsoft Azure?
 
-#### Prepare
+**Prepare**
 
-**Directions**: With all participants at your table:
+Directions: With all participants at your table:
 
-1. Identify any customer needs that are not addressed with the proposed solution.
-2. Identify the benefits of your solution.
-3. Determine how you will respond to the customer’s objections.
-4. Prepare a 15-minute chalk-talk style presentation to the customer.
+1. Identify any customer needs that are not addressed with the proposed solution
+2. Identify the benefits of your solution
+3. Determine how you will respond to the customer’s objections
 
-### Step 3: Present the solution
+Prepare a 15-minute chalk-talk style presentation to the customer.
 
-**Outcome**: Present a solution to the target customer audience in a 15-minute chalk-talk format.
+## Step 3: Present the solution
 
-**Time frame**: 30 minutes
+**Outcome**
 
-#### Presentation
+Present a solution to the target customer audience in a 15-minute chalk-talk format.
 
-**Directions**:
+Timeframe: 30 minutes
 
-1. Pair with another table.
-2. One table is the Microsoft team and the other table is the customer.
-3. The Microsoft team presents their proposed solution to the customer.
-4. The customer makes one of the objections from the list of objections.
-5. The Microsoft team responds to the objection.
-6. The customer team gives feedback to the Microsoft team.
-7. Tables switch roles and repeat Steps 2–6.
+**Presentation**
 
-### Wrap-up
+Directions:
 
-**Timeframe**: 15 minutes
+1. Pair with another table
+2. One table is the Microsoft team and the other table is the customer
+3. The Microsoft team presents their proposed solution to the customer
+4. The customer makes one of the objections from the list of objections
+5. The Microsoft team responds to the objection
+6. The customer team gives feedback to the Microsoft team
+7. Tables switch roles and repeat Steps 2–6
 
-Tables reconvene with the larger group to hear a SME share the preferred solution for the case study.
+## Wrap-up
 
-### Additional references
+Timeframe: 15 minutes
+
+Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
+
+## Additional references
 
 |   |   |
 |----------|-------------|
@@ -311,46 +328,44 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 | Differentiating Microsoft's database migration tools | <https://blogs.msdn.microsoft.com/datamigration/2017/10/13/differentiating-microsofts-database-migration-tools-and-services/> |
 |
 
-## Data Platform upgrade and migration whiteboard design session trainer guide
+# Data Platform upgrade and migration whiteboard design session trainer guide
 
-### Step 1: Review the customer case study
+## Step 1: Review the customer case study
 
-- Check in with your table participants to introduce yourself as the trainer.
+- Check in with your table participants to introduce yourself as the trainer
 - Ask, "What questions do you have about the customer case study?"
-- Briefly review the steps and timeframes of the whiteboard design session.
-- Ready, set, go! Let the table participants begin.
+- Briefly review the steps and timeframes of the whiteboard design session
+- Ready, set, go! Let the table participants begin
 
-### Step 2: Design a proof of concept solution
+## Step 2: Design a proof of concept solution
 
-- Check in with your tables to ensure that they are transitioning from step to step on time.
-- Provide some feedback on their responses to the business needs and design.
-  - Try asking questions first that will lead the participants to discover the answers on their own.
-- Provide feedback for their responses to the customer's objections.
-  - Try asking questions first that will lead the participants to discover the answers on their own.
+- Check in with your tables to ensure that they are transitioning from step to step on time
+- Provide some feedback on their responses to the business needs and design
+  - Try asking questions first that will lead the participants to discover the answers on their own
+- Provide feedback for their responses to the customer's objections
+  - Try asking questions first that will lead the participants to discover the answers on their own
 
-### Step 3: Present the solution
+## Step 3: Present the solution
 
-- Determine which table will be paired with your table before Step 3 begins.
-- For the first round, assign one table as the Microsoft team and the other table as the customer.
-- Have the Microsoft team present their solution to the customer team.
-  - Have the customer team provide one objection for the Microsoft team to respond to.
-  - The presentation and objections should be no longer than 10 minutes.
-- Have participants on the customer team give feedback to the Microsoft team.
-  - The feedback should be no longer than 5 minutes.
-  - If needed, the trainer may also provide feedback.
+- Determine which table will be paired with your table before Step 3 begins
+- For the first round, assign one table as the Microsoft team and the other table as the customer
+- Have the Microsoft team present their solution to the customer team
+  - Have the customer team provide one objection for the Microsoft team to respond to
+  - The presentation and objections should be no longer than 15 minutes
+  - If needed, the trainer may also provide feedback
 
-### Wrap-up
+## Wrap-up
 
-- Have the table participants reconvene with the larger session group to hear a SME share the following preferred solution.
+-   Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution
 
-### Preferred target audience
+## Preferred target audience
 
 - Kathleen Sloan, CIO of World Wide Importers (WWI)
 - The primary audience is the business decision makers and technology decision makers. From the case study scenario, it would include the Director of Analytics. Usually we talk to the infrastructure managers who report to the chief information officers (CIOs), or to application sponsors, such as a line of business (LOB) vice president (VP), chief marketing officer (CMO), or to those who represent the business unit IT or developers who report to application sponsors.
 
-### Preferred solution
+## Preferred solution
 
-#### High-level architecture
+*High-level architecture*
 
 1. Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements for data loading, data preparation, application migration, storage, high availability, and reporting. You will refine this diagram as you proceed.
 
@@ -415,7 +430,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     > **NOTE**: The preferred solution is only one of many possible, viable approaches.
 
-#### Schema and data movement
+*Schema and data movement*
 
 1. How would you recommend that WWI move their data and schema into SQL Server? What services would you suggest and what are the specific steps they would need to take to prepare the data, to transfer the data, and where would the loaded data land?
 
@@ -429,7 +444,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     *See the diagram provided under High Level Architecture.*
 
-#### Application changes
+*Application changes*
 
 1. What product would you recommend WWI to migrate their store front MVC application to the new SQL Server database?
 
@@ -449,7 +464,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     *The REST services need to be approached the same way the MVC store front application is approached. If they've used an ORM, then it is likely we can repoint the connectionStrings and redeploy.*
 
-#### Data warehouse and reporting
+*Data warehouse and reporting*
 
 1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
 
@@ -523,7 +538,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     *Also, consider using the Database Experimentation Assistant to prove that these changes have improved query performance of the SQL Server Data warehouse.*
 
-#### High Availability and Audit Table
+*High Availability and Audit Table*
 
 1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
 
@@ -545,7 +560,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
     - *Replication*
     - *Scalable shared databases*
 
-#### Azure SQL Database POC
+*Azure SQL Database POC*
 
 1. Should they move to on-premises first?
 
@@ -568,7 +583,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
     - *Where is the rest of the data integration points stored? Are they on-premises? Is anything in Microsoft Azure already?*
     - *Are there any cloud products that are already on the roadmap for the organization?*
 
-#### Checklist of preferred objection handling
+*Checklist of preferred objection handling*
 
 1. Do we need to upgrade to on-premises SQL Server first or go straight to Azure?
 
@@ -638,7 +653,7 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 
     *If we use Database Migration Assistant, security and the SQL Server Agent Jobs will migrate over to the new server.*
 
-### Customer quote (to be read back to the attendees at the end)
+## Customer quote (to be read back to the attendees at the end)
 
 "We are excited that a SQL Server environment will help our organization grow and prosper for many years into the future."
 
