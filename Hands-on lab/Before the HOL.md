@@ -1,12 +1,29 @@
-# Before the hands-on lab
+![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
-Duration: 45 minutes
+<div class="MCWHeader1">
+Data Platform upgrade and migration
+</div>
 
-In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
+<div class="MCWHeader2">
+Before the hands-on lab setup guide
+</div>
 
-> IMPORTANT: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
+<div class="MCWHeader3">
+June 2018
+</div>
 
-## Contents
+
+Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
+
+Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
+
+The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+
+© 2018 Microsoft Corporation. All rights reserved.
+
+Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
+
+**Contents**
 
 - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
 - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
@@ -17,7 +34,19 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 - [Task 7: Provision Azure SQL Database](#task-7-provision-azure-sql-database)
 - [Next steps](#next-steps)
 
-## Task 1: Provision a resource group
+## Data Platform upgrade and migration before the hands-on lab set up guide
+
+## Requirements
+
+## Before the hands-on lab
+
+Duration: 45 minutes
+
+In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
+
+> IMPORTANT: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.## Task 1: Provision a resource group
+
+### Task 1: Provision a resource group
 
 In this task, you will create an Azure resource group for the resources used throughout this lab.
 
@@ -31,17 +60,17 @@ In this task, you will create an Azure resource group for the resources used thr
 
         ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and "hands-on-labs" is entered into the Resource group name box on the Create an empty resource group blade.](./media/create-resource-group.png "Create resource group")
 
-2. Select **Create**.
+2. Select **Create**
 
-## Task 2: Create lab virtual machine
+### Task 2: Create lab virtual machine
 
 In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2017 installed.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the results, and select **Create**
 
     ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png "Create Windows Server 2016 with Visual Studio Community 2017")
 
-2. Set the following configuration on the Basics tab.
+2. Set the following configuration on the Basics tab:
 
     - **Name**: Enter LabVM
 
@@ -59,31 +88,31 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
         ![Screenshot of the Basics blade, with fields set to the previously mentioned settings.](./media/virtual-machine-basics-blade.png "Create virtual machine Basics blade")
 
-    - Select **OK** to move to the next step.
+    - Select **OK** to move to the next step
 
-3. On the Choose a size blade, select DS2_v3 Standard.
+3. On the Choose a size blade, select DS2_v3 Standard
 
     ![On the Choose a size blade, the D2S_v3 Standard size is selected.](./media/virtual-machine-choose-a-size-blade.png "Choose a size blade")
 
-4. Select **Select** to move on to the Settings blade.
+4. Select **Select** to move on to the Settings blade
 
-5. On the Settings blade, select **RDP (3389)** from the Select public inbound ports drop down, then select **OK**.
+5. On the Settings blade, select **RDP (3389)** from the Select public inbound ports drop down, then select **OK**
 
     ![On the Create virtual machine settings blade, RDP (3389) is selected in the public inbound ports drop down.](media/virtual-machine-settings-inbound-ports.png "Open RDP on inbound port 3389")
 
-6. Select **Create** on the Create blade to provision the virtual machine.
+6. Select **Create** on the Create blade to provision the virtual machine
 
-7. It may take 10+ minutes for the virtual machine to complete provisioning.
+7. It may take 10+ minutes for the virtual machine to complete provisioning
 
-8. You can move on to the next task while waiting for the lab VM to provision.
+8. You can move on to the next task while waiting for the lab VM to provision
 
-## Task 3: Create SQL Server virtual machine
+### Task 3: Create SQL Server virtual machine
 
 In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instances of both SQL Server 2008 R2 and SQL Server 2017. The VM will use the Windows Server 2012 R2 Datacenter image.
 
 > Note, an older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "windows server 2012" into the Search the Marketplace box, select **Windows Server 2012 R2 Datacenter** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "windows server 2012" into the Search the Marketplace box, select **Windows Server 2012 R2 Datacenter** from the results, and select **Create**
 
     ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, windows server 2012 and Windows Server 2012 R2 Datacenter are highlighted.](./media/create-resource-windows-server-2012-r2-datacenter.png "Azure portal")
 
@@ -105,45 +134,45 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
         ![On the Basics blade, the values above are entered in the boxes.](media/sql-virtual-machine-basics-blade.png "Create virtual machine Basics blade")
 
-    - Select **OK** to move on to the Size blade.
+    - Select **OK** to move on to the Size blade
 
-3. On the Choose a size blade, select DS1_v2 Standard.
+3. On the Choose a size blade, select DS1_v2 Standard
 
     ![On the Choose a size blade, DS1_v2 Standard is selected and highlighted.](media/sql-virtual-machine-choose-a-size-blade.png "Choose a VM size")
 
-4. Select **Select** to move on to the Settings blade.
+4. Select **Select** to move on to the Settings blade
 
 5. On the Settings blade, select **RDP (3389)** and **MS SQL (1433)** from the Select public inbound ports drop down, then select **OK**.
 
     ![On the Create virtual machine settings blade, RDP (3389) and MS SQL (1433) are selected in the public inbound ports drop down.](media/sql-virtual-machine-settings-inbound-ports.png "Virtual machine settings - Inbound ports")
 
-6. Select **Create** on the Create blade to provision the virtual machine.
+6. Select **Create** on the Create blade to provision the virtual machine
 
-7. It may take 10+ minutes for the virtual machine to complete provisioning.
+7. It may take 10+ minutes for the virtual machine to complete provisioning
 
-8. You can move on to the next task while waiting for the lab VM to provision.
+8. You can move on to the next task while waiting for the lab VM to provision
 
-## Task 4: Connect to the Lab VM
+### Task 4: Connect to the Lab VM
 
 In this task, you will create an RDP connection to your Lab virtual machine (VM), and disable Internet Explorer Enhanced Security Configuration.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the LabVM Virtual Machine.
+2. In the list of resources for your resource group, select the LabVM Virtual Machine
 
     ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png "LabVM in resource group list")
 
-3. On your Lab VM blade, select Connect from the top menu.
+3. On your Lab VM blade, select Connect from the top menu
 
     ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png "Connect to LabVM")
 
-4. Select **Download RDP file**, then open the downloaded RDP file.
+4. Select **Download RDP file**, then open the downloaded RDP file
 
     ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
 
-5. Select **Connect** on the Remote Desktop Connection dialog.
+5. Select **Connect** on the Remote Desktop Connection dialog
 
     ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
 
@@ -153,7 +182,7 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
     b. **Password**: Password.1!!
 
-7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
+7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified
 
     ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-labvm.png "Remote Desktop Connection dialog")
 
@@ -161,37 +190,37 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
     ![The Server Manager tile is circled in the Start Menu.](./media/start-menu-server-manager.png "Server Manager tile in the Start menu")
 
-9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**.
+9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**
 
     ![Screenshot of the Server Manager. In the left pane, Local Server is selected. In the right, Properties (For LabVM) pane, the IE Enhanced Security Configuration, which is set to On, is highlighted.](./media/windows-server-manager-ie-enhanced-security-configuration.png "Server Manager")
 
-10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**.
+10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**
 
     ![Screenshot of the Internet Explorer Enhanced Security Configuration dialog box, with Administrators set to Off.](./media/internet-explorer-enhanced-security-configuration-dialog.png "Internet Explorer Enhanced Security Configuration dialog box")
 
-11. Close the Server Manager.
+11. Close the Server Manager
 
-## Task 5: Connect to the SqlServerDw VM
+### Task 5: Connect to the SqlServerDw VM
 
 In this task, you will create an RDP connection to the SqlServerDw VM, and configure the server to be an application server. This is necessary to install the required .NET components on the server prior to installing SQL Server 2008 R2. You will also disable IE Enhanced Security Configuration, as you did on the Lab VM.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the SqlServerDw VM.
+2. In the list of resources for your resource group, select the SqlServerDw VM
 
     ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServerDw is highlighted.](media/resource-group-resources-sqlserverdw.png "SqlServerDw VM in resource group list")
 
-3. On the SqlServerDw blade, select Connect from the top menu.
+3. On the SqlServerDw blade, select Connect from the top menu
 
     ![The SqlServerDw blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserverdw.png "Connect to SqlServerDw")
 
-4. Select **Download RDP file**, then open the downloaded RDP file.
+4. Select **Download RDP file**, then open the downloaded RDP file
 
     ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
 
-5. Select **Connect** on the Remote Desktop Connection dialog.
+5. Select **Connect** on the Remote Desktop Connection dialog
 
     ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
 
@@ -201,7 +230,7 @@ In this task, you will create an RDP connection to the SqlServerDw VM, and confi
 
     b. **Password**: Password.1!!
 
-7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
+7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified
 
     ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserverdw.png "Remote Desktop Connection dialog")
 
@@ -209,97 +238,97 @@ In this task, you will create an RDP connection to the SqlServerDw VM, and confi
 
     ![The Server Manager tile is circled in the Start Menu.](./media/start-menu-server-manager.png "Server Manager tile in the Start menu")
 
-9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**.
+9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**
 
     ![Screenshot of the Server Manager. In the left pane, Local Server is selected. In the right, Properties (For LabVM) pane, the IE Enhanced Security Configuration, which is set to On, is highlighted.](./media/windows-server-manager-ie-enhanced-security-configuration.png "Server Manager")
 
-10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**.
+10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**
 
     ![Screenshot of the Internet Explorer Enhanced Security Configuration dialog box, with Administrators set to Off.](./media/internet-explorer-enhanced-security-configuration-dialog.png "Internet Explorer Enhanced Security Configuration dialog box")
 
-11. Back in the Server Manager, select **Dashboard** on the left-hand menu, then select **Add roles and features**.
+11. Back in the Server Manager, select **Dashboard** on the left-hand menu, then select **Add roles and features**
 
     ![Add roles and features is highlighted on the Server Manager dashboard.](media/server-manager-dashboard-add-roles-and-features.png "Add roles and features")
 
-12. Select **Next** on the Before You Begin screen.
+12. Select **Next** on the Before You Begin screen
 
-13. Select **Role-based or feature-based installation** for the installation type, and select **Next**.
+13. Select **Role-based or feature-based installation** for the installation type, and select **Next**
 
     ![Role-based or feature-based installation is selected and highlighted under Select installation type.](./media/add-roles-and-features-wizard-select-installation-type.png "Select Role-based or feature-based installation ")
 
-14. Accept the default selection on the Select destination server screen, and select **Next**.
+14. Accept the default selection on the Select destination server screen, and select **Next**
 
     ![Select a server from the server pool is selected on the Select a destination server screen, and the default value (SqlServerDW) appears in the Server Pool box.](./media/add-roles-and-features-wizard-select-destination-server.png "Accept the default selection")
 
-15. On the Select server roles screen, select **Application Server**, and select **Next**.
+15. On the Select server roles screen, select **Application Server**, and select **Next**
 
     ![Application Server is selected and highlighted on the Select server roles screen.](./media/add-roles-and-features-wizard-select-server-roles.png "Select Application Server")
 
-16. On the Select features screen, select **.NET Framework 3.5 Features**, then select **Next**.
+16. On the Select features screen, select **.NET Framework 3.5 Features**, then select **Next**
 
     ![NET Framework 3.5 Features is selected and highlighted on the Select features screen.](./media/add-roles-and-features-wizard-select-features.png "Select .NET Framework 3.5 Features")
 
-17. Select **Next** on the Application Server screen.
+17. Select **Next** on the Application Server screen
 
-18. Accept the default values on the Select role services screen, and select **Next**.
+18. Accept the default values on the Select role services screen, and select **Next**
 
-19. On the Confirm installation selections screen, check the **Restart the destination server automatically if required** check box, and select **Yes** on the restart confirmation dialog.
+19. On the Confirm installation selections screen, check the **Restart the destination server automatically if required** check box, and select **Yes** on the restart confirmation dialog
 
 20. Select **Install**. You may see a message about specifying an alternate source path. This can be ignored.
 
     ![Restart the destination server automatically if required is selected and highlighted on the Confirm installation selections screen, and Install is highlighted at the bottom.](./media/add-roles-and-features-wizard-confirm-installation-selections.png "Confirm your installation selections")
 
-21. Close the Add Roles and Features Wizard, once the installation is completed.
+21. Close the Add Roles and Features Wizard, once the installation is completed
 
-22. Close the Server Manager.
+22. Close the Server Manager
 
-## Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM
+### Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM
 
 In this task, you will add rules to the SqlServerDw VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
 
-1. On the SqlServerDw VM, select **Start**.
+1. On the SqlServerDw VM, select **Start**
 
     ![The Start icon is highlighted on the VM taskbar.](media/windows-2012-r2-datacenter-startbar.png "Select Start")
 
-2. Then, select the **Search** icon in the top right-hand corner of the screen.
+2. Then, select the **Search** icon in the top right-hand corner of the screen
 
     ![The Search icon is highlighted on the right side.](media/windows-2012-r2-datacenter-search-icon.png "Select Search")
 
-3. In the Search text box, enter `wf.msc`, then select **wf** from the list of results.
+3. In the Search text box, enter `wf.msc`, then select **wf** from the list of results
 
     ![The wf icon is highlighted in the list of search results.](./media/windows-2012-r2-datacenter-search-wf-msc.png "Search on wf.msc")
 
-4. In the Windows Firewall with Advanced Security dialog, select, then right-click **Inbound Rules** in the left pane, then select **New Rule** in the action pane.
+4. In the Windows Firewall with Advanced Security dialog, select, then right-click **Inbound Rules** in the left pane, then select **New Rule** in the action pane
 
     ![New Rule is highlighted in the submenu for Inbound Rules, which is selected in the left pane of the Windows Firewall with Advanced Security dialog box.](./media/windows-firewall-new-inbound-rule.png "Create a new Inbound Rule")
 
-5. In the New Inbound Rule Wizard, under Rule Type, select **Port**, then select **Next**.
+5. In the New Inbound Rule Wizard, under Rule Type, select **Port**, then select **Next**
 
     ![Rule Type is selected and highlighted on the left side of the New Inbound Rule Wizard, and Port is selected and highlighted on the right.](./media/new-inbound-rule-wizard-rule-type.png "Select Port")
 
-6. In the Protocol and Ports dialog, use the default **TCP**, and enter **1433** in the Specific local ports text box, the select **Next**.
+6. In the Protocol and Ports dialog, use the default **TCP**, and enter **1433** in the Specific local ports text box, the select **Next**
 
     ![Protocol and Ports is selected on the left side of the New Inbound Rule Wizard, and 1433 is in the Specific local ports box, which is selected on the right.](./media/new-inbound-rule-wizard-protocol-and-ports.png "Select a specific local port")
 
-7. In the Action dialog, select **Allow the connection**, and select **Next**.
+7. In the Action dialog, select **Allow the connection**, and select **Next**
 
     ![Action is selected on the left side of the New Inbound Rule Wizard, and Allow the connection is selected on the right.](./media/new-inbound-rule-wizard-action.png "Specify the action")
 
-8. In the Profile step, check **Domain**, **Private**, and **Public**, then select **Next**.
+8. In the Profile step, check **Domain**, **Private**, and **Public**, then select **Next**
 
     ![Profile is selected on the left side of the New Inbound Rule Wizard, and Domain, Private, and Public are selected on the right.](./media/new-inbound-rule-wizard-profile.png "Select Domain, Private, and Public")
 
-9. In the Name screen, enter **sqlserver**, and select **Finish**.
+9. In the Name screen, enter **sqlserver**, and select **Finish**
 
     ![Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right.](./media/new-inbound-rule-wizard-name.png "Specify the name")
 
-10. Close the Windows Firewall with Advanced Security window.
+10. Close the Windows Firewall with Advanced Security window
 
-## Task 7: Provision Azure SQL Database
+### Task 7: Provision Azure SQL Database
 
 In this task, you will create an Azure SQL Database, which will server as the target database for migration of the on-premises WorldWideImporters database into the cloud. The Premium tier is required to support ColumnStore index creation.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql database" into the Search the Marketplace box, select **SQL Database** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql database" into the Search the Marketplace box, select **SQL Database** from the results, and select **Create**
 
     ![+Create a resource is selected in the Azure navigation pane, and "sql database" is entered into the Search the Marketplace box. SQL Database is selected in the results.](media/create-resource-azure-sql-database.png "Create SQL Server")
 
@@ -336,7 +365,7 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 
 *These steps should be completed prior to starting the rest of the Lab.*
 
-## Next steps
+### Next steps
 
 You are now ready to complete the hands-on lab. Select a guide below to get started, or you can return to the overview page for the lab.
 
