@@ -25,7 +25,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 **Contents**
 
-- [Data Platform upgrade and migration hands-on lab unguided](#Data-Platform-upgrade-and-migration-hands-on-lab-unguided)
+- [Data Platform upgrade and migration hands-on lab unguided](#data-platform-upgrade-and-migration-hands-on-lab-unguided)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
