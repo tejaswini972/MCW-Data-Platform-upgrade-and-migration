@@ -412,6 +412,7 @@ In this exercise, you will migrate the Oracle database into SQL Server 2017 usin
   - Fix data type errors reported during schema conversion
   - In SQL Server 2017, Microsoft now by default requires that all type of assemblies (SAFE, EXTERNAL_ACCESS, UNSAFE) are authorized for UNSAFE access. Add the `SSMA4OracleSQLServerCollections.NET` and `SSMA4OracleSQLServerExtensions.NET` assemblies to the SQLCLR whitelist for the SQL Server 2017 instance.
   - Execute the script below in SSMS for each assembly
+  
   Note: The binary value for each assembly can be obtained by saving the assemblies as a script in SSMA.
 
     ```sql
