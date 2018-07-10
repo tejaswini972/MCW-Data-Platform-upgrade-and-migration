@@ -81,18 +81,18 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 ### Customer needs
 
-1. Wants to migrate an existing Oracle database to SQL Server 2017 on-premises, SQL Server 2017 in an Azure VM, or Azure SQL Database.
-2. Needs to know what's involved in migrating the external sales application to SQL Server.
-3. Wants a better understanding on what to do with the internal Oracle Forms application.
-4. Has multiple touch points with external vendors and needs to know what needs to change with those web services.
+1. Wants to migrate an existing Oracle database to SQL Server 2017 on-premises, SQL Server 2017 in an Azure VM, or Azure SQL Database
+2. Needs to know what's involved in migrating the external sales application to SQL Server
+3. Wants a better understanding on what to do with the internal Oracle Forms application
+4. Has multiple touch points with external vendors and needs to know what needs to change with those web services
 5. Wants to upgrade their existing data warehouse from SQL Server 2008 R2 Standard Edition to Azure SQL Database or SQL Server 2017 Enterprise Edition to take advantage of some new features:
-    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
-    - They want compression for some of their large fact tables.
-    - They want to implement SSRS mobile reporting.
+    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest
+    - They want compression for some of their large fact tables
+    - They want to implement SSRS mobile reporting
     - They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
     - They have a lot of SQL Server Integration Services (SSIS) packages that are executed through SQL Server Agent jobs. They'd like to know the upgrade path for those.
-6. Need web-based visualizations on sales and forecasting, and a plan on how to upgrade their existing reporting infrastructure.
-7. Have a new requirement on what to do with JSON data.
+6. Need web-based visualizations on sales and forecasting, and a plan on how to upgrade their existing reporting infrastructure
+7. Have a new requirement on what to do with JSON data
 8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
 9. As a follow up, they'd also like to know how to answer the Oracle DBA's allegation that SQL Server doesn't have an answer for Oracle RAC
 
