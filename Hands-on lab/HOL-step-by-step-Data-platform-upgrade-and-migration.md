@@ -107,7 +107,7 @@ In this exercise, you will install and configure SQL Server 2017 and SQL Server 
 
 In this task, you will install SQL Server 2017 and Microsoft SQL Server Management Studio (SSMS) on the SqlServerDw VM.
 
-> Connect to the SqlServerDw VM following the steps provided in Task 5 of the [Before the hand-on lab](./Before%20the%20lab.md) exercises.
+> Connect to the SqlServerDw VM following the steps provided in Task 5 of the [Before the HOL](./Before%20the%20HOL.md) exercises.
 
 1. On the SqlServerDw VM, open a web browser and navigate to the [SQL Server 2017 Developer edition download](https://www.microsoft.com/sql-server/sql-server-downloads) page, then select the **Download now** link under Developer in the free specialized edition section
 
@@ -473,7 +473,7 @@ World Wide Importers would like an assessment to see what potential issues they 
 
     ![Launch Microsoft Data Migration Assistant is selected and highlighted at the bottom of the Microsoft Data Migration Assistant Setup dialog box.](./media/data-migration-assistant-setup-finish.png "Run the Microsoft Data Migration Assistant")
 
-5. In the Data Migration Assistant window, select the New **(+)** icon in the left-hand menu.
+5. In the Data Migration Assistant window, select the New **(+)** icon in the left-hand menu
 
     ![+ New is selected and highlighted in the Data Migration Assistant window.](./media/data-migration-assistant-new-project.png "Select + New")
 
@@ -1082,7 +1082,7 @@ WWI has provided you with a copy of their application, including a database scri
 
 7. Sign into Visual Studio (or create an account if you don't have one), when prompted
 
-8. At the Security Warning screen, uncheck **Ask me for every project in this solution*, and select **OK**
+8. At the Security Warning screen, uncheck **Ask me for every project in this solution**, and select **OK**
 
     ![Ask me for every project in this solution is cleared and OK is selected on the Security Warning screen.](./media/visual-studio-security-warning.png "Clear Ask me for every project in this solution")
 
@@ -1158,7 +1158,7 @@ WWI has provided you with a copy of their application, including a database scri
 
     - **Password**: oracledemo123
 
-24. Select **Test Connection** to verify the new credentials work.
+24. Select **Test Connection** to verify the new credentials work
 
     ![The information above is entered and highlighted in the Database Connection Properties * Oracle dialog box, and Test Connection is selected at the bottom.](./media/visual-studio-database-explorer-modify-connection-update.png "Specify the settings")
 
