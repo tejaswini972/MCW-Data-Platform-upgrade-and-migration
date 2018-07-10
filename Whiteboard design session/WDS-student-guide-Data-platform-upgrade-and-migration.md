@@ -1,19 +1,30 @@
-![Microsoft Cloud Workshop](../media/ms-cloud-workshop.png "Microsoft Cloud Workshop")
+
+![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+
+<div class="MCWHeader1">
+Data Platform upgrade and migration
+</div>
+
+<div class="MCWHeader2">
+Whiteboard design session student guide
+</div>
+
+<div class="MCWHeader3">
+June 2018
+</div>
+
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
 Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+
 © 2018 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-# Data Platform upgrade and migration whiteboard design session student guide
-
-Updated June 2018
-
-## Contents
+**Contents**
 
 - [Abstract](#abstract)
 - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
@@ -26,6 +37,8 @@ Updated June 2018
 - [Wrap-up](#wrap-up)
 - [Additional references](#additional-references)
 
+# Data Platform upgrade and migration whiteboard design session student guide
+
 ## Abstract
 
 In this whiteboard design session, you will work with a group to design a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated, and come up with a migration plan. In addition, you will look at ways to help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as explore ways to migrate from an old version of SQL Server to the latest version and consider the impact of migrating from on-premises to the cloud.
@@ -34,11 +47,13 @@ At the end of this whiteboard design session, you will be better able to design 
 
 ## Step 1: Review the customer case study
 
-**Outcome**: Analyze your customer’s needs.
+**Outcome**
 
-**Time frame**: 15 minutes
+Analyze your customer’s needs.
 
-**Directions**: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
+Timeframe: 15 minutes
+
+Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
 1. Meet your table participants and trainer
 2. Read all of the directions for steps 1–3 in the student guide
@@ -104,91 +119,96 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 ## Step 2: Design a proof of concept solution
 
-**Outcome**: Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+**Outcome**
 
-Time frame: 60 minutes
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
-### Business needs
+Timeframe: 60 minutes
 
-**Directions**: With all participants at your table, answer the following questions and list the answers on a flip chart.
+**Business needs**
+
+Directions: With all participants at your table, answer the following questions and list the answers on a flip chart.
 
 1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
 2. What customer business needs do you need to address with your solution?
 
-### Design
+**Design**
 
-**Directions**: With all participants at your table, respond to the following questions on a flip chart.
+Directions: With all participants at your table, respond to the following questions on a flip chart.
 
-#### High-level architecture
+*High-level architecture*
 
 1. Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements for data loading, data preparation, storage, high availability, application migration, and reporting. You will refine this diagram as you proceed.
 2. What should be included in the POC and what should be excluded?
 3. How will SQL Server save them on licensing costs?
 
-#### Schema and data movement
+*Schema and data movement*
 
 1. How would you recommend that WWI move their data and schema into SQL Server? What services would you suggest and what are the specific steps they would need to take to prepare the data, to transfer the data, and where would the loaded data land?
-2. Update your diagram with the data loading process with the steps you identified.
+2. Update your diagram with the data loading process with the steps you identified
 
-#### Application changes
+*Application changes*
 
 1. What product would you recommend to WWI to migrate their store front MVC application to the new SQL Server database?
 2. How would you migrate the Oracle Forms applications? How would you define success? Are there any technologies the customer needs to know about?
 3. What will you do about the vendor touch points? How will you recommend they store the JSON data?
 
-#### Data warehouse and reporting
+*Data warehouse and reporting*
 
 1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
 2. What must change about the way WWI loads their data warehouse?
 3. What components do they need to use to upgrade the SQL Server 2008 R2 data warehouse to Azure SQL Database or SQL Server 2017 Enterprise?
-4. Identify the major milestones of delivering an upgrade to Azure SQL Database or SQL Server 2017 Enterprise.
+4. Identify the major milestones of delivering an upgrade to Azure SQL Database or SQL Server 2017 Enterprise
 5. Are there any tools or processes that would make this easier? How does Azure Database Migration Service (DMS) compare to other Microsoft database migration tools, such as Database Migration Assistant (DMA) or SQL Server Migration Assistant (SSMA)?
 6. What are the major steps required to use the Azure Database Migration Service to perform a database migration?
 7. What are the post upgrade steps we should consider in the POC? How would this address their concerns?
 
-#### High Availability and Audit Table
+*High Availability and Audit Table*
 
 1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
 2. What are the SQL Server options for high availability?
 
-#### Azure SQL Database POC
+*Azure SQL Database POC*
 
 1. Should they move to on-premises first?
 2. Is there any benefit to going straight to Microsoft Azure? Does Azure SQL Database take care of all their requirements?
 3. Are there any questions we need answered before we can begin a POC directly to Microsoft Azure?
 
-### Prepare
+**Prepare**
 
-**Directions**: With all participants at your table:
+Directions: With all participants at your table:
 
-1. Identify any customer needs that are not addressed with the proposed solution.
-2. Identify the benefits of your solution.
-3. Determine how you will respond to the customer’s objections.
-4. Prepare a 15-minute chalk-talk style presentation to the customer.
+1. Identify any customer needs that are not addressed with the proposed solution
+2. Identify the benefits of your solution
+3. Determine how you will respond to the customer’s objections
+
+Prepare a 15-minute chalk-talk style presentation to the customer.
 
 ## Step 3: Present the solution
 
-**Outcome**: Present a solution to the target customer audience in a 15-minute chalk-talk format.
+**Outcome**
 
-**Time frame**: 30 minutes
+Present a solution to the target customer audience in a 15-minute chalk-talk format.
 
-### Presentation
+Timeframe: 30 minutes
 
-**Directions**:
+**Presentation**
 
-1. Pair with another table.
-2. One table is the Microsoft team and the other table is the customer.
-3. The Microsoft team presents their proposed solution to the customer.
-4. The customer makes one of the objections from the list of objections.
-5. The Microsoft team responds to the objection.
-6. The customer team gives feedback to the Microsoft team.
-7. Tables switch roles and repeat Steps 2–6.
+Directions:
+
+1. Pair with another table
+2. One table is the Microsoft team and the other table is the customer
+3. The Microsoft team presents their proposed solution to the customer
+4. The customer makes one of the objections from the list of objections
+5. The Microsoft team responds to the objection
+6. The customer team gives feedback to the Microsoft team
+7. Tables switch roles and repeat Steps 2–6
 
 ## Wrap-up
 
-**Timeframe**: 15 minutes
+Timeframe: 15 minutes
 
-Tables reconvene with the larger group to hear a SME share the preferred solution for the case study.
+Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
 
 ## Additional references
 
@@ -207,4 +227,3 @@ Tables reconvene with the larger group to hear a SME share the preferred solutio
 | Azure Database Migration Service Overview | <https://docs.microsoft.com/azure/dms/dms-overview> |
 | SQL Server database migration to Azure SQL Database | <https://docs.microsoft.com/en-us/azure/sql-database/sql-database-cloud-migrate> |
 | Differentiating Microsoft's database migration tools | <https://blogs.msdn.microsoft.com/datamigration/2017/10/13/differentiating-microsofts-database-migration-tools-and-services/> |
-|
