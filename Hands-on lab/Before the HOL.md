@@ -363,13 +363,4 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 
     > **NOTE**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
 
-*These steps should be completed prior to starting the rest of the Lab.*
-
-### Next steps
-
-You are now ready to complete the hands-on lab. Select a guide below to get started, or you can return to the overview page for the lab.
-
-- Complete Hands-on lab
-  - [Step-by-step guide](./HOL-step-by-step-Intelligent-vending-machines.md)
-  - [Unguided guide](./HOL-unguided-Intelligent-vending-machines.md)
-- Return to [Hands-on lab readme](./readme.md)
+You should follow all steps provided *before* performing the Hands-on lab.
