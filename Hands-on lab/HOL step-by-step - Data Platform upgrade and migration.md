@@ -13,7 +13,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 Updated June 2018
 
-If you have not yet completed the steps to set up your environment in [Before the hands-on lab](./Before%20the%20lab.md), you will need to do that before proceeding.
+If you have not yet completed the steps to set up your environment in [Before the hands-on lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md), you will need to do that before proceeding.
 
 ## Contents
 
@@ -96,7 +96,7 @@ In this exercise, you will install and configure SQL Server 2017 and SQL Server 
 
 In this task, you will install SQL Server 2017 and Microsoft SQL Server Management Studio (SSMS) on the SqlServerDw VM.
 
-> Connect to the SqlServerDw VM following the steps provided in Task 5 of the [Before the hand-on lab](./Before%20the%20lab.md) exercises.
+> Connect to the SqlServerDw VM following the steps provided in Task 5 of the [Before the hand-on lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md) exercises.
 
 1. On the SqlServerDw VM, open a web browser and navigate to the [SQL Server 2017 Developer edition download](https://www.microsoft.com/sql-server/sql-server-downloads) page, then select the **Download now** link under Developer in the free specialized edition section.
 
@@ -910,7 +910,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 ### Task 1: Install Oracle XE
 
-1. Connect to your Lab VM, as you did in Task 4 of the [Before the Hands-on Lab](./Before%20the%20lab.md) exercise.
+1. Connect to your Lab VM, as you did in Task 4 of the [Before the Hands-on Lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md) exercise.
 
     - **User name**: demouser
     - **Password**: Password.1!!

@@ -341,6 +341,6 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 You are now ready to complete the hands-on lab. Select a guide below to get started, or you can return to the overview page for the lab.
 
 - Complete Hands-on lab
-  - [Step-by-step guide](./HOL-step-by-step-Intelligent-vending-machines.md)
-  - [Unguided guide](./HOL-unguided-Intelligent-vending-machines.md)
+  - [Step-by-step guide](./HOL%20step-by-step%20-%20Data%20Platform%20upgrade%20and%20migration.md)
+  - [Unguided guide](./HOL%20unguided%20-%20Data%20Platform%20upgrade%20and%20migration.md)
 - Return to [Hands-on lab readme](./readme.md)
