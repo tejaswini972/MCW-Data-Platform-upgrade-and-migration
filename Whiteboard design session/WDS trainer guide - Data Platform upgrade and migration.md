@@ -2,7 +2,7 @@
 ![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Data Platform upgrade and migratiion
+Data Platform upgrade and migration
 </div>
 
 <div class="MCWHeader2">
@@ -23,9 +23,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-# Data Platform upgrade and migration whiteboard design session trainer guide
-
-**Contents**
+## Contents
 
 - [Trainer information](#trainer-information)
   - [Role of the trainer](#role-of-the-trainer)
@@ -53,13 +51,16 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
   - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
 
-# Trainer information
+# Data Platform upgrade and migration whiteboard design session trainer guide
+
+## Trainer information
 
 Thank you for taking time to support the whiteboard design sessions as a trainer!
 
 ### Role of the trainer
 
 An amazing trainer:
+
 - Creates a safe environment in which learning can take place
 - Stimulates the participant's thinking
 - Involves the participant in the learning process
@@ -146,7 +147,7 @@ At the end of this whiteboard design session, you will be better able to design 
 
 ## Step 1: Review the customer case study
 
-**Outcome**: 
+**Outcome**:
 
 Analyze your customer’s needs.
 
@@ -238,7 +239,7 @@ Directions: With all participants at your table, respond to the following questi
 *High-level architecture*
 
 1. Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements for data loading, data preparation, storage, high availability, application migration, and reporting. You will refine this diagram as you proceed.
-2. What should be included in the POC and what should be excluded?
+2. What should be included in the POC?
 3. How will SQL Server save them on licensing costs?
 
 *Schema and data movement*
@@ -327,7 +328,6 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | SQL Server database migration to Azure SQL Database | <https://docs.microsoft.com/en-us/azure/sql-database/sql-database-cloud-migrate> |
 | Differentiating Microsoft's database migration tools | <https://blogs.msdn.microsoft.com/datamigration/2017/10/13/differentiating-microsofts-database-migration-tools-and-services/> |
 
-
 # Data Platform upgrade and migration whiteboard design session trainer guide
 
 ## Step 1: Review the customer case study
@@ -399,7 +399,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
     ![This is a diagram of an Example Oracle Forms migration to VB.NET windows application. On the left, the Oracle Forms Application includes an Oracle server, an Oracle module (Data block and control block), and Oracle Forms (menu module, PL/SQL library module, and object library module). On the right, a VB.NET Windows Application includes a VB.NET Windows Application project, which encompasses a menu, and WinForm (Databound Controls, and non-databound controls). In addition, below the project are two separate VB.NET Class Library Projects. The Oracle Forms PL/SQL Library module points to one, and the Object library module points to the other. The Oracle Menu Module points to VB.NET Menu, the Oracle Control block points to Non-databound controls, and the Oracle Data block passes through a DataSet/ DataReader / Command to the Databound controls. Between the two columns a SQL Server with ADO.NET connects through DataSet / DataReader / Command to VB.NET Class Library Project.](media/oracle-forms-migration.png "Example Oracle Forms migration to VB.NET windows application")
 
-2. What should they include in the PoC? What should be left out?
+2. What should they include in the PoC?
 
     For the POC we should include the following:
 

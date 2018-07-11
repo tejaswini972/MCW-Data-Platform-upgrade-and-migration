@@ -139,7 +139,7 @@ Directions: With all participants at your table, respond to the following questi
 *High-level architecture*
 
 1. Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements for data loading, data preparation, storage, high availability, application migration, and reporting. You will refine this diagram as you proceed.
-2. What should be included in the POC and what should be excluded?
+2. What should be included in the POC?
 3. How will SQL Server save them on licensing costs?
 
 *Schema and data movement*
