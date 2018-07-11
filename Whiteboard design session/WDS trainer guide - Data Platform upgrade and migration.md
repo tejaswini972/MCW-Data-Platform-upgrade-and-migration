@@ -583,7 +583,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
     - Where is the rest of the data integration points stored? Are they on-premises? Is anything in Microsoft Azure already?
     - Are there any cloud products that are already on the roadmap for the organization?
 
-*Checklist of preferred objection handling*
+## Checklist of preferred objection handling
 
 1. Do we need to upgrade to on-premises SQL Server first or go straight to Azure?
 
