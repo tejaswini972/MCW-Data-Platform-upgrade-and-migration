@@ -55,7 +55,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
     - [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
   - [Exercise 5: Migrate the Oracle database to SQL Server 2017](#exercise-5-migrate-the-oracle-database-to-sql-server-2017)
-    - [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
+    - [Task 1: Create Northwind database](#task-1-create-northwind-database)
+    - [Task 2: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-2-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
   - [Exercise 6: Migrate the Application](#exercise-6-migrate-the-application)
     - [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
     - [Task 2: Modify Application Code](#task-2-modify-application-code)
@@ -348,39 +349,17 @@ In this task, you will update the SQL Server service accounts and other settings
 
 15. Select **OK** to close the TCP/IP Properties dialog. When prompted that the changes will not take effect until the service is restarted, select **OK**. You will restart the service later.
 
-    > TODO: Move steps 16 - 20 down to the migrate Oracle to SQL section.
-
-16. Return to the SSMS window
-
-17. Select **Connect** in the Object Explorer, and select **Database Engine**
-
-    ![Database Engine is selected and highlighted under Connect, which is highlighted in Object Explorer.](./media/ssms-connect-database-engine.png "Select Database Engine")
-
-18. In the Connect to Server dialog, select the SQL Server 2017 instance, **SqlServerDw**, from the Server name drop down, leave Authentication set to **Windows Authentication**, and select **Connect**
-
-    ![SqlServerDw is selected and highlighted in the Server name drop-down list in the Connect to Server dialog box.](./media/ssms-connect-to-sqlserverdw.png "Select SqlServerDw")
-
-19. In the Object Explorer, you will now see both the 2008R2 and 2017 instances. Under the 2017 instance, SqlServerDw, right-click **Databases**, and select **New Database**
-
-    ![Databases is highlighted under the SqlServerDw 2017 instance, and New Database is selected and highlighted in the submenu.](./media/ssms-databases-new-database.png "Select New Database")
-
-20. In the New Database dialog, enter **Northwind** for the Database name, and select **OK**
-
-    ![Northwind is highlighted in the Database name box in the New Database dialog box.](./media/ssms-databases-new-database-dialog.png "Enter the database name")
-
-21. Now, return to the SQL Server 2017 Configuration Manager window
-
-22. As done previously, select **SQL Server Services** in the tree on the left, then right-click **SQL Server (MSSQLSERVER)** in the services pane, and select **Restart**
+16. As done previously, select **SQL Server Services** in the tree on the left, then right-click **SQL Server (MSSQLSERVER)** in the services pane, and select **Restart**
 
     ![SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server (MSSQLSERVER) is highlighted on the right, and Restart is highlighted in the submenu.](./media/sql-server-2017-configuration-manager-sql-server-services-sql-server-restart.png "Select Restart")
 
-23. Repeat the previous step for the **SQL Server (SQLSERVER2008)** service
+17. Repeat the previous step for the **SQL Server (SQLSERVER2008)** service
 
-24. Repeat the previous step for the **SQL Server Agent (MSSQLSERVER)** service, this time selecting **Start** from the menu
+18. Repeat the previous step for the **SQL Server Agent (MSSQLSERVER)** service, this time selecting **Start** from the menu
 
     ![SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server Agent (MSSQLSERVER) is highlighted on the right, and Start is highlighted in the submenu.](./media/sql-server-2017-configuration-manager-sql-server-services-sql-server-agent-restart.png "Select Start")
 
-25. Close the SQL Server 2017 Configuration Manager
+19. Close the SQL Server 2017 Configuration Manager
 
 ### Task 5: Add inbound port rule
 
@@ -1065,33 +1044,49 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to SQL Server 2017. In this task, you will create a connection to the Oracle database on your Lab VM, and create a database called Northwind.
 
-1. From your LabVM, download the starter project by downloading a .zip copy of the Data Platform upgrade and migration GitHub repo
+1. On your SqlServerDW VM, open SSMS, select **Connect** in the Object Explorer, and select **Database Engine**
 
-2. In a web browser, navigate to the [Data Platform upgrade and migration MCW repo](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration)
+    ![Database Engine is selected and highlighted under Connect, which is highlighted in Object Explorer.](./media/ssms-connect-database-engine.png "Select Database Engine")
 
-3. On the repo page, select **Clone or download**, then select **Download ZIP**
+2. In the Connect to Server dialog, select the SQL Server 2017 instance, **SqlServerDw**, from the Server name drop down, leave Authentication set to **Windows Authentication**, and select **Connect**
+
+    ![SqlServerDw is selected and highlighted in the Server name drop-down list in the Connect to Server dialog box.](./media/ssms-connect-to-sqlserverdw.png "Select SqlServerDw")
+
+3. In the Object Explorer, under the 2017 instance, SqlServerDw, right-click **Databases**, and select **New Database**
+
+    ![Databases is highlighted under the SqlServerDw 2017 instance, and New Database is selected and highlighted in the submenu.](./media/ssms-databases-new-database.png "Select New Database")
+
+4. In the New Database dialog, enter **Northwind** for the Database name, and select **OK**
+
+    ![Northwind is highlighted in the Database name box in the New Database dialog box.](./media/ssms-databases-new-database-dialog.png "Enter the database name")
+
+5. Now, on your LabVM, download the starter project by downloading a .zip copy of the Data Platform upgrade and migration GitHub repo
+
+6. In a web browser, navigate to the [Data Platform upgrade and migration MCW repo](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration)
+
+7. On the repo page, select **Clone or download**, then select **Download ZIP**
 
     ![Download .zip containing the Data Platform upgrade and migration repository](media/git-hub-download-repo.png "Download ZIP")
 
-4. Unzip the contents to **C:\handsonlab**
+8. Unzip the contents to **C:\handsonlab**
 
-5. Within the **handsonlab** folder, navigate to the **starter-project** folder under `Hands-on lab`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017
+9. Within the **handsonlab** folder, navigate to the **starter-project** folder under `Hands-on lab`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017
 
-6. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**
+10. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**
 
     ![Visual Studio 2017 is selected and highlighted under How do you want to open this file?](./media/visual-studio-version-selector.png "Open Visual Studio 2017")
 
-7. Sign into Visual Studio (or create an account if you don't have one), when prompted
+11. Sign into Visual Studio (or create an account if you don't have one), when prompted
 
-8. At the Security Warning screen, uncheck **Ask me for every project in this solution**, and select **OK**
+12. At the Security Warning screen, uncheck **Ask me for every project in this solution**, and select **OK**
 
     ![Ask me for every project in this solution is cleared and OK is selected on the Security Warning screen.](./media/visual-studio-security-warning.png "Clear Ask me for every project in this solution")
 
-9. Once then solution is open in Visual Studio, select the **Fusion** menu, and select **New Connection**
+13. Once then solution is open in Visual Studio, select the **Fusion** menu, and select **New Connection**
 
     ![New Connection is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-connection.png "Select New Connection")
 
-10. In the Database Connection properties dialog, set the following values:
+14. In the Database Connection properties dialog, set the following values:
 
     - **Host**: localhost
 
@@ -1111,77 +1106,77 @@ WWI has provided you with a copy of their application, including a database scri
 
         ![The information above is entered in the Database Connection Properties * Oracle dialog box, and OK is selected at the bottom.](./media/visual-studio-fusion-new-database-connection.png "Specify the settings")
 
-11. Select **Test Connection** to verify the settings are correct, and select **OK** to close the popup
+15. Select **Test Connection** to verify the settings are correct, and select **OK** to close the popup
 
-12. Select **OK** to create the Database Connection
+16. Select **OK** to create the Database Connection
 
-13. You will now see the Northwind connection in the Database Explorer window
+17. You will now see the Northwind connection in the Database Explorer window
 
     ![The Northwind connection is selected in the Database Explorer window.](./media/visual-studio-fusion-database-explorer.png "View the Northwind connection")
 
-14. Select **Fusion** again from the Visual Studio menu, and then select **New Query**. Note: You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.
+18. Select **Fusion** again from the Visual Studio menu, and then select **New Query**. Note: You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.
 
     ![New Query is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-query.png "Select New Query")
 
-15. You will be working in the Text area of the query window, so at the bottom of the query window, select the **Swap views** icon to move the Text area to the top of the window, and the Query Builder to the bottom. You can then use the mouse to expand the Text area. Note: You may need to select **Text** before it allows you to swap the positions of the two windows.
+19. You will be working in the Text area of the query window, so at the bottom of the query window, select the **Swap views** icon to move the Text area to the top of the window, and the Query Builder to the bottom. You can then use the mouse to expand the Text area. Note: You may need to select **Text** before it allows you to swap the positions of the two windows.
 
     ![The Swap views icon is highlighted at the bottom of the query window. ](./media/visual-studio-fusion-swap-view.png "Select the Swap views icon")
 
-16. In Visual Studio, select **File** in the menu, then select **Open File**, and navigate to `C:\handsonlab\MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `1.northwind.oracle.schema.sql`, and then select **Open**.
+20. In Visual Studio, select **File** in the menu, then select **Open File**, and navigate to `C:\handsonlab\MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `1.northwind.oracle.schema.sql`, and then select **Open**.
 
     ![The file, 1.northwind.oracle.schema.sql, is selected and highlighted in the Open File window.](./media/visual-studio-open-file.png "Open File dialog")
 
-17. Select and copy all the file contents (use CTRL+A, CTRL+C)
+21. Select and copy all the file contents (use CTRL+A, CTRL+C)
 
-18. Select the tab for your Fusion query (Query1.sql)
+22. Select the tab for your Fusion query (Query1.sql)
 
     ![Query1.sql is selected and highlighted on the tab for your Fusion query.](./media/visual-studio-fusion-query.png "Fusion query window")
 
-19. Paste (CTRL+V) the text copied in the previous step into the Text area of the query window
+23. Paste (CTRL+V) the text copied in the previous step into the Text area of the query window
 
     ![The text from the previous step is pasted and highlighted in the text area at the bottom of the query window.](./media/visual-studio-fusion-query-window.png "Paste the text")
 
-20. Select the **Execute** Fusion script button on the Visual Studio toolbar
+24. Select the **Execute** Fusion script button on the Visual Studio toolbar
 
     ![The Execute Fusion script icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-fusion-execute.png "Run the script")
 
-21. The results of execution can be viewed in the Output window, found at the bottom left of the Visual Studio window
+25. The results of execution can be viewed in the Output window, found at the bottom left of the Visual Studio window
 
     ![Output is highlighted in the Output window.](./media/visual-studio-fusion-output-query-1.png "View the results")
 
-22. In the Database Explorer window, right-click on the **Northwind** connection, and select **Modify Connection** (If the Database Explorer is not already open, you can open it by selecting Fusion in the menu, then selecting Database Explorer)
+26. In the Database Explorer window, right-click on the **Northwind** connection, and select **Modify Connection** (If the Database Explorer is not already open, you can open it by selecting Fusion in the menu, then selecting Database Explorer)
 
     ![Modify Connection is highlighted in the submenu for the Northwind connection in the Database Explorer window.](./media/visual-studio-database-explorer-modify-connection.png "Modify Connection")
 
-23. In the Modify Connection dialog, change the username and password as follows:
+27. In the Modify Connection dialog, change the username and password as follows:
 
     - **User name**: NW
 
     - **Password**: oracledemo123
 
-24. Select **Test Connection** to verify the new credentials work
+28. Select **Test Connection** to verify the new credentials work
 
     ![The information above is entered and highlighted in the Database Connection Properties * Oracle dialog box, and Test Connection is selected at the bottom.](./media/visual-studio-database-explorer-modify-connection-update.png "Specify the settings")
 
-25. Select **OK** to close the Database Connection properties dialog
+29. Select **OK** to close the Database Connection properties dialog
 
-26. Return to your Fusion query window in Visual Studio
+30. Return to your Fusion query window in Visual Studio
 
-27. Delete all the query text pasted into the Text area previously. (Click in the Text area, press CTRL+A, then press Delete)
+31. Delete all the query text pasted into the Text area previously. (Click in the Text area, press CTRL+A, then press Delete)
 
-28. Select the **Open File** icon on the Visual Studio toolbar
+32. Select the **Open File** icon on the Visual Studio toolbar
 
     ![The Open File icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-open-file.png "Select Open File")
 
-29. In the Open File dialog, navigate to `C:\handsonlab\MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**
+33. In the Open File dialog, navigate to `C:\handsonlab\MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**
 
-30. As you did previously, copy all the text from the file, and paste it into the Text area of the Fusion query window
+34. As you did previously, copy all the text from the file, and paste it into the Text area of the Fusion query window
 
-31. Select the **Execute** Fusion script button on the toolbar, and view the results of execute in the Output pane
+35. Select the **Execute** Fusion script button on the toolbar, and view the results of execute in the Output pane
 
     ![The Execute Fusion script icon is highlighted on the Visual Studio toolbar.](./media/visual-studio-fusion-execute.png "Run the script")
 
-32. Repeat steps 29 - 31, replacing the file name in step 29 with each of the following:
+36. Repeat steps 29 - 31, replacing the file name in step 29 with each of the following:
 
     - `3.northwind.oracle.packages.sql`
 
