@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-June 2018
+September 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -21,6 +21,10 @@ The names of manufacturers, products, or URLs are provided for informational pur
 © 2018 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
+
+# Data Platform upgrade and migration hands-on lab step-by-step
+
+If you have not yet completed the steps to set up your environment in [Before the hands-on lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md), you will need to do that before proceeding.
 
 ## Contents
 
@@ -62,10 +66,6 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 2: Modify Application Code](#task-2-modify-application-code)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
-
-# Data Platform upgrade and migration hands-on lab step-by-step
-
-If you have not yet completed the steps to set up your environment in [Before the hands-on lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md), you will need to do that before proceeding.
 
 ## Abstract and learning objectives
 
@@ -165,7 +165,7 @@ In this task, you will install SQL Server 2017 and Microsoft SQL Server Manageme
 
     ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, Install SQL Server Management Tools is highlighted.](./media/sql-server-2017-installation-center-installation-ssms.png "Select Install SQL Server Management Tools")
 
-16. In the browser window that opens, scroll down and select the **Download SQL Server Management Studio 17.x** link, then run the installer
+16. In the browser window that opens, scroll down and select the **Download SQL Server Management Studio 17.x** link, then run the installer. Note, versions change frequently, so the version number in the screenshot below may not reflect the new version you are presented with on the download page.
 
     ![Download SQL Server Management Studio 17.7 is highlighted.](media/ssms-dowload.png "SSMS Download link")
 
@@ -197,39 +197,43 @@ In this task, you will install SQL Server 2008 R2 as a Named Instance on the Sql
 
 5. In the SQL Server 2008 R2 Setup dialog, accept the license terms on the License Terms screen, and select **Next**
 
-6. Accept the default values on each screen by selecting **Next**, until you get to the Instance Configuration screen
+6. Accept the default values on the Setup Support Rules screen by selecting **Next**
 
-7. On the **Installation Configuration** screen, select **Named Instance**, and enter **SQLServer2008** for the instance name, then select **Next**
+7. On the Feature Selection screen, select **Database Engine Services** and **Management Tools - Basic**, and uncheck all other options
+
+    ![On the Feature Selection screen, Database Engine Services and Management Tools - Basic are checked. All other options are unchecked.](media/sql-server-2008-installation-center-feature-selection.png "Feature Selection")
+
+8. On the **Installation Configuration** screen, select **Named Instance**, and enter **SQLServer2008** for the instance name, then select **Next**
 
     ![Instance Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, Named instance: SQLServer2008 is highlighted.](./media/sql-server-2008-installation-center-instance-configuration.png "Enter the instance name")
 
-8. On the **Server Configuration** screen, select **Use the same account for all SQL Server services**
+9. On the **Server Configuration** screen, select **Use the same account for all SQL Server services**
 
     ![Server Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, SQL Server Database Engine is selected on the Service Accounts tab, and Use the same account for all SQL Server services is highlighted at the bottom.](./media/sql-server-2008-installation-center-server-configuration.png "Select Use the same account for all SQL Server services")
 
-9. Select **Browse**, and enter **demouser**. Select the **demouser** account you created when you provisioned the VM, then enter the password, **Password.1!!**, and select **OK**
+10. Select **Browse**, and enter **demouser**. Select the **demouser** account you created when you provisioned the VM, then enter the password, **Password.1!!**, and select **OK**.
 
     ![The credentials above are entered in the Use the same account for all SQL Server 2008 R2 services dialog box.](media/sql-server-2008-installation-center-service-account.png "Service account credentials")
 
-10. Select Next on the Server Configuration screen
+11. Select Next on the Server Configuration screen
 
-11. On the Database Engine Configuration screen:
+12. On the **Database Engine Configuration** screen:
 
     - Select **Mixed Mode**
 
     - Enter **Password.1!!** for the sa password
 
-    - Click the **Add Current User** button to specify the demouser Windows account as a SQL Server Administrator
+    - Select the **Add Current User** button to specify the demouser Windows account as a SQL Server Administrator
 
         ![Database Engine Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. The information above is highlighted at right, including the Add Current User button under Specify SQL Server administrators.](media/sql-server-2008-installation-center-database-engine-configuration.png "Specify Database Engine Configuration settings")
 
     - Select **Next**
 
-12. Select **Next** to accept the default values on the remaining screens to complete the installation
+13. Select **Next** to accept the default values on the remaining screens to complete the installation
 
-13. Select **Close** on the SQL Server 2008 R2 Setup dialog when the installation is complete
+14. Select **Close** on the SQL Server 2008 R2 Setup dialog when the installation is complete
 
-14. Close the SQL Server 2008 R2 Installation Center window
+15. Close the SQL Server 2008 R2 Installation Center window
 
 ### Task 3: Install AdventureWorks sample database
 
@@ -273,7 +277,7 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2. It wi
 
 11. In the SSMS query editor for `instawdwdb.sql`, uncomment the `SETVAR` lines (lines 36 and 37) by removing the double hyphen "--" from the beginning of each line
 
-12. Next, edit the file path for each variable so they point to the following (remember to include a trailing backslash "\" on each path):
+12. Next, edit the file path for each variable so they point to the following (remember to include a trailing backslash ("\\") on each path):
 
     - SqlSamplesDatabasePath: `C:\AdventureWorksSample\`
 
@@ -325,7 +329,7 @@ In this task, you will update the SQL Server service accounts and other settings
 
 6. Select **Yes** to restart the service in the **Confirm Account Change** dialog
 
-7. Repeat steps 3 - 6 above to set the server account to demouser for the **SQL Server (SQLSERVER2008)** instance as well, if it is not already using the demouser account
+7. Verify the **SQL Server (SQLSERVER2008)** instance is using the demouser account. If not, repeat steps 3 - 6 above to set the server account to demouser for that instance as well.
 
 8. While still in the SQL Server 2017 Configuration Manager, expand **SQL Server Network Configuration**, select **Protocols for MSSQLSERVER**, and double-click **TCP/IP** to open the properties dialog
 
@@ -343,7 +347,7 @@ In this task, you will update the SQL Server service accounts and other settings
 
 13. Next, select the **IP Addresses** tab within the TCP/IP Properties dialog
 
-14. On the IP Addresses tab, scroll down to the IPAll section, and note the port number assigned in the **TCP Dynamic Ports** field. Copy the value into a text editor, such as Notepad, for later use. SQL Server 2008 R2 was installed as a Named Instance, so it was assigned a dynamic port number, different than 1433 which is typically assigned to SQL Server instances. You will need this port number to create an inbound port rule for the SqlServerDw VM to allow the Azure Database Migration Service to access the database.
+14. On the IP Addresses tab, scroll down to the IPAll section, and note the port number assigned in the **TCP Dynamic Ports** field. (NOTE: If the value is 0, you may need to restart the SQL Server (SQLSERVER2008) service first, and then return to this screen.) Copy the value into a text editor, such as Notepad, for later use. SQL Server 2008 R2 was installed as a Named Instance, so it was assigned a dynamic port number, different than 1433 which is typically assigned to SQL Server instances. You will need this port number to create an inbound port rule for the SqlServerDw VM to allow the Azure Database Migration Service to access the SQL Server 2008 database.
 
     ![The IP Addresses tab of the TCP/IP Properties dialog is displayed, with TCP Dynamic Ports highlighted under the IPAll section.](media/tcp-ip-properties-ip-addresses-tab.png "TCP/IP Properties IP Addresses tab")
 
@@ -371,13 +375,17 @@ In this task, you will add an inbound port rule for the SqlServerDw VM, to allow
 
     ![On the SqlServerDw VM blade, Networking is selected and highlighted under Settings in the left-hand menu, and the Add inbound port rule button is highlighted on the Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "Virutal Machine Networking blade")
 
-3. In the Add inbound security rule dialog, enter the following:
+3. In the Add inbound security rule dialog, select **Basic**, and then enter the following:
 
-    - **Destination port ranges**: Enter the dynamic port you noted and copied for your SQL Server 2008 instance
+    - **Service**: Select Custom
 
-    - **Name**: Enter Port_[DYNAMIC-PORT-NUMBER], such as Port_49700
+    - **Port ranges**: Enter the dynamic port you noted and copied for your SQL Server 2008 instance
 
-    - Leave all other settings set to the default values, and select **Add**
+    - **Priority**: Leave the default priority value
+
+    - **Name**: Enter SqlServer2008
+
+    - Select **Add**
 
         ![In the Add inbound security rule dialog, the values specified above are entered into the appropriate fields.](media/sql-virtual-machine-networking-add-inbound-security-rule.png "Add inbound security rule")
 
@@ -425,13 +433,13 @@ In this task, you will provision an instance of the Azure Database Migration Ser
 
         > NOTE: If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
 
-    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+    - **Resource Group**: Select the hands-on-lab-SUFFIX resource group
 
     - **Virtual network**: Choose Create new, and enter wwi-dms-vnet
 
     - **Location**: Select the location you are using for resources in this hands-on lab
 
-    - **Pricing tier**: Select Basic: 1 vCore
+    - **Pricing tier**: Select General Purpose: 1 vCores
 
         ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](media/create-migration-service.png "Create Migration Service")
 
@@ -561,7 +569,7 @@ After you have reviewed the assessment results and you have ensured the database
 
     ![The Script & deploy schema tab of the Data Migration Assistant is displayed, with the generated script shown.](media/data-migration-assistant-migration-script-and-deploy-schema.png "Data Migration Assistant Script & deploy schema")
 
-9. Select **Deploy schema*
+9. Select **Deploy schema**
 
 10. After the schema is deployed, review the deployment results, and ensure there were no errors
 
@@ -593,6 +601,8 @@ In this task, you will create a new migration project for the WorldWideImporters
 
     - **Target server type**: Select Azure SQL Database
 
+    - **Choose type of activity**: Select Create project only
+
         ![The New migration project blade is displayed, with the values specified above entered into the appropriate fields.](media/dms-new-migration-project-blade.png "New migration project")
 
 4. Select **Create**
@@ -615,7 +625,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
 6. Select **Save**
 
-7. On the Migration Wizard **Select databases** blade, select WorldWideImporters, and uncheck all databases
+7. On the Migration Wizard **Select databases** blade, select WorldWideImporters, and uncheck all other databases
 
     ![The Migration Wizard Select databases blade is displayed, with the WorldWideImporters database selected, and all others unchecked.](media/dms-migration-wizard-select-databases.png "Migration Wizard Select databases")
 
@@ -655,7 +665,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
 In this task, you will create a new activity in the Azure Database Migration Service to execute the migration from the "on-premises" SQL Server 2008 R2 server to Azure SQL Database.
 
-1. On the Azure Database Migration Service blade, select **+New Activity**, and then select **Run migration**
+1. On the Azure Database Migration Service blade, select **+New Activity**, and then select **Offline data migration**
 
     ![On the Azure Database Migration Service blade, +New Activity is highlighted, and the Run migration button is highlighted in the Create new activity dialog.](media/dms-add-new-activity.png "Azure Database Migration Service Add New Activity")
 
@@ -942,7 +952,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 1. On your Lab VM, navigate to <http://www.oracle.com/technetwork/database/windows/downloads/index-090165.html>
 
-2. Accept the license agreement, and select the **ODAC122010_x64.zip** download link under 64-bit ODAC 12.2c Release 1 (12.2.0.1.0) for Windows x64
+2. Accept the license agreement, and select the **ODAC122011_x64.zip** download link under 64-bit ODAC 12.2c Release 1 (12.2.0.1.1) for Windows x64
 
     ![Accept the license agreement and ODAC122010\_x64.zip are highlighted on the 64-bit Oracle Data Access Components (ODAC) Downloads screen.](./media/oracle-odac-download.png "64-bit Oracle Data Access Components (ODAC) Downloads screen")
 
@@ -1070,7 +1080,7 @@ WWI has provided you with a copy of their application, including a database scri
 
 8. Unzip the contents to **C:\handsonlab**
 
-9. Within the **handsonlab** folder, navigate to the **starter-project** folder under `Hands-on lab`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017
+9. Within the **handsonlab** folder, navigate to the **lab-files\starter-project** folder under `Hands-on lab`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017
 
 10. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**
 
@@ -1196,7 +1206,7 @@ WWI has provided you with a copy of their application, including a database scri
 
     - `5.northwind.oracle.seed.sql`
 
-        - This query can take several minutes to run, so make sure you wait until you see **Execute succeeded*- in the output window before executing the next file, like the following:
+        - This query can take several minutes to run, so make sure you wait until you see **Execute succeeded** in the output window before executing the next file, like the following:
 
         ![This is a screenshot of the Execute succeeded message in the output window.](./media/visual-studio-fusion-query-completed.png "Execute succeeded message")
 

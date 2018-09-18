@@ -1,7 +1,5 @@
 # Data Platform upgrade and migration
 
-[Download Cloud Workshop](https://github.com/Microsoft/MCW-Data-platform-upgrade-and-migration/archive/master.zip)
-
 World Wide Importers has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
 
 Their CIO has recently read about new performance enhancements of Azure SQL Database and SQL Server 2017. She is excited about the potential performance improvements related to clustered ColumnStore indexes. She is also hoping that table compression will improve performance and backup times.
