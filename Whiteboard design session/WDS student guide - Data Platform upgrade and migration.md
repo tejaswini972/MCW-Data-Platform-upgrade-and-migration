@@ -55,9 +55,11 @@ Timeframe: 15 minutes
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1. Meet your table participants and trainer
-2. Read all of the directions for steps 1–3 in the student guide
-3. As a table team, review the following customer case study
+1.  Meet your table participants and trainer.
+
+2.  Read all of the directions for steps 1-3 in the student guide.
+
+3.  As a table team, review the following customer case study.
 
 ### Customer situation
 
@@ -73,7 +75,7 @@ WWI also loads the Oracle database into a Microsoft SQL Server 2008 R2 Standard 
 
 Before WWI invests in this project, they want a proof of concept that encompasses these touch points and proves that it can be successful.
 
-WWI also has a new requirement. They have an existing web service that interacts with a vendor to get the latest certifications of that vendor's products. The JSON parser sometimes fails and they can't figure out why. They'd like to store the initial, unparsed JSON in a table for troubleshooting purposes. They want to query the JSON data by date or other identifying pieces of the JSON that might be available for troubleshooting, and are interested in learning more about the best way to do that.
+WWI also has a new requirement. They have an existing web service that interacts with a vendor to get the latest certifications of that vendor's products. The JSON parser sometimes fails and they can't figure out why. They'd like to store the initial, unparsed JSON in a table for troubleshooting purposes. They want to query the JSON data by date or other identifying pieces of the JSON that might be available for troubleshooting and are interested in learning more about the best way to do that.
 
 Also, they had a significant outage last year because one of their audit tables ran out of space. They had to wait many hours to resolve the issue while their IT department scrambled to make space on an already overloaded Storage Area Network (SAN). They would like a full briefing on how to monitor that situation, so it doesn't happen again, and possible remedies if it does happen again. They would also like high availability to be built into the project plan and are wondering what additional fees that would incur.
 
@@ -81,36 +83,58 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 ### Customer needs
 
-1. Wants to migrate an existing Oracle database to SQL Server 2017 on-premises, SQL Server 2017 in an Azure VM, or Azure SQL Database
-2. Needs to know what's involved in migrating the external sales application to SQL Server
-3. Wants a better understanding on what to do with the internal Oracle Forms application
-4. Has multiple touch points with external vendors and needs to know what needs to change with those web services
+1. Wants to migrate an existing Oracle database to SQL Server 2017 on-premises, SQL Server 2017 in an Azure VM, or Azure SQL Database.
+
+2. Needs to know what's involved in migrating the external sales application to SQL Server.
+
+3. Wants a better understanding on what to do with the internal Oracle Forms application.
+
+4. Has multiple touch points with external vendors and needs to know what needs to change with those web services.
+
 5. Wants to upgrade their existing data warehouse from SQL Server 2008 R2 Standard Edition to Azure SQL Database or SQL Server 2017 Enterprise Edition to take advantage of some new features:
-    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest
-    - They want compression for some of their large fact tables
-    - They want to implement SSRS mobile reporting
+
+    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
+    - They want compression for some of their large fact tables.
+    - They want to implement SSRS mobile reporting.
     - They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
     - They have a lot of SQL Server Integration Services (SSIS) packages that are executed through SQL Server Agent jobs. They'd like to know the upgrade path for those.
-6. Need web-based visualizations on sales and forecasting, and a plan on how to upgrade their existing reporting infrastructure
-7. Have a new requirement on what to do with JSON data
+    
+6. Need web-based visualizations on sales and forecasting, and a plan on how to upgrade their existing reporting infrastructure.
+
+7. Have a new requirement on what to do with JSON data.
+
 8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
-9. As a follow up, they'd also like to know how to answer the Oracle DBA's allegation that SQL Server doesn't have an answer for Oracle RAC
+
+9. As a follow up, they'd also like to know how to answer the Oracle DBA's allegation that SQL Server doesn't have an answer for Oracle RAC.
 
 ### Customer objections
 
 1. Do we need to upgrade to on-premises SQL Server first or go can we go straight to Azure?
+
 2. Can we have two proof of concepts that demonstrate both migrations?
+
 3. Do we need to rewrite all our applications for SQL Server?
+
 4. Do we need to rewrite all our reports for SQL Server?
+
 5. Will our security migrate over from Oracle to SQL Server? How do we handle security in the new database?
+
 6. Do we need to invest in a JSON storage system for the JSON data we're storing from our vendor's web service?
+
 7. What will we do if our audit logs fill up again? Will SQL Server crash the same way Oracle did?
+
 8. If we take advantage of new features, will our license costs keep ratcheting up and up? Will we have a dependable way of budgeting for this project?
+
 9. Are there any Oracle features required by WWI for which SQL Server has no equivalent?
+
 10. Do we need to tell all our vendors that we're changing databases so their integrations work?
+
 11. What will stop us from upgrading our data warehouse to Azure SQL Database or SQL Server 2017 Enterprise?
+
 12. When we upgrade the data warehouse, how will we keep all our connected dependencies updated?
+
 13. What will happen with SSIS, SSRS, and SQL Server Analysis Services (SSAS)?
+
 14. How will security and SQL Agent Jobs migrate over?
 
 ### Infographic for common scenarios
@@ -127,60 +151,77 @@ Timeframe: 60 minutes
 
 **Business needs**
 
-Directions: With all participants at your table, answer the following questions and list the answers on a flip chart.
+Directions:  With all participants at your table, answer the following questions and list the answers on a flip chart:
 
-1. Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
-2. What customer business needs do you need to address with your solution?
+1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
+
+2.  What customer business needs do you need to address with your solution?
 
 **Design**
 
-Directions: With all participants at your table, respond to the following questions on a flip chart.
+Directions: With all participants at your table, respond to the following questions on a flip chart:
 
 *High-level architecture*
 
 1. Without getting into the details (the following sections will address the details), diagram your initial vision for handling the top-level requirements for data loading, data preparation, storage, high availability, application migration, and reporting. You will refine this diagram as you proceed.
+
 2. What should be included in the POC?
+
 3. How will SQL Server save them on licensing costs?
 
 *Schema and data movement*
 
 1. How would you recommend that WWI move their data and schema into SQL Server? What services would you suggest and what are the specific steps they would need to take to prepare the data, to transfer the data, and where would the loaded data land?
-2. Update your diagram with the data loading process with the steps you identified
+
+2. Update your diagram with the data loading process with the steps you identified.
 
 *Application changes*
 
 1. What product would you recommend to WWI to migrate their store front MVC application to the new SQL Server database?
+
 2. How would you migrate the Oracle Forms applications? How would you define success? Are there any technologies the customer needs to know about?
+
 3. What will you do about the vendor touch points? How will you recommend they store the JSON data?
 
 *Data warehouse and reporting*
 
 1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
+
 2. What must change about the way WWI loads their data warehouse?
+
 3. What components do they need to use to upgrade the SQL Server 2008 R2 data warehouse to Azure SQL Database or SQL Server 2017 Enterprise?
-4. Identify the major milestones of delivering an upgrade to Azure SQL Database or SQL Server 2017 Enterprise
+
+4. Identify the major milestones of delivering an upgrade to Azure SQL Database or SQL Server 2017 Enterprise.
+
 5. Are there any tools or processes that would make this easier? How does Azure Database Migration Service (DMS) compare to other Microsoft database migration tools, such as Database Migration Assistant (DMA) or SQL Server Migration Assistant (SSMA)?
+
 6. What are the major steps required to use the Azure Database Migration Service to perform a database migration?
+
 7. What are the post upgrade steps we should consider in the POC? How would this address their concerns?
 
 *High Availability and Audit Table*
 
 1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
+
 2. What are the SQL Server options for high availability?
 
 *Azure SQL Database POC*
 
 1. Should they move to on-premises first?
+
 2. Is there any benefit to going straight to Microsoft Azure? Does Azure SQL Database take care of all their requirements?
+
 3. Are there any questions we need answered before we can begin a POC directly to Microsoft Azure?
 
 **Prepare**
 
 Directions: With all participants at your table:
 
-1. Identify any customer needs that are not addressed with the proposed solution
-2. Identify the benefits of your solution
-3. Determine how you will respond to the customer’s objections
+1.  Identify any customer needs that are not addressed with the proposed solution.
+
+2.  Identify the benefits of your solution.
+
+3.  Determine how you will respond to the customer's objections.
 
 Prepare a 15-minute chalk-talk style presentation to the customer.
 
@@ -196,15 +237,21 @@ Timeframe: 30 minutes
 
 Directions:
 
-1. Pair with another table
-2. One table is the Microsoft team and the other table is the customer
-3. The Microsoft team presents their proposed solution to the customer
-4. The customer makes one of the objections from the list of objections
-5. The Microsoft team responds to the objection
-6. The customer team gives feedback to the Microsoft team
-7. Tables switch roles and repeat Steps 2–6
+1.  Pair with another table.
 
-## Wrap-up
+2.  One table is the Microsoft team and the other table is the customer.
+
+3.  The Microsoft team presents their proposed solution to the customer.
+
+4.  The customer makes one of the objections from the list of objections.
+
+5.  The Microsoft team responds to the objection.
+
+6.  The customer team gives feedback to the Microsoft team.
+
+7.  Tables switch roles and repeat Steps 2-6.
+
+##  Wrap-up 
 
 Timeframe: 15 minutes
 
