@@ -5,11 +5,11 @@ Data Platform upgrade and migration
 </div>
 
 <div class="MCWHeader2">
-Hands-on lab step-by-step
+Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-June 2018
+September 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -25,24 +25,29 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 ## Contents
 
 - [Data Platform upgrade and migration before the hands-on lab setup guide](#data-platform-upgrade-and-migration-before-the-hands-on-lab-setup-guide)
-  - [Requirements](#requirements)
-  - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
-    - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
-    - [Task 3: Create SQL Server virtual machine](#task-3-create-sql-server-virtual-machine)
-    - [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
-    - [Task 5: Connect to the SqlServerDw VM](#task-5-connect-to-the-sqlserverdw-vm)
-    - [Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-6-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
-    - [Task 7: Provision Azure SQL Database](#task-7-provision-azure-sql-database)
+    - [Requirements](#requirements)
+    - [Before the hands-on lab](#before-the-hands-on-lab)
+        - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
+        - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
+        - [Task 3: Create SQL Server virtual machine](#task-3-create-sql-server-virtual-machine)
+        - [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
+        - [Task 5: Add inbound port 1433 rule on the SqlServerDw VM network security group](#task-5-add-inbound-port-1433-rule-on-the-sqlserverdw-vm-network-security-group)
+        - [Task 6: Connect to the SqlServerDw VM](#task-6-connect-to-the-sqlserverdw-vm)
+        - [Task 7: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-7-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
+        - [Task 8: Provision Azure SQL Database](#task-8-provision-azure-sql-database)
 
 # Data Platform upgrade and migration before the hands-on lab setup guide
 
 ## Requirements
 
 - Microsoft Azure subscription must be pay-as-you-go or MSDN
-  - Trial subscriptions will not work
+
+  - Trial subscriptions will not work.
+  
 - A virtual machine configured with:
+
   - Visual Studio Community 2017 or later
+  
   - Azure SDK 2.9 or later (Included with Visual Studio 2017)
 
 ## Before the hands-on lab
@@ -51,17 +56,17 @@ Duration: 45 minutes
 
 In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
 
-> IMPORTANT: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
+>**Important**: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
 
-## Task 1: Provision a resource group
+### Task 1: Provision a resource group
 
 In this task, you will create an Azure resource group for the resources used throughout this lab.
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups**, select **+Add**, then enter the following in the Create an empty resource group blade:
 
-    - **Name**: Enter hands-on-lab-SUFFIX
+    - **Resource group name**: Enter hands-on-lab-SUFFIX.
 
-    - **Subscription**: Select the subscription you are using for this hands-on lab
+    - **Subscription**: Select the subscription you are using for this hands-on lab.
 
     - **Resource group location**: Select the region you would like to use for resources in this hands-on lab. Remember this location so you can use it for the other resources you'll provision throughout this lab.
 
@@ -69,7 +74,7 @@ In this task, you will create an Azure resource group for the resources used thr
 
 2. Select **Create**.
 
-## Task 2: Create lab virtual machine
+### Task 2: Create lab virtual machine
 
 In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2017 installed.
 
@@ -77,89 +82,95 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
     ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png "Create Windows Server 2016 with Visual Studio Community 2017")
 
-2. Set the following configuration on the Basics tab.
+2. On the Create a virtual machine Basics tab, set the following configuration:
 
-    - **Name**: Enter LabVM
+    - Project Details:
 
-    - **VM disk type**: Select SSD
+        - **Subscription**: Select the same subscription you are using for this hands-on lab.
+        - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group.
 
-    - **User name**: Enter demouser
+    - Instance Details:
 
-    - **Password**: Enter Password.1!!
+        - **Virtual machine name**: Enter LabVM.
+        - **Region**: Select the region you are using for resources in this hands-on lab.
+        - **Availability options**: Select no infrastructure redundancy required.
+        - **Image**: Leave Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) selected.
+        - **Size**: Accept the default size, Standard D2 v3.
 
-    - **Subscription**: Select the same subscription you are using for this hands-on lab
+    - Administrator Account:
 
-    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+        - **Username**: Enter demouser.
+        - **Password**: Enter Password.1!!
 
-    - **Location**: Select the location you are using for resources in this hands-on lab
+    - Inbound Port Rules
 
-        ![Screenshot of the Basics blade, with fields set to the previously mentioned settings.](./media/virtual-machine-basics-blade.png "Create virtual machine Basics blade")
+        - **Public inbound ports**: Choose Allow selected ports.
+        - **Select inbound ports**: Select RDP (3389) in the list.
 
-    - Select **OK** to move to the next step.
+        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/lab-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
 
-3. On the Choose a size blade, select DS2_v3 Standard.
+    - Select **Next: Disks** to move to the next step.
 
-    ![On the Choose a size blade, the D2S_v3 Standard size is selected.](./media/virtual-machine-choose-a-size-blade.png "Choose a size blade")
+3. On the Disks tab, set OS disk type to **Standard SSD**, and then select **Review + create**. Note, the remaining tabs can be skipped, and default values will be used.
 
-4. Select **Select** to move on to the Settings blade.
+    ![On the Create a virtual machine Disks tab, the OS disk type is set to Standard SSD.](media/lab-virtual-machine-disks-tab.png "Create a virtual machine Disks tab")
 
-5. On the Settings blade, select **RDP (3389)** from the Select public inbound ports drop down, then select **OK**.
+4. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
-    ![On the Create virtual machine settings blade, RDP (3389) is selected in the public inbound ports drop down.](media/virtual-machine-settings-inbound-ports.png "Open RDP on inbound port 3389")
+    ![The Review + create tab is displayed, with a Validation passed message.](media/lab-virtual-machine-review-create-tab.png "Create a virtual machine Review + create tab")
 
-6. Select **Create** on the Create blade to provision the virtual machine.
+5. It may take 10+ minutes for the virtual machine to complete provisioning.
 
-7. It may take 10+ minutes for the virtual machine to complete provisioning.
+6. You can move on to the next task while waiting for the lab VM to provision.
 
-8. You can move on to the next task while waiting for the lab VM to provision.
-
-## Task 3: Create SQL Server virtual machine
+### Task 3: Create SQL Server virtual machine
 
 In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instances of both SQL Server 2008 R2 and SQL Server 2017. The VM will use the Windows Server 2012 R2 Datacenter image.
 
-> Note, an older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
+>**Note**:  An older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "windows server 2012" into the Search the Marketplace box, select **Windows Server 2012 R2 Datacenter** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "windows server 2012" into the Search the Marketplace box, select **Windows Server 2012 R2 Datacenter** from the results, and select **Create**
 
     ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, windows server 2012 and Windows Server 2012 R2 Datacenter are highlighted.](./media/create-resource-windows-server-2012-r2-datacenter.png "Azure portal")
 
-2. On the Create virtual machine blade, enter the following:
+2. On the Create a virtual machine Basics tab, set the following configuration:
 
-    - **Name**: Enter SqlServerDw
+    - Project Details:
 
-    - **VM disk type**: Select SSD
+        - **Subscription**: Select the same subscription you are using for this hands-on lab.
+        - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group.
 
-    - **User name**: Enter demouser
+    - Instance Details:
 
-    - **Password**: Enter Password.1!!
+        - **Virtual machine name**: Enter SqlServerDw.
+        - **Region**: Select the region you are using for resources in this hands-on lab.
+        - **Availability options**: Select no infrastructure redundancy required.
+        - **Image**: Leave Windows Server 2012 R2 Datacenter selected.
+        - **Size**: Accept the default size, Standard DS1 v2.
 
-    - **Subscription**: Select the same subscription you are using for this hands-on lab
+    - Administrator Account:
 
-    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+        - **Username**: Enter demouser.
+        - **Password**: Enter Password.1!!
 
-    - **Location**: Select the location you are using for resources in this hands-on lab
+    - Inbound Port Rules
 
-        ![On the Basics blade, the values above are entered in the boxes.](media/sql-virtual-machine-basics-blade.png "Create virtual machine Basics blade")
+        - **Public inbound ports**: Choose Allow selected ports.
+        - **Select inbound ports**: Select RDP (3389) in the list.
 
-    - Select **OK** to move on to the Size blade.
+        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/sql-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
 
-3. On the Choose a size blade, select DS1_v2 Standard.
+    - Select **Review + create** to move to the next step. Note, the remaining tabs can be skipped, and default values will be used.
 
-    ![On the Choose a size blade, DS1_v2 Standard is selected and highlighted.](media/sql-virtual-machine-choose-a-size-blade.png "Choose a VM size")
+3. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
-4. Select **Select** to move on to the Settings blade.
+    ![The Review + create tab is displayed, with a Validation passed message.](media/sql-virtual-machine-review-create-tab.png "Create a virtual machine Review + create tab")
 
-5. On the Settings blade, select **RDP (3389)** and **MS SQL (1433)** from the Select public inbound ports drop down, then select **OK**.
+4. It may take 10+ minutes for the virtual machine to complete provisioning.
 
-    ![On the Create virtual machine settings blade, RDP (3389) and MS SQL (1433) are selected in the public inbound ports drop down.](media/sql-virtual-machine-settings-inbound-ports.png "Virtual machine settings - Inbound ports")
+5. You can move on to the next task while waiting for the SqlServerDw VM to provision.
 
-6. Select **Create** on the Create blade to provision the virtual machine.
-
-7. It may take 10+ minutes for the virtual machine to complete provisioning.
-
-8. You can move on to the next task while waiting for the lab VM to provision.
-
-## Task 4: Connect to the Lab VM
+### Task 4: Connect to the Lab VM
 
 In this task, you will create an RDP connection to your Lab virtual machine (VM), and disable Internet Explorer Enhanced Security Configuration.
 
@@ -185,9 +196,8 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 6. Enter the following credentials when prompted:
 
-    a. **User name**: demouser
-
-    b. **Password**: Password.1!!
+    - **User name**: demouser
+    - **Password**: Password.1!!
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
@@ -207,7 +217,34 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 11. Close the Server Manager.
 
-## Task 5: Connect to the SqlServerDw VM
+### Task 5: Add inbound port 1433 rule on the SqlServerDw VM network security group
+
+In this task, you will open port 1433 on the network security group associated with the SqlServerDw VM to allow communication with SQL Server.
+
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+
+    ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
+
+2. In the list of resources for your resource group, select the SqlServerDw VM.
+
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServerDw is highlighted.](media/resource-group-resources-sqlserverdw.png "SqlServerDw VM in resource group list")
+
+3. On the SqlServerDw blade, select **Networking** under Settings in the left-hand menu, and then select **Add inbound port rule**.
+
+    ![Add inbound port rule is highlighted on the SqlServerDw - Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "SqlServerDw - Networking blade")
+
+4. On the **Add inbound security rule blade**, select **Basic** and then enter the following:
+
+    - **Service**: Select MS SQL.
+    - **Port ranges**: Value will be set to 1433.
+    - **Priority**: Accept the default priority value.
+    - **Name**: Enter SqlServer.
+
+        ![On the Add inbound security rule dialog, MS SQL is selected for Service, port 1433 is selected, and the SqlServer is entered as the name.](media/sql-virtual-machine-add-inbound-security-rule-1433.png "Add MS SQL inbound security rule")
+
+5. Select **Add**.
+
+### Task 6: Connect to the SqlServerDw VM
 
 In this task, you will create an RDP connection to the SqlServerDw VM, and configure the server to be an application server. This is necessary to install the required .NET components on the server prior to installing SQL Server 2008 R2. You will also disable IE Enhanced Security Configuration, as you did on the Lab VM.
 
@@ -233,9 +270,8 @@ In this task, you will create an RDP connection to the SqlServerDw VM, and confi
 
 6. Enter the following credentials when prompted:
 
-    a. **User name**: demouser
-
-    b. **Password**: Password.1!!
+    - **User name**: demouser
+    - **Password**: Password.1!!
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
@@ -289,7 +325,7 @@ In this task, you will create an RDP connection to the SqlServerDw VM, and confi
 
 22. Close the Server Manager.
 
-## Task 6: Open port 1433 on the Windows Firewall of the SqlServerDw VM
+### Task 7: Open port 1433 on the Windows Firewall of the SqlServerDw VM
 
 In this task, you will add rules to the SqlServerDw VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
 
@@ -331,7 +367,7 @@ In this task, you will add rules to the SqlServerDw VM's Windows firewall to all
 
 10. Close the Windows Firewall with Advanced Security window.
 
-## Task 7: Provision Azure SQL Database
+### Task 8: Provision Azure SQL Database
 
 In this task, you will create an Azure SQL Database, which will server as the target database for migration of the on-premises WorldWideImporters database into the cloud. The Premium tier is required to support ColumnStore index creation.
 
@@ -341,33 +377,34 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 
 2. On the SQL Database blade, enter the following:
 
-    - **Database name**: Enter WorldWideImporters
+    - **Database name**: Enter WorldWideImporters.
 
-    - **Subscription**: Select the same subscription you are using for this hands-on lab
+    - **Subscription**: Select the same subscription you are using for this hands-on lab.
 
-    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group
+    - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group.
 
-    - **Select source**: Select Blank database
+    - **Select source**: Select Blank database.
 
     - **Server**: Select this, and select Create a new server, then on the New server blade, enter the following:
-        - **Server name**: Enter a unique name, such as wwiSUFFIX
-        - **Server admin login**: Enter demouser
+        - **Server name**: Enter a unique name, such as wwiSUFFIX.
+        - **Server admin login**: Enter demouser.
         - **Password**: Enter Password.1!!
-        - **Location**: Select the location you are using for resources in this hands-on lab
-        - Select **OK**
+        - **Location**: Select the location you are using for resources in this hands-on lab.
+        - **Allow Azure services to access server**: Ensure this is checked.
+        - Select **OK**.
 
-    - Under Want to use SQL elastic pool, select **Not now**
+    - Under Want to use SQL elastic pool, select **Not now**.
 
-    - **Pricing tier**: Select Premium P1: 125 DTUs, 500 GB, and select **Apply**
+    - **Pricing tier**: Select Premium P1: 125 DTUs, 500 GB, and select **Apply**.
 
         ![The Configure pricing tier for SQL Server is displayed, with Premium selected and highlighted.](media/azure-sql-database-pricing-tier-premium.png "SQL Pricing tier configuration")
 
-    - **Collation**: Leave set to SQL_Latin1_General_CP1_CI_AS
+    - **Collation**: Leave set to SQL_Latin1_General_CP1_CI_AS.
 
     ![The SQL Database blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-sql-database-create.png "Create Azure SQL Database")
 
-3. Select **Create**
+3. Select **Create**.
 
-    > **NOTE**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
-
-*These steps should be completed prior to starting the rest of the Lab.*
+    > **Note**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
+    
+You should follow all steps provided *before* performing the Hands-on lab.
