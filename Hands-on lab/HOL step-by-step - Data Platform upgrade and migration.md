@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-September 2018
+December 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -29,21 +29,21 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
-  - [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
-    - [Task 1: Install SQL Server 2017](#task-1-install-sql-server-2017)
-    - [Task 2: Install SQL Server 2008 R2](#task-2-install-sql-server-2008-r2)
+  - [Exercise 1: Configure SQL Server instances](#exercise-1-configure-sql-server-instances)
+    - [Task 1: Connect to the SqlServer2008R2 VM](#task-1-connect-to-the-sqlserver2008r2-vm)
+    - [Task 2: Enable SQL Server Mixed Authentication](#task-2-enable-sql-server-mixed-authentication)
     - [Task 3: Install AdventureWorks sample database](#task-3-install-adventureworks-sample-database)
     - [Task 4: Update SQL Server settings using Configuration Manager](#task-4-update-sql-server-settings-using-configuration-manager)
-    - [Task 5: Add inbound port rule](task-5-add-inbound-port-rule)
-    - [Task 6: Copy the SqlServerDw VM IP address](task-6-copy-the-sqlserverdw-vm-ip-address)
+    - [Task 5: Copy the SqlServer2008R2 VM IP address](#task-5-copy-the-sqlserver2008r2-vm-ip-address)
+    - [Task 6: Connect to the SqlServer2017 VM](#task-6-connect-to-the-sqlserver2017-vm)
+    - [Task 7: Change the SA password](#task-7-change-the-sa-password)
+    - [Task 8: Update SQL Server settings using Configuration Manager 2017](#task-8-update-sql-server-settings-using-configuration-manager-2017)
   - [Exercise 2: Migrate SQL Server to Azure SQL Database using DMS](#exercise-2-migrate-sql-server-to-azure-sql-database-using-dms)
-    - [Task 1: Register the Microsoft DataMigration resource provider](#task-1-register-the-microsoft-datamigratin-resource-provider)
-    - [Task 2: Create Azure Database Migration Service](#task-2-create-azure-database-migration-service)
-    - [Task 3: Assess the on-premises database](#task-3-assess-the-on-premises-database)
-    - [Task 4: Migrate the database schema](#task-4-migrate-the-database-schema)
-    - [Task 5: Create a migration project](#task-5-create-a-migration-project)
-    - [Task 6: Run the migration](#task-6-run-the-migration)
-    - [Task 7: Verify data migration](#task-7-verify-data-migration)
+    - [Task 1: Assess the on-premises database](#task-1-assess-the-on-premises-database)
+    - [Task 2: Migrate the database schema](#task-2-migrate-the-database-schema)
+    - [Task 3: Create a migration project](#task-3-create-a-migration-project)
+    - [Task 4: Run the migration](#task-4-run-the-migration)
+    - [Task 5: Verify data migration](#task57-verify-data-migration)
   - [Exercise 3: Post upgrade enhancement](#exercise-3-post-upgrade-enhancement)
     - [Task 1: Table compression](#task-1-table-compression)
     - [Task 2: Clustered ColumnStore index](#task-2-clustered-columnstore-index)
@@ -55,8 +55,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
     - [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
   - [Exercise 5: Migrate the Oracle database to SQL Server 2017](#exercise-5-migrate-the-oracle-database-to-sql-server-2017)
-    - [Task 1: Create Northwind database](#task-1-create-northwind-database)
-    - [Task 2: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-2-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
+    - [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
   - [Exercise 6: Migrate the Application](#exercise-6-migrate-the-application)
     - [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
     - [Task 2: Modify Application Code](#task-2-modify-application-code)
@@ -101,147 +100,99 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
   
   - Azure SDK 2.9 or later (Included with Visual Studio 2017)
 
-## Exercise 1: Deploy SQL Server instances
+## Exercise 1: Configure SQL Server instances
 
-Duration: 60 minutes
+Duration: 45 minutes
 
-In this exercise, you will install and configure SQL Server 2017 and SQL Server 2008 R2 on the SqlServerDw VM. The databases on this VM will act as the "on-premises" databases for this hands-on lab.
+In this exercise, you will install and configure SQL Server 2008 R2 on the SqlServer2008R2 VM. The database on this VM will act as the customer's existing "on-premises" database for this hands-on lab.
 
-### Task 1: Install SQL Server 2017
+### Task 1: Connect to the SqlServer2008R2 VM
 
-In this task, you will install SQL Server 2017 and Microsoft SQL Server Management Studio (SSMS) on the SqlServerDw VM.
+In this task, you will create an RDP connection to the SqlServer2008R2 VM.
 
->**Note**: Connect to the SqlServerDw VM following the steps provided in Task 5 of the [Before the hand-on lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md) exercises.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
-1. On the SqlServerDw VM, open a web browser and navigate to the [SQL Server 2017 Developer edition download](https://www.microsoft.com/sql-server/sql-server-downloads) page, then select the **Download now** link under Developer in the free specialized edition section.
+    ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-    ![The Download now link is highlighted under Developer edition at https://www.microsoft.com/sql-server/sql-server-downloads.](media/sql-server-2017-developer-edition-download.png "Download SQL Server 2017 Developer Edition")
+2. In the list of resources for your resource group, select the SqlServer2008R2 VM.
 
-2. Run the downloaded installer.
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008R2 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008R2 VM in resource group list")
 
-3. In the install dialog, select **Custom** as the installation type on the first screen.
+3. On the SqlServer2008R2 blade, select Connect from the top menu.
 
-    ![In the installation dialog box, Custom is selected and highlighted under Select an installation type.](./media/sql-server-2017-install-type.png "Select Custom")
+    ![The SqlServer2008R2 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008R2")
 
-4. On the next screen, leave the Media Location set to the default value, and select **Install**.
+4. Select **Download RDP file**, then open the downloaded RDP file.
 
-    ![The default value (C:\\SQLServer2017Media) is listed under Media Location, and Install is highlighted at the bottom.](./media/sql-server-2017-install-location.png "Install with the default value")
+    ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
 
-5. Once the necessary components are downloaded, the SQL Server Installation Center will open. Select **Installation** on the left-hand menu, then select **New SQL Server stand-alone installation or add features to an existing installation**.
+5. Select **Connect** on the Remote Desktop Connection dialog.
 
-    ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, New SQL Server stand-alone installation or add features to an existing installation is highlighted.](./media/sql-server-2017-installation-center-installation-new-sql-server.png "Choose your installation")
+    ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
 
-6. On the Product Key screen, select **Developer** under Specify a free edition, and select **Next**.
+6. Enter the following credentials when prompted:
 
-    ![Developer displays under Specify a free edition.](./media/sql-server-2017-installation-center-installation-new-sql-server-free-edition.png "Specify the edition")
+    - **User name**: demouser
+    - **Password**: Password.1!!
 
-7. On the License Terms screen, check the box to **accept the license terms**, and select **Next**.
+7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
-8. Select **Next** on each the following screens to accept the defaults, until you get to the Feature Selection screen.
+    ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserver2008r2.png "Remote Desktop Connection dialog")
 
-9. On the **Feature Selection** screen, check the box next to **Database Engine Services**, and select **Next**.
+### Task 2: Enable SQL Server Mixed Authentication
 
-    ![Database Engine Services is selected and highlighted under Instance Features on the Feature Selection screen.](./media/sql-server-2017-installation-center-feature-selection.png "Select Database Engine Services")
+In this task, you will turn on SQL Server Mixed Authentication, and change the `sa` password to **Password.1!!**.
 
-10. On the **Instance Configuration** screen, leave **Default instance** selected, and select **Next**.
+1. On the SqlServer2008R2 VM, open SQL Server Management Studio 2017 (SSMS) by selecting it from the start menu, under All Programs -> Microsoft SQL Server Tools 17.
 
-11. Accept the default values on the **Server Configuration** screen, and select **Next**.
+    ![Microsoft SQL Server Management Tools 17 (SSMS) is highlighted in the start menu.](media/windows-2008-start-menu-ssms.png "Windows 2008 Start Menu")
 
-12. On the **Database Engine Configuration** screen:
+2. Connect to the default SQLSERVER2008 instance using Windows authentication, and selecting **Connect**.
 
-    - Select **Mixed Mode** for the Authentication Mode.
+    ![Connect to Server dialog, with SQLSERVER2008 specified as the Server name and Authentication set to Windows Authentication.](media/sql-server-connection-sqlserver2008.png "Connect to Server")
 
-    - Enter **Password.1!!** for the sa password.
+3. Right-click SQLSERVER2008 in the Object Explorer, and select **Properties**.
 
-    - Click the **Add Current User** button to make the **demouser** windows account a SQL Server administrator.
+    ![SQL Server 2008 context menu, with Properties highlighted.](media/sqlserver2008-context-menu.png "SQLSERVER2008 context menu")
 
-    ![The information above is highlighted on the Database Engine Configuration screen, including the Add Current User button under Specify SQL Server administrators.](./media/sql-server-2017-installation-center-database-engine-configuration.png "Specify Database Engine Configuration settings")
+4. Select **Security** under Select a page, then select **SQL Server and Windows Authentication mode**, and select **OK**.
 
-    - Select **Next**.
+    ![The Server Properties window of SQL Server 2008 is displayed, with the Security page highlighted. SQL Server and Windows Authentication mode is highlighted and selected.](media/sql-server-2008-security.png "SQL Server 2008 Security")
 
-13. Select **Install** on the Ready to Install screen to start the installation.
+5. Next, you need to change the `sa` password to a known value. To accomplish this, select **New Query** on the SSMS toolbar.
 
-14. Select **Close** when the installation is complete.
+    ![New Query is highlighted in the SQL Server 2008 toolbar.](media/sql-server-2008-new-query.png "SQL Server 2008 toolbar")
 
-15. Back in the SQL Server Installation Center dialog, select **Install SQL Server Management Tools** on the Installation tab.
+6. Copy the following script, and paste it into the new query window.
 
-    ![Installation is highlighted on the left side of the SQL Server Installation Center dialog box. At right, Install SQL Server Management Tools is highlighted.](./media/sql-server-2017-installation-center-installation-ssms.png "Select Install SQL Server Management Tools")
+    ```sql
+    ALTER LOGIN sa ENABLE
+    GO
+    ALTER LOGIN sa WITH PASSWORD = 'Password.1!!'
+    GO
+    ```
 
-16. In the browser window that opens, scroll down and select the **Download SQL Server Management Studio 17.x** link, then run the installer. Note, versions change frequently, so the version number in the screenshot below may not reflect the new version you are presented with on the download page.
+7. Execute the script by selecting the **Execute** button on the toolbar.
 
-    ![Download SQL Server Management Studio 17.7 is highlighted.](media/ssms-dowload.png "SSMS Download link")
+    ![New Query is highlighted in the SQL Server 2008 toolbar.](media/sql-server-2008-execute-query.png "SQL Server 2008 toolbar")
 
-17. In the install window that appears, select Install to complete the installation.
+8. You should receive a message that the commands completed successfully.
 
-    ![Install is highlighted at the bottom of the Microsoft SQL Server Management Studio installation window.](media/ssms-install.png "Microsoft SQL Server Management Studio Install Welcome page")
+9. Now, you must restart the SQL Server Service. Open Services by selecting the Start menu, typing "services" into the search box, and then selecting **Services** from the Programs list.
 
-18. Close the SQL Server Management Studio (SSMS) installer once setup is completed.
+    ![The Services program is highlighted in the Windows search results.](media/windows-2008-services-search.png "Windows 2008 Search for Services")
 
-19. Close the SQL Server Installation Center dialog.
+10. In the services dialog, locate the SQL Server (MSSQLSERVER) service in the list, right-click it, and select **Restart**.
 
-### Task 2: Install SQL Server 2008 R2
+    ![The SQL Server (MSSQLSERVER) service is selected, and Restart is highlighted in the pop-up menu.](media/sql-server-2008-service-restart.png "Windows Services")
 
-In this task, you will install SQL Server 2008 R2 as a Named Instance on the SqlServerDw VM.
-
-1. On the SqlServerDw VM, open a web browser, and navigate to <https://www.microsoft.com/download/details.aspx?id=30438>, and select the **Download** link on the page.
-
-    ![Download is selected and highlighted on the https://www.microsoft.com/download/details.aspx?id=30438 page under Microsoft SQL Server 2008 R2 SP2 * Express Edition.](./media/sql-server-2008-r2-express-edition-download.png "Download link")
-
-2. Download SQL Server 2008 R2 Express with Advanced Services by selecting **SQLEXPRADV_x64_ENU.exe**, then selecting **Next**.
-
-    ![SQLEXPRADV_x64_ENU.exe is highlighted in the list under Choose the download you want.](./media/sql-server-2008-r2-express-edition-download-files.png "Download SQL Server 2008 R2 Express with Advanced Services")
-
-3. Run the installer.
-
-4. In the SQL Server Installation Center window, select **New installation or add features to an existing installation**.
-
-    ![New installation or add features to an existing installation is highlighted in the SQL Server Installation Center window.](./media/sql-server-2008-installation-center-installation-new-installation.png "Select New installation or add features to an existing installation")
-
-5. In the SQL Server 2008 R2 Setup dialog, accept the license terms on the License Terms screen, and select **Next**.
-
-6. Accept the default values on the Setup Support Rules screen by selecting **Next**.
-
-7. On the Feature Selection screen, select **Database Engine Services** and **Management Tools - Basic**, and uncheck all other options.
-
-    ![On the Feature Selection screen, Database Engine Services and Management Tools - Basic are checked. All other options are unchecked.](media/sql-server-2008-installation-center-feature-selection.png "Feature Selection")
-
-8. On the **Installation Configuration** screen, select **Named Instance**, and enter **SQLServer2008** for the instance name, then select **Next**.
-
-    ![Instance Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, Named instance: SQLServer2008 is highlighted.](./media/sql-server-2008-installation-center-instance-configuration.png "Enter the instance name")
-
-9. On the **Server Configuration** screen, select **Use the same account for all SQL Server services**.
-
-    ![Server Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. At right, SQL Server Database Engine is selected on the Service Accounts tab, and Use the same account for all SQL Server services is highlighted at the bottom.](./media/sql-server-2008-installation-center-server-configuration.png "Select Use the same account for all SQL Server services")
-
-10. Select **Browse**, and enter **demouser**. Select the **demouser** account you created when you provisioned the VM, then enter the password, **Password.1!!**, and select **OK**.
-
-    ![The credentials above are entered in the Use the same account for all SQL Server 2008 R2 services dialog box.](media/sql-server-2008-installation-center-service-account.png "Service account credentials")
-
-11. Select Next on the Server Configuration screen.
-
-12. On the **Database Engine Configuration** screen:
-
-    - Select **Mixed Mode**.
-
-    - Enter **Password.1!!** for the sa password.
-
-    - Select the **Add Current User** button to specify the demouser Windows account as a SQL Server Administrator.
-
-        ![Database Engine Configuration is highlighted on the left side of the SQL Server 2008 R2 Setup dialog box. The information above is highlighted at right, including the Add Current User button under Specify SQL Server administrators.](media/sql-server-2008-installation-center-database-engine-configuration.png "Specify Database Engine Configuration settings")
-
-    - Select **Next**.
-
-13. Select **Next** to accept the default values on the remaining screens to complete the installation.
-
-14. Select **Close** on the SQL Server 2008 R2 Setup dialog when the installation is complete.
-
-15. Close the SQL Server 2008 R2 Installation Center window.
+11. You should now be able to connect to the SQL Server 2008 R2 instance using SQL Server and Windows Mixed Authentication.
 
 ### Task 3: Install AdventureWorks sample database
 
 In this task, you will install the AdventureWorks database in SQL 2008 R2. It will act as the "on-premises" data warehouse database that you will migrate to Azure SQL Database.
 
-1. On the SqlServerDw VM, open a web browser, and navigate to the GitHub site containing the sample AdventureWorks 2008 R2 database at <https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2>.
+1. On the SqlServer2008R2 VM, open a web browser, and navigate to the GitHub site containing the sample AdventureWorks 2008 R2 database at <https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2>.
 
 2. Scroll down under Assets, and select `adventure-works-2008r2-dw.script.zip`.
 
@@ -249,15 +200,11 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2. It wi
 
 3. Save the file, and unzip the downloaded file to a folder you create, called `C:\AdventureWorksSample`.
 
-4. Launch **SQL Server Management Studio 17** (SSMS), found under Start->Apps->Microsoft SQL Server Tools 17.
+4. Launch **SQL Server Management Studio 17** (SSMS), found under Start->All Programs->Microsoft SQL Server Tools 17.
 
-    >**Note**: There are two version of SSMS installed, so make sure you open SSMS 17.
+5. In the Connect to Server dialog, enter **SQLSERVER2008** in the Server name box, leave Authentication set to **Windows Authentication**, and select **Connect**.
 
-    ![SQL Server Management Studio 17 (SSMS) is highlighted under Microsoft SQL Server Tools 17.](./media/ssms-start-menu.png "Open SQL Server Management Studio 17 (SSMS)")
-
-5. In the Connect to Server dialog, enter **SqlServerDw\SQLSERVER2008** in the Server name box, leave Authentication set to **Windows Authentication**, and select **Connect**.
-
-    ![In the Connect to Server dialog box, SqlServerDw\SQLSERVER2008 is highlighted in the Server name box.](./media/ssms-connect-to-sqlserver2008.png "Connect to SqlServerDw\SQLSERVER2008")
+    ![Connect to Server dialog, with SQLSERVER2008 specified as the Server name and Authentication set to Windows Authentication.](media/sql-server-connection-sqlserver2008.png "Connect to Server")
 
 6. In SSMS, select the **Open File** icon in SSMS menu bar.
 
@@ -309,9 +256,125 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2. It wi
 
 ### Task 4: Update SQL Server settings using Configuration Manager
 
-In this task, you will update the SQL Server service accounts and other settings associated with the SQL Server instances installed on the VM.
+In this task, you will update the SQL Server service accounts and other settings associated with the SQL Server instance installed on the VM.
 
-1. From the Start Menu on your SqlServerDw VM, search for **SQL Server 2017 Configuration Manager**, then select it from the search results.
+1. From the Start Menu on your SqlServer2008R2 VM, search for **SQL Server Config**, then select **SQL Server Configuration Manager** from the search results.
+
+    ![SQL Server Configuration Manager is selected and highlighted in the search results.](media/windows-server-2008-search-sql-server-config.png "Select SQL Server Configuration Manager")
+
+2. From the tree on the left of the Configuration Manager window, select **SQL Server Services**, and then double-click **SQL Server (MSSQLSERVER)** in the list of services to open its properties dialog.
+
+    ![SQL Server Services is highlighted on the left side of SQL Server Configuration Manager.](media/sql-server-configuration-manager-sql-server-services.png "Select SQL Server Services")
+
+3. In the SQL Server (MSSQLSERVER) Properties dialog, change **Log on as** to use the demouser account, by entering **demouser** into the Account Name box, then entering the password, **Password.1!!**, into the Password and Confirm password boxes.
+
+    ![The above credentials are highlighted in the SQL Server (MSSQLSERVER) Properties dialog box.](media/sql-server-2008-configuration-manager-sql-server-mssqlserver-properties.png "Enter demouser credentials")
+
+4. Select **OK**.
+
+5. Select **Yes** to restart the service in the **Confirm Account Change** dialog.
+
+6. While still in the SQL Server Configuration Manager, expand **SQL Server Network Configuration**, select **Protocols for MSSQLSERVER**, and double-click **TCP/IP** to open the properties dialog.
+
+    ![Protocols for MSSQLSERVER is highlighted on the left side of SQL Server Configuration Manager, and TCP/IP is highlighted in the Protocol Name list on the right.](media/sql-server-configuration-manager-protocols-for-mssqlserver.png "Select TCP/IP")
+
+7. On the TCP/IP Properties dialog, ensure **Enabled** is set to **Yes**, and select **OK**.
+
+    ![Enabled is selected on the Protocol tab of the TCP/IP Properties dialog box.](media/sql-server-configuration-manager-protocols-tcp-ip-properties.png "Enable TCP/IP")
+
+8. If prompted that the changes will not take effect until the service is restarted, select **OK**. You will restart the service later.
+
+9. Select **SQL Server Services** in the tree on the left, then right-click **SQL Server (MSSQLSERVER)** in the services pane, and select **Restart**.
+
+    ![SQL Server Services is highlighted on the left side of SQL Server Configuration Manager, SQL Server (MSSQLSERVER) is highlighted on the right, and Restart is highlighted in the submenu.](media/sql-server-configuration-manager-sql-server-services-sql-server-restart.png "Select Restart")
+
+10. Repeat the previous step for the **SQL Server Agent (MSSQLSERVER)** service, this time selecting **Start** from the menu.
+
+    ![SQL Server Services is highlighted on the left side of SQL Server Configuration Manager, SQL Server Agent (MSSQLSERVER) is highlighted on the right, and Start is highlighted in the submenu.](media/sql-server-configuration-manager-sql-server-services-sql-server-agent-start.png "Select Start")
+
+11. Close the SQL Server Configuration Manager.
+
+### Task 5: Copy the SqlServer2008R2 VM IP address
+
+In this task, you will copy the IP address for later reference.
+
+1. In the [Azure portal](https://portal.azure.com), navigate to your SqlServer2008R2 VM.
+
+2. On the SqlServer2008R2 overview blade, select the copy button next to the Public IP address value, and paste the value into a text editor, such as Notepad, for later reference.
+
+    ![On the SqlServer2008R2 VM Overview blade, the Public IP address is highlighted.](media/sql-virtual-machine-overview-blade-ip-address.png "Virtual machine Overview")
+
+### Task 6: Connect to the SqlServer2017 VM
+
+In this task, you will create an RDP connection to the SqlServer2017 VM.
+
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+
+    ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
+
+2. In the list of resources for your resource group, select the SqlServer2017 VM.
+
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2017 is highlighted.](media/resource-group-resources-sqlserver2017.png "SqlServer2017 VM in resource group list")
+
+3. On the SqlServer2017 blade, select Connect from the top menu.
+
+    ![The SqlServer2017 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2017.png "Connect to SqlServer2017")
+
+4. Select **Download RDP file**, then open the downloaded RDP file.
+
+    ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
+
+5. Select **Connect** on the Remote Desktop Connection dialog.
+
+    ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
+
+6. Enter the following credentials when prompted:
+
+    - **User name**: demouser
+    - **Password**: Password.1!!
+
+7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
+
+    ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserver2008r2.png "Remote Desktop Connection dialog")
+
+### Task 7: Change the SA password
+
+In this task, you will change the `sa` password to **Password.1!!**.
+
+1. On the SqlServer2017 VM, open SQL Server Management Studio 17 (SSMS) by selecting it from the start menu, under Microsoft SQL Server Tools 17.
+
+2. Connect to SqlServer2017 using Windows authentication, and selecting **Connect**.
+
+    ![Connect to Server dialog, with SQLSERVER2008 specified as the Server name and Authentication set to Windows Authentication.](media/sql-server-connection-sqlserver2017.png "Connect to Server")
+
+3. Select **New Query** on the SSMS toolbar.
+
+    ![New Query is highlighted in the SQL Server 2008 toolbar.](media/sql-server-2008-new-query.png "SQL Server 2008 toolbar")
+
+4. Copy the following script, and paste it into the new query window.
+
+    ```sql
+    USE master
+    GO
+    ALTER LOGIN sa ENABLE
+    GO
+    ALTER LOGIN sa WITH PASSWORD = 'Password.1!!'
+    GO
+    ```
+
+5. Execute the script by selecting the **Execute** button on the toolbar.
+
+    ![New Query is highlighted in the SQL Server 2008 toolbar.](media/sql-server-2008-execute-query.png "SQL Server 2008 toolbar")
+
+6. You should receive a message that the commands completed successfully.
+
+7. You must restart the SQL Server Service for this change to take effect, which you will do in the next task.
+
+### Task 8: Update SQL Server settings using Configuration Manager 2017
+
+In this task, you will update the SQL Server 2017 service accounts and other settings associated with the SQL Server 2017 instance installed on the VM.
+
+1. From the Start Menu on your SqlServer2017 VM, search for **SQL Server 2017 Configuration Manager**, then select it from the search results.
 
     ![SQL Server 2017 Configuration Manager is selected and highlighted in the Search results.](./media/windows-2012-search-sql-server-2017-configuration-manager.png "Select SQL Server 2017 Configuration Manager")
 
@@ -331,75 +394,25 @@ In this task, you will update the SQL Server service accounts and other settings
 
 6. Select **Yes** to restart the service in the **Confirm Account Change** dialog.
 
-7. Verify the **SQL Server (SQLSERVER2008)** instance is using the demouser account. If not, repeat steps 3 - 6 above to set the server account to demouser for that instance as well.
-
-8. While still in the SQL Server 2017 Configuration Manager, expand **SQL Server Network Configuration**, select **Protocols for MSSQLSERVER**, and double-click **TCP/IP** to open the properties dialog.
+7. While still in the SQL Server 2017 Configuration Manager, expand **SQL Server Network Configuration**, select **Protocols for MSSQLSERVER**, and double-click **TCP/IP** to open the properties dialog.
 
     ![Protocols for MSSQLSERVER is highlighted on the left side of SQL Server 2017 Configuration Manager, and TCP/IP is highlighted in the Protocol Name list on the right.](./media/sql-server-2017-configuration-manager-protocols-for-mssqlserver.png "Select TCP/IP")
 
-9. On the TCP/IP Properties dialog, set **Enabled** to **Yes**, and select **OK**.
+8. On the TCP/IP Properties dialog, verify **Enabled** is set to **Yes**, and select **OK**.
 
     ![Enabled is selected on the Protocol tab of the TCP/IP Properties dialog box.](./media/sql-server-2017-configuration-manager-protocols-tcp-ip-properties.png "Enable TCP/IP")
 
-10. When prompted that the changes will not take effect until the service is restarted, select **OK**. You will restart the service later.
+9. If prompted that the changes will not take effect until the service is restarted, select **OK**. You will restart the service next.
 
-11. Now, select **Protocols for SQLSERVER2008**, double-click **TCP/IP** to open the properties dialog.
-
-12. As you did above, set **Enabled** to **Yes**.
-
-13. Next, select the **IP Addresses** tab within the TCP/IP Properties dialog.
-
-14. On the IP Addresses tab, scroll down to the IPAll section, and note the port number assigned in the **TCP Dynamic Ports** field.  **Note: If the value is 0, you may need to restart the SQL Server (SQLSERVER2008) service first, and then return to this screen.** Copy the value into a text editor, such as Notepad, for later use. SQL Server 2008 R2 was installed as a Named Instance, so it was assigned a dynamic port number, different than 1433 which is typically assigned to SQL Server instances. You will need this port number to create an inbound port rule for the SqlServerDw VM to allow the Azure Database Migration Service to access the SQL Server 2008 database.
-
-    ![The IP Addresses tab of the TCP/IP Properties dialog is displayed, with TCP Dynamic Ports highlighted under the IPAll section.](media/tcp-ip-properties-ip-addresses-tab.png "TCP/IP Properties IP Addresses tab")
-
-15. Select **OK** to close the TCP/IP Properties dialog. When prompted that the changes will not take effect until the service is restarted, select **OK**. You will restart the service later.
-
-16. As done previously, select **SQL Server Services** in the tree on the left, then right-click **SQL Server (MSSQLSERVER)** in the services pane, and select **Restart**.
+10. As done previously, select **SQL Server Services** in the tree on the left, then right-click **SQL Server (MSSQLSERVER)** in the services pane, and select **Restart**.
 
     ![SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server (MSSQLSERVER) is highlighted on the right, and Restart is highlighted in the submenu.](./media/sql-server-2017-configuration-manager-sql-server-services-sql-server-restart.png "Select Restart")
 
-17. Repeat the previous step for the **SQL Server (SQLSERVER2008)** service.
-
-18. Repeat the previous step for the **SQL Server Agent (MSSQLSERVER)** service, this time selecting **Start** from the menu.
+11. Repeat the previous step for the **SQL Server Agent (MSSQLSERVER)** service, this time selecting **Start** from the menu.
 
     ![SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server Agent (MSSQLSERVER) is highlighted on the right, and Start is highlighted in the submenu.](./media/sql-server-2017-configuration-manager-sql-server-services-sql-server-agent-restart.png "Select Start")
 
-19. Close the SQL Server 2017 Configuration Manager.
-
-### Task 5: Add inbound port rule
-
-In this task, you will add an inbound port rule for the SqlServerDw VM, to allow the dynamic port used by the SQL Server 2008 R2 Named Instance.
-
-1. In the [Azure portal](https://portal.azure.com), navigate to your SqlServerDw VM.
-
-2. On the SqlServerDw blade, select **Networking** in the left-hand menu, under Settings, and then select **Add inbound port rule**.
-
-    ![On the SqlServerDw VM blade, Networking is selected and highlighted under Settings in the left-hand menu, and the Add inbound port rule button is highlighted on the Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "Virutal Machine Networking blade")
-
-3. In the Add inbound security rule dialog, select **Basic**, and then enter the following:
-
-    - **Service**: Select Custom.
-
-    - **Port ranges**: Enter the dynamic port you noted and copied for your SQL Server 2008 instance.
-
-    - **Priority**: Leave the default priority value.
-
-    - **Name**: Enter SqlServer2008.
-
-    - Select **Add**.
-
-        ![In the Add inbound security rule dialog, the values specified above are entered into the appropriate fields.](media/sql-virtual-machine-networking-add-inbound-security-rule.png "Add inbound security rule")
-
-### Task 6: Copy the SqlServerDw VM IP address
-
-In this task, you will copy the IP address for later reference.
-
-1. In the [Azure portal](https://portal.azure.com), navigate to your SqlServerDw VM.
-
-2. On the SqlServerDw overview blade, select the copy button next to the Public IP address value, and paste the value into a text editor, such as Notepad, for later reference.
-
-    ![On the SqlServerDw VM Overview blade, the Public IP address is highlighted.](media/sql-virtual-machine-overview-blade-ip-address.png "Virtual machine Overview")
+12. Close the SQL Server 2017 Configuration Manager.
 
 ## Exercise 2: Migrate SQL Server to Azure SQL Database using DMS
 
@@ -407,53 +420,11 @@ Duration: 60 minutes
 
 World Wide Importers would like a Proof of Concept (POC) that moves their database warehouse to Azure SQL Database. They would like to know about any incompatible features that will block their eventual production move. In this exercise, you will use the [Azure Database Migration Service](https://azure.microsoft.com/services/database-migration/) (DMS) to migrate the WorldWideImporters database from the "on-premises" SQL Server 2008 R2 instance to [Azure SQL Database](https://docs.microsoft.com/azure/sql-database/).
 
-### Task 1: Register the Microsoft DataMigration resource provider
-
-In this task, you will register the Microsoft.DataMigration resource provider with your subscription in Azure.
-
-1. In the [Azure portal](https://portal.azure.com), select **All services** from the Azure navigation pane, and then select **Subscriptions**.
-
-    ![All services is highlighted in the Azure navigation pane, and Subscriptions is highlighted in the All services blade.](media/azure-portal-all-services-subscriptions.png "Azure All services blade")
-
-2. Select the subscription you are using for this hands-on lab from the list, select **Resource providers**, enter "migration" into the filter box, and then select **Register** next to Microsoft.DataMigration.
-
-    ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](media/azure-portal-subscriptions-resource-providers-register-microsoft-datamigration.png "Resource provider registration")
-
-### Task 2: Create Azure Database Migration Service
-
-In this task, you will provision an instance of the Azure Database Migration Service (DMS).
-
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "database migration" into the Search the Marketplace box, select **Azure Database Migration Service** from the results, and select **Create**.
-
-    ![+Create a resource is selected in the Azure navigation pane, and "database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](media/create-resource-azure-database-migration-service.png "Create Azure Database Migration Service")
-
-2. On the Create Migration Service blade, enter the following:
-
-    - **Service Name**: Enter wwi-dms.
-
-    - **Subscription**: Select the same subscription you are using for this hands-on lab.
-
-        >**Note**:  If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
-
-    - **Resource Group**: Select the hands-on-lab-SUFFIX resource group.
-
-    - **Virtual network**: Choose Create new, and enter wwi-dms-vnet.
-
-    - **Location**: Select the location you are using for resources in this hands-on lab.
-
-    - **Pricing tier**: Select General Purpose: 1 vCores.
-
-        ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](media/create-migration-service.png "Create Migration Service")
-
-3. Select **Create**.
-
-4. It can take 15 minutes to deploy the Azure Data Migration Service, so continue to the next task while the deployment completes.
-
-### Task 3: Assess the on-premises database
+### Task 1: Assess the on-premises database
 
 World Wide Importers would like an assessment to see what potential issues they would have to address in moving their database to Azure SQL Database.
 
-1. On the SqlServerDw VM, select the **Download** button on the [Data Migration Assistant v3.x](https://www.microsoft.com/download/details.aspx?id=53595) page, and run the downloaded installer.
+1. On the SqlServer2008R2 VM, select the **Download** button on the [Data Migration Assistant v4.x](https://www.microsoft.com/download/details.aspx?id=53595) page, and run the downloaded installer.
 
 2. Select **Next** on each of the screens, accepting to the license terms and privacy policy in the process.
 
@@ -485,13 +456,13 @@ World Wide Importers would like an assessment to see what potential issues they 
 
     ![Check database compatibility and Check feature parity are selected and highlighted on the Options screen.](./media/data-migration-assistant-options.png "Select the report types")
 
-8. In the **Connect to a server** dialog on the **Select sources** tab, enter `SqlServerDw\SQLSERVER2008` into the Server name box, and **uncheck Encrypt connection**, then select **Connect**.
+8. In the **Connect to a server** dialog on the **Select sources** tab, enter `SQLSERVER2008` into the Server name box, and **uncheck Encrypt connection**, then select **Connect**.
 
-    ![In the Connect to a server dialog box, SqlServerDw\SQLSERVER2008 is highlighted in the Server name box, and Encrypt connection is unchecked and highlighted below that in the Connect to a server dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008.png "Enter information in the Connect to a server dialog box")
+    ![In the Connect to a server dialog box, SQLSERVER2008 is highlighted in the Server name box, and Encrypt connection is unchecked and highlighted below that in the Connect to a server dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008.png "Enter information in the Connect to a server dialog box")
 
 9. In the **Add sources** dialog that appears, check the box next to **WorldWideImporters**, and select **Add**.
 
-    ![WorldWideImporters is selected and highlighted under SqlServerDw\SQLSERVER2008 in the Add sources dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008-worldwideimporters.png "Select WorldWideImporters")
+    ![WorldWideImporters is selected and highlighted under SQLSERVER2008 in the Add sources dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008-worldwideimporters.png "Select WorldWideImporters")
 
 10. Select **Start Assessment**.
 
@@ -501,11 +472,11 @@ World Wide Importers would like an assessment to see what potential issues they 
 
 12. You now have a list of the issues WWI will need to consider in upgrading their database to Azure SQL Database. Notice the assessment includes recommendations on the potential resolutions to issues. You can select **Export report** to save the report as a JSON file, if desired.
 
-### Task 4: Migrate the database schema
+### Task 2: Migrate the database schema
 
 After you have reviewed the assessment results and you have ensured the database is a candidate for migration to Azure SQL Database, use the Data Migration Assistant to migrate the schema to Azure SQL Database.
 
-1. On the SqlServerDw VM, return to the Data Migration Assistant, and select the New **(+)** icon in the left-hand menu.
+1. On the SqlServer2008R2 VM, return to the Data Migration Assistant, and select the New **(+)** icon in the left-hand menu.
 
 2. In the New project dialog, enter the following:
 
@@ -525,7 +496,7 @@ After you have reviewed the assessment results and you have ensured the database
 
 3. In the **Select source** tab, enter the following:
 
-    - **Server name**: Enter SqlServerDw\SQLSERVER2008.
+    - **Server name**: Enter SQLSERVER2008.
 
     - **Authentication type**: Leave Windows Authentication selected.
 
@@ -577,7 +548,7 @@ After you have reviewed the assessment results and you have ensured the database
 
     ![The schema deployment results are displayed, with 226 commands executed and 0 errors highlighted.](media/data-migration-assistant-migration-deployment-results.png "Schema deployment results")
 
-11. Next, open SSMS on the SqlServerDw VM, and connect to your Azure SQL Database, by selecting **Connect->Database Engine** in the Object Explorer, and then entering the server name and credentials into the Connect to Server dialog.
+11. Next, open SSMS on the SqlServer2008R2 VM, and connect to your Azure SQL Database, by selecting **Connect->Database Engine** in the Object Explorer, and then entering the server name and credentials into the Connect to Server dialog.
 
     ![The SSMS Connect to Server dialog is displayed, with the Azure SQL Database name specified, SQL Server Authentication selected, and the demouser credentials entered.](media/ssms-connect-azure-sql-database.png "Connect to Server")
 
@@ -585,7 +556,7 @@ After you have reviewed the assessment results and you have ensured the database
 
     ![In the SSMS Object Explorer, Databases, WorldWideImporters, and Tables are expanded, showing the tables created by the deploy schema script.](media/ssms-databases-worldwideimporters-tables.png "SSMS Object Explorer")
 
-### Task 5: Create a migration project
+### Task 3: Create a migration project
 
 In this task, you will create a new migration project for the WorldWideImporters database.
 
@@ -603,7 +574,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
     - **Target server type**: Select Azure SQL Database.
 
-    - **Choose type of activity**: Select Create project only.
+    - **Choose type of activity**: Select Create project only and select **Save**.
 
         ![The New migration project blade is displayed, with the values specified above entered into the appropriate fields.](media/dms-new-migration-project-blade.png "New migration project")
 
@@ -611,7 +582,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
 5. On the Migration Wizard **Select source** blade, enter the following:
 
-    - **Source SQL Server instance name**: Enter the IP address of your SqlServerDw VM, plus the port number you used when creating the alias for your SQL Server 2008 R2 instance in SQL Server Configuration Manager. For example, `137.116.46.174,49700`.
+    - **Source SQL Server instance name**: Enter the IP address of your SqlServer2008R2 VM, plus the port number you used when creating the alias for your SQL Server 2008 R2 instance in SQL Server Configuration Manager. For example, `40.84.6.199`.
 
         > **Note**: The format is **IP-Address,Port** with a comma between, not a colon (:) as is typically used when specifying a port number after an IP address.
 
@@ -645,9 +616,9 @@ In this task, you will create a new migration project for the WorldWideImporters
 
     - **Authentication type**: Select SQL Authentication.
 
-    - **User Name**: Enter demouser.
+    - **User Name**: Enter **demouser**.
 
-    - **Password**: Enter Password.1!!
+    - **Password**: Enter **Password.1!!**.
 
     - **Connection properties**: Check Encrypt connection.
 
@@ -663,7 +634,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
     ![On the Azure Database Migration Project blade, a success message is displayed.](media/dms-migration-project-successfully-created.png "DMS project created successfully")
 
-### Task 6: Run the migration
+### Task 4: Run the migration
 
 In this task, you will create a new activity in the Azure Database Migration Service to execute the migration from the "on-premises" SQL Server 2008 R2 server to Azure SQL Database.
 
@@ -705,11 +676,11 @@ In this task, you will create a new activity in the Azure Database Migration Ser
 
     ![On the Migration job blade, the status of Completed is highlighted](media/dms-migration-wizard-status-complete.png "Migration with Completed status")
 
-### Task 7: Verify data migration
+### Task 5: Verify data migration
 
 In this task, you will use SSMS to verify the database was successfully migrated to Azure SQL Database.
 
-1. Open SSMS on the SqlServerDw VM, and connect to your Azure SQL Database. In the Connect to Server dialog, enter the following:
+1. Open SSMS on the SqlServer2008R2 VM, and connect to your Azure SQL Database. In the Connect to Server dialog, enter the following:
 
     - **Server name**: Enter the server name of your Azure SQL Database.
 
@@ -725,17 +696,19 @@ In this task, you will use SSMS to verify the database was successfully migrated
 
     ![In SSMS, Databases, WorldWideImporters, and Tables are expanded, and the context menu for dbo.DimCustomer is displayed, with Select Top 1000 Rows highlighted in the menu.](media/ssms-select-top.png "Select Top 100 Rows")
 
-4. Observe that the query returns results, showing the data has been migrated for the on-premises SQL Server 2008 R2 database into Azure SQL Database.
+4. Observe that the query returns results, showing the data has been migrated from the on-premises SQL Server 2008 R2 database into Azure SQL Database.
+
+5. Leave SSMS open with the connection to your Azure SQL Database for the next exercise.
 
 ## Exercise 3: Post upgrade enhancement
 
-Duration: 30 minutes
+Duration: 20 minutes
 
 In this exercise, you will confirm that the POC was successful. To demonstrate value from the upgrade, the Azure SQL Database features, Table Compression and ColumnStore Index, will be enabled to immediately show benefit.
 
 ### Task 1: Table compression
 
-1. Open SSMS on the SqlServerDw VM, and connect to your Azure SQL Database.
+1. In SSMS on the SqlServer2008R2 VM, and connect to your Azure SQL Database.
 
 2. Open a new query window by selecting **New Query** from the toolbar.
 
@@ -802,7 +775,7 @@ In this exercise, you will confirm that the POC was successful. To demonstrate v
 
     ![In the SSMS results pane, the size of the page compressed FactInternetSales table is highlighted.](media/ssms-query-results-factinternetsales-page-compression-size.png "Query results")
 
-15. Both Row and Page compression reduce the size of the table, but page compression provides the greatest reduction in this case. Compression decreases the load on the Disk I/O subsystem, while increasing the load on the CPU. Since most data warehouse workloads are heavily disk bound, and often have low CPU usage, compression can be a great way to improve performance.
+15. Both Row and Page compression reduce the size of the table, but Page compression provides the greatest reduction in this case. Compression decreases the load on the Disk I/O subsystem, while increasing the load on the CPU. Since most data warehouse workloads are heavily disk bound, and often have low CPU usage, compression can be a great way to improve performance.
 
 ### Task 2: Clustered ColumnStore index
 
@@ -915,7 +888,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 ### Task 1: Install Oracle XE
 
-1. Connect to your Lab VM, as you did in Task 4 of the [Before the Hands-on Lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md) exercise.
+1. Connect to your Lab VM, as you did in Task 5 of the [Before the Hands-on Lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md#task-5-connect-to-the-lab-vm) exercise.
 
     - **User name**: demouser
     - **Password**: Password.1!!
@@ -1032,7 +1005,7 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 1. On your Lab VM, open a web browser and navigate to <https://www.devart.com/dbforge/oracle/fusion/download.html>.
 
-2. Scroll down on the page, and download a Trial of the current version by selecting the green download link.
+2. Scroll down on the page, and download a Trial of the current version by selecting the blue download link.
 
     ![Trial and Download are highlighted under dbForge Fusion, Current Version.](./media/dbforge-trial-download.png "dbForge Fusion, Current Version section")
 
@@ -1056,23 +1029,23 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to SQL Server 2017. In this task, you will create a connection to the Oracle database on your Lab VM, and create a database called Northwind.
 
-1. On your SqlServerDW VM, open SSMS, select **Connect** in the Object Explorer, and select **Database Engine**.
+1. On your SqlServer2017 VM, open SQL Server Management Studio 17 (SSMS), select **Connect** in the Object Explorer, and select **Database Engine**.
 
     ![Database Engine is selected and highlighted under Connect, which is highlighted in Object Explorer.](./media/ssms-connect-database-engine.png "Select Database Engine")
 
-2. In the Connect to Server dialog, select the SQL Server 2017 instance, **SqlServerDw**, from the Server name drop down, leave Authentication set to **Windows Authentication**, and select **Connect**.
+2. In the Connect to Server dialog, enter or select **SqlServer2017** in the Server name drop down, leave Authentication set to **Windows Authentication**, and select **Connect**.
 
-    ![SqlServerDw is selected and highlighted in the Server name drop-down list in the Connect to Server dialog box.](./media/ssms-connect-to-sqlserverdw.png "Select SqlServerDw")
+    ![SqlServer2017 is selected and highlighted in the Server name drop-down list in the Connect to Server dialog box.](./media/ssms-connect-to-sqlserver2017.png "Select SqlServer2017")
 
-3. In the Object Explorer, under the 2017 instance, SqlServerDw, right-click **Databases**, and select **New Database**.
+3. In the Object Explorer, under the 2017 instance, SqlServer2017, right-click **Databases**, and select **New Database**.
 
-    ![Databases is highlighted under the SqlServerDw 2017 instance, and New Database is selected and highlighted in the submenu.](./media/ssms-databases-new-database.png "Select New Database")
+    ![Databases is highlighted under the SqlServer2017 instance, and New Database is selected and highlighted in the submenu.](./media/ssms-databases-new-database.png "Select New Database")
 
 4. In the New Database dialog, enter **Northwind** for the Database name, and select **OK**.
 
     ![Northwind is highlighted in the Database name box in the New Database dialog box.](./media/ssms-databases-new-database-dialog.png "Enter the database name")
 
-5. Now, on your LabVM, download the starter project by downloading a .zip copy of the Data Platform upgrade and migration GitHub repo.
+5. Now, switch back to your LabVM, and download the starter project by downloading a .zip copy of the Data Platform upgrade and migration project from the GitHub repo.
 
 6. In a web browser, navigate to the [Data Platform upgrade and migration MCW repo](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration)
 
@@ -1082,7 +1055,7 @@ WWI has provided you with a copy of their application, including a database scri
 
 8. Unzip the contents to **C:\handsonlab**.
 
-9. Within the **handsonlab** folder, navigate to the **lab-files\starter-project** folder under `Hands-on lab`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017.
+9. Within the **handsonlab** folder, navigate to the folder `MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\lab-files\starter-project`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017.
 
 10. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**.
 
@@ -1126,11 +1099,11 @@ WWI has provided you with a copy of their application, including a database scri
 
     ![The Northwind connection is selected in the Database Explorer window.](./media/visual-studio-fusion-database-explorer.png "View the Northwind connection")
 
-18. Select **Fusion** again from the Visual Studio menu, and then select **New Query**. 
+18. Select **Fusion** again from the Visual Studio menu, and then select **New Query**.
 
->**Note**: You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.
+    > **Note**: You may receive a notification that your trial has expired when you do this. This can be ignored for this hands-on lab. Close that dialog, and continue to the query window that opens in Visual Studio.
 
-   ![New Query is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-query.png "Select New Query")
+       ![New Query is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-query.png "Select New Query")
 
 19. You will be working in the Text area of the query window, so at the bottom of the query window, select the **Swap views** icon to move the Text area to the top of the window, and the Query Builder to the bottom. You can then use the mouse to expand the Text area. Note: You may need to select **Text** before it allows you to swap the positions of the two windows.
 
@@ -1226,7 +1199,7 @@ In this task, you will add the necessary configuration to the NorthwindMVC solut
 
 2. Open `Web.config` by double-clicking the file in the Solution Explorer, on the right-hand side in Visual Studio.
 
-    ![Web.config is selected under Solution 'NorthwindMVC' (1 project) in Solution Explorer.](./media/visual-studio-solution-explorer-northwindmvc-web-config.png "Open Web.config")
+    ![Web.config is selected under the NorthwindMVC project wihtin the Solution 'NorthwindMVC' in Solution Explorer.](./media/visual-studio-solution-explorer-northwindmvc-web-config.png "Open Web.config")
 
 3. In the `Web.config` file, locate the `connectionStrings` section, and verify the connection string named **OracleConnectionString** matches the values you have used in this hands-on lab:
 
@@ -1302,19 +1275,15 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
 10. In the connect to SQL Server dialog, provide the following:
 
-    - **Server name**: Enter the IP address of your SqlServerDw VM. You can get this from the Azure portal by navigating to your VM's blade, and looking at the Essentials area.
+    - **Server name**: Enter the IP address of your SqlServer2017 VM. You can get this from the Azure portal by navigating to your VM's blade, and looking at the Essentials area.
 
-        ![The IP address of your SqlServerDw VM is highlighted in the Essentials area of your VM's blade in the Azure portal.](./media/azure-sql-database-public-ip-address.png "Enter the IP address ")
+        ![The IP address of your SqlServer2017 VM is highlighted in the Essentials area of your VM's blade in the Azure portal.](./media/azure-sql-database-public-ip-address.png "Enter the IP address ")
 
     - **Server port**: Leave set to [default].
 
     - **Database**: Enter Northwind.
 
-    - **Authentication**: Set to SQL Server Authentication.
-
-    - **User name**: Enter sa.
-
-    - **Password**: Enter Password.1!!
+    - **Authentication**: Set to Windows Authentication.
 
         ![The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom.](./media/ssma-connect-to-sql-server.png "Specify the settings")
 
@@ -1324,7 +1293,7 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     ![The successful connection message is highlighted in the Output window.](./media/ssma-connect-to-sql-server-success.png "View the successful connection message")
 
-13. In the SQL Server Metadata Explorer, expand your servers node, then Databases. You should see Northwind listed.
+13. In the SQL Server Metadata Explorer, expand the server node, then Databases. You should see Northwind listed.
 
     ![Northwind is highlighted under Databases in SQL Server Metadata Explorer.](./media/ssma-sql-server-metadata-explorer-northwind.png "Verify the Northwind listing")
 
@@ -1402,7 +1371,7 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     ![In the Edit Type Mapping dialog box, numeric(precision, scale) is highlighted under Target type, 10 is highlighted next to Replace with under Precision, and OK is highlighted at the bottom.](./media/ssma-edit-type-mapping-float-to-numeric.png "Change the Target type")
 
-35. Select Apply to save the changes to the `ORDER_DETAILS` table.
+35. Select **Apply** to save the changes to the `ORDER_DETAILS` table.
 
 36. Now, right-click on the `ORDER_DETAILS` table in the Oracle Metadata Explorer, and select **Convert Schema**.
 
@@ -1434,13 +1403,13 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     - Save the script to the local machine.
 
-    - Now, you will need to use SSMS on your SqlServerDw VM.
+    - Now, you will need to use SSMS on your SqlServer2017 VM.
 
-        - Open an RDP connection to your SqlServerDw VM, if one is not already open.
+        - Open an RDP connection to your SqlServer2017 VM, if one is not already open.
 
         - Open SSMS 17.
 
-        - Connect to the SQL Server 2017 instance (SqlServerDw), by entering **SqlServerDw** into the Server name field, using Windows Authentication, and selecting **Connect**.
+        - Connect to SqlServer2017, by entering **SqlServer2017** into the Server name field, using Windows Authentication, and selecting **Connect**.
 
         - Expand **Databases**, right-click on **Northwind**, and select **New Query**.
 
@@ -1463,9 +1432,9 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     - Within the SQL file, locate the line that begins with `CREATE ASSEMBLY`, then locate the word `FROM`. Copy the binary string that appears after `FROM`. This value will span all the way down to the line containing the text `WITH PERMISSION_SET = SAFE`. Be sure not to include any whitespace at the end of the binary value.
 
-    ![The binary string that appears after FROM is highlighted within the SQL file.](./media/assembly-binary-value.png "Copy the binary string")
+        ![The binary string that appears after FROM is highlighted within the SQL file.](./media/assembly-binary-value.png "Copy the binary string")
 
-    - Now, return to SSMS on your SqlServerDw VM, and replace `INSERT BINARY` with the copied binary value. The line should end with ";" and there should be no whitespace before the ";".
+    - Now, return to SSMS on your SqlServer2017 VM, and replace `INSERT BINARY` with the copied binary value. The line should end with ";" and there should be no whitespace before the ";".
 
     - Execute the query in SSMS.
 
@@ -1497,15 +1466,11 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     - The SQL Server credentials are:
 
-        - **Server name**: IP address of your SqlServerDw VM (obtained in the essentials area of your VM's blade in Azure portal).
+        - **Server name**: IP address of your SqlServer2017 VM (obtained in the essentials area of your VM's blade in Azure portal).
 
         - **Server port**: [default]
 
-        - **Authentication**: SQL Server Authentication
-
-        - **User name**: sa
-
-        - **Password**: Password.1!!
+        - **Authentication**: Windows Authentication
 
 50. Select **Connect**.
 
@@ -1521,7 +1486,7 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
 Duration: 15 minutes
 
-In this exercise, you will modify the NorthwindMVC application, so it targets SQL Server 2017 instead of Oracle.
+In this exercise, you will modify the NorthwindMVC application so it targets SQL Server 2017 instead of Oracle.
 
 ### Task 1: Create a new Entity Model against SQL Server
 
@@ -1529,7 +1494,7 @@ In this exercise, you will modify the NorthwindMVC application, so it targets SQ
 
 2. Modify the connection string named `SqlServerConnectionString` to match your remote SQL Server credentials.
 
-    - Replace the value of "data source" with your SqlServerDw VM's public IP address.
+    - Replace the value of "data source" with your SqlServer2017 VM's public IP address.
 
     - Replace the value of "password" with Password.1!!
 
@@ -1675,7 +1640,7 @@ In this exercise, you will modify the NorthwindMVC application, so it targets SQ
 
     - **Data source**: Leave Microsoft SQL Server (SqlClient).
 
-    - **Server name**: Enter the IP address of your SqlServerDw VM.
+    - **Server name**: Enter the IP address of your SqlServer2017 VM.
 
     - **Authentication**: Select SQL Server Authentication.
 
