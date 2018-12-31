@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-September 2018
+December 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -25,16 +25,18 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 ## Contents
 
 - [Data Platform upgrade and migration before the hands-on lab setup guide](#data-platform-upgrade-and-migration-before-the-hands-on-lab-setup-guide)
-    - [Requirements](#requirements)
-    - [Before the hands-on lab](#before-the-hands-on-lab)
-        - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
-        - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
-        - [Task 3: Create SQL Server virtual machine](#task-3-create-sql-server-virtual-machine)
-        - [Task 4: Connect to the Lab VM](#task-4-connect-to-the-lab-vm)
-        - [Task 5: Add inbound port 1433 rule on the SqlServerDw VM network security group](#task-5-add-inbound-port-1433-rule-on-the-sqlserverdw-vm-network-security-group)
-        - [Task 6: Connect to the SqlServerDw VM](#task-6-connect-to-the-sqlserverdw-vm)
-        - [Task 7: Open port 1433 on the Windows Firewall of the SqlServerDw VM](#task-7-open-port-1433-on-the-windows-firewall-of-the-sqlserverdw-vm)
-        - [Task 8: Provision Azure SQL Database](#task-8-provision-azure-sql-database)
+  - [Requirements](#requirements)
+  - [Before the hands-on lab](#before-the-hands-on-lab)
+    - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
+    - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
+    - [Task 3: Create SQL Server 2017 virtual machine](#task-3-create-sql-server-2017-virtual-machine)
+    - [Task 4: Create SQL Server 2008 R2 virtual machine](#task-4-create-sql-server-2008-r2-virtual-machine)
+    - [Task 5: Connect to the Lab VM](#task-5-connect-to-the-lab-vm)
+    - [Task 6: Add inbound port 1433 rule on the SqlServer2008R2 VM network security group](#task-6-add-inbound-port-1433-rule-on-the-sqlserver2008r2-vm-network-security-group)
+    - [Task 7: Connect to the SqlServer2008R2 VM](#task-7-connect-to-the-sqlserver2008r2-vm)
+    - [Task 8: Provision Azure SQL Database](#task-8-provision-azure-sql-database)
+    - [Task 9: Register the Microsoft DataMigration resource provider](#task-9-register-the-microsoft-datamigration-resource-provider)
+    - [Task 10: Create Azure Database Migration Service](#task-10-create-azure-database-migration-service)
 
 # Data Platform upgrade and migration before the hands-on lab setup guide
 
@@ -56,7 +58,7 @@ Duration: 45 minutes
 
 In the Before the hands-on lab exercise, you will set up your environment for use in the rest of the hands-on lab. You should follow all the steps provided in the Before the hands-on lab section to prepare your environment **before attending** the hands-on lab. Failure to do so will significantly impact your ability to complete the lab within the time allowed.
 
->**Important**: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
+> **Important**: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
 
 ### Task 1: Provision a resource group
 
@@ -99,8 +101,8 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
     - Administrator Account:
 
-        - **Username**: Enter demouser.
-        - **Password**: Enter Password.1!!
+        - **Username**: Enter **demouser**.
+        - **Password**: Enter **Password.1!!**.
 
     - Inbound Port Rules
 
@@ -123,54 +125,104 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
 6. You can move on to the next task while waiting for the lab VM to provision.
 
-### Task 3: Create SQL Server virtual machine
+### Task 3: Create SQL Server 2017 virtual machine
 
-In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instances of both SQL Server 2008 R2 and SQL Server 2017. The VM will use the Windows Server 2012 R2 Datacenter image.
+In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instance of SQL Server 2017 Enterprise.
 
->**Note**:  An older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql server 2017" into the Search the Marketplace box, select **SQL Server 2017 Enterprise Windows Server 2016** from the results, and select **Create**
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "windows server 2012" into the Search the Marketplace box, select **Windows Server 2012 R2 Datacenter** from the results, and select **Create**
+    ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, sql server 2017 and SQL Server 2017 Enterprise Windows Server 2016 are highlighted.](./media/create-resource-sql-server-2017.png "Azure portal")
 
-    ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, windows server 2012 and Windows Server 2012 R2 Datacenter are highlighted.](./media/create-resource-windows-server-2012-r2-datacenter.png "Azure portal")
+2. On the Create virtual machine **Basics** tab, set the following configuration:
+
+    - **Name**: Enter SqlServer2017.
+    - **VM disk type**: Select Premium SSD.
+    - **Username**: Enter **demouser**.
+    - **Password**: Enter **Password.1!!**.
+    - **Subscription**: Select the subscription you are using for this hands-on lab.
+    - **Resource group**: Select the hands-on-lab-SUFFIX resource group.
+    - **Location**: Select the region you are using for resources in this hands-on lab.
+
+        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/sql-server-2017-create-vm-basics.png "Create SQL Server 2017 VM")
+
+3. On the Create virtual machine **Size** tab, select DS1_v2 on the Choose a size screen, and then click *Select**.
+
+    ![DS1_v2 is selectd on the Choose a size screen.](media/sql-server-2017-create-vm-size.png "Create SQL Server 2017 Size Tab")
+
+4. On the Create virtual machine **Settings** tab, set the following:
+
+    - **Select public inbound ports**: Select **RDP (3389)** in the list.
+    - Select **OK**.
+
+        ![In the Select public inbound ports dropdown, RDP (3389) is checked and highlighted.](media/sql-server-2017-create-vm-settings.png "Create SQL Server 2017 VM Settings Tab")
+
+5. On the Create virtual machine **SQL Server settings** tab, set the following properties:
+
+    - **SQL connectivity**: Select Public (Internet).
+    - **Port**: Leave set to 1433.
+    - **SQL Authentication**: Select Enable.
+    - **Login name**: Enter demouser.
+    - **Password**: Enter **Password.1!!**.
+    - Select **OK**.
+
+        ![The previously specified values are entered into the SQL Server Settings blade.](media/sql-server-2017-create-vm-sql-settings.png "Create SQL Server 2017 SQL Server Settings")
+
+6. On the Create virtual machine **Summary** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
+
+    ![The Summary tab is displayed, with a Validation passed message.](media/sql-server-2017-create-vm-summary.png "Create SQL Server 2017 VM Summary Tab")
+
+7. It may take 10+ minutes for the virtual machine to complete provisioning.
+
+8. You can move on to the next task while waiting for the SqlServer2017 VM to provision.
+
+### Task 4: Create SQL Server 2008 R2 virtual machine
+
+In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instance of SQL Server 2008 R2. The VM will use the SQL Server 2008 R2 SP3 Standard on Windows Server 2008 R2 image.
+
+> **Note**:  An older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
+
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql server 2008" into the Search the Marketplace box, select **SQL Server 2008 R2 SP3 Standard on Windows Server 2008 R2** from the results, and select **Create**.
+
+    ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, sql server 2008 and SQL Server 2008 R2 SP3 on Windows Server 2008 R2 are highlighted.](media/create-resource-sql-server-2008-r2.png "Create SQL Server 2008 R2 Resource")
 
 2. On the Create a virtual machine Basics tab, set the following configuration:
 
     - Project Details:
 
         - **Subscription**: Select the same subscription you are using for this hands-on lab.
-        - **Resource Group**: Choose Use existing, and select the hands-on-lab-SUFFIX resource group.
+        - **Resource Group**: Select the hands-on-lab-SUFFIX resource group.
 
     - Instance Details:
 
-        - **Virtual machine name**: Enter SqlServerDw.
+        - **Virtual machine name**: Enter SqlServer2008R2.
         - **Region**: Select the region you are using for resources in this hands-on lab.
         - **Availability options**: Select no infrastructure redundancy required.
-        - **Image**: Leave Windows Server 2012 R2 Datacenter selected.
-        - **Size**: Accept the default size, Standard DS1 v2.
+        - **Image**: Leave SQL Server 2008 R2 SP3 on Windows Server 2008 R2 selected.
+        - **Size**: Accept the default size, Standard DS12 v2.
 
     - Administrator Account:
 
-        - **Username**: Enter demouser.
-        - **Password**: Enter Password.1!!
+        - **Username**: Enter **demouser**.
+        - **Password**: Enter **Password.1!!**.
 
     - Inbound Port Rules
 
         - **Public inbound ports**: Choose Allow selected ports.
         - **Select inbound ports**: Select RDP (3389) in the list.
 
-        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/sql-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
+        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/sql-server-2008-r2-vm-basics-tab.png "Create a virtual machine Basics tab")
 
     - Select **Review + create** to move to the next step. Note, the remaining tabs can be skipped, and default values will be used.
 
 3. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
-    ![The Review + create tab is displayed, with a Validation passed message.](media/sql-virtual-machine-review-create-tab.png "Create a virtual machine Review + create tab")
+    ![The Review + create tab is displayed, with a Validation passed message.](media/sql-server-2008-r2-vm-review-create-tab.png "Create a virtual machine Review + create tab")
 
 4. It may take 10+ minutes for the virtual machine to complete provisioning.
 
-5. You can move on to the next task while waiting for the SqlServerDw VM to provision.
+5. You can move on to the next task while waiting for the SqlServer2008R2 VM to provision.
 
-### Task 4: Connect to the Lab VM
+### Task 5: Connect to the Lab VM
 
 In this task, you will create an RDP connection to your Lab virtual machine (VM), and disable Internet Explorer Enhanced Security Configuration.
 
@@ -217,21 +269,21 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 11. Close the Server Manager.
 
-### Task 5: Add inbound port 1433 rule on the SqlServerDw VM network security group
+### Task 6: Add inbound port 1433 rule on the SqlServer2008R2 VM network security group
 
-In this task, you will open port 1433 on the network security group associated with the SqlServerDw VM to allow communication with SQL Server.
+In this task, you will open port 1433 on the network security group associated with the SqlServer2008R2 VM to allow communication with SQL Server.
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the SqlServerDw VM.
+2. In the list of resources for your resource group, select the SqlServer2008R2 VM.
 
-    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServerDw is highlighted.](media/resource-group-resources-sqlserverdw.png "SqlServerDw VM in resource group list")
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008R2 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008R2 VM in resource group list")
 
-3. On the SqlServerDw blade, select **Networking** under Settings in the left-hand menu, and then select **Add inbound port rule**.
+3. On the SqlServer2008R2 blade, select **Networking** under Settings in the left-hand menu, and then select **Add inbound port rule**.
 
-    ![Add inbound port rule is highlighted on the SqlServerDw - Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "SqlServerDw - Networking blade")
+    ![Add inbound port rule is highlighted on the SqlServer2008R2 - Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "SqlServer2008R2 - Networking blade")
 
 4. On the **Add inbound security rule blade**, select **Basic** and then enter the following:
 
@@ -244,21 +296,21 @@ In this task, you will open port 1433 on the network security group associated w
 
 5. Select **Add**.
 
-### Task 6: Connect to the SqlServerDw VM
+### Task 7: Connect to the SqlServer2008R2 VM
 
-In this task, you will create an RDP connection to the SqlServerDw VM, and configure the server to be an application server. This is necessary to install the required .NET components on the server prior to installing SQL Server 2008 R2. You will also disable IE Enhanced Security Configuration, as you did on the Lab VM.
+In this task, you will create an RDP connection to the SqlServer2008R2 VM, and add rules to the SqlServer2008R2 VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the SqlServerDw VM.
+2. In the list of resources for your resource group, select the SqlServer2008R2 VM.
 
-    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServerDw is highlighted.](media/resource-group-resources-sqlserverdw.png "SqlServerDw VM in resource group list")
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008R2 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008R2 VM in resource group list")
 
-3. On the SqlServerDw blade, select Connect from the top menu.
+3. On the SqlServer2008R2 blade, select Connect from the top menu.
 
-    ![The SqlServerDw blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserverdw.png "Connect to SqlServerDw")
+    ![The SqlServer2008R2 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008R2")
 
 4. Select **Download RDP file**, then open the downloaded RDP file.
 
@@ -275,97 +327,45 @@ In this task, you will create an RDP connection to the SqlServerDw VM, and confi
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
-    ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserverdw.png "Remote Desktop Connection dialog")
+    ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserver2008r2.png "Remote Desktop Connection dialog")
 
-8. Once logged in, launch the **Server Manager**. This should start automatically, but you can access it via the Start menu if it does not start.
+8. Once logged in, launch the **Server Manager**. This should open automatically, but you can access it via the task bar or Start menu if it does not start.
 
-    ![The Server Manager tile is circled in the Start Menu.](./media/start-menu-server-manager.png "Server Manager tile in the Start menu")
+    ![The Server Manager tile is circled in the Start Menu's Administrative Tools menu, and in the task bar.](media/windows-server2008r2-start-menu.png "Windows Server 2008 R2 Start Menu")
 
-9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**.
+9. In Server Manager, select **Configure IE ESC** in the Security Information section of the Server Summary.
 
-    ![Screenshot of the Server Manager. In the left pane, Local Server is selected. In the right, Properties (For LabVM) pane, the IE Enhanced Security Configuration, which is set to On, is highlighted.](./media/windows-server-manager-ie-enhanced-security-configuration.png "Server Manager")
+    ![Configure IE ESC is highlighted in the Server Manager.](media/windows-server-2008r2-server-manager.png "Windows Server 2008 R2 Server Manager")
 
-10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off under Administrators**, then select **OK**.
+10. On the Internet Explorer Enhanced Security Configuration dialog, select **Off** under both Administrators and Users, and then select **OK**.
 
-    ![Screenshot of the Internet Explorer Enhanced Security Configuration dialog box, with Administrators set to Off.](./media/internet-explorer-enhanced-security-configuration-dialog.png "Internet Explorer Enhanced Security Configuration dialog box")
+    ![Internet Explorer Enhanced Security Configuration dialog, with Off highlighted under both Administrators and Users.](media/windows-server-2008-ie-esc.png "Internet Explorer Enhanced Security Configuration dialog")
 
-11. Back in the Server Manager, select **Dashboard** on the left-hand menu, then select **Add roles and features**.
+11. In Server Manager, expand **Configuration** and **Windows Firewall with Advanced Security**, and then right-click on **Inbound Rules** and select **New Rule...**
 
-    ![Add roles and features is highlighted on the Server Manager dashboard.](media/server-manager-dashboard-add-roles-and-features.png "Add roles and features")
+    ![In Server Manager, Configuration and Windows Firewall with Advanced Security are expanded, Inbound Rules is selected and New Rule is highlihgted in the pop-up menu.](media/windows-firewall-with-advanced-security-new-inbound-rule.png "Server Manager")
 
-12. Select **Next** on the Before You Begin screen.
+12. In the New Inbound Rule Wizard, under Rule Type, select **Port**, then select **Next**.
 
-13. Select **Role-based or feature-based installation** for the installation type, and select **Next**.
+    ![Rule Type is selected and highlighted on the left side of the New Inbound Rule Wizard, and Port is selected and highlighted on the right.](media/windows-2008-new-inbound-rule-wizard-rule-type.png "Select Port")
 
-    ![Role-based or feature-based installation is selected and highlighted under Select installation type.](./media/add-roles-and-features-wizard-select-installation-type.png "Select Role-based or feature-based installation ")
+13. In the Protocol and Ports dialog, use the default **TCP**, and enter **1433** in the Specific local ports text box, and then select **Next**.
 
-14. Accept the default selection on the Select destination server screen, and select **Next**.
+    ![Protocol and Ports is selected on the left side of the New Inbound Rule Wizard, and 1433 is in the Specific local ports box, which is selected on the right.](media/windows-2008-new-inbound-rule-wizard-protocol-and-ports.png "Select a specific local port")
 
-    ![Select a server from the server pool is selected on the Select a destination server screen, and the default value (SqlServerDW) appears in the Server Pool box.](./media/add-roles-and-features-wizard-select-destination-server.png "Accept the default selection")
+14. In the Action dialog, select **Allow the connection**, and then select **Next**.
 
-15. On the Select server roles screen, select **Application Server**, and select **Next**.
+    ![Action is selected on the left side of the New Inbound Rule Wizard, and Allow the connection is selected on the right.](media/windows-2008-new-inbound-rule-wizard-action.png "Specify the action")
 
-    ![Application Server is selected and highlighted on the Select server roles screen.](./media/add-roles-and-features-wizard-select-server-roles.png "Select Application Server")
+15. In the Profile step, check **Domain**, **Private**, and **Public**, then select **Next**.
 
-16. On the Select features screen, select **.NET Framework 3.5 Features**, then select **Next**.
+    ![Profile is selected on the left side of the New Inbound Rule Wizard, and Domain, Private, and Public are selected on the right.](media/windows-2008-new-inbound-rule-wizard-profile.png "Select Domain, Private, and Public")
 
-    ![NET Framework 3.5 Features is selected and highlighted on the Select features screen.](./media/add-roles-and-features-wizard-select-features.png "Select .NET Framework 3.5 Features")
+16. In the Name screen, enter **SqlServer** for the name, and select **Finish**.
 
-17. Select **Next** on the Application Server screen.
+    ![Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right.](media/windows-2008-new-inbound-rule-wizard-name.png "Specify the name")
 
-18. Accept the default values on the Select role services screen, and select **Next**.
-
-19. On the Confirm installation selections screen, check the **Restart the destination server automatically if required** check box, and select **Yes** on the restart confirmation dialog.
-
-20. Select **Install**. You may see a message about specifying an alternate source path. This can be ignored.
-
-    ![Restart the destination server automatically if required is selected and highlighted on the Confirm installation selections screen, and Install is highlighted at the bottom.](./media/add-roles-and-features-wizard-confirm-installation-selections.png "Confirm your installation selections")
-
-21. Close the Add Roles and Features Wizard, once the installation is completed.
-
-22. Close the Server Manager.
-
-### Task 7: Open port 1433 on the Windows Firewall of the SqlServerDw VM
-
-In this task, you will add rules to the SqlServerDw VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
-
-1. On the SqlServerDw VM, select **Start**.
-
-    ![The Start icon is highlighted on the VM taskbar.](media/windows-2012-r2-datacenter-startbar.png "Select Start")
-
-2. Then, select the **Search** icon in the top right-hand corner of the screen.
-
-    ![The Search icon is highlighted on the right side.](media/windows-2012-r2-datacenter-search-icon.png "Select Search")
-
-3. In the Search text box, enter `wf.msc`, then select **wf** from the list of results.
-
-    ![The wf icon is highlighted in the list of search results.](./media/windows-2012-r2-datacenter-search-wf-msc.png "Search on wf.msc")
-
-4. In the Windows Firewall with Advanced Security dialog, select, then right-click **Inbound Rules** in the left pane, then select **New Rule** in the action pane.
-
-    ![New Rule is highlighted in the submenu for Inbound Rules, which is selected in the left pane of the Windows Firewall with Advanced Security dialog box.](./media/windows-firewall-new-inbound-rule.png "Create a new Inbound Rule")
-
-5. In the New Inbound Rule Wizard, under Rule Type, select **Port**, then select **Next**.
-
-    ![Rule Type is selected and highlighted on the left side of the New Inbound Rule Wizard, and Port is selected and highlighted on the right.](./media/new-inbound-rule-wizard-rule-type.png "Select Port")
-
-6. In the Protocol and Ports dialog, use the default **TCP**, and enter **1433** in the Specific local ports text box, the select **Next**.
-
-    ![Protocol and Ports is selected on the left side of the New Inbound Rule Wizard, and 1433 is in the Specific local ports box, which is selected on the right.](./media/new-inbound-rule-wizard-protocol-and-ports.png "Select a specific local port")
-
-7. In the Action dialog, select **Allow the connection**, and select **Next**.
-
-    ![Action is selected on the left side of the New Inbound Rule Wizard, and Allow the connection is selected on the right.](./media/new-inbound-rule-wizard-action.png "Specify the action")
-
-8. In the Profile step, check **Domain**, **Private**, and **Public**, then select **Next**.
-
-    ![Profile is selected on the left side of the New Inbound Rule Wizard, and Domain, Private, and Public are selected on the right.](./media/new-inbound-rule-wizard-profile.png "Select Domain, Private, and Public")
-
-9. In the Name screen, enter **sqlserver**, and select **Finish**.
-
-    ![Profile is selected on the left side of the New Inbound Rule Wizard, and sqlserver is in the Name box on the right.](./media/new-inbound-rule-wizard-name.png "Specify the name")
-
-10. Close the Windows Firewall with Advanced Security window.
+17. Close the Server Manager.
 
 ### Task 8: Provision Azure SQL Database
 
@@ -406,5 +406,47 @@ In this task, you will create an Azure SQL Database, which will server as the ta
 3. Select **Create**.
 
     > **Note**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
-    
+
+### Task 9: Register the Microsoft DataMigration resource provider
+
+In this task, you will register the Microsoft.DataMigration resource provider with your subscription in Azure.
+
+1. In the [Azure portal](https://portal.azure.com), select **All services** from the Azure navigation pane, and then select **Subscriptions**.
+
+    ![All services is highlighted in the Azure navigation pane, and Subscriptions is highlighted in the All services blade.](media/azure-portal-all-services-subscriptions.png "Azure All services blade")
+
+2. Select the subscription you are using for this hands-on lab from the list, select **Resource providers**, enter "migration" into the filter box, and then select **Register** next to **Microsoft.DataMigration**.
+
+    ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](media/azure-portal-subscriptions-resource-providers-register-microsoft-datamigration.png "Resource provider registration")
+
+### Task 10: Create Azure Database Migration Service
+
+In this task, you will provision an instance of the Azure Database Migration Service (DMS).
+
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "database migration" into the Search the Marketplace box, select **Azure Database Migration Service** from the results, and select **Create**.
+
+    ![+Create a resource is selected in the Azure navigation pane, and "database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](media/create-resource-azure-database-migration-service.png "Create Azure Database Migration Service")
+
+2. On the Create Migration Service blade, enter the following:
+
+    - **Service Name**: Enter wwi-dms.
+
+    - **Subscription**: Select the same subscription you are using for this hands-on lab.
+
+        >**Note**:  If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
+
+    - **Resource Group**: Select the hands-on-lab-SUFFIX resource group.
+
+    - **Location**: Select the location you are using for resources in this hands-on lab.
+
+    - **Virtual network**: Create a new virtual network by entering **wwi-dms-vnet** into the Virtual network name field and then select **OK**.
+
+    - **Pricing tier**: Select Standard: 1 vCores.
+
+        ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](media/create-migration-service.png "Create Migration Service")
+
+3. Select **Create**.
+
+4. It can take 15 minutes to deploy the Azure Data Migration Service.
+
 You should follow all steps provided *before* performing the Hands-on lab.
