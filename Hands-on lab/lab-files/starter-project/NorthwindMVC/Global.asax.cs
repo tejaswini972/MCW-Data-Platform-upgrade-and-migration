@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
+using Unity;
 
 namespace NorthwindMVC
 {
@@ -17,6 +17,6 @@ namespace NorthwindMVC
             UnityConfig.RegisterTypes(DependencyContainer);
         }
 
-        public static IUnityContainer DependencyContainer { get; set; } = UnityConfig.GetConfiguredContainer();
+        public static IUnityContainer DependencyContainer { get; set; } = UnityConfig.Container;
     }
 }

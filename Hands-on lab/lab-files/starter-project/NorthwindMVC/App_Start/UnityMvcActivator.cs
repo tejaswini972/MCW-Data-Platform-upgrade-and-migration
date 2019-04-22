@@ -1,31 +1,37 @@
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.Practices.Unity.Mvc;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NorthwindMVC.UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NorthwindMVC.UnityWebActivator), "Shutdown")]
+using Unity.AspNet.Mvc;
+
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NorthwindMVC.UnityMvcActivator), nameof(NorthwindMVC.UnityMvcActivator.Start))]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NorthwindMVC.UnityMvcActivator), nameof(NorthwindMVC.UnityMvcActivator.Shutdown))]
 
 namespace NorthwindMVC
 {
-    public static class UnityWebActivator
+    /// <summary>
+    /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.
+    /// </summary>
+    public static class UnityMvcActivator
     {
+        /// <summary>
+        /// Integrates Unity when the application starts.
+        /// </summary>
         public static void Start() 
         {
-            var container = UnityConfig.GetConfiguredContainer();
-
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(UnityConfig.Container));
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            DependencyResolver.SetResolver(new UnityDependencyResolver(UnityConfig.Container));
 
             Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
-        
+
+        /// <summary>
+        /// Disposes the Unity container when the application is shut down.
+        /// </summary>
         public static void Shutdown()
         {
-            var container = UnityConfig.GetConfiguredContainer();
-
-            container.Dispose();
+            UnityConfig.Container.Dispose();
         }
     }
 }
