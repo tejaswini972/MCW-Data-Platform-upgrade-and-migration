@@ -1,5 +1,5 @@
 
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Data Platform upgrade and migration
@@ -25,16 +25,17 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 **Contents**
 
-- [Abstract](#abstract)
-- [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-  - [Customer situation](#customer-situation)
-  - [Customer needs](#customer-needs)
-  - [Customer objections](#customer-objections)
-  - [Infographic for common scenarios](#infographic-for-common-scenarios)
-- [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-- [Step 3: Present the solution](#step-3-present-the-solution)
-- [Wrap-up](#wrap-up)
-- [Additional references](#additional-references)
+- [Data Platform upgrade and migration whiteboard design session student guide](#data-platform-upgrade-and-migration-whiteboard-design-session-student-guide)
+  - [Abstract](#abstract)
+  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+    - [Customer situation](#customer-situation)
+    - [Customer needs](#customer-needs)
+    - [Customer objections](#customer-objections)
+    - [Infographic for common scenarios](#infographic-for-common-scenarios)
+  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+  - [Step 3: Present the solution](#step-3-present-the-solution)
+  - [Wrap-up](#wrap-up)
+  - [Additional references](#additional-references)
 
 # Data Platform upgrade and migration whiteboard design session student guide
 
@@ -74,7 +75,7 @@ WWI also loads the Oracle database into a Microsoft SQL Server 2008 R2 Standard 
 
 Before WWI invests in this project, they want a proof of concept that encompasses these touch points and proves that it can be successful.
 
-WWI also has a new requirement. They have an existing web service that interacts with a vendor to get the latest certifications of that vendor's products. The JSON parser sometimes fails and they can't figure out why. They'd like to store the initial, unparsed JSON in a table for troubleshooting purposes. They want to query the JSON data by date or other identifying pieces of the JSON that might be available for troubleshooting and are interested in learning more about the best way to do that.
+WWI also has a new requirement. They have an existing web service that interacts with a vendor to get the latest certifications of that vendor's products. The JSON parser sometimes fails and they can't figure out why. They'd like to store the initial, unparsed JSON in a table for troubleshooting purposes. They want to query the JSON data by date or other identifying pieces of the JSON that might be available for troubleshooting, and are interested in learning more about the best way to do that.
 
 Also, they had a significant outage last year because one of their audit tables ran out of space. They had to wait many hours to resolve the issue while their IT department scrambled to make space on an already overloaded Storage Area Network (SAN). They would like a full briefing on how to monitor that situation, so it doesn't happen again, and possible remedies if it does happen again. They would also like high availability to be built into the project plan and are wondering what additional fees that would incur.
 
@@ -88,11 +89,11 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 3. Wants a better understanding on what to do with the internal Oracle Forms application.
 
-4. Has multiple touch points with external vendors and needs to know what needs to change with those web services.
+4. Has multiple touch points with external vendors and wants to know what needs to change with those web services.
 
 5. Wants to upgrade their existing data warehouse from SQL Server 2008 R2 Standard Edition to Azure SQL Database or SQL Server 2017 Enterprise Edition to take advantage of some new features:
 
-    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
+    - They want Transparent Data Encryption (TDE), so they pass audits when asked if they encrypt data at rest.
     - They want compression for some of their large fact tables.
     - They want to implement SSRS mobile reporting.
     - They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
@@ -102,7 +103,7 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 7. Have a new requirement on what to do with JSON data.
 
-8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
+8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and what your solution would be.
 
 9. As a follow up, they'd also like to know how to answer the Oracle DBA's allegation that SQL Server doesn't have an answer for Oracle RAC.
 
@@ -184,7 +185,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *Data warehouse and reporting*
 
-1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
+1. How can they discover which reports and Excel spreadsheets hitting the Oracle database need to be upgraded? What's a proper upgrade path?
 
 2. What must change about the way WWI loads their data warehouse?
 
@@ -273,4 +274,3 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | Azure Database Migration Service Overview | <https://docs.microsoft.com/azure/dms/dms-overview> |
 | SQL Server database migration to Azure SQL Database | <https://docs.microsoft.com/en-us/azure/sql-database/sql-database-cloud-migrate> |
 | Differentiating Microsoft's database migration tools | <https://blogs.msdn.microsoft.com/datamigration/2017/10/13/differentiating-microsofts-database-migration-tools-and-services/> |
-|
