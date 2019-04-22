@@ -4,7 +4,7 @@ World Wide Importers has experienced significant growth in the last few years. I
 
 Their CIO has recently read about new performance enhancements of Azure SQL Database and SQL Server 2017. She is excited about the potential performance improvements related to clustered ColumnStore indexes. She is also hoping that table compression will improve performance and backup times.
 
-The company is concerned about upgrading their database to Azure SQL Database or SQL Server 2017. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. They want assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of Azure SQL Database or SQL Server 2017.
+The company is concerned about upgrading their database to Azure SQL Database or SQL Server 2017. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. They are looking for assurance that if they upgrade the data store, it won’t run into any incompatibilities with the storage engine of Azure SQL Database or SQL Server 2017.
 
 The CIO would like a proof of concept of a data warehouse move, as well as proof that the new technology will help ETL and query performance.
 
