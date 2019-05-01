@@ -128,7 +128,7 @@ In this task, you will create an RDP connection to the SqlServer2008R2 VM.
 
 6. Enter the following credentials when prompted:
 
-    - **User name**: demouser
+    - **Username**: demouser
     - **Password**: Password.1!!
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
@@ -328,7 +328,7 @@ In this task, you will create an RDP connection to the SqlServer2017 VM.
 
 6. Enter the following credentials when prompted:
 
-    - **User name**: demouser
+    - **Username**: demouser
     - **Password**: Password.1!!
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
@@ -582,7 +582,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
     - **Source SQL Server instance name**: Enter the IP address of your SqlServer2008R2 VM. For example, `40.84.6.199`.
     - **Authentication type**: Select SQL Authentication.
-    - **User Name**: Enter **sa**
+    - **Username**: Enter **sa**
     - **Password**: Enter **Password.1!!**
     - **Connection properties**: Check both Encrypt connection and Trust server certificate.
 
@@ -606,7 +606,7 @@ In this task, you will create a new migration project for the WorldWideImporters
             ![On the SQL database Overview blade, the Server name is highlighted.](media/azure-sql-database-servername.png "SQL Database Overview")
 
     - **Authentication type**: Select SQL Authentication.
-    - **User Name**: Enter **demouser**
+    - **Username**: Enter **demouser**
     - **Password**: Enter **Password.1!!**
     - **Connection properties**: Check Encrypt connection.
 
@@ -877,7 +877,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 1. Connect to your Lab VM, as you did in Task 5 of the [Before the Hands-on Lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md#task-5-connect-to-the-lab-vm) exercise.
 
-    - **User name**: demouser
+    - **Username**: demouser
     - **Password**: Password.1!!
 
 2. In a web browser on your Lab VM, navigate to <https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/xe-prior-releases-5172097.html>.
@@ -1108,7 +1108,7 @@ WWI has provided you with a copy of their application, including a database scri
 
 22. In the Modify Connection dialog, change the username and password as follows:
 
-    - **User name**: NW
+    - **Username**: NW
     - **Password**: oracledemo123
 
 23. Select **Test Connection** to verify the new credentials work.
@@ -1212,7 +1212,7 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
     - **Server name**: Enter localhost.
     - **Server port**: Set to 1521.
     - **Oracle SID**: Enter XE.
-    - **User name**: Enter NW.
+    - **Username**: Enter NW.
     - **Password**: Enter oracledemo123
 
     ![The information above is entered in the Connect to Oracle dialog box, and Connect is selected at the bottom.](./media/ssma-connect-to-oracle.png "Specify the settings")
@@ -1419,7 +1419,7 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
         - **Server name**: localhost
         - **Server port**: 1521
         - **Oracle SID**: XE
-        - **User name**: NW
+        - **Username**: NW
         - **Password**: oracledemo123
 
     - The SQL Server credentials are:
@@ -1593,7 +1593,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
     - **Data source**: Leave Microsoft SQL Server (SqlClient).
     - **Server name**: Enter the IP address of your SqlServer2017 VM.
     - **Authentication**: Select SQL Server Authentication.
-    - **User name**: Enter sa
+    - **Username**: Enter sa
     - **Password**: Enter Password.1!!
     - **Connect to a database**: Choose Select or enter database name, and enter Northwind.
     - Select **Test Connection** to verify your settings are correct, and select **OK** to close the successful connection dialog.
@@ -1622,7 +1622,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
 
     ![The Start button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
 
-30. Verify the graph is showing correctly on the Northwind traders dashboard.
+30. Verify the graph is showing correctly on the Northwind Traders dashboard.
 
     ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
 
