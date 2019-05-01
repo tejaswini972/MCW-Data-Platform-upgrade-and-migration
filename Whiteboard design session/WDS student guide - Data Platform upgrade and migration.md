@@ -201,7 +201,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *High Availability and Audit Table*
 
-1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
+1. If our solution were SQL Server, what could WWI have done with the audit table when it filled up?
 
 2. What are the SQL Server options for high availability?
 
