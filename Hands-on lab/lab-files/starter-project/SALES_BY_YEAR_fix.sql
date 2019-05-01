@@ -1,4 +1,4 @@
-﻿USE [NorthwindMigration]
+﻿USE [Northwind]
 GO
 /****** Object:  StoredProcedure [NW].[SALESBYYEAR]    Script Date: 1/25/2017 9:34:59 ******/
 SET ANSI_NULLS ON

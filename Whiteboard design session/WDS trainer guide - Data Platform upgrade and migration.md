@@ -1,5 +1,5 @@
 
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Data Platform upgrade and migration
@@ -10,7 +10,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-December 2018
+April 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -19,32 +19,33 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
 ## Contents
 
+- [Data Platform upgrade and migration whiteboard design session trainer guide](#data-platform-upgrade-and-migration-whiteboard-design-session-trainer-guide)
 - [Trainer information](#trainer-information)
   - [Role of the trainer](#role-of-the-trainer)
   - [Whiteboard design session flow](#whiteboard-design-session-flow)
   - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
   - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
 - [Data Platform upgrade and migration whiteboard design session student guide](#data-platform-upgrade-and-migration-whiteboard-design-session-student-guide)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Abstract](#abstract)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
     - [Customer situation](#customer-situation)
     - [Customer needs](#customer-needs)
     - [Customer objections](#customer-objections)
-    - [Infographic of common scenarios](#infographic-of-common-scenarios)
+    - [Infographic for common scenarios](#infographic-for-common-scenarios)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
   - [Step 3: Present the solution](#step-3-present-the-solution)
   - [Wrap-up](#wrap-up)
   - [Additional references](#additional-references)
-- [Data Platform upgrade and migration whiteboard design session trainer guide](#data-platform-upgrade-and-migration-whiteboard-design-session-trainer-guide)
+- [Data Platform upgrade and migration whiteboard design session trainer guide](#data-platform-upgrade-and-migration-whiteboard-design-session-trainer-guide-1)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
   - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
-  - [Step 3: Present the solution](#step-3-present-the-solution-2)
+  - [Step 3: Present the solution](#step-3-present-the-solution-1)
   - [Wrap-up](#wrap-up-1)
   - [Preferred target audience](#preferred-target-audience)
   - [Preferred solution](#preferred-solution)
@@ -217,11 +218,11 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 3. Wants a better understanding on what to do with the internal Oracle Forms application.
 
-4. Has multiple touch points with external vendors and needs to know what needs to change with those web services.
+4. Has multiple touch points with external vendors and wants to know what needs to change with those web services.
 
 5. Wants to upgrade their existing data warehouse from SQL Server 2008 R2 Standard Edition to Azure SQL Database or SQL Server 2017 Enterprise Edition to take advantage of some new features:
 
-    - They want Transparent Data Encryption, so they pass audits when asked if they encrypt data at rest.
+    - They want Transparent Data Encryption (TDE), so they pass audits when asked if they encrypt data at rest.
     - They want compression for some of their large fact tables.
     - They want to implement SSRS mobile reporting.
     - They heard about in-memory structures and are wondering if they can benefit from those. They aren't entirely sure how it is different from what they are using now.
@@ -231,7 +232,7 @@ Kathleen Sloan, the CIO of WWI, is looking to decrease their software license fe
 
 7. Have a new requirement on what to do with JSON data.
 
-8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and you're your solution would be.
+8. Had an outage last year and is hyper concerned with not repeating that experience. The audit table filled up and they ran out of disk space. They'd like to know what would have happened if SQL Server experienced the same issue and what your solution would be.
 
 9. As a follow up, they'd also like to know how to answer the Oracle DBA's allegation that SQL Server doesn't have an answer for Oracle RAC.
 
@@ -313,7 +314,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *Data warehouse and reporting*
 
-1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
+1. How can they discover which reports and Excel spreadsheets hitting the Oracle database need to be upgraded? What's a proper upgrade path?
 
 2. What must change about the way WWI loads their data warehouse?
 
@@ -329,7 +330,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *High Availability and Audit Table*
 
-1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
+1. If our solution were SQL Server, what could WWI have done with the audit table when it filled up?
 
 2. What are the SQL Server options for high availability?
 
@@ -402,7 +403,6 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | Azure Database Migration Service Overview | <https://docs.microsoft.com/azure/dms/dms-overview> |
 | SQL Server database migration to Azure SQL Database | <https://docs.microsoft.com/en-us/azure/sql-database/sql-database-cloud-migrate> |
 | Differentiating Microsoft's database migration tools | <https://blogs.msdn.microsoft.com/datamigration/2017/10/13/differentiating-microsofts-database-migration-tools-and-services/> |
-|
 
 # Data Platform upgrade and migration whiteboard design session trainer guide
 
@@ -555,13 +555,13 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 3. What will you do about the vendor touch points? How will you recommend they store the JSON data? The REST services need to be approached the same way the MVC store front application is approached. If they've used an ORM, then we can just repoint the connectionStrings and redeployed.
 
-    JSON data can be stored in a varchar field in SQL Server and managed through the JSON functions of SQL Server 2017. They can be queried and indexed through the JSON features, also.
+    JSON data can be stored in a `varchar` field in SQL Server and managed through the JSON functions of SQL Server 2017. They can be queried and indexed through the JSON features, also.
 
     The REST services need to be approached the same way the MVC store front application is approached. If they've used an ORM, then it is likely we can repoint the connectionStrings and redeploy.
 
 *Data warehouse and reporting*
 
-1. How can they discover what reports and Excel spreadsheets that hit the Oracle database need to be upgraded? What's a proper upgrade path?
+1. How can they discover which reports and Excel spreadsheets hitting the Oracle database need to be upgraded? What's a proper upgrade path?
 
    There's an Oracle Profiler API that can be used to store trace information into tables. These tables can be queried to see if we've identified all reports and artifacts that we need to upgrade.
 
@@ -602,7 +602,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
     Microsoft's Data Migration Assistant can be used to upgrade the SQL Server Data Warehouse. That tool can not only upgrade the data and schema in the database, but the SSIS database (if there is one), SQL Logins, SQL Agent Jobs, and SSIS packages.
 
-    SQL Server Migration Assistant supports complete migration from Oracle, MySQL, SAP, ASE, DB2, and Access to SQL Server 2008+ and Azure SQL Database, allowing usings to convert a database schema to a Microsoft SQL Server schema, upload the schema, and then migrate data to the target SQL Server.
+    SQL Server Migration Assistant supports complete migration from Oracle, MySQL, SAP, ASE, DB2, and Access to SQL Server 2008+ and Azure SQL Database, allowing users to convert a database schema to a Microsoft SQL Server schema, upload the schema, and then migrate data to the target SQL Server.
 
     When doing the assessment, WWI can choose which Compatibility Level they want to target- so they don't need to jump all the way forward to the very latest level right away. This can help reduce the number of blocking issues they need to address manually before starting the migration.
 
@@ -615,7 +615,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
     - Create a migration project specifying the source database(s), target database(s), and tables to migrate.
     - Initiate the full load.
     - Pick the subsequent validation.
-    - Perform a manual switchover of your production environment to the new cloud-based database.
+    - Perform a manual switch-over of your production environment to the new cloud-based database.
 
 7. What are the post upgrade steps we should consider in the POC? How would this address their concerns?
 
@@ -635,7 +635,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 *High Availability and Audit Table*
 
-1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
+1. If our solution were SQL Server, what could WWI have done with the audit table when it filled up?
 
     Implement SQL Server Stretch Database to grow the audit table while we worked on a long-term solution.
 
@@ -661,7 +661,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
     This is a perfectly acceptable option. If we do, we might consider using AlwaysOn, and creating a copy of the data in Azure as an AlwaysOn Secondary. This would keep an active, current copy of the data in the cloud that we could use for Power BI, other Azure-based applications, or as part of a future Azure migration.
 
-    Other on-premises applications might keep them on-premises until they can figure out how to move those applications to the cloud. It depends on the integration touchpoints, network latency needs, and reliable internet connectivity for all offices.
+    Other on-premises applications might keep them on-premises until they can figure out how to move those applications to the cloud. It depends on the integration touch-points, network latency needs, and reliable internet connectivity for all offices.
 
 2. Is there any benefit to going straight to Microsoft Azure? Does Azure SQL Database take care of all of their requirements?
 
@@ -710,7 +710,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 6. Do we need to invest in a JSON storage system for the JSON data we're storing from our vendor's web service?
 
-    JSON data can be stored in SQL Server as a varchar field. It can be queried and indexed using JSON keywords in T-SQL. It can be queried and flattened to be used in an SSRS report of bad data that didn't parse when we processed it with the web service (a customer concern they mentioned having previously).
+    JSON data can be stored in SQL Server as a `varchar` field. It can be queried and indexed using JSON keywords in T-SQL. It can be queried and flattened to be used in an SSRS report of bad data that didn't parse when we processed it with the web service (a customer concern they mentioned having previously).
 
 7. What will we do if our audit logs fill up again? Will SQL Server crash the same way Oracle did?
 
