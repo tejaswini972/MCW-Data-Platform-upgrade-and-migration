@@ -330,7 +330,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *High Availability and Audit Table*
 
-1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
+1. If our solution were SQL Server, what could WWI have done with the audit table when it filled up?
 
 2. What are the SQL Server options for high availability?
 
@@ -602,7 +602,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
     Microsoft's Data Migration Assistant can be used to upgrade the SQL Server Data Warehouse. That tool can not only upgrade the data and schema in the database, but the SSIS database (if there is one), SQL Logins, SQL Agent Jobs, and SSIS packages.
 
-    SQL Server Migration Assistant supports complete migration from Oracle, MySQL, SAP, ASE, DB2, and Access to SQL Server 2008+ and Azure SQL Database, allowing usings to convert a database schema to a Microsoft SQL Server schema, upload the schema, and then migrate data to the target SQL Server.
+    SQL Server Migration Assistant supports complete migration from Oracle, MySQL, SAP, ASE, DB2, and Access to SQL Server 2008+ and Azure SQL Database, allowing users to convert a database schema to a Microsoft SQL Server schema, upload the schema, and then migrate data to the target SQL Server.
 
     When doing the assessment, WWI can choose which Compatibility Level they want to target- so they don't need to jump all the way forward to the very latest level right away. This can help reduce the number of blocking issues they need to address manually before starting the migration.
 
@@ -635,7 +635,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 *High Availability and Audit Table*
 
-1. If our solution was SQL Server, what could WWI have done with the audit table when it filled up?
+1. If our solution were SQL Server, what could WWI have done with the audit table when it filled up?
 
     Implement SQL Server Stretch Database to grow the audit table while we worked on a long-term solution.
 
