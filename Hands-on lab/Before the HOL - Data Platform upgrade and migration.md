@@ -270,7 +270,7 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 6. Enter the following credentials when prompted:
 
-    - **User name**: demouser
+    - **Username**: demouser
     - **Password**: Password.1!!
 
 7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
@@ -336,7 +336,7 @@ In this task, you will create an RDP connection to the SqlServer2008R2 VM, and a
 
 4. Enter the following credentials when prompted:
 
-    - **User name**: demouser
+    - **Username**: demouser
     - **Password**: Password.1!!
 
 5. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
