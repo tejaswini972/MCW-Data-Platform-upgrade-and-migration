@@ -30,11 +30,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
   - [Exercise 1: Configure SQL Server instances](#exercise-1-configure-sql-server-instances)
-    - [Task 1: Connect to the SqlServer2008R2 VM](#task-1-connect-to-the-sqlserver2008r2-vm)
+    - [Task 1: Connect to the SqlServer2008 VM](#task-1-connect-to-the-sqlserver2008-vm)
     - [Task 2: Enable SQL Server Mixed Authentication](#task-2-enable-sql-server-mixed-authentication)
     - [Task 3: Install AdventureWorks sample database](#task-3-install-adventureworks-sample-database)
     - [Task 4: Update SQL Server settings using Configuration Manager](#task-4-update-sql-server-settings-using-configuration-manager)
-    - [Task 5: Copy the SqlServer2008R2 VM IP address](#task-5-copy-the-sqlserver2008r2-vm-ip-address)
+    - [Task 5: Copy the SqlServer2008 VM IP address](#task-5-copy-the-sqlserver2008-vm-ip-address)
     - [Task 6: Connect to the SqlServer2017 VM](#task-6-connect-to-the-sqlserver2017-vm)
     - [Task 7: Change the SA password](#task-7-change-the-sa-password)
     - [Task 8: Update SQL Server settings using Configuration Manager 2017](#task-8-update-sql-server-settings-using-configuration-manager-2017)
@@ -100,23 +100,23 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
 
 Duration: 45 minutes
 
-In this exercise, you will configure SQL Server 2008 R2 on the SqlServer2008R2 VM. The database on this VM will act as the customer's existing "on-premises" database for this hands-on lab.
+In this exercise, you will configure SQL Server 2008 R2 on the SqlServer2008 VM. The database on this VM will act as the customer's existing "on-premises" database for this hands-on lab.
 
-### Task 1: Connect to the SqlServer2008R2 VM
+### Task 1: Connect to the SqlServer2008 VM
 
-In this task, you will create an RDP connection to the SqlServer2008R2 VM.
+In this task, you will create an RDP connection to the SqlServer2008 VM.
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the SqlServer2008R2 VM.
+2. In the list of resources for your resource group, select the SqlServer2008 VM.
 
-    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008R2 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008R2 VM in resource group list")
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008 VM in resource group list")
 
-3. On the SqlServer2008R2 blade, select Connect from the top menu.
+3. On the SqlServer2008 blade, select Connect from the top menu.
 
-    ![The SqlServer2008R2 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008R2")
+    ![The SqlServer2008 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008")
 
 4. Select **Download RDP file**, then open the downloaded RDP file.
 
@@ -139,7 +139,7 @@ In this task, you will create an RDP connection to the SqlServer2008R2 VM.
 
 In this task, you will turn on SQL Server Mixed Authentication, and change the `sa` password to **Password.1!!**.
 
-1. On the SqlServer2008R2 VM, open SQL Server Management Studio 2017 (SSMS) by selecting it from the start menu, under All Programs -> Microsoft SQL Server Tools 17.
+1. On the SqlServer2008 VM, open SQL Server Management Studio 2017 (SSMS) by selecting it from the start menu, under All Programs -> Microsoft SQL Server Tools 17.
 
     ![Microsoft SQL Server Management Tools 17 (SSMS) is highlighted in the start menu.](media/windows-2008-start-menu-ssms.png "Windows 2008 Start Menu")
 
@@ -186,9 +186,9 @@ In this task, you will turn on SQL Server Mixed Authentication, and change the `
 
 ### Task 3: Install AdventureWorks sample database
 
-In this task, you will install the AdventureWorks database in SQL 2008 R2. It will act as the "on-premises" data warehouse database that you will migrate to Azure SQL Database.
+In this task, you will install the AdventureWorks database in SQL Server 2008 R2. It will act as the "on-premises" data warehouse database that you will migrate to Azure SQL Database.
 
-1. On the SqlServer2008R2 VM, open a web browser, and navigate to the GitHub site containing the sample AdventureWorks 2008 R2 database at <https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2>.
+1. On the SqlServer2008 VM, open a web browser, and navigate to the GitHub site containing the sample AdventureWorks 2008 R2 database at <https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks2008r2>.
 
 2. Scroll down under Assets, and select `adventure-works-2008r2-dw.script.zip`.
 
@@ -256,7 +256,7 @@ In this task, you will install the AdventureWorks database in SQL 2008 R2. It wi
 
 In this task, you will update the SQL Server service accounts and other settings associated with the SQL Server instance installed on the VM.
 
-1. From the Start Menu on your SqlServer2008R2 VM, search for **SQL Server Config**, then select **SQL Server Configuration Manager** from the search results.
+1. From the Start Menu on your SqlServer2008 VM, search for **SQL Server Config**, then select **SQL Server Configuration Manager** from the search results.
 
     ![SQL Server Configuration Manager is selected and highlighted in the search results.](media/windows-server-2008-search-sql-server-config.png "Select SQL Server Configuration Manager")
 
@@ -292,15 +292,15 @@ In this task, you will update the SQL Server service accounts and other settings
 
 10. Close the SQL Server Configuration Manager.
 
-### Task 5: Copy the SqlServer2008R2 VM IP address
+### Task 5: Copy the SqlServer2008 VM IP address
 
 In this task, you will copy the IP address for later reference.
 
-1. In the [Azure portal](https://portal.azure.com), navigate to your SqlServer2008R2 VM.
+1. In the [Azure portal](https://portal.azure.com), navigate to your SqlServer2008 VM.
 
-2. On the SqlServer2008R2 overview blade, select the copy button next to the Public IP address value, and paste the value into a text editor, such as Notepad, for later reference.
+2. On the SqlServer2008 overview blade, select the copy button next to the Public IP address value, and paste the value into a text editor, such as Notepad, for later reference.
 
-    ![On the SqlServer2008R2 VM Overview blade, the Public IP address is highlighted.](media/sql-virtual-machine-overview-blade-ip-address.png "Virtual machine Overview")
+    ![On the SqlServer2008 VM Overview blade, the Public IP address is highlighted.](media/sql-virtual-machine-overview-blade-ip-address.png "Virtual machine Overview")
 
 ### Task 6: Connect to the SqlServer2017 VM
 
@@ -422,7 +422,7 @@ World Wide Importers would like a Proof of Concept (POC) that moves their data w
 
 World Wide Importers would like an assessment to see what potential issues they would have to address in moving their database to Azure SQL Database.
 
-1. On the SqlServer2008R2 VM, select the **Download** button on the [Data Migration Assistant v4.x](https://www.microsoft.com/download/details.aspx?id=53595) page, and run the downloaded installer.
+1. On the SqlServer2008 VM, select the **Download** button on the [Data Migration Assistant v4.x](https://www.microsoft.com/download/details.aspx?id=53595) page, and run the downloaded installer.
 
 2. Select **Next** on each of the screens, accepting to the license terms and privacy policy in the process.
 
@@ -454,13 +454,13 @@ World Wide Importers would like an assessment to see what potential issues they 
 
     ![Check database compatibility and Check feature parity are selected and highlighted on the Options screen.](./media/data-migration-assistant-options.png "Select the report types")
 
-8. In the **Connect to a server** dialog on the **Select sources** tab, enter `SQLSERVER2008R2` into the Server name box, and **uncheck Encrypt connection**, then select **Connect**.
+8. In the **Connect to a server** dialog on the **Select sources** tab, enter `SQLSERVER2008` into the Server name box, and **uncheck Encrypt connection**, then select **Connect**.
 
-    ![In the Connect to a server dialog box, SQLSERVER2008R2 is highlighted in the Server name box, and Encrypt connection is unchecked and highlighted below that in the Connect to a server dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008.png "Enter information in the Connect to a server dialog box")
+    ![In the Connect to a server dialog box, SQLSERVER2008 is highlighted in the Server name box, and Encrypt connection is unchecked and highlighted below that in the Connect to a server dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008.png "Enter information in the Connect to a server dialog box")
 
 9. In the **Add sources** dialog that appears, check the box next to **WorldWideImporters**, and select **Add**.
 
-    ![WorldWideImporters is selected and highlighted under SQLSERVER2008R2 in the Add sources dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008-worldwideimporters.png "Select WorldWideImporters")
+    ![WorldWideImporters is selected and highlighted under SQLSERVER2008 in the Add sources dialog box.](./media/data-migration-assistant-select-sources-sqlserver2008-worldwideimporters.png "Select WorldWideImporters")
 
 10. Select **Start Assessment**.
 
@@ -474,7 +474,7 @@ World Wide Importers would like an assessment to see what potential issues they 
 
 After you have reviewed the assessment results and you have ensured the database is a candidate for migration to Azure SQL Database, use the Data Migration Assistant to migrate the schema to Azure SQL Database.
 
-1. On the SqlServer2008R2 VM, return to the Data Migration Assistant, and select the New **(+)** icon in the left-hand menu.
+1. On the SqlServer2008 VM, return to the Data Migration Assistant, and select the New **(+)** icon in the left-hand menu.
 
 2. In the New project dialog, enter the following:
 
@@ -494,7 +494,7 @@ After you have reviewed the assessment results and you have ensured the database
 
 3. In the **Select source** tab, enter the following:
 
-    - **Server name**: Enter SQLSERVER2008R2.
+    - **Server name**: Enter SQLSERVER2008.
 
     - **Authentication type**: Leave Windows Authentication selected.
 
@@ -546,7 +546,7 @@ After you have reviewed the assessment results and you have ensured the database
 
     ![The schema deployment results are displayed, with 226 commands executed and 0 errors highlighted.](media/data-migration-assistant-migration-deployment-results.png "Schema deployment results")
 
-11. Next, open SSMS on the SqlServer2008R2 VM, and connect to your Azure SQL Database, by selecting **Connect->Database Engine** in the Object Explorer, and then entering the server name and credentials into the Connect to Server dialog.
+11. Next, open SSMS on the SqlServer2008 VM, and connect to your Azure SQL Database, by selecting **Connect->Database Engine** in the Object Explorer, and then entering the server name and credentials into the Connect to Server dialog.
 
     ![The SSMS Connect to Server dialog is displayed, with the Azure SQL Database name specified, SQL Server Authentication selected, and the demouser credentials entered.](media/ssms-connect-azure-sql-database.png "Connect to Server")
 
@@ -580,7 +580,7 @@ In this task, you will create a new migration project for the WorldWideImporters
 
 5. On the Migration Wizard **Select source** blade, enter the following:
 
-    - **Source SQL Server instance name**: Enter the IP address of your SqlServer2008R2 VM. For example, `40.84.6.199`.
+    - **Source SQL Server instance name**: Enter the IP address of your SqlServer2008 VM. For example, `40.84.6.199`.
     - **Authentication type**: Select SQL Authentication.
     - **Username**: Enter **sa**
     - **Password**: Enter **Password.1!!**
@@ -668,7 +668,7 @@ In this task, you will create a new activity in the Azure Database Migration Ser
 
 In this task, you will use SSMS to verify the database was successfully migrated to Azure SQL Database.
 
-1. Open SSMS on the SqlServer2008R2 VM, and connect to your Azure SQL Database. In the Connect to Server dialog, enter the following:
+1. Open SSMS on the SqlServer2008 VM, and connect to your Azure SQL Database. In the Connect to Server dialog, enter the following:
 
     - **Server name**: Enter the server name of your Azure SQL Database.
     - **Authentication**: Select SQL Server Authentication.
@@ -695,7 +695,7 @@ In this exercise, you will demonstrate value from the upgrade by enabling the Ta
 
 ### Task 1: Table compression
 
-1. In SSMS on the SqlServer2008R2 VM, and connect to your Azure SQL Database.
+1. In SSMS on the SqlServer2008 VM, and connect to your Azure SQL Database.
 
 2. Open a new query window by selecting **New Query** from the toolbar.
 

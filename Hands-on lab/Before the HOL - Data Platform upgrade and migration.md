@@ -32,8 +32,8 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 3: Create SQL Server 2017 virtual machine](#task-3-create-sql-server-2017-virtual-machine)
     - [Task 4: Create SQL Server 2008 R2 virtual machine](#task-4-create-sql-server-2008-r2-virtual-machine)
     - [Task 5: Connect to the Lab VM](#task-5-connect-to-the-lab-vm)
-    - [Task 6: Add inbound port 1433 rule on the SqlServer2008R2 VM network security group](#task-6-add-inbound-port-1433-rule-on-the-sqlserver2008r2-vm-network-security-group)
-    - [Task 7: Connect to the SqlServer2008R2 VM](#task-7-connect-to-the-sqlserver2008r2-vm)
+    - [Task 6: Add inbound port 1433 rule on the SqlServer2008 VM network security group](#task-6-add-inbound-port-1433-rule-on-the-sqlserver2008-vm-network-security-group)
+    - [Task 7: Connect to the SqlServer2008 VM](#task-7-connect-to-the-sqlserver2008-vm)
     - [Task 8: Provision Azure SQL Database](#task-8-provision-azure-sql-database)
     - [Task 9: Register the Microsoft DataMigration resource provider](#task-9-register-the-microsoft-datamigration-resource-provider)
     - [Task 10: Create Azure Database Migration Service](#task-10-create-azure-database-migration-service)
@@ -218,7 +218,7 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
     - Instance Details:
 
-        - **Virtual machine name**: Enter SqlServer2008R2.
+        - **Virtual machine name**: Enter SqlServer2008.
         - **Region**: Select the region you are using for resources in this hands-on lab.
         - **Availability options**: Select no infrastructure redundancy required.
         - **Image**: Leave SQL Server 2008 R2 SP3 Standard on Windows Server 2008 R2 selected.
@@ -242,7 +242,7 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
     ![The Review + create tab is displayed, with a Validation passed message.](media/sql-server-2008-r2-vm-review-create-tab.png "Create a virtual machine Review + create tab")
 
-6. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the SqlServer2008R2 VM to provision.
+6. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the SqlServer2008 VM to provision.
 
 ### Task 5: Connect to the Lab VM
 
@@ -291,21 +291,21 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 11. Close the Server Manager.
 
-### Task 6: Add inbound port 1433 rule on the SqlServer2008R2 VM network security group
+### Task 6: Add inbound port 1433 rule on the SqlServer2008 VM network security group
 
-In this task, you will open port 1433 on the network security group associated with the SqlServer2008R2 VM to allow external communication with SQL Server.
+In this task, you will open port 1433 on the network security group associated with the SqlServer2008 VM to allow external communication with SQL Server.
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the SqlServer2008R2 VM.
+2. In the list of resources for your resource group, select the SqlServer2008 VM.
 
-    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008R2 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008R2 VM in resource group list")
+    ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and SqlServer2008 is highlighted.](media/resource-group-resources-sqlserver2008r2.png "SqlServer2008 VM in resource group list")
 
-3. On the SqlServer2008R2 blade, select **Networking** under Settings in the left-hand menu, and then select **Add inbound port rule**.
+3. On the SqlServer2008 blade, select **Networking** under Settings in the left-hand menu, and then select **Add inbound port rule**.
 
-    ![Add inbound port rule is highlighted on the SqlServer2008R2 - Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "SqlServer2008R2 - Networking blade")
+    ![Add inbound port rule is highlighted on the SqlServer2008 - Networking blade.](media/sql-virtual-machine-add-inbound-port-rule.png "SqlServer2008 - Networking blade")
 
 4. On the **Add inbound security rule blade**, select **Basic** and then enter the following:
 
@@ -318,13 +318,13 @@ In this task, you will open port 1433 on the network security group associated w
 
 5. Select **Add**.
 
-### Task 7: Connect to the SqlServer2008R2 VM
+### Task 7: Connect to the SqlServer2008 VM
 
-In this task, you will create an RDP connection to the SqlServer2008R2 VM, and add rules to the SqlServer2008R2 VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
+In this task, you will create an RDP connection to the SqlServer2008 VM, and add rules to the SqlServer2008 VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
 
-1. Still on the SqlServer2008R2 blade in the [Azure portal](https://portal.azure.com), select **Overview** from the left-hand menu, and then select **Connect** from the top menu.
+1. Still on the SqlServer2008 blade in the [Azure portal](https://portal.azure.com), select **Overview** from the left-hand menu, and then select **Connect** from the top menu.
 
-    ![The SqlServer2008R2 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008R2")
+    ![The SqlServer2008 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008")
 
 2. Select **Download RDP file**, then open the downloaded RDP file.
 
