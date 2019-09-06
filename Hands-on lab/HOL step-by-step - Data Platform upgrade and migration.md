@@ -1117,7 +1117,7 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
 6. Select **Connect**.
 
-7. In the Filter objects dialog, uncheck everything except the **NW** and **System** databases.
+7. In the Filter objects dialog, uncheck everything except the **NW**, **Sys**, and **System** databases.
 
     ![The NW database is highlighted and checked in the Filter objects dialog. The System database is checked, and all others are unchecked.](media/ssms-filter-objects.png "SSMA Filter objects")
 
@@ -1137,15 +1137,13 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     - **Server name**: Enter the IP address of your SqlServer2017 VM. You can get this from the Azure portal by navigating to your VM's blade, and looking at the Essentials area.
 
-        ![The IP address of your SqlServer2017 VM is highlighted in the Essentials area of your VM's blade in the Azure portal.](./media/azure-sql-database-public-ip-address.png "Enter the IP address ")
+    ![The IP address of your SqlServer2017 VM is highlighted in the Essentials area of your VM's blade in the Azure portal.](./media/azure-sql-database-public-ip-address.png "Enter the IP address ")
 
     - **Server port**: Leave set to [default].
-
     - **Database**: Enter Northwind.
-
     - **Authentication**: Set to Windows Authentication.
 
-        ![The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom.](./media/ssma-connect-to-sql-server.png "Specify the settings")
+    ![The information above is entered in the Connect to SQL Server dialog box, and Connect is selected at the bottom.](./media/ssma-connect-to-sql-server.png "Specify the settings")
 
 12. Select **Connect**.
 
@@ -1255,47 +1253,40 @@ In this exercise, you will migrate the Oracle database into the "on-premises" SQ
 
     - Under the **Northwind** database in the SQL Server Metadata Explorer in SSMA, expand **Assemblies**.
 
-        ![Three items are listed below Assemblies, which is highlighted below the Northwind database in SQL Server Metadata Explorer.](./media/ssma-sql-server-metadata-explorer-northwind-assemblies.png "Expand Assemblies")
+    ![Three items are listed below Assemblies, which is highlighted below the Northwind database in SQL Server Metadata Explorer.](./media/ssma-sql-server-metadata-explorer-northwind-assemblies.png "Expand Assemblies")
 
     - Right-click `SSMA4OracleSQLServerCollections.NET`, and select **Save as Script**.
 
-        ![Save as Script is highlighted in the submenu for SSMA4OracleSQLServerCollections.NET.](./media/ssma-sql-server-metadata-explorer-northwind-assemblies-save-as-script.png "Select Save as Script")
+    ![Save as Script is highlighted in the submenu for SSMA4OracleSQLServerCollections.NET.](./media/ssma-sql-server-metadata-explorer-northwind-assemblies-save-as-script.png "Select Save as Script")
 
     - Save the script to the local machine.
-
     - Now, you will need to use SSMS on your SqlServer2017 VM.
 
         - Open an RDP connection to your SqlServer2017 VM, if one is not already open.
-
         - Open SSMS 17.
-
         - Connect to SqlServer2017, by entering **SqlServer2017** into the Server name field, using Windows Authentication, and selecting **Connect**.
-
         - Expand **Databases**, right-click on **Northwind**, and select **New Query**.
-
         - Paste the following query into the new query window, but don't execute it until you complete the steps below:
 
-            ```sql
-            USE master;
-            GO
+        ```sql
+        USE master;
+        GO
 
-            DECLARE @clrName nvarchar(4000) = 'SSMA4OracleSQLServerCollections.NET'
-            DECLARE @asmBin varbinary(max) = [INSERT BINARY];
-            DECLARE @hash varbinary(64);
+        DECLARE @clrName nvarchar(4000) = 'SSMA4OracleSQLServerCollections.NET'
+        DECLARE @asmBin varbinary(max) = [INSERT BINARY];
+        DECLARE @hash varbinary(64);
 
-            SELECT @hash = HASHBYTES('SHA2_512', @asmBin);
+        SELECT @hash = HASHBYTES('SHA2_512', @asmBin);
 
-            EXEC sys.sp_add_trusted_assembly @hash = @hash, @description = @clrName;
-            ```
+        EXEC sys.sp_add_trusted_assembly @hash = @hash, @description = @clrName;
+        ```
 
     - Now, return to your Lab VM, and open the saved `SSMA4OracleSQLServerCollections.NET.sql` file from the desktop with Notepad.exe.
-
     - Within the SQL file, locate the line that begins with `CREATE ASSEMBLY`, then locate the word `FROM`. Copy the binary string that appears after `FROM`. This value will span all the way down to the line containing the text `WITH PERMISSION_SET = SAFE`. Be sure not to include any whitespace at the end of the binary value.
 
         ![The binary string that appears after FROM is highlighted within the SQL file.](./media/assembly-binary-value.png "Copy the binary string")
 
     - Now, return to SSMS on your SqlServer2017 VM, and replace `INSERT BINARY` with the copied binary value. The line should end with ";" and there should be no whitespace before the ";".
-
     - Execute the query in SSMS.
 
 45. Repeat step 44, this time for the assembly `SSMA4OracleSQLServerExtensions.NET`. Make sure to replace the `@clrName` variable in the script with the value "SSMA4OracleSQLServerExtensions.NET".
