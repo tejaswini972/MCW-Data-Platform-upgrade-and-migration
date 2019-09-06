@@ -1340,36 +1340,37 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
 2. Modify the connection string named `SqlServerConnectionString` to match your remote SQL Server credentials.
 
     - Replace the value of "data source" with your SqlServer2017 VM's public IP address.
-
     - Verify the value of "password" is **Password.1!!**
 
     ![The information above is highlighted in Web.config.](./media/visual-studio-web-config-connection-string-sql-server.png "Replace the password value")
 
-3. Build the solution, by selecting Build in the Visual Studio menu, then selecting Build Solution.
+3. Save the `web.config` file.
 
-4. In the Solution Explorer, expand the Data folder, and select all the files within the folder.
+4. Build the solution, by selecting Build in the Visual Studio menu, then selecting Build Solution.
+
+5. In the Solution Explorer, expand the Data folder, and select all the files within the folder.
 
     ![In Solution Explorer, all the files under Data (highlighted) are selected.](./media/visual-studio-solution-explorer-data-folder.png "Expand the Data folder")
 
-5. Right-click, and choose **Delete**.
+6. Right-click, and choose **Delete**.
 
     ![Delete is selected in the shortcut menu for all the files listed under Data.](./media/visual-studio-solution-explorer-data-folder-delete.png "Delete the files")
 
-6. Select **OK** at the confirmation prompt.
+7. Select **OK** at the confirmation prompt.
 
-7. Right-click on the Data folder, and select **Add > New Item...**
+8. Right-click on the Data folder, and select **Add > New Item...**
 
     ![In the shortcut menu for the Data folder, New Item and Add are highlighted.](./media/visual-studio-solution-explorer-data-add-new-item.png "Select Add")
 
-8. In the Add New Item dialog, expand Visual C#, select **Data**, and select **ADO.NET Entity Data Model**. Enter **DataContext** for the name, and select **Add**.
+9. In the Add New Item dialog, expand Visual C#, select **Data**, and select **ADO.NET Entity Data Model**. Enter **DataContext** for the name, and select **Add**.
 
     ![In the Add New Item dialog box, Visual C#, Data, ADO.NET Entity Data Model, and DataContext are highlighted.](./media/visual-studio-solution-explorer-data-add-new-data-context.png "Add DataContext")
 
-9. In the wizard's Choose Model Contents dialog, select **Code First from database**, and select **Next**.
+10. In the wizard's Choose Model Contents dialog, select **Code First from database**, and select **Next**.
 
     ![Code First from database is highlighted under What should the model contain? in the Entity Data Model Wizard.](./media/visual-studio-entity-data-model-wizard-choose-model.png "Select Code First from database")
 
-10. In the Choose Your Data Connection dialog:
+11. In the Choose Your Data Connection dialog:
     - Select **SqlServerConnectionString (Settings)** from the data connection drop down.
     - Select **Yes, include the sensitive data in the connection string**.
     - **Uncheck Save connection settings in Web.Config**.
@@ -1377,15 +1378,15 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
 
     ![SqlServerConnectionString (Settings) and Yes, include the sensitive data in the connection string are selected and highlighted in the Entity Data Model Wizard, and Save connection settings in Web.Config is cleared.](./media/visual-studio-entity-data-model-wizard-data-connection.png "Choose Your Data Connection settings")
 
-11. If prompted, in the Connect to SQL Server dialog, enter the Password, **Password.1!!**
+12. If prompted, in the Connect to SQL Server dialog, enter the Password, **Password.1!!**
 
     ![The password above is entered in the Connect to SQL Server dialog box.](./media/visual-studio-entity-data-model-wizard-connect-to-sql-server.png "Enter the Password")
 
-12. On the Choose Your Database Objects and Settings screen, expand the Tables node, and check **NW** only. Ensure **Pluralize or singularize generated column names** is checked.
+13. On the Choose Your Database Objects and Settings screen, expand the Tables node, and check **NW** only. Ensure **Pluralize or singularize generated column names** is checked.
 
     ![The Tables node is selected, and NW is selected and highlighted in the Entity Data Model Wizard. Pluralize or singularize generated column names is also selected.](./media/visual-studio-entity-data-model-wizard-database-objects.png "Choose Your Database Objects and Settings")
 
-13. Select **Finish**, and the model will be generated. This may take a few minutes.
+14. Select **Finish**, and the model will be generated. This may take a few minutes.
 
 ### Task 2: Modify Application Code
 
@@ -1473,7 +1474,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
 
     ![Data Connections is selected in Server Explorer, and Add Connection is highlighted in the shortcut menu.](./media/visual-studio-server-explorer-data-connections.png "Select Add Connection")
 
-21. On the Choose Data Source dialog, select **Microsoft SQL Server**, and select **Next**.
+21. On the Choose Data Source dialog, select **Microsoft SQL Server**, and select **Continue**.
 
     ![Microsoft SQL Server is selected and highlighted under Data source in the Choose Data Source dialog box.](./media/visual-studio-server-explorer-data-connections-add.png "Select Microsoft SQL Server")
 
@@ -1482,7 +1483,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
     - **Data source**: Leave Microsoft SQL Server (SqlClient).
     - **Server name**: Enter the IP address of your SqlServer2017 VM.
     - **Authentication**: Select SQL Server Authentication.
-    - **Username**: Enter sa
+    - **Username**: Enter demouser
     - **Password**: Enter Password.1!!
     - **Connect to a database**: Choose Select or enter database name, and enter Northwind.
     - Select **Test Connection** to verify your settings are correct, and select **OK** to close the successful connection dialog.
