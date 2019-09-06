@@ -33,9 +33,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 4: Create SQL Server 2008 R2 virtual machine](#task-4-create-sql-server-2008-r2-virtual-machine)
     - [Task 5: Connect to the Lab VM](#task-5-connect-to-the-lab-vm)
     - [Task 6: Connect to the SqlServer2008 VM](#task-6-connect-to-the-sqlserver2008-vm)
-    - [Task 8: Provision Azure SQL Database](#task-8-provision-azure-sql-database)
-    - [Task 9: Register the Microsoft DataMigration resource provider](#task-9-register-the-microsoft-datamigration-resource-provider)
-    - [Task 10: Create Azure Database Migration Service](#task-10-create-azure-database-migration-service)
+    - [Task 7: Provision Azure SQL Database](#task-7-provision-azure-sql-database)
+    - [Task 8: Register the Microsoft DataMigration resource provider](#task-8-register-the-microsoft-datamigration-resource-provider)
+    - [Task 9: Create Azure Database Migration Service](#task-9-create-azure-database-migration-service)
 
 # Data Platform upgrade and migration before the hands-on lab setup guide
 
@@ -344,7 +344,7 @@ In this task, you will create an RDP connection to the SqlServer2008 VM, and add
 
 9. Close the Server Manager.
 
-### Task 8: Provision Azure SQL Database
+### Task 7: Provision Azure SQL Database
 
 In this task, you will create an Azure SQL Database, which will serve as the target database for migration of the on-premises WorldWideImporters database into the cloud. The Premium tier is required to support ColumnStore index creation.
 
@@ -389,7 +389,7 @@ In this task, you will create an Azure SQL Database, which will serve as the tar
 
     > **Note**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
 
-### Task 9: Register the Microsoft DataMigration resource provider
+### Task 8: Register the Microsoft DataMigration resource provider
 
 In this task, you will register the `Microsoft.DataMigration` resource provider with your subscription in Azure.
 
@@ -401,7 +401,7 @@ In this task, you will register the `Microsoft.DataMigration` resource provider 
 
     ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](media/azure-portal-subscriptions-resource-providers-register-microsoft-datamigration.png "Resource provider registration")
 
-### Task 10: Create Azure Database Migration Service
+### Task 9: Create Azure Database Migration Service
 
 In this task, you will provision an instance of the Azure Database Migration Service (DMS).
 
