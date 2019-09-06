@@ -75,17 +75,15 @@ In this task, you will create an Azure resource group for the resources used thr
 
 In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2017 installed.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio 2019" into the Search the Marketplace box, and then select **Visual Studio 2019 Latest**.
+1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio community" into the Search the Marketplace box, expand the Visual Studio group, and then select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the results.
 
-    ![+Create a resource is selected in the Azure navigation pane, and "visual studio 2019" is entered into the Search the Marketplace box. Visual Studio 2019 Latest is selected in the results.](media/create-resource-visual-studio.png "Create Visual Studio resource")
+    ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png "Create Windows Server 2016 with Visual Studio Community 2017")
 
-2. On the **Visual Studio 2019 Latest** blade, select the Select a software plan drop down list, and choose **Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64)**from the list.
+2. Select **Create** on the Visual Studio blade.
 
-    ![Visual Studio Community 2019 (latest release) on Windows Server 2019 (x64) is selected and highlighted in the Select a software plan drop down list on the Visual Studio 2019 Latest blade.](./media/create-resource-visual-studio-software-plan.png "Visual Studio 2019 Latest")
+    ![The Create button is highlighted on the Create Visual Studio VM blade.](media/visual-studio-create.png "Create Visual Studio VM")
 
-3. Select **Create** on the Visual Studio blade.
-
-4. On the Create a virtual machine Basics tab, set the following configuration:
+3. On the Create a virtual machine Basics tab, set the following configuration:
 
     - Project Details:
 
@@ -97,8 +95,8 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
         - **Virtual machine name**: Enter LabVM.
         - **Region**: Select the region you are using for resources in this hands-on lab.
         - **Availability options**: Select no infrastructure redundancy required.
-        - **Image**: Leave Visual Studio Community 2019 (latest release) on Windows Server 2019 (x64) selected.
-        - **Size**: Select this and choose Standard D2s v3.
+        - **Image**: Leave Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) selected.
+        - **Size**: Accept the default size, Standard D2 v3.
 
     - Administrator Account:
 
@@ -110,17 +108,19 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
         - **Public inbound ports**: Choose Allow selected ports.
         - **Select inbound ports**: Select RDP (3389) in the list.
 
-    ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/lab-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
+        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/lab-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
 
-5. Select **Review + create**.
+    - Select **Next: Disks** to move to the next step.
 
-    > **Note**: Default values are used for the remaining tabs, so they can be skipped.
+4. On the Disks tab, set OS disk type to **Standard SSD**, and then select **Review + create**. Note, the remaining tabs can be skipped, and default values will be used.
 
-6. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
+    ![On the Create a virtual machine Disks tab, the OS disk type is set to Standard SSD.](media/lab-virtual-machine-disks-tab.png "Create a virtual machine Disks tab")
+
+5. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
     ![The Review + create tab is displayed, with a Validation passed message.](media/lab-virtual-machine-review-create-tab.png "Create a virtual machine Review + create tab")
 
-7. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the lab VM to provision.
+6. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the lab VM to provision.
 
 ### Task 3: Create SQL Server 2017 virtual machine
 
