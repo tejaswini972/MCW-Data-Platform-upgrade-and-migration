@@ -90,7 +90,7 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
 - Microsoft Azure subscription must be pay-as-you-go or MSDN.
   - Trial subscriptions will not work.
 - A virtual machine configured with:
-  - Visual Studio 2019 Community or later
+  - Visual Studio Community 2017
 
 ## Exercise 1: Configure SQL Server instances
 
@@ -758,6 +758,8 @@ In this task, you will create a new table based on the existing `FactResellerSal
 
     ![Various information is highlighted on the Messages tab of the Results pane.](./media/ssms-query-results-messages-stastics-io.png "Compare the information")
 
+15. You are now down with the SqlServer2008 VM.
+
 ## Exercise 4: Setup Oracle 11g Express Edition
 
 Duration: 45 minutes
@@ -773,81 +775,86 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 2. In a web browser on your Lab VM, navigate to <https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/xe-prior-releases-5172097.html>.
 
-3. On the Oracle Database Express Edition 11g Release 2 page, accept the license agreement, and select the download link next to **Oracle Database 11gR2 Express Edition for Windows x64**.
+3. On the Oracle Database XE Prior Release Archive page, select **Oracle Database 11gR2 Express Edition for Windows x64** download link.
 
     ![Accept the license agreement and Oracle Database 11g Express Edition Release 2 for Windows x64 are highlighted under Oracle Database Express Edition 11g Release 2.](./media/oracle-11g-download.png "Oracle 11g download")
 
-4. Sign in with your Oracle account to complete the download. If you don't already have a free Oracle account, you will need to create one.
+4. Accept the license agreement, when prompted, and then select **Download OracleXE112_Win64.zip**.
+
+    ![The license agreement checkbox is checked on the license agreement dialog.](media/download-oracle-xe.png "Download Oracle XE")
+
+5. Sign in with your Oracle account to complete the download. If you don't already have a free Oracle account, you will need to create one.
 
     ![This is a screenshot of the Sign in screen.](./media/oracle-sign-in.png "Sign in to complete the download")
 
-5. After signing in, the file will download.
+6. After signing in, the file will download.
 
-6. Unzip the file, and navigate to the DISK1 folder.
+7. Unzip the file, and navigate to the `DISK1` folder.
 
-7. Right-click `setup.exe`, and select **Run as administrator**.
+8. Right-click `setup.exe`, and select **Run as administrator**.
 
     ![In File Explorer, setup.exe is selected, and Run as administrator is highlighted in the shortcut menu.](./media/windows-file-menu-run-as-administrator.png "Run setup.exe as an administrator")
 
-8. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Specify Database Passwords** screen.
+9. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Specify Database Passwords** screen.
 
-9. On the **Specify Database Passwords** screen, set the password to **Password.1!!**, and select **Next**.
+10. On the **Specify Database Passwords** screen, set the password to **Password.1!!**, and select **Next**.
 
     ![The above credentials are entered on the Specify Database Passwords screen.](./media/oracle-11g-install-passwords.png "Set the password")
 
-10. On the Summary screen, take note of the ports being assigned, and select **Install**.
+11. On the Summary screen, take note of the ports being assigned, and select **Install**.
 
     ![Several of the ports being assigned are highlighted on the Summary screen.](./media/oracle-11g-install-summary.png "Note the ports being assigned")
 
-11. Select **Finish** on the final dialog to compete the installation.
+12. Select **Finish** on the final dialog to compete the installation.
 
 ### Task 2: Install Oracle Data Access components
 
 1. On your Lab VM, navigate to <http://www.oracle.com/technetwork/database/windows/downloads/index-090165.html>.
 
-2. Accept the license agreement, and select the **ODAC122011_x64.zip** download link under 64-bit ODAC 12.2c Release 1 (12.2.0.1.1) for Windows x64.
+2. On the 64-bit Oracle Data Access Components (ODAC) Downloads page, scroll down and locate the **64-bit ODAC 12.2c Release 1 (12.2.0.1.1) for Windows x64** section, and then select the **ODAC122011_x64.zip** link.
 
     ![Accept the license agreement and ODAC122010\_x64.zip are highlighted on the 64-bit Oracle Data Access Components (ODAC) Downloads screen.](./media/oracle-odac-download.png "64-bit Oracle Data Access Components (ODAC) Downloads screen")
 
-3. When the download completes, extract the contents of the ZIP file to a local drive.
+3. Accept the license agreement, and then select **Download ODAC122011_x64.zip**.
 
-4. Navigate to the folder containing the extracted ZIP file, and right-click `setup.exe`, then select **Run as administrator** to begin the installation.
+    ![The Oracle license agreement dialog is displayed for downloading the Oracle Data Access Components.](media/oracle-odac-license-dialog.png "Download ODAC")
 
-5. Select **Next** to accept the default language, English, on the first screen.
+4. When the download completes, extract the contents of the ZIP file to a local drive.
 
-6. On the Specify Oracle Home User screen, accept the default, Use Windows Built-in Account, and select **Next**.
+5. Navigate to the folder containing the extracted ZIP file, and right-click `setup.exe`, then select **Run as administrator** to begin the installation.
 
-7. Accept the default installation locations, and select **Next**.
+6. Select **Next** to accept the default language, English, on the first screen.
 
-8. On the **Available Product Components**, uncheck **Oracle Data Access Components Documentation for Visual Studio**, and select **Next**.
+7. On the Specify Oracle Home User screen, accept the default, Use Windows Built-in Account, and select **Next**.
+
+8. Accept the default installation locations, and select **Next**.
+
+9. On the **Available Product Components**, uncheck **Oracle Data Access Components Documentation for Visual Studio**, and select **Next**.
 
     ![Oracle Data Access Components Documentation for Visual Studio is cleared on the Available Product Components screen, and Next is selected at the bottom.](./media/oracle-odac-install-product-components.png "Clear Oracle Data Access Components Documentation for Visual Studio")
 
-9. On the ODP.NET screen, check the box for **Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level**, and select **Next**.
+10. On the ODP.NET screen, check the box for **Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level**, and select **Next**.
 
     ![Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level is selected on the ODP.NET screen, and Next is selected at the bottom.](./media/oracle-odac-install-odp-net.png "Select Configure ODP.NET and/or Oracle Providers for ASP.NET at machine-wide level")
 
-10. On the DB Connection Configuration screen, enter the following:
+11. On the DB Connection Configuration screen, enter the following:
 
     - **Connection Alias**: Northwind
-
     - **Port Number**: 1521
-
     - **Database Host Name**: localhost
-
     - **Database Service Name**: XE
 
         ![The information above is entered on the DB Connection Configuration screen, and Next is selected at the bottom.](./media/oracle-odac-install-db-connection.png "Enter the information")
 
     - Select **Next**.
 
-11. If the Next button is disabled on the Perform Prerequisite Checks screen, check the **Ignore All** box, and then select **Next**. This screen will be skipped by the installer if no missing requisites are found.
+12. If the Next button is disabled on the Perform Prerequisite Checks screen, check the **Ignore All** box, and then select **Next**. This screen will be skipped by the installer if no missing requisites are found.
 
     ![The Ignore All box is cleared on highlighted on the Perform Prerequisite Checks screen, and Next is selected at the bottom.](./media/oracle-odac-install-prerequisite-checks.png "Perform Prerequisite Checks")
 
-12. On the Summary screen, select **Install**.
+13. On the Summary screen, select **Install**.
 
-13. On the Finish screen, select **Close**.
+14. On the Finish screen, select **Close**.
 
 ### Task 3: Install SQL Server Migration Assistant for Oracle
 
@@ -879,9 +886,9 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 ### Task 4: Install dbForge Fusion tool
 
-In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio 2017 Community Edition.
+In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio Community 2017 Edition.
 
-> This step is required because the Oracle Developer Tools extension does not currently work with the Community edition of Visual Studio 2017.
+> This step is required because the Oracle Developer Tools extension does not currently work with the Community edition of Visual Studio.
 
 1. On your Lab VM, open a web browser and navigate to <https://www.devart.com/dbforge/oracle/fusion/download.html>.
 
