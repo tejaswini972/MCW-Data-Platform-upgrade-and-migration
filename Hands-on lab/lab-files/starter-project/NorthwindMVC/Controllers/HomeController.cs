@@ -23,10 +23,10 @@ namespace NorthwindMVC.Controllers
                 new OracleParameter("CUR_OUT", OracleDbType.RefCursor, ParameterDirection.Output)).ToList();
 
             // SQL Server
-            ////var salesByYear = this.db.Database.SqlQuery<SALESBYYEAR>(
-            ////    "exec [NW].[SALESBYYEAR] @p_begin_date, @p_end_date ",
-            ////    new SqlParameter("p_begin_date", "1996-1-1"),
-            ////    new SqlParameter("p_end_date", "1999-1-1")).ToList();
+            //var salesByYear = this.db.Database.SqlQuery<SALESBYYEAR>(
+            //    "exec [NW].[SALESBYYEAR] @p_begin_date, @p_end_date ",
+            //    new SqlParameter("p_begin_date", "1996-1-1"),
+            //    new SqlParameter("p_end_date", "1999-1-1")).ToList();
 
             var model = from r in salesByYear
                         orderby r.YEAR
