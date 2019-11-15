@@ -8,7 +8,7 @@ WWI is concerned about upgrading their database to Azure SQL Database or SQL Ser
 
 WWI’s CIO would like a POC of a data warehouse move and proof that the new technology can help ETL and query performance.
 
-September 2019
+November 2019
 
 ## Target audience
 
