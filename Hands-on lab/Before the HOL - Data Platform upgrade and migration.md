@@ -44,8 +44,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 - Microsoft Azure subscription must be pay-as-you-go or MSDN.
   - Trial subscriptions will not work.
 - A virtual machine configured with:
-  - Visual Studio Community 2017 or later
-  - Azure SDK 2.9 or later (Included with Visual Studio 2017)
+  - Visual Studio 2019 Community
 
 ## Before the hands-on lab
 
