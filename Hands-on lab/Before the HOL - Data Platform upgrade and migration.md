@@ -367,7 +367,7 @@ In this task, you will create an RDP connection to the SqlServer2008 VM and disa
 
     ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserver2008r2.png "Remote Desktop Connection dialog")
 
-9.  Once logged in, launch the **Server Manager**. This should open automatically, but you can access it via the task bar or Start menu if it does not.
+9. Once logged in, launch the **Server Manager**. This should open automatically, but you can access it via the task bar or Start menu if it does not.
 
     ![The Server Manager tile is circled in the Start Menu's Administrative Tools menu, and in the task bar.](media/windows-server2008r2-start-menu.png "Windows Server 2008 R2 Start Menu")
 
