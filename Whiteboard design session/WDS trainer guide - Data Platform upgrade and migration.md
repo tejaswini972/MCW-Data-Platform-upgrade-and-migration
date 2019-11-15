@@ -602,7 +602,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
     - It provides a resilient and reliable migration pipeline that requires minimal user involvement during the overall migration process.
     - It is recommended for large (in terms of number and size of databases) migrations – DMS can migrate databases at scale.
 
-    Microsoft's Data Migration Assistant can be used to upgrade the SQL Server Data Warehouse. That tool can not only upgrade the data and schema in the database, but the SSIS database (if there is one), SQL Logins, SQL Agent Jobs, and SSIS packages.
+    Microsoft's Data Migration Assistant can be used to upgrade the SQL Server data warehouse. That tool can not only upgrade the data and schema in the database, but the SSIS database (if there is one), SQL Logins, SQL Agent Jobs, and SSIS packages.
 
     SQL Server Migration Assistant supports complete migration from Oracle, MySQL, SAP, ASE, DB2, and Access to SQL Server 2008+ and Azure SQL Database. This allows users to convert a database schema to a Microsoft SQL Server schema, upload the schema, and then migrate data to the target SQL Server.
 
@@ -633,7 +633,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
     The customer cited concerns with a slow data warehouse. Implementing compression and ColumnStore clustered indexes will likely alleviate performance issues. Transparent Data Encryption will help them pass their audits.
 
-    Also, consider using the Database Experimentation Assistant to prove that these changes have improved the query performance of the SQL Server Data warehouse.
+    Also, consider using the Database Experimentation Assistant to prove that these changes have improved the query performance of the SQL Server data warehouse.
 
 *High Availability and Audit Table*
 
