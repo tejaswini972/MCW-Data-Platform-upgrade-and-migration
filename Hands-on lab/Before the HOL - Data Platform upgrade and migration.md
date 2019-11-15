@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-September 2019
+November 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -59,7 +59,15 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 
 In this task, you will create an Azure resource group for the resources used throughout this lab.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups**, select **+Add**, then enter the following in the Create an empty resource group blade:
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
+
+    ![Resource groups is highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
+
+2. On the Resource groups blade, select **+Add**.
+
+    ![+Add is highlighted in the toolbar on Resource groups blade.t](media/resource-groups-add.png "Resource groups")
+
+3. , then enter the following in the Create an empty resource group blade:
 
     - **Subscription**: Select the subscription you are using for this hands-on lab.
     - **Resource group**: Enter hands-on-lab-SUFFIX.
@@ -67,27 +75,29 @@ In this task, you will create an Azure resource group for the resources used thr
 
     ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and "hands-on-labs" is entered into the Resource group name box on the Create an empty resource group blade.](./media/create-resource-group.png "Create resource group")
 
-2. Select **Review + Create**.
+4. Select **Review + Create**.
 
-3. On the Review + Create tab, select **Create** to provision the resource group.
+5. On the Review + Create tab, select **Create** to provision the resource group.
 
 ### Task 2: Create lab virtual machine
 
-In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2017 installed.
+In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2019 installed.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "visual studio" into the Search the Marketplace box and select Visual Studio.
+1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
 
-    ![+Create a resource is selected in the Azure navigation pane, and "visual studio community" is entered into the Search the Marketplace box. Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is selected in the results.](./media/create-resource-visual-studio-on-windows-server-2016.png "Create Windows Server 2016 with Visual Studio Community 2017")
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
 
-2. On the Visual Studio blade, select the Select a software plan drop down list and then select **Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64)** from the list.
+2. Enter "visual studio" into the Search the Marketplace box and select Visual Studio.
 
-    ![The Select a software plan drop down list is expanded and Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) is highlighted in the list.](media/select-a-software-plan-visual-studio.png "Visual Studio")
+    !["Visual studio 2019" is entered into the Search the Marketplace box. Visual Studio 2019 Latest is highlighted in the results.](./media/create-resource-visual-studio-2019-latest.png "Visual Studio 2019 Latest")
 
-3. Select **Create** on the Visual Studio blade.
+3. On the Visual Studio 2019 Latest blade, select the Select a software plan drop down list and then select **Visual Studio 2019 Community(latest release) on Windows Server 2019 (x64)** from the list.
 
-    ![The Create button is highlighted on the Create Visual Studio VM blade.](media/visual-studio-create.png "Create Visual Studio VM")
+    ![The Select a software plan drop down list is expanded and Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64) is highlighted in the list.](media/select-a-software-plan-visual-studio.png "Visual Studio")
 
-4. On the Create a virtual machine Basics tab, set the following configuration:
+4. Select **Create** on the Visual Studio 2019 Latest blade.
+
+5. On the Create a virtual machine Basics tab, set the following configuration:
 
     - Project Details:
 
@@ -99,7 +109,7 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
         - **Virtual machine name**: Enter LabVM.
         - **Region**: Select the region you are using for resources in this hands-on lab.
         - **Availability options**: Select no infrastructure redundancy required.
-        - **Image**: Leave Visual Studio Community 2017 (latest release) on Windows Server 2016 (x64) selected.
+        - **Image**: Leave Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64) selected.
         - **Size**: Accept the default size, Standard D2 v3.
 
     - Administrator Account:
@@ -114,33 +124,33 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
         ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/lab-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
 
-    - Select **Next: Disks** to move to the next step.
+6. Select **Review + create**.
 
-5. On the Disks tab, set OS disk type to **Standard SSD**, and then select **Review + create**. Note, the remaining tabs can be skipped, and default values will be used.
-
-    ![On the Create a virtual machine Disks tab, the OS disk type is set to Standard SSD.](media/lab-virtual-machine-disks-tab.png "Create a virtual machine Disks tab")
-
-6. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
+7. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
     ![The Review + create tab is displayed, with a Validation passed message.](media/lab-virtual-machine-review-create-tab.png "Create a virtual machine Review + create tab")
 
-7. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the lab VM to provision.
+8. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the lab VM to provision.
 
 ### Task 3: Create SQL Server 2017 virtual machine
 
 In this task, you will provision another virtual machine (VM) in Azure which will host your "on-premises" instance of SQL Server 2017 Enterprise.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql server 2017" into the Search the Marketplace box and select **SQL Server 2017 on Windows Server 2016**.
+1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
 
-    ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, sql server 2017 and SQL Server 2017 Enterprise Windows Server 2016 are highlighted.](./media/create-resource-sql-server-2017.png "Azure portal")
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
 
-2. On the **SQL Server 2017 Enterprise Windows Server 2016** blade, select the Select a software plan drop down, and select **Free SQL Server License: SQL Server 2017 Developer on Windows Server 2016** from the list.
+2. Enter "sql server 2017" into the Search the Marketplace box and select **SQL Server 2017 on Windows Server 2019**.
 
-    ![Free SQL Server License: SQL Server 2017 Developer on Windows Server 2016 is selected and highlighted in the Select a software plan drop down list.](media/create-resource-sql-server-2017-software-plan.png "SQL Server 2017 on Windows Server 2016")
+    ![+ Create a resource is highlighted on the left side of the Azure portal, and at right, sql server 2017 and SQL Server 2017 on Windows Server 2019 are highlighted.](./media/create-resource-sql-server-2017.png "Azure portal")
 
-3. Select **Create** on the SQL Server 2017 on Windows Server 2016 blade.
+3. On the **SQL Server 2017 on Windows Server 2019** blade, select the Select a software plan drop down, and select **Free SQL Server License: SQL Server 2017 Developer on Windows Server 2019** from the list.
 
-4. On the Create a virtual machine Basics tab, set the following configuration:
+    ![Free SQL Server License: SQL Server 2017 Developer on Windows Server 2019 is selected and highlighted in the Select a software plan drop down list.](media/create-resource-sql-server-2017-software-plan.png "SQL Server 2017 on Windows Server 2019")
+
+4. Select **Create** on the SQL Server 2017 on Windows Server 2019 blade.
+
+5. On the Create a virtual machine Basics tab, set the following configuration:
 
     - Project Details:
 
@@ -152,8 +162,8 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
         - **Virtual machine name**: Enter SqlServer2017.
         - **Region**: Select the region you are using for resources in this hands-on lab.
         - **Availability options**: Select no infrastructure redundancy required.
-        - **Image**: Leave SQL Server 2017 Enterprise Windows Server 2016 selected.
-        - **Size**: Accept the default size, Standard DS13 v2.
+        - **Image**: Leave Free SQL Server License: SQL Server 2017 Developer Windows Server 2019 selected.
+        - **Size**: Accept the default size, Standard DS12 v2.
 
     - Administrator Account:
 
@@ -167,16 +177,18 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
         ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/sql-2017-virtual-machine-basics-tab.png "Create a virtual machine Basics tab")
 
-5. Select the **SQL Server settings** tab from the top menu. The default values will be used for Disks, Networking, Management and Advanced, so you don't need to do anything on those tabs.
+6. Select the **SQL Server settings** tab from the top menu. The default values will be used for Disks, Networking, Management and Advanced, so you don't need to do anything on those tabs.
 
     ![The SQL Server settings tab is highlighted and selected in the Create a virtual machine configuration tabs list.](media/sql-2017-create-vm-tabs.png "Create a virtual machine configuration tabs")
 
-6. On the **SQL Server settings** tab, set the following properties:
+7. On the **SQL Server settings** tab, set the following properties:
 
     - Security & Networking:
 
       - **SQL connectivity**: Select Public (Internet).
       - **Port**: Leave set to 1433.
+
+      > **Note**: SQL Connectivity is being set to public for this hands-on lab to simplify access during the lab. In a production environment, you would want to limit connectivity to only those IP addresses that require access.
 
     - SQL Authentication:
 
@@ -186,15 +198,15 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
     ![The previously specified values are entered into the SQL Server Settings blade.](media/sql-server-2017-create-vm-sql-settings.png "SQL Server Settings")
 
-7. Select **Review + create** to review the VM configuration.
+8. Select **Review + create** to review the VM configuration.
 
     ![The Review + create button is selected on the Create a virtual machine blade.](media/create-a-virtual-machine-review-create.png "Create a virtual machine")
 
-8. On the Review + create tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
+9. On the Review + create tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
     ![The Summary tab is displayed, with a Validation passed message.](media/sql-server-2017-create-vm-summary.png "Create SQL Server VM Summary Tab")
 
-9. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the SqlServer2017 VM to provision.
+10. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the SqlServer2017 VM to provision.
 
 ### Task 4: Create SQL Server 2008 R2 virtual machine
 
@@ -202,13 +214,17 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
 > **Note**:  An older version of Windows Server is being used because SQL Server 2008 R2 is not supported on Windows Server 2016.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "SQL Server 2008R2SP3 on Windows Server 2008R2" into the Search the Marketplace box.
+1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
 
-2. On the **SQL Server 2008 R2 SP3 Standard on Windows Server 2008 R2** blade, select **SQL Server R2 SP3 Standard on Windows Server 2008 R2** for the software plan and then select **Create**.
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
+
+2. Enter "SQL Server 2008R2SP3 on Windows Server 2008R2" into the Search the Marketplace box and press Enter.
+
+3. On the **SQL Server 2008 R2 SP3 Standard on Windows Server 2008 R2** blade, select **SQL Server R2 SP3 Standard on Windows Server 2008 R2** for the software plan and then select **Create**.
 
     ![The SQL Server 2008 R2 SP3 on Windows Server 2008 R2 blade is displayed with the standard edition selected for the software plan, and the Create button highlighted.](media/create-resource-sql-server-2008-r2.png "Create SQL Server 2008 R2 Resource")
 
-3. On the Create a virtual machine Basics tab, set the following configuration:
+4. On the Create a virtual machine Basics tab, set the following configuration:
 
    - Project Details:
 
@@ -221,7 +237,7 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
      - **Region**: Select the region you are using for resources in this hands-on lab.
      - **Availability options**: Select no infrastructure redundancy required.
      - **Image**: Leave SQL Server 2008 R2 SP3 Standard on Windows Server 2008 R2 selected.
-     - **Size**: Accept the default size, Standard DS12 v2.
+     - **Size**: Accept the default size, Standard DS11 v2.
 
    - Administrator Account:
 
@@ -235,16 +251,18 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
     ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](media/sql-server-2008-r2-vm-basics-tab.png "Create a virtual machine Basics tab")
 
-4. Select the **SQL Server settings** tab from the top menu. The default values will be used for Disks, Networking, Management and Advanced, so you don't need to do anything on those tabs.
+5. Select the **SQL Server settings** tab from the top menu. The default values will be used for Disks, Networking, Management and Advanced, so you don't need to do anything on those tabs.
 
     ![The SQL Server settings tab is highlighted and selected in the Create a virtual machine configuration tabs list.](media/sql-2017-create-vm-tabs.png "Create a virtual machine configuration tabs")
 
-5. On the **SQL Server settings** tab, set the following properties:
+6. On the **SQL Server settings** tab, set the following properties:
 
    - Security & Networking:
 
      - **SQL connectivity**: Select Public (Internet).
      - **Port**: Leave set to 1433.
+
+     > **Note**: SQL Connectivity is being set to public for this hands-on lab to simplify access during the lab. In a production environment, you would want to limit connectivity to only those IP addresses that require access.
 
    - SQL Authentication:
 
@@ -254,114 +272,132 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
 
      ![The previously specified values are entered into the SQL Server Settings blade.](media/sql-server-2017-create-vm-sql-settings.png "SQL Server Settings")
 
-6. Select **Review + create** to review the VM configuration.
+7. Select **Review + create** to review the VM configuration.
 
-7. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
+8. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
 
     ![The Review + create tab is displayed, with a Validation passed message.](media/sql-server-2008-r2-vm-review-create-tab.png "Create a virtual machine Review + create tab")
 
-8. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the SqlServer2008 VM to provision.
+9. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the SqlServer2008 VM to provision.
 
 ### Task 5: Connect to the Lab VM
 
-In this task, you will create an RDP connection to your Lab virtual machine (VM), and disable Internet Explorer Enhanced Security Configuration.
+In this task, you will create an RDP connection to your Lab virtual machine (VM) and disable Internet Explorer Enhanced Security Configuration.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
+
+    ![Resource groups is highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
+
+2. On the Resource groups blade, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
-2. In the list of resources for your resource group, select the LabVM Virtual Machine.
+3. In the list of resources for your resource group, select the LabVM Virtual Machine.
 
     ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png "LabVM in resource group list")
 
-3. On your Lab VM blade, select **Connect** from the top menu.
+4. On your Lab VM blade, select **Connect** from the top menu.
 
     ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-labvm.png "Connect to LabVM")
 
-4. Select **Download RDP file**, then open the downloaded RDP file.
+5. Select **Download RDP file**, then open the downloaded RDP file.
 
     ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
 
-5. Select **Connect** on the Remote Desktop Connection dialog.
+6. Select **Connect** on the Remote Desktop Connection dialog.
 
     ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
 
-6. Enter the following credentials when prompted:
+7. Enter the following credentials when prompted:
 
     - **Username**: demouser
     - **Password**: Password.1!!
 
-7. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
+8. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
     ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-labvm.png "Remote Desktop Connection dialog")
 
-8. Once logged in, launch the **Server Manager**. This should start automatically, but you can access it via the Start menu if it does not.
+9. Once logged in, launch the **Server Manager**. This should start automatically, but you can access it via the Start menu if it does not.
 
     ![The Server Manager tile is circled in the Start Menu.](./media/start-menu-server-manager.png "Server Manager tile in the Start menu")
 
-9. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**.
+10. Select **Local Server**, then select **On** next to **IE Enhanced Security Configuration**.
 
     ![Screenshot of the Server Manager. In the left pane, Local Server is selected. In the right, Properties (For LabVM) pane, the IE Enhanced Security Configuration, which is set to On, is highlighted.](./media/windows-server-manager-ie-enhanced-security-configuration.png "Server Manager")
 
-10. In the Internet Explorer Enhanced Security Configuration dialog, select **Off** under both Administrators and Users, and then select **OK**.
+11. In the Internet Explorer Enhanced Security Configuration dialog, select **Off** under both Administrators and Users, and then select **OK**.
 
     ![Screenshot of the Internet Explorer Enhanced Security Configuration dialog box, with Administrators set to Off.](./media/internet-explorer-enhanced-security-configuration-dialog.png "Internet Explorer Enhanced Security Configuration dialog box")
 
-11. Close the Server Manager.
+12. Close the Server Manager.
 
 ### Task 6: Connect to the SqlServer2008 VM
 
-In this task, you will create an RDP connection to the SqlServer2008 VM, and add rules to the SqlServer2008 VM's Windows firewall to allow access to SQL Server via port 1433 by other machines.
+In this task, you will create an RDP connection to the SqlServer2008 VM and disable Internet Explorer Enhanced Security Configuration.
 
-1. Still on the SqlServer2008 blade in the [Azure portal](https://portal.azure.com), select **Overview** from the left-hand menu, and then select **Connect** from the top menu.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
+
+    ![Resource groups is highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
+
+2. On the Resource groups blade, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+
+    ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
+
+3. In the list of resources for your resource group, select the SqlServer2008 Virtual Machine.
+
+4. On the SqlServer2008 blade in the [Azure portal](https://portal.azure.com), select **Overview** from the left-hand menu, and then select **Connect** from the top menu.
 
     ![The SqlServer2008 blade is displayed, with the Connect button highlighted in the top menu.](media/connect-sqlserver2008r2.png "Connect to SqlServer2008")
 
-2. Select **Download RDP file**, then open the downloaded RDP file.
+5. Select **Download RDP file**, then open the downloaded RDP file.
 
     ![The Connect to virtual machine blade is displayed, and the Download RDP file button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
 
-3. Select **Connect** on the Remote Desktop Connection dialog.
+6. Select **Connect** on the Remote Desktop Connection dialog.
 
     ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
 
-4. Enter the following credentials when prompted:
+7. Enter the following credentials when prompted:
 
     - **Username**: demouser
     - **Password**: Password.1!!
 
-5. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
+8. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
     ![In the Remote Desktop Connection dialog box, a warning states that the identity of the remote computer cannot be verified, and asks if you want to continue anyway. At the bottom, the Yes button is circled.](./media/remote-desktop-connection-identity-verification-sqlserver2008r2.png "Remote Desktop Connection dialog")
 
-6. Once logged in, launch the **Server Manager**. This should open automatically, but you can access it via the task bar or Start menu if it does not.
+9. Once logged in, launch the **Server Manager**. This should open automatically, but you can access it via the task bar or Start menu if it does not.
 
     ![The Server Manager tile is circled in the Start Menu's Administrative Tools menu, and in the task bar.](media/windows-server2008r2-start-menu.png "Windows Server 2008 R2 Start Menu")
 
-7. In Server Manager, select **Configure IE ESC** in the Security Information section of the Server Summary.
+10. In Server Manager, select **Configure IE ESC** in the Security Information section of the Server Summary.
 
     ![Configure IE ESC is highlighted in the Server Manager.](media/windows-server-2008r2-server-manager.png "Windows Server 2008 R2 Server Manager")
 
-8. On the Internet Explorer Enhanced Security Configuration dialog, select **Off** under both Administrators and Users, and then select **OK**.
+11. On the Internet Explorer Enhanced Security Configuration dialog, select **Off** under both Administrators and Users, and then select **OK**.
 
     ![Internet Explorer Enhanced Security Configuration dialog, with Off highlighted under both Administrators and Users.](media/windows-server-2008-ie-esc.png "Internet Explorer Enhanced Security Configuration dialog")
 
-9. Close the Server Manager.
+12. Close the Server Manager.
 
 ### Task 7: Provision Azure SQL Database
 
 In this task, you will create an Azure SQL Database, which will serve as the target database for migration of the on-premises WorldWideImporters database into the cloud. The Premium tier is required to support ColumnStore index creation.
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "sql database" into the Search the Marketplace box, select **SQL Database** from the results, and then select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
+
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
+
+2. Enter "sql database" into the Search the Marketplace box, select **SQL Database** from the results, and then select **Create**.
 
     ![+Create a resource is selected in the Azure navigation pane, and "sql database" is entered into the Search the Marketplace box. SQL Database is selected in the results.](media/create-resource-azure-sql-database.png "Create SQL Server")
 
-2. On the SQL Database Basics tab, enter the following:
+3. On the SQL Database Basics tab, enter the following:
 
     - Project Details:
 
-        - **Subscription**: Select the subscription you are using for this hands-on lab.
-        - **Resource Group**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
+      - **Subscription**: Select the subscription you are using for this hands-on lab.
+      - **Resource Group**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
 
     - Database Details:
 
@@ -371,35 +407,42 @@ In this task, you will create an Azure SQL Database, which will serve as the tar
         - **Server admin login**: Enter demouser
         - **Password**: Enter Password.1!!
         - **Location**: Select the location you are using for resources in this hands-on lab.
-        - **Allow Azure services to access server**: Ensure this is checked.
         - Select **OK**.
       - **Want to use SQL elastic pool?**: Select **No**.
 
-        ![The Basic tab with the values specified above entered into the appropriate fields is displayed.](media/azure-sql-database-create-basic-tab.png "Create SQL Database Basic tab")
+      ![The Basic tab with the values specified above entered into the appropriate fields is displayed.](media/azure-sql-database-create-basic-tab.png "Create SQL Database Basic tab")
 
       - **Compute + storage**: Select **Configure database**.
 
-        ![Configure database is highlighted under Compute + storage.](media/azure-sql-database-create-compute-storage.png "Compute + storage")
+      ![Configure database is highlighted under Compute + storage.](media/azure-sql-database-create-compute-storage.png "Compute + storage")
 
     - On the Compute + storage blade, select the **Looking for basic, standard, premium?** link, and then select the **Premium** tab, with 125 DTUs and 500 GB, and then select **Apply**.
 
-        ![The Configure pricing tier for SQL Server is displayed, with Premium selected and highlighted.](media/azure-sql-database-pricing-tier-premium.png "SQL Pricing tier configuration")
+    ![The Configure pricing tier for SQL Server is displayed, with Premium selected and highlighted.](media/azure-sql-database-pricing-tier-premium.png "SQL Pricing tier configuration")
 
-3. Select **Review + Create**.
+4. Select **Next: Networking**.
 
-    ![The SQL Database blade is displayed, with the values specified above entered into the appropriate fields.](media/azure-sql-database-create.png "Create Azure SQL Database")
+5. On the Networking tab, set the following configuration:
 
-4. On the Review + Create tab, select **Create** to provision the Azure SQL Database.
+    - **Connectivity method**: Select Public endpoint.
+    - **Allow Azure services and resources to access this server**: Select **Yes**.
+    - **Add current client IP address**: Select **No**. If you would like to be able to access the database from from your local machine (not required for this lab), you can set this to Yes.
 
-    > **Note**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** box was checked, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
+    ![The values specified above are entered into the Networking tab.](media/azure-sql-database-networking-tab.png "Create SQL Database Networking tab")
+
+6. Select **Review + Create**.
+
+7. On the Review + Create tab, select **Create** to provision the Azure SQL Database.
+
+    > **Note**: The [Azure SQL Database firewall](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevents external applications and tools from connecting to the server or any database on the server unless a firewall rule is created to open the firewall for the specific IP address. When creating the new server above, the **Allow azure services to access server** setting was allowed, which allows any services using an Azure IP address to access this server and databases, so there is no need to create a specific firewall rule for this hands-on lab. To access the SQL server from an on-premises computer or application, you need to [create a server level firewall rule](https://docs.microsoft.com/azure/sql-database/sql-database-get-started-portal#create-a-server-level-firewall-rule) to allow the specific IP addresses to access the server.
 
 ### Task 8: Register the Microsoft DataMigration resource provider
 
 In this task, you will register the `Microsoft.DataMigration` resource provider with your subscription in Azure.
 
-1. In the [Azure portal](https://portal.azure.com), select **All services** from the Azure navigation pane, and then select **Subscriptions**.
+1. In the [Azure portal](https://portal.azure.com/), navigate to the Home page and then select **Subscriptions** from the Navigate list found midway down the page.
 
-    ![All services is highlighted in the Azure navigation pane, and Subscriptions is highlighted in the All services blade.](media/azure-portal-all-services-subscriptions.png "Azure All services blade")
+    ![Subscriptions is highlighted in the Navigate menu.](media/azure-navigate-subscriptions.png "Navigate menu")
 
 2. Select the subscription you are using for this hands-on lab from the list, select **Resource providers**, enter "migration" into the filter box, and then select **Register** next to **Microsoft.DataMigration**.
 
@@ -409,30 +452,36 @@ In this task, you will register the `Microsoft.DataMigration` resource provider 
 
 In this task, you will provision an instance of the Azure Database Migration Service (DMS).
 
-1. In the [Azure portal](https://portal.azure.com/), select **+Create a resource**, enter "database migration" into the Search the Marketplace box, select **Azure Database Migration Service** from the results, and select **Create**.
+1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
 
-    ![+Create a resource is selected in the Azure navigation pane, and "database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](media/create-resource-azure-database-migration-service.png "Create Azure Database Migration Service")
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
 
-2. On the Create Migration Service blade, enter the following:
+2. Enter "database migration" into the Search the Marketplace box, select **Azure Database Migration Service** from the results, and select **Create**.
 
-   - **Service Name**: Enter wwi-dms.
+    !["Database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](media/create-resource-azure-database-migration-service.png "Create Azure Database Migration Service")
 
-   - **Subscription**: Select the subscription you are using for this hands-on lab.
+3. On the Create Migration Service blade, enter the following:
 
-        >**Note**:  If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
+    - **Subscription**: Select the subscription you are using for this hands-on lab.
+    - **Resource Group**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
+    - **Migration service name**: Enter wwi-dms-SUFFIX.
+    - **Location**: Select the location you are using for resources in this hands-on lab.
+    - **Pricing tier**: Select Standard: 1 vCores.
 
-   - **Resource Group**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
-
-   - **Location**: Select the location you are using for resources in this hands-on lab.
-
-   - **Virtual network**: Select the **hands-on-lab-SUFFIX-vnet/default** virtual network, and then select **OK**. This will place the DMS instance into the same VNet as your SQL Server and Lab VMs.
-
-   - **Pricing tier**: Select Standard: 1 vCores.
+    > **Note**: If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
 
    ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](media/create-migration-service.png "Create Migration Service")
 
-3. Select **Create**.
+4. Select **Next: Networking**.
 
-4. It can take 15 minutes to deploy the Azure Data Migration Service.
+5. On the Network tab, select the **hands-on-lab-SUFFIX-vnet/default** virtual network. This will place the DMS instance into the same VNet as your SQL Server and Lab VMs.
+
+    ![The hands-on-lab-SUFFIX-vnet/default is selected in the list of available virtual networks.](media/create-migration-service-networking-tab.png "Create migration service")
+
+6. Select **Review + create**.
+  
+7. Select **Create**.
+
+8. It can take 15 minutes to deploy the Azure Data Migration Service.
 
 You should follow all steps provided *before* performing the Hands-on lab.
