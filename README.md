@@ -42,8 +42,8 @@ At the end of this hands-on lab, you will be better able to design and build a d
 - Azure Database Migration Service (DMS)
 - Azure SQL Database
 - Azure SQL Data Warehouse
+- SQL Server on Azure Virtual Machines (SQL Server 2008 R2 and SQL Server 2017)
 - Data Migration Assistant (DMA)
-- SQL Server 2008 R2 and 2017
 - SQL Server Management Studio (SSMS)
 - SQL Server Migration Assistant (SSMA)
 - Visual Studio 2019
