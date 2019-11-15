@@ -462,7 +462,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
     The solution they've decided on, at a high level, appears as follows:
 
-    ![This solution diagram is divided into Microsoft Azure and on-premises. Microsoft Azure includes SQL Server 2017 in a VM as an AlwaysOn Secondary, and Azure SQL Stretch Database to extend the audit table to Azure. On-premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for AlwaysOn and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse.](./media/preferred-solution-architecture.png "Preferred Solution diagram")
+    ![This solution diagram is divided into Microsoft Azure and on-premises. Microsoft Azure includes SQL Server 2017 in a VM as an AlwaysOn Secondary, and Azure SQL Stretch Database to extend the audit table to Azure. On-premises includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for AlwaysOn and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse.](./media/preferred-solution-architecture.png "Preferred Solution diagram")
 
     **Diagram of possible architecture:**
 
