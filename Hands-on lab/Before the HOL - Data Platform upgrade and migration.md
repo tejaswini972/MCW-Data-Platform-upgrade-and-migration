@@ -66,7 +66,7 @@ In this task, you will create an Azure resource group for the resources used thr
 
     ![+Add is highlighted in the toolbar on Resource groups blade.t](media/resource-groups-add.png "Resource groups")
 
-3. , then enter the following in the Create an empty resource group blade:
+3. Enter the following in the Create an empty resource group blade:
 
     - **Subscription**: Select the subscription you are using for this hands-on lab.
     - **Resource group**: Enter hands-on-lab-SUFFIX.
