@@ -22,7 +22,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-## Contents
+**Contents**
 
 - [Data Platform upgrade and migration before the hands-on lab setup guide](#data-platform-upgrade-and-migration-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
@@ -86,11 +86,11 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
     ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
 
-2. Enter "visual studio" into the Search the Marketplace box and select Visual Studio.
+2. Enter "visual studio 2019" into the Search the Marketplace box and select Visual Studio.
 
     !["Visual studio 2019" is entered into the Search the Marketplace box. Visual Studio 2019 Latest is highlighted in the results.](./media/create-resource-visual-studio-2019-latest.png "Visual Studio 2019 Latest")
 
-3. On the Visual Studio 2019 Latest blade, select the Select a software plan drop down list and then select **Visual Studio 2019 Community(latest release) on Windows Server 2019 (x64)** from the list.
+3. On the Visual Studio 2019 Latest blade, select the Select a software plan drop down list and then select **Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64)** from the list.
 
     ![The Select a software plan drop down list is expanded and Visual Studio 2019 Community (latest release) on Windows Server 2019 (x64) is highlighted in the list.](media/select-a-software-plan-visual-studio.png "Visual Studio")
 
@@ -266,7 +266,7 @@ In this task, you will provision another virtual machine (VM) in Azure which wil
    - SQL Authentication:
 
      - **SQL Authentication**: Select Enable.
-     - **Login name**: Enter demouser
+     - **Login name**: Enter demouser.
      - **Password**: Enter **Password.1!!**
 
      ![The previously specified values are entered into the SQL Server Settings blade.](media/sql-server-2017-create-vm-sql-settings.png "SQL Server Settings")
@@ -405,8 +405,8 @@ In this task, you will create an Azure SQL Database, which will serve as the tar
       - **Database name**: Enter WorldWideImporters.
       - **Server**: Select Create new, and then on the New server blade, enter the following:
         - **Server name**: Enter a unique name, such as wwiSUFFIX.
-        - **Server admin login**: Enter demouser
-        - **Password**: Enter Password.1!!
+        - **Server admin login**: demouser
+        - **Password**: Password.1!!
         - **Location**: Select the location you are using for resources in this hands-on lab.
         - Select **OK**.
       - **Want to use SQL elastic pool?**: Select **No**.
@@ -427,7 +427,7 @@ In this task, you will create an Azure SQL Database, which will serve as the tar
 
     - **Connectivity method**: Select Public endpoint.
     - **Allow Azure services and resources to access this server**: Select **Yes**.
-    - **Add current client IP address**: Select **No**. If you would like to be able to access the database from from your local machine (not required for this lab), you can set this to Yes.
+    - **Add current client IP address**: Select **No**. If you would like to be able to access the database from your local machine (not required for this lab), you can set this to Yes.
 
     ![The values specified above are entered into the Networking tab.](media/azure-sql-database-networking-tab.png "Create SQL Database Networking tab")
 
