@@ -566,7 +566,7 @@ In this task, you will use SSMS to verify the database was successfully migrated
 
 2. Select **Connect**.
 
-3. In the Object Explorer, expand Databases, WorldWideImporters, and Tables, then right-click `dbo.DimCustomer`, and select **Select Top 1000 Rows**
+3. In the Object Explorer, expand Databases, WorldWideImporters, and Tables, then right-click `dbo.DimCustomer`, and choose **Select Top 1000 Rows**.
 
     ![In SSMS, Databases, WorldWideImporters, and Tables are expanded, and the context menu for dbo.DimCustomer is displayed, with Select Top 1000 Rows highlighted in the menu.](media/ssms-select-top.png "Select Top 100 Rows")
 
@@ -643,7 +643,7 @@ In this exercise, you will demonstrate value from the upgrade by enabling the Ta
 
 13. Now, repeat steps 7 - 12 above, this time setting the Compression type to Page.
 
-    ![The Page compression type is highlighted on the Select Compression Type screen of the Data Compression Wizard](media/ssms-data-compression-wizard-compression-type-page.png "Data Compression Wizard Select Compression Type")
+    ![The Page compression type is highlighted on the Select Compression Type screen of the Data Compression Wizard.](media/ssms-data-compression-wizard-compression-type-page.png "Data Compression Wizard Select Compression Type")
 
 14. Once again, observe the table size in the results pane, and compare it to the values noted for the uncompressed table and with Row compression applied.
 
@@ -1499,7 +1499,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
 
     ![This is a screenshot of a message that the command completed successfully.](./media/visual-studio-sql-query-completed-successfully.png "View the message")
 
-29. Run the application again by clicking the green Start button in the Visual Studio toolbar.
+29. Run the application again by selecting the green Start button in the Visual Studio toolbar.
 
     ![The Start button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
 
