@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-September 2019
+November 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -63,25 +63,25 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Abstract and learning objectives
 
-In this hands-on lab, you will implement a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You will evaluate the dependent applications and reports that will need to be updated and come up with a migration plan. In addition, you will help the customer take advantage of new SQL Server features to improve performance and resiliency, as well as conduct a migration from an old version of SQL Server to Azure SQL Database.
+In this hands-on lab, you implement a proof of concept (POC) for conducting a site analysis for a customer to compare cost, performance, and level of effort required to migrate from Oracle to SQL Server. You evaluate the dependent applications and reports that need to be updated and come up with a migration plan. Also, you help the customer take advantage of new SQL Server features to improve performance and resiliency and perform a migration from an old version of SQL Server to Azure SQL Database.
 
 At the end of this hands-on lab, you will be better able to design and build a database migration plan and implement any required application changes associated with changing database technologies.
 
 ## Overview
 
-World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age; slowing down during extract, transform, and load (ETL) operations and during critical queries. It was built on SQL Server 2008 R2 Standard Edition.
+World Wide Importers (WWI) has experienced significant growth in the last few years. In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age, slowing down during extract, transform, and load (ETL) operations and during critical queries. The data warehouse is running on SQL Server 2008 R2 Standard Edition.
 
-The WWI CIO has recently read about new performance enhancements of Azure SQL Database and SQL Server 2017. She is excited about the potential performance improvements related to clustered ColumnStore indexes. She is also hoping that table compression will improve performance and backup times.
+The WWI CIO has recently read about new performance enhancements of Azure SQL Database and SQL Server 2017. She is excited about the potential performance improvements related to clustered ColumnStore indexes. She is also hoping that table compression can improve performance and backup times.
 
 WWI is concerned about upgrading their database to Azure SQL Database or SQL Server 2017. The data warehouse has been successful for a long time. As it has grown, it has filled with data, stored procedures, views, and security. WWI wants assurance that if it moves its data store, it won’t run into any incompatibilities with the storage engine of Azure SQL Database or SQL Server 2017.
 
-WWI’s CIO would like a POC of a data warehouse move and proof that the new technology will help ETL and query performance.
+WWI’s CIO would like a POC of a data warehouse move and proof that the new technology can help ETL and query performance.
 
 ## Solution architecture
 
-Below is a diagram of the solution architecture you will build in this lab. Please study this carefully, so you understand the whole of the solution as you are working on the various components.
+Below is a diagram of the solution architecture you build in this lab. Please study this carefully, so you understand the whole of the solution as you are working on the various components.
 
-![This solution diagram is divided in to Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Stretch Database to extend the audit table to Azure. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse. ](./media/preferred-solution-architecture.png "Preferred Solution diagram")
+![This solution diagram is divided into Microsoft Azure, and On Premises. Microsoft Azure includes SQL Server 2017 in a VM as an Always On Secondary, and Azure SQL Stretch Database to extend the audit table to Azure. On Premise includes the following elements: API App for vendor connections; Web App for Internet Sales Transactions; ASP.NET Core App for inventory management; SQL Server 2017 OLTP for Always On and JSON store; SSRS 2017 for Reporting of OLTP, Data Warehouse, and Cubes; SSIS 2017 for a Data Warehouse Load; Excel for reporting; SQL Server 2017 Enterprise for a Data Warehouse; and SSAS 2017 for a Data Warehouse. ](./media/preferred-solution-architecture.png "Preferred Solution diagram")
 
 The solution begins with using the Microsoft Data Migration Assistant to perform an assessment to see what potentials issues need to be addressed in upgrading the database to SQL Server 2017 or Azure SQL Database. After correcting any issues, the SQL Server 2008 database is migrated to Azure SQL Database, using the Azure Database Migration Service. Two features of Azure SQL Database, Table Compression and ColumnStore Index, will be applied to demonstrate value and performance improvements from the upgrade. For the ColumnStore Index, a new table based on the existing FactResellerSales table will be created, and a ColumnStore index applied. Next, the Oracle XE database supporting the application will be migrated to an on-premises SQL Server 2017 Enterprise instance using SQL Server Migration Assistant (SSMA) 7.x for Oracle. Once the Oracle database has been migrated, the Northwind MVC application will be updated, so it targets SQL Server 2017 instead of Oracle. The entity models are updated against SQL Server, and code updates are made to use the new Entity Framework context based on SQL Server. Corrections to stored procedures are made due to differences in how stored procedures are accessed in Oracle versus SQL Server. Azure SQL Stretch Database will be used to extend the audit log table to Azure, helping to prevent the recurrence of a system crash caused by the audit log table filling up.
 
@@ -90,7 +90,7 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
 - Microsoft Azure subscription must be pay-as-you-go or MSDN.
   - Trial subscriptions will not work.
 - A virtual machine configured with:
-  - Visual Studio Community 2017
+  - Visual Studio 2019 Community
 
 ## Exercise 1: Configure SQL Server instances
 
@@ -102,7 +102,7 @@ In this exercise, you will configure SQL Server 2008 R2 on the SqlServer2008 VM.
 
 In this task, you will create an RDP connection to the SqlServer2008 VM.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure services list, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
@@ -143,7 +143,7 @@ In this task, you will install the AdventureWorks database in SQL Server 2008 R2
 
 3. Save the file, and unzip the downloaded file to a folder you create, called `C:\AdventureWorksSample`.
 
-4. Return to your open **SQL Server Management Studio 17** (SSMS) window, or launch it again if you closed it. It can be found under Start->All Programs->Microsoft SQL Server Tools 17.
+4. Open **Microsoft SQL Server Management Studio 17** (SSMS) on the SqlServer2008 VM. It can be found under Start->All Programs->Microsoft SQL Server Tools 17.
 
 5. Connect to the **SQLSERVER2008** database, if you are not already connected. In the Connect to Server dialog, leave Authentication set to **Windows Authentication**, and select **Connect**.
 
@@ -243,7 +243,7 @@ In this task, you will update the SQL Server service accounts and other settings
 
 In this task, you will create an RDP connection to the SqlServer2017 VM.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure navigation pane, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** in the Azure services list, enter your resource group name (hands-on-lab-SUFFIX) into the filter box, and select it from the list.
 
     ![Resource groups is selected in the Azure navigation pane, "hands" is entered into the filter box, and the "hands-on-lab-SUFFIX" resource group is highlighted.](./media/resource-groups.png "Resource groups list")
 
@@ -276,9 +276,9 @@ In this task, you will create an RDP connection to the SqlServer2017 VM.
 
 In this task, you will update the SQL Server 2017 service accounts and other settings associated with the SQL Server 2017 instance installed on the VM.
 
-1. From the Start Menu on your SqlServer2017 VM, search for **SQL Server 2017 Configuration Manager**, then select it from the search results.
+1. From the Search Menu on your SqlServer2017 VM, search for **SQL Server 2017 Configuration Manager**, then select it from the search results.
 
-    ![SQL Server 2017 Configuration Manager is selected and highlighted in the Search results.](./media/windows-2012-search-sql-server-2017-configuration-manager.png "Select SQL Server 2017 Configuration Manager")
+    ![SQL Server 2017 Configuration Manager is highlighted in the Search results.](./media/windows-search-sql-server-2017-configuration-manager.png "Select SQL Server 2017 Configuration Manager")
 
 2. From the tree on the left of the Configuration Manager window, select **SQL Server Services**.
 
@@ -304,17 +304,13 @@ In this task, you will update the SQL Server 2017 service accounts and other set
 
     ![Enabled is selected on the Protocol tab of the TCP/IP Properties dialog box.](./media/sql-server-2017-configuration-manager-protocols-tcp-ip-properties.png "Enable TCP/IP")
 
-   > **Note**: If prompted that the changes will not take effect until the service is restarted, select **OK**. You will restart the service next.
+   > **Note**: If TCP/IP was not already enabled, you will be prompted that the changes will not take effect until the service is restarted, select **OK**. Restart the service by selecting **SQL Server Services** in the tree on the left, then right-clicking **SQL Server (MSSQLSERVER)** in the services pane, and selecting **Restart**.
 
-9. As done previously, select **SQL Server Services** in the tree on the left, then right-click **SQL Server (MSSQLSERVER)** in the services pane, and select **Restart**.
-
-    ![SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server (MSSQLSERVER) is highlighted on the right, and Restart is highlighted in the submenu.](./media/sql-server-2017-configuration-manager-sql-server-services-sql-server-restart.png "Select Restart")
-
-10. Repeat the previous step for the **SQL Server Agent (MSSQLSERVER)** service, this time selecting **Start** from the menu.
+9. Select **SQL Server Services** in the tree on the left, right-click the **SQL Server Agent (MSSQLSERVER)** service, and then select **Start** from the menu.
 
     ![SQL Server Services is highlighted on the left side of SQL Server 2017 Configuration Manager, SQL Server Agent (MSSQLSERVER) is highlighted on the right, and Start is highlighted in the submenu.](./media/sql-server-2017-configuration-manager-sql-server-services-sql-server-agent-restart.png "Select Start")
 
-11. Close the SQL Server 2017 Configuration Manager.
+10. Close the SQL Server 2017 Configuration Manager.
 
 ## Exercise 2: Migrate SQL Server to Azure SQL Database using DMS
 
@@ -326,7 +322,7 @@ World Wide Importers would like a Proof of Concept (POC) that moves their data w
 
 World Wide Importers would like an assessment to see what potential issues they would have to address in moving their database to Azure SQL Database.
 
-1. On the SqlServer2008 VM, select the **Download** button on the [Data Migration Assistant v4.x](https://www.microsoft.com/download/details.aspx?id=53595) page, and run the downloaded installer.
+1. On the SqlServer2008 VM, download the [Data Migration Assistant v5.x](https://www.microsoft.com/download/confirmation.aspx?id=53595) and run the downloaded installer.
 
 2. Select **Next** on each of the screens, accepting to the license terms and privacy policy in the process.
 
@@ -368,7 +364,7 @@ World Wide Importers would like an assessment to see what potential issues they 
 
 11. Review the Assessment results, selecting both **SQL Server feature parity** and **Compatibility issues** options and viewing the reports.
 
-    ![Various information is selected on the Review results screen. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](./media/data-migration-assistant-review-results-sqlserver2008-worldwideimporters.png "Review the Assessment results")
+    ![Various information is selected on the Review results screen.](./media/data-migration-assistant-review-results-sqlserver2008-worldwideimporters.png "Review the Assessment results")
 
 12. You now have a list of the issues WWI will need to consider in upgrading their database to Azure SQL Database. Notice the assessment includes recommendations on the potential resolutions to issues. You can select **Export Assessment** on the top toolbar to save the report as a JSON file, if desired.
 
@@ -404,10 +400,10 @@ After you have reviewed the assessment results and you have ensured the database
 
 6. On the **Select target** tab, enter the following:
 
-    - **Server name**: Enter the server name of the Azure SQL Database you created.
+    - **Server name**: Enter the server name of the Azure SQL Database you created during the before the hands-on lab exercise.
         - To find the name of your SQL Database, select the WorldWideImporters SQL Database from your hands-on-lab-SUFFIX resource group in the Azure portal, and then select the **Server name** in the Essentials area of the Overview blade.
 
-        ![On the SQL database Overview blade, the Server name is highlighted.](media/azure-sql-database-servername.png "SQL Database Overview")
+    ![On the SQL database Overview blade, the Server name is highlighted.](media/azure-sql-database-servername.png "SQL Database Overview")
 
     - **Authentication type**: Select SQL Server Authentication.
     - **Username**: Enter demouser.
@@ -570,7 +566,7 @@ In this task, you will use SSMS to verify the database was successfully migrated
 
 2. Select **Connect**.
 
-3. In the Object Explorer, expand Databases, WorldWideImporters, and Tables, then right-click `dbo.DimCustomer`, and select **Select Top 1000 Rows**
+3. In the Object Explorer, expand Databases, WorldWideImporters, and Tables, then right-click `dbo.DimCustomer`, and choose **Select Top 1000 Rows**.
 
     ![In SSMS, Databases, WorldWideImporters, and Tables are expanded, and the context menu for dbo.DimCustomer is displayed, with Select Top 1000 Rows highlighted in the menu.](media/ssms-select-top.png "Select Top 100 Rows")
 
@@ -647,7 +643,7 @@ In this exercise, you will demonstrate value from the upgrade by enabling the Ta
 
 13. Now, repeat steps 7 - 12 above, this time setting the Compression type to Page.
 
-    ![The Page compression type is highlighted on the Select Compression Type screen of the Data Compression Wizard](media/ssms-data-compression-wizard-compression-type-page.png "Data Compression Wizard Select Compression Type")
+    ![The Page compression type is highlighted on the Select Compression Type screen of the Data Compression Wizard.](media/ssms-data-compression-wizard-compression-type-page.png "Data Compression Wizard Select Compression Type")
 
 14. Once again, observe the table size in the results pane, and compare it to the values noted for the uncompressed table and with Row compression applied.
 
@@ -886,7 +882,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 ### Task 4: Install dbForge Fusion tool
 
-In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio Community 2017 Edition.
+In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio 2019 Community Edition.
 
 > This step is required because the Oracle Developer Tools extension does not currently work with the Community edition of Visual Studio.
 
@@ -894,7 +890,7 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 2. Scroll down on the page, and download a Trial of the current version by selecting the blue download link.
 
-    ![Trial and Download are highlighted under dbForge Fusion, Current Version.](./media/dbforge-trial-download.png "dbForge Fusion, Current Version section")
+    ![The Download button is highlighted under dbForge Fusion, Current Version.](./media/dbforge-trial-download.png "dbForge Fusion, Current Version section")
 
 3. Run the installer.
 
@@ -942,11 +938,9 @@ WWI has provided you with a copy of their application, including a database scri
 
 8. Unzip the contents to **C:\handsonlab**.
 
-9. Within the **handsonlab** folder, navigate to the folder `MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\lab-files\starter-project`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017.
+9. Within the **handsonlab** folder, navigate to the folder `MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\lab-files\starter-project`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2019.
 
-10. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**.
-
-    ![Visual Studio 2017 is selected and highlighted under How do you want to open this file?](./media/visual-studio-version-selector.png "Open Visual Studio 2017")
+10. If prompted for how you want to open the file, select **Visual Studio 2019**, and select **OK**.
 
 11. Sign into Visual Studio (or create an account if you don't have one), when prompted.
 
@@ -954,29 +948,22 @@ WWI has provided you with a copy of their application, including a database scri
 
     ![Ask me for every project in this solution is cleared and OK is selected on the Security Warning screen.](./media/visual-studio-security-warning.png "Clear Ask me for every project in this solution")
 
-13. Once then solution is open in Visual Studio, select the **Fusion** menu, and select **New Connection**.
+13. Once then solution is open in Visual Studio, select the **Extensions -> Fusion** menu, and then select **New Connection**.
 
     ![New Connection is highlighted in the Fusion menu in Visual Studio.](./media/visual-studio-fusion-menu-new-connection.png "Select New Connection")
 
 14. In the Database Connection properties dialog, set the following values:
 
     - **Host**: localhost
-
     - **Port**: Leave 1521 selected.
-
     - Select **SID**, and enter **XE**.
-
     - **User**: system
-
     - **Password**: Password.1!!
-
     - Check **Allow saving password**.
-
     - **Connect as**: Normal
-
     - **Connection Name**: Northwind
 
-        ![The information above is entered in the Database Connection Properties * Oracle dialog box, and OK is selected at the bottom.](./media/visual-studio-fusion-new-database-connection.png "Specify the settings")
+    ![The information above is entered in the Database Connection Properties * Oracle dialog box, and OK is selected at the bottom.](./media/visual-studio-fusion-new-database-connection.png "Specify the settings")
 
 15. Select **Test Connection** to verify the settings are correct, and select **OK** to close the popup.
 
@@ -1078,6 +1065,8 @@ In this task, you will add the necessary configuration to the `NorthwindMVC` sol
 5. You should see the Northwind Traders Dashboard load in your browser.
 
     ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
+
+    > **Note**: If you receive an error about being unable to find part of the path for `bin\roslyn\csc.exe`, stop the debugging session by selecting the Stop button on the toolbar. Next, select Tools -> NuGet Package Manager -> Package Manager Console, and at the prompt execute the following command: `Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r`. Once the command finishes, run the solution again.
 
 6. Close the browser to stop debugging the application, and return to Visual Studio.
 
@@ -1508,7 +1497,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets S
 
     ![This is a screenshot of a message that the command completed successfully.](./media/visual-studio-sql-query-completed-successfully.png "View the message")
 
-29. Run the application again by clicking the green Start button in the Visual Studio toolbar.
+29. Run the application again by selecting the green Start button in the Visual Studio toolbar.
 
     ![The Start button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
 
