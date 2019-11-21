@@ -29,37 +29,86 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
+  - [Before the hands-on lab](#before-the-hands-on-lab)
   - [Requirements](#requirements)
   - [Exercise 1: Deploy SQL Server instances](#exercise-1-deploy-sql-server-instances)
     - [Task 1: Install SQL Server 2017](#task-1-install-sql-server-2017)
+      - [Tasks to Complete](#tasks-to-complete)
+      - [Exit Criteria](#exit-criteria)
     - [Task 2: Install SQL Server 2008 R2](#task-2-install-sql-server-2008-r2)
+      - [Tasks to Complete](#tasks-to-complete-1)
+      - [Exit Criteria](#exit-criteria-1)
     - [Task 3: Install AdventureWorks sample database](#task-3-install-adventureworks-sample-database)
+      - [Tasks to Complete](#tasks-to-complete-2)
+      - [Exit Criteria](#exit-criteria-2)
     - [Task 4: Update SQL Server settings using Configuration Manager](#task-4-update-sql-server-settings-using-configuration-manager)
-    - [Task 5: Add inbound port rule](task-5-add-inbound-port-rule)
-    - [Task 6: Copy the SqlServerDw VM IP address](task-6-copy-the-sqlserverdw-vm-ip-address)
+      - [Tasks to Complete](#tasks-to-complete-3)
+      - [Exit Criteria](#exit-criteria-3)
+    - [Task 5: Add inbound port rule](#task-5-add-inbound-port-rule)
+      - [Tasks to Complete](#tasks-to-complete-4)
+      - [Exit Criteria](#exit-criteria-4)
+    - [Task 6: Copy the SqlServerDw VM IP address](#task-6-copy-the-sqlserverdw-vm-ip-address)
+      - [Tasks to Complete](#tasks-to-complete-5)
+      - [Exit Criteria](#exit-criteria-5)
   - [Exercise 2: Migrate SQL Server to Azure SQL Database using DMS](#exercise-2-migrate-sql-server-to-azure-sql-database-using-dms)
-    - [Task 1: Register the Microsoft DataMigration resource provider](#task-1-register-the-microsoft-datamigratin-resource-provider)
+    - [Task 1: Register the Microsoft DataMigration resource provider](#task-1-register-the-microsoft-datamigration-resource-provider)
+      - [Tasks to Complete](#tasks-to-complete-6)
+      - [Exit Criteria](#exit-criteria-6)
     - [Task 2: Create Azure Database Migration Service](#task-2-create-azure-database-migration-service)
+      - [Tasks to Complete](#tasks-to-complete-7)
+      - [Exit Criteria](#exit-criteria-7)
     - [Task 3: Assess the on-premises database](#task-3-assess-the-on-premises-database)
+      - [Tasks to Complete](#tasks-to-complete-8)
+      - [Exit Criteria](#exit-criteria-8)
     - [Task 4: Migrate the database schema](#task-4-migrate-the-database-schema)
+      - [Tasks to Complete](#tasks-to-complete-9)
+      - [Exit Criteria](#exit-criteria-9)
     - [Task 5: Create a migration project](#task-5-create-a-migration-project)
+      - [Tasks to Complete](#tasks-to-complete-10)
+      - [Exit Criteria](#exit-criteria-10)
     - [Task 6: Run the migration](#task-6-run-the-migration)
+      - [Tasks to Complete](#tasks-to-complete-11)
+      - [Exit Criteria](#exit-criteria-11)
     - [Task 7: Verify data migration](#task-7-verify-data-migration)
-  - [Exercise 3: Post upgrade enhancement](#exercise-3-post-upgrade-enhancement)
-    - [Task 1: Table compression](#task-1-table-compression)
-    - [Task 2: Clustered ColumnStore index](#task-2-clustered-columnstore-index)
+      - [Tasks to Complete](#tasks-to-complete-12)
+      - [Exit Criteria](#exit-criteria-12)
+  - [Exercise 3: Post Upgrade Enhancement](#exercise-3-post-upgrade-enhancement)
+    - [Task 1: Table Compression](#task-1-table-compression)
+      - [Tasks to Complete](#tasks-to-complete-13)
+      - [Exit Criteria](#exit-criteria-13)
+    - [Task 2: Clustered ColumnStore Index](#task-2-clustered-columnstore-index)
+      - [Tasks to Complete](#tasks-to-complete-14)
+      - [Exit Criteria](#exit-criteria-14)
   - [Exercise 4: Setup Oracle 11g Express Edition](#exercise-4-setup-oracle-11g-express-edition)
     - [Task 1: Install Oracle XE](#task-1-install-oracle-xe)
-    - [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
+      - [Tasks to Complete](#tasks-to-complete-15)
+      - [Exit Criteria](#exit-criteria-15)
+    - [Task 2: Install Oracle Data Access Components](#task-2-install-oracle-data-access-components)
+      - [Tasks to Complete](#tasks-to-complete-16)
+      - [Exit Criteria](#exit-criteria-16)
     - [Task 3: Install SQL Server Migration Assistant for Oracle](#task-3-install-sql-server-migration-assistant-for-oracle)
+      - [Tasks to Complete](#tasks-to-complete-17)
+      - [Exit Criteria](#exit-criteria-17)
     - [Task 4: Install dbForge Fusion tool](#task-4-install-dbforge-fusion-tool)
+      - [Tasks to Complete](#tasks-to-complete-18)
+      - [Exit Criteria](#exit-criteria-18)
     - [Task 5: Create the Northwind database in Oracle 11g XE](#task-5-create-the-northwind-database-in-oracle-11g-xe)
+      - [Tasks to Complete](#tasks-to-complete-19)
+      - [Exit Criteria](#exit-criteria-19)
     - [Task 6: Configure the Starter Application to use Oracle](#task-6-configure-the-starter-application-to-use-oracle)
+      - [Tasks to Complete](#tasks-to-complete-20)
+      - [Exit Criteria](#exit-criteria-20)
   - [Exercise 5: Migrate the Oracle database to SQL Server 2017](#exercise-5-migrate-the-oracle-database-to-sql-server-2017)
     - [Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA](#task-1-migrate-the-oracle-database-to-sql-server-2017-using-ssma)
-  - [Exercise 6: Migrate the Application](#exercise-6-migrate-the-application)
+      - [Tasks to Complete](#tasks-to-complete-21)
+      - [Exit Criteria](#exit-criteria-21)
+  - [Exercise 6: Migrate the application](#exercise-6-migrate-the-application)
     - [Task 1: Create a new Entity Model against SQL Server](#task-1-create-a-new-entity-model-against-sql-server)
+      - [Tasks to Complete](#tasks-to-complete-22)
+      - [Exit Criteria](#exit-criteria-22)
     - [Task 2: Modify Application Code](#task-2-modify-application-code)
+      - [Tasks to Complete](#tasks-to-complete-23)
+      - [Exit Criteria](#exit-criteria-23)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
@@ -100,8 +149,7 @@ If you have not yet completed the steps to set up your environment in [Before th
 - Microsoft Azure subscription must be pay-as-you-go or MSDN
   - Trial subscriptions will not work
 - A virtual machine configured with:
-  - Visual Studio Community 2017 or later
-  - Azure SDK 2.9 or later (Included with Visual Studio 2017)
+  - Visual Studio 2019 Community or later
 
 ## Exercise 1: Deploy SQL Server instances
 
@@ -362,7 +410,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 ### Task 4: Install dbForge Fusion tool
 
-In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, the Oracle database in Visual Studio 2017 Community Edition. This step is necessary because the Oracle Developer Tools extension does not currently work with Visual Studio 2017 Community Edition.
+In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, the Oracle database in Visual Studio 2019 Community Edition. This step is necessary because the Oracle Developer Tools extension does not currently work with Visual Studio 2019 Community Edition.
 
 #### Tasks to Complete
 
@@ -370,7 +418,7 @@ In this task, you will install a third-party extension to Visual Studio to enabl
 
 #### Exit Criteria
 
-- The dbForge Fusion extension is successfully installed in Visual Studio 2017
+- The dbForge Fusion extension is successfully installed in Visual Studio 2019 Community
 
 ### Task 5: Create the Northwind database in Oracle 11g XE
 

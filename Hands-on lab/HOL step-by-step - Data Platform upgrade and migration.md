@@ -882,7 +882,7 @@ In this exercise, you will install Oracle XE on your Lab VM, load a sample datab
 
 ### Task 4: Install dbForge Fusion tool
 
-In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio 2017 Community 2017 Edition.
+In this task, you will install a third-party extension to Visual Studio to enable interaction with, and script execution for, Oracle databases in Visual Studio 2019 Community Edition.
 
 > This step is required because the Oracle Developer Tools extension does not currently work with the Community edition of Visual Studio.
 
@@ -938,11 +938,9 @@ WWI has provided you with a copy of their application, including a database scri
 
 8. Unzip the contents to **C:\handsonlab**.
 
-9. Within the **handsonlab** folder, navigate to the folder `MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\lab-files\starter-project`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2017.
+9. Within the **handsonlab** folder, navigate to the folder `MCW-Data-Platform-upgrade-and-migration-master\Hands-on lab\lab-files\starter-project`, and double-click `NorthwindMVC.sln` to open the project in Visual Studio 2019.
 
-10. If prompted for how you want to open the file, select **Visual Studio 2017**, and select **OK**.
-
-    ![Visual Studio 2017 is selected and highlighted under How do you want to open this file?](./media/visual-studio-version-selector.png "Open Visual Studio 2017")
+10. If prompted for how you want to open the file, select **Visual Studio 2019**, and select **OK**.
 
 11. Sign into Visual Studio (or create an account if you don't have one), when prompted.
 

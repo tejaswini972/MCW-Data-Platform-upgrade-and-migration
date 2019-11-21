@@ -86,7 +86,7 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
     ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
 
-2. Enter "visual studio" into the Search the Marketplace box and select Visual Studio.
+2. Enter "visual studio 2019" into the Search the Marketplace box and select Visual Studio.
 
     !["Visual studio 2019" is entered into the Search the Marketplace box. Visual Studio 2019 Latest is highlighted in the results.](./media/create-resource-visual-studio-2019-latest.png "Visual Studio 2019 Latest")
 
