@@ -12,11 +12,11 @@
         "Order": 2
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/amalgireesh/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/02.md",
+        "RawFilePath": "https://raw.githubusercontent.com/SpektraSystems/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/02.md",
         "Order": 3
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/amalgireesh/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/03.md",
+        "RawFilePath": "https://raw.githubusercontent.com/SpektraSystems/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/03.md",
         "Order": 4
       },
       {
@@ -24,7 +24,7 @@
         "Order": 5
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/amalgireesh/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/05.md",
+        "RawFilePath": "https://raw.githubusercontent.com/SpektraSystems/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/05.md",
         "Order": 6
       },
       {
@@ -32,7 +32,7 @@
         "Order": 7
       },
       {
-        "RawFilePath": "https://raw.githubusercontent.com/amalgireesh/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/lab-completed.md",
+        "RawFilePath": "https://raw.githubusercontent.com/SpektraSystems/MCW-Data-Platform-upgrade-and-migration/master/Hands-on%20lab/lab-completed.md",
         "Order": 8
       }      
     ]
