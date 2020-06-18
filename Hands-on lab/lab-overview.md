@@ -30,3 +30,38 @@ The solution begins with using the Microsoft Data Migration Assistant to perform
   - Trial subscriptions will not work.
 - A virtual machine configured with:
   - Visual Studio 2019 Community
+  
+  **Contents**
+
+- Data Platform upgrade and migration hands-on lab step-by-step](#data-platform-upgrade-and-migration-hands-on-lab-step-by-step)
+  - Abstract and learning objectives](#abstract-and-learning-objectives)
+  - Overview
+  - Solution architecture
+  - Requirements
+  - Exercise 1: Configure SQL Server instances
+    - Task 1: Connect to the SqlServer2008 VM
+    - Task 2: Install AdventureWorks sample database
+    - Task 3: Update SQL Server settings using Configuration Manager
+    - Task 4: Connect to the SqlServer2017 VM
+    - Task 5: Update SQL Server settings using Configuration Manager 2017
+  - Exercise 2: Migrate SQL Server to Azure SQL Database using DMS
+    - Task 1: Assess the on-premises database
+    - Task 2: Migrate the database schema
+    - Task 3: Create a migration project
+    - Task 4: Run the migration
+    - Task 5: Verify data migration
+  - Exercise 3: Post upgrade enhancement
+    - Task 1: Table compression
+    - Task 2: Clustered ColumnStore index
+  - Exercise 4: Setup Oracle 11g Express Edition
+    - Task 1: Install Oracle XE
+    - Task 2: Install Oracle Data Access components
+    - Task 3: Install SQL Server Migration Assistant for Oracle
+    - Task 4: Install dbForge Fusion tool
+    - Task 5: Create the Northwind database in Oracle 11g XE
+    - Task 6: Configure the Starter Application to use Oracle
+  - Exercise 5: Migrate the Oracle database to SQL Server 2017
+    - Task 1: Migrate the Oracle database to SQL Server 2017 using SSMA
+  - Exercise 6: Migrate the Application
+    - Task 1: Create a new Entity Model against SQL Server
+    - Task 2: Modify Application Code
